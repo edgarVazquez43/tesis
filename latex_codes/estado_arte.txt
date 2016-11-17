@@ -1,0 +1,34 @@
+1. Introducción
+La idea general de la robótica personal de servicio doméstico (DSR) ha existido desde hace mucho tiempo, pero es un tema de investigación relativamente joven. El objetivo de crear servicios útiles, autónomos y robots personales que puede interactuar con seres humanos y objetos en el mundo real en un entorno natural plantea un gran número de problemas sin resolver en muchas disciplinas científicas.
+
+
+El sistema debe ser capaz de manipular objetos en varias ubicaciones y desde diferentes alturas, y necesita ser capaz de locomoción en diferentes terrenos. Cuando se interactúa con un humano el robot debería poseer alguna inteligencia (social) básica y debería ser capaz de distinguir diferentes personas. Por último, pero no menos importante, el funcionamiento seguro y robusto de estos sistemas en ámbientes dinámicos es un requisito fundamental para su futura aceptación y
+aplicabilidad.
+
+
+La creación de estos sistemas autónomos requiere la integración de un gran conjunto de capacidades y tecnologías. Los ejemplos incluyen la interacción humano-robot (habla, gesto, identificación de personas, seguimiento de personas, entre otros), navegación y cartografía, razonamiento, planificación, control de comportamientos, reconocimiento de objetos, manipulación de objetos o seguimiento de objetos. Con respecto a la inteligencia, los sistemas deben contener métodos de planificación y comportamiento adaptativos robustos. Los métodos de programación intuitivos (en forma de códigos de computadora) son necesarios para una amplia aceptación y usabilidad. Los procedimientos apropiados deberían, por ejemplo, permitir al operador del robot enseñar nuevos comportamientos y entornos vía comandos de voz o gestos. Como futuros hogares probablemente contendrán dispositivos electrónicos más inteligentes capaces de comunicarse entre sí, inteligencia ambiental, incluyendo el uso de Internet como base común de conocimientos, desempeñará ciertamente un papel más importante.
+
+
+Recientemente, el progreso en estos campos de investigación, así como el progreso y la normalización en el desarrollo de hardware y software, ha llevado a un aumento en la disponibilidad de recursos, métodos y componentes para el desarrollo  de DSR. Esto incluye la disponibilidad de marcos de software para el control de robot (por ejemplo, Carmen 1 [ Montemerlo et al., 2003 ], Etapa Player / 2 [ Gerkey et al., 2003] , MRPT 3, 4 MRS), simulación (por ejemplo USARSim 5 [ Balakirsky 2006 ]), y las bibliotecas de código abierto de  que contienen algoritmos para la visión por ordenador (por ejemplo, OpenCV 6 con diversas aplicaciones como se muestra en la [ Bradski y Pisarevsky, 2000]) o el control de robot (por ejemplo Orocos 7 [ Bruyninckx, 2001] ). 
+
+
+En:
+1 kit de herramientas de navegación del robot Carnegie Mellon (http://carmen.sourceforge.net/)
+2 El proyecto de DVD / Etapa (http://playerstage.sourceforge.net/)
+3 El kit de herramientas de programación del robot móvil (http://babel.isa.uma.es/mrpt/index.php Main página)
+4 Microsoft Robotics Studio (http://msdn.microsoft.com/en-us/robotics/default.aspx)
+5 Sistema Unificado de Automatización y Simulación del robot (http://sourceforge.net/projects/usarsim)
+6 La Biblioteca Abierta de Visión por Computador (http://sourceforge.net/projects/opencv/)
+7 Software de Control del robot abierta (http://www.orocos.org/)
+
+
+por lo que corresponde a los kits de hardware, la construcción de los robots (por ejemplo VolksBot [ Wisspeintner y Nowak, 2007] y las plataformas bases (por ejemplo ActivRobots 9), el cálculo más rápido y eficiente de la energía o el peso ligero de los dispositivos de manipulación (por ejemplo Katana 10), así como sensores en miniatura (por ejemplo LIDAR 11) están disponibles.
+
+
+En resumen, una mayor disponibilidad, accesibilidad y compatibilidad de estas tecnologías permite a los grupos de investigación no sólo abordar un pequeño subconjunto de los problemas en los robots DSR, sino también permite abordar un problema en partícular. Obviamente, DSR no se trata únicamente de integrar soluciones existentes. Pero la consiguiente reutilización de la tecnología existente puede ayudar a ahorrar tiempo y esfuerzos para que los investigadores puedan centrarse en un campo de investigación en particular.
+
+
+Esto también se ve confirmado por la presencia, en el mercado, de aplicaciones robotizadas de servicios bastante especializadas. Estas aplicaciones incluyen la limpieza de suelos (por ejemplo Roomba y Scooba 12), cortadoras de césped (por ejemplo RoboMow 13) y vigilancia (por ejemplo Robowatch 14). 
+
+
+Sin embargo, estos robots de servicio no poseen las propiedades de un robot de servicio doméstico autónomo e inteligente multipropósito. Entre los ejemplos prominentes de proyectos de investigación en robots domésticos auxiliares y personales se incluyen Ready-Bot 15 y 16 PR2. Wakamaru 17 y 18 PaPeRo se centran más en los estudios de interacciones sociales. Muchos de estos proyectos abordan aspectos relevantes de los robots DSR. Sin embargo, lo que parece estar faltando es la conjunción internacional y multidisciplinaria de la investigación y el desarrollo de los sistemas en los robots DSR.

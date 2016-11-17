@@ -1,0 +1,8 @@
+@book{khalil2004modeling,
+  title={Modeling, identification and control of robots},
+  author={Khalil, Wisama and Dombre, Etienne},
+  year={2004},
+  publisher={Butterworth-Heinemann}
+}
+
+

@@ -1,0 +1,12 @@
+Datos perdidos por cada iteracion para el servo #6 
+ 
+3
+4
+0
+1
+2
+0
+6
+2
+0
+8

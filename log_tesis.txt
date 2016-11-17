@@ -1,0 +1,17 @@
+Actividades realizadas hasta el momento...
+
+1.- Se descargó la librería de python para servomotores Dynamixel. Notamos que la libería de python se basaba a su vez en una librería de C, 
+	por tanto se procedió a implementar la librería de C directamente en los scripts deseados de pyhthon.
+
+2.- Un problema que se idenficó en las librerías existentes fue el orden en el cual estaba escrito el código por lo tanto se procedio  a ordenarlo.
+	Otro problema que se observó fue que la estructura de bibliotecas proporcionada por los fabricantes era ineficiente debido a la gran catidad de archivos (al menos tres archivos direntes en diferentes carpetas) por lo tanto se procedión a ordenar los archivos e intentar conténer el código en el menor numero de archivos posible.
+
+3.- Con base en una librería ya existente se creó una nueva librería con los métodos mínimos necesarios paratanipular los servos conectados en una cadena cinemática. Para probar dicha libería se incorporó con el software ya existente de Justina.
+
+4.- Se observó una pérdida de datos en la comunicación con los servos del brazo. Por consiguiente, analizamos cada uno de los servos por separado. Para ello se realizaron dos pruebas:
+    
+    4.1.- Sin par de torsión en los motores se realizó la comunicación con cada uno de ellos transmitiendo 200, 500 y 1000 datos correspondientes a la lectura de la posición para cada caso. Se contabililizó el total de datos vaciós que reportó cada uno de los servomotores. [Ver tabla 1]
+
+    4.2.- (Pendiente de Realizar) Con par de torsión llevar los servomotores a una posición demandante de corriente. Realizar la lectura de la posición que reportan los servomotores y contabilizar los datos erroneos.     
+
+	

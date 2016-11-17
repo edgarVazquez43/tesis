@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage[utf8]{inputenc}
+\title{Test_uno}
+\date{martes 25 octubre del 2016}
+\author{Edgar Vázquez}
+
+\begin{document}
+
+\section*{Actividades realizadas hasta el momento con los brazos de Justina}
+
+Se observó una pérdida de datos en la comunicación con los servos del brazo
+. Por consiguiente, analizamos cada uno de los servos por separado. Para ello 
+se realizaron dos pruebas: 
+\begin{itemize}
+	\item Sin par de torsión en los motores se realizó la comunicación con cada 
+	uno de ellos transmitiendo 200, 500 y 1000 datos correspondientes a la lectura
+	de la posición para cada caso. Se contabililizó el total de datos vaciós que 
+	reportó cada uno de los servomotores. [Ver tabla 1]
+	\item (Pendiente de Realizar) Con par de torsión llevar los servomotores a 
+	una posición demandante de corriente. Realizar la lectura de la posición que 
+	reportan los servomotores y contabilizar los datos erroneos.
+\end{itemize}
+    
+ \vspace{2mm}
+    
+\setlength{\parindent}{1em} \vspace{7mm} 
+
+
+\begin{tabular}{l*{9}{c}r}
+	\multicolumn{8}{c}{ Porcentaje de datos perdidos, para 1000 lecturas }\\
+	Servo 		&\multicolumn{4}{c}{Iteración} \\
+	\hline
+	Servo 0		& 0.6 & 0.2 & 0.0 & 0.6 & 0.1 & 0.7 & 0.4 & 0.7 & 0.0 & 0.0 \\
+	Servo 1     & 0.0 & 0.0 & 0.2 & 0.1 & 0.0 & 0.9 & 0.0 & 0.9 & 0.0 & 1.0 \\
+	Servo 2     & 0.0 & 0.0 & 0.9 & 0.0 & 0.4 & 0.0 & 0.0 & 0.3 & 0.0 & 1.0 \\
+	Servo 3		& 0.2 & 0.6 & 0.0 & 0.6 & 0.0 & 0.1 & 0.3 & 0.4 & 0.2 & 0.6 \\
+	Servo 4		& 0.6 & 0.0 & 0.5 & 0.1 & 0.4 & 0.0 & 0.4 & 0.0 & 0.7 & 0.0 \\
+	Servo 5		& 0.0 & 0.5 & 0.1 & 0.3 & 0.1 & 0.7 & 0.0 & 0.5 & 0.3 & 0.7 \\
+	Servo 6     & 0.3 & 0.4 & 0.0 & 0.1 & 0.2 & 0.0 & 0.6 & 0.2 & 0.0 & 0.8 \\
+\end{tabular}
+
+
+\end{document}
