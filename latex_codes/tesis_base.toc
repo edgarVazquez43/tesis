@@ -1,19 +1,17 @@
 \select@language {spanish}
-\contentsline {chapter}{\numberline {1}Introducci\IeC {\'o}n}{3}
-\contentsline {subsection}{\numberline {1.0.1}Objetivo general}{4}
-\contentsline {subsection}{\numberline {1.0.2}Objetivos espec\IeC {\'\i }ficos}{4}
-\contentsline {chapter}{\numberline {2}Marco t\IeC {\'e}orico}{5}
-\contentsline {chapter}{\numberline {3}Reconocimiento de objetos}{6}
-\contentsline {section}{\numberline {3.1}Kinect}{6}
-\contentsline {section}{\numberline {3.2}OpenCV}{6}
-\contentsline {chapter}{\numberline {4}Brazos}{7}
-\contentsline {section}{\numberline {4.1}Documentaci\IeC {\'o}n servos dynamixel}{7}
-\contentsline {section}{\numberline {4.2}Cinem\IeC {\'a}tica inversa}{7}
-\contentsline {section}{\numberline {4.3}Propuesta de algoritmo para mejorar la cinem\IeC {\'a}tica inversa (Modelo probabil\IeC {\'\i }stico)}{7}
-\contentsline {chapter}{\numberline {5}Integraci\IeC {\'o}n}{8}
-\contentsline {section}{\numberline {5.1}M\IeC {\'a}quinas de estados}{8}
-\contentsline {section}{\numberline {5.2}ROS}{8}
-\contentsline {section}{\numberline {5.3}Constituci\IeC {\'o}n del robot de servicio Justina}{8}
-\contentsline {chapter}{\numberline {6}Resultados}{9}
-\contentsline {chapter}{\numberline {7}Conclusiones}{10}
-\contentsline {chapter}{\numberline {8}Dedicatorias}{11}
+\contentsline {chapter}{\numberline {1}Introducci\IeC {\'o}n}{3}{chapter.1}
+\contentsline {chapter}{\numberline {2}Marco te\IeC {\'o}rico}{6}{chapter.2}
+\contentsline {chapter}{\numberline {3}Reconocimiento de objetos}{8}{chapter.3}
+\contentsline {section}{\numberline {3.1}Kinect}{8}{section.3.1}
+\contentsline {section}{\numberline {3.2}OpenCV}{8}{section.3.2}
+\contentsline {section}{\numberline {3.3}Anal\IeC {\'\i }sis de componentes principales}{8}{section.3.3}
+\contentsline {chapter}{\numberline {4}Brazos}{9}{chapter.4}
+\contentsline {section}{\numberline {4.1}Documentaci\IeC {\'o}n servos dynamixel}{9}{section.4.1}
+\contentsline {section}{\numberline {4.2}Cinem\IeC {\'a}tica inversa}{9}{section.4.2}
+\contentsline {section}{\numberline {4.3}Propuesta de algoritmo para mejorar la cinem\IeC {\'a}tica inversa (Modelo probabil\IeC {\'\i }stico)}{9}{section.4.3}
+\contentsline {chapter}{\numberline {5}Integraci\IeC {\'o}n}{10}{chapter.5}
+\contentsline {section}{\numberline {5.1}M\IeC {\'a}quinas de estados}{10}{section.5.1}
+\contentsline {section}{\numberline {5.2}ROS}{10}{section.5.2}
+\contentsline {section}{\numberline {5.3}Constituci\IeC {\'o}n del robot de servicio Justina}{10}{section.5.3}
+\contentsline {chapter}{\numberline {6}Resultados}{11}{chapter.6}
+\contentsline {chapter}{\numberline {7}Conclusiones}{12}{chapter.7}

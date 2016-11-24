@@ -1,0 +1,16 @@
+\BOOKMARK [0][-]{chapter.1}{Introducci\363n}{}% 1
+\BOOKMARK [0][-]{chapter.2}{Marco te\363rico}{}% 2
+\BOOKMARK [0][-]{chapter.3}{Reconocimiento de objetos}{}% 3
+\BOOKMARK [1][-]{section.3.1}{Kinect}{chapter.3}% 4
+\BOOKMARK [1][-]{section.3.2}{OpenCV}{chapter.3}% 5
+\BOOKMARK [1][-]{section.3.3}{Anal\355sis de componentes principales}{chapter.3}% 6
+\BOOKMARK [0][-]{chapter.4}{Brazos}{}% 7
+\BOOKMARK [1][-]{section.4.1}{Documentaci\363n servos dynamixel}{chapter.4}% 8
+\BOOKMARK [1][-]{section.4.2}{Cinem\341tica inversa}{chapter.4}% 9
+\BOOKMARK [1][-]{section.4.3}{Propuesta de algoritmo para mejorar la cinem\341tica inversa \(Modelo probabil\355stico\)}{chapter.4}% 10
+\BOOKMARK [0][-]{chapter.5}{Integraci\363n}{}% 11
+\BOOKMARK [1][-]{section.5.1}{M\341quinas de estados}{chapter.5}% 12
+\BOOKMARK [1][-]{section.5.2}{ROS}{chapter.5}% 13
+\BOOKMARK [1][-]{section.5.3}{Constituci\363n del robot de servicio Justina}{chapter.5}% 14
+\BOOKMARK [0][-]{chapter.6}{Resultados}{}% 15
+\BOOKMARK [0][-]{chapter.7}{Conclusiones}{}% 16
