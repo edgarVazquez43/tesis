@@ -65,7 +65,7 @@
 
 \newpage{}
 \section*{Abstract}
-	En partícular, el reconocimiento de objetos y la adecuada manipulación de los mismos es una problemática común en el área de la robótica de servicios. Por ello el presente documento aborda la caracterización de un brazo robótico de 7DOF, el desarrollo de un algoritmo de visión computacional para reconocer la posción y orientación de los objetos, el desarrollo de un modelo probabilístico para mejorar la cinemática inversa del brazo robótico y finalmente una métodología de planeación de acciones entre la detección de un objeto y correcta manipulación.
+	En partícular, el reconocimiento de objetos y la adecuada manipulación de los mismos es una problemática común en el área de la robótica de servicios. Por ello el presente documento aborda la caracterización de un sistema de manipulación de objetos formado por un brazo robótico de 7DOF, el desarrollo de un algoritmo de visión computacional para reconocer la posción y orientación de los objetos, el desarrollo de la cinemática inversa del brazo robótico y finalmente una métodología de planeación de acciones entre la detección de un objeto y correcta manipulación.
 
 
 
@@ -73,45 +73,56 @@
 \chapter{Introducción}
 	%¿Por qué son importantes los robots de servicio?
 	En los ultimos años el área de la robótica y sus multiples aplicaciones se han expandido a pasos agigantados, tal es el caso de la robótica de servicios. 30 años atrás la idea de tener un robot capáz de ayudar a las tareas del hogar sólo era concebida gracias a la ciencia ficción; hoy en día es una total realidad. Un robot es un sistema mecánico controlado automaticamente, reprogramable, mutiproposito con diversos grados de libertad, el cual puede ser fijo o móvil \cite{khalil2004}. Actualmente existe un auge en utilizar a los robots como auxiliares en las actividades dómesticas, un área támbien llamada: "Robots de asistencia o robots de servicio". Sin embargo el área de la robótica de servicios y robots de asistencia comprende un gran rango de problemáticas.\\
-	\vspace{0.2in}
+	%\vspace{0.2in}
 
 	%¿Cual es la problematica?
-	\section*{Planteamiento del problema}
-		Los robots enfrentan problemáticas a la que cualquier humano está sometido día a día: ámbientes dinámicos, características de entornos no estandarizados, incertidumbre ante escenarios desconocidos. Existen diversas líneas de investigación que abarcan estas problemáticas. El sistema debe ser capaz de manipular objetos en varias ubicaciones y desde diferentes alturas, y necesita ser capaz de locomoción en diferentes terrenos. Cuando se interactúa con un humano el robot debería poseer alguna inteligencia (social) básica y debería ser capaz de distinguir diferentes personas. Por último, pero no menos importante, el funcionamiento seguro de estos sistemas en ámbientes dinámicos es un requisito fundamental para su futura aceptación y aplicabilidad.\\
-		\vspace{0.2in}
+	\section{Planteamiento del problema}
+		Los robots enfrentan problemáticas a la que cualquier humano está sometido día a día: ámbientes dinámicos, características de entornos no estandarizados, incertidumbre ante escenarios desconocidos. Dada la naturaleza de esta disciplina cientifica han surgido diversas líneas de investigación que abarcan estas problemáticas. Por ejemplo el robot debe ser capaz: de reconocer y manipular objetos en diferentes ubicaciones y desde diferentes alturas, de tener locomoción en diferentes tipos de superficies, de interactúar con un humano, de distinguir diferentes personas. Por último, pero no menos importante, el funcionamiento seguro de estos sistemas en ámbientes dinámicos es un requisito fundamental para su futura aceptación y aplicabilidad.\\
+		%\vspace{0.2in}
 
-		La creación de estos sistemas autónomos requiere la integración de un gran conjunto de capacidades y tecnologías. Los ejemplos incluyen la interacción humano-robot (habla, identificación de personas, seguimiento de personas, entre otros), navegación, planificación, control de comportamientos, reconocimiento de objetos, manipulación de objetos o seguimiento de objetos. Con respecto a la inteligencia, los sistemas deben contener métodos de planificación y comportamiento adaptativos. Los métodos de programación intuitivos (en forma de códigos de computadora) son necesarios para una amplia aceptación y usabilidad. Los procedimientos apropiados deberían, por ejemplo, permitir al operador del robot enseñar nuevos comportamientos y entornos vía comandos de voz o gestos. Los futuros hogares probablemente contendrán dispositivos electrónicos más inteligentes capaces de comunicarse entre sí, inteligencia ambiental, incluyendo el uso de Internet como base común de conocimientos, de modo que los robots desempeñarán, ciertamente, un papel más importante.\\
-		\vspace{0.2in}
+		%Problemática robots de servicio.
+		La creación de estos sistemas autónomos requiere la integración de un gran conjunto de capacidades y tecnologías. Los ejemplos incluyen la interacción humano-robot (habla, identificación de personas, seguimiento de personas, entre otros), navegación, planificación, control de comportamientos, reconocimiento de objetos, manipulación de objetos o seguimiento de objetos. Con respecto a la inteligencia, los sistemas deben contener métodos de planificación y comportamiento adaptativos. Los procedimientos apropiados deberían, por ejemplo, permitir al operador del robot enseñar nuevos comportamientos y entornos vía comandos de voz o gestos. Los futuros hogares probablemente contendrán dispositivos electrónicos más inteligentes capaces de comunicarse entre sí, inteligencia ambiental, incluyendo el uso de Internet como base común de conocimientos, de modo que los robots desempeñarán un papel más importante.\\
+		%\vspace{0.2in}
 
+		%Problemática de la manipulación
 		Entre todas estas líneas de investigación es imprescindible contar con un robot que sea capaz de interactuar con los objetos en el mundo real, por ello es necesario contar un sistema que pueda reconocer los objetos y su posición adecuadamente. Sin embargo esta línea de investigación atiende a problemáticas muy concretas, en el mundo real  los robots se enfrentan con condiciones dinámicas en el ambiente, por ejemplo al pedir a un robot que tome un objeto y pueda llevarlo hasta nosotros el primer problema al que nos enfentamos es conocer la posición del objeto (la cúal será diferente en cada ocasión), posteriormente si deseamos localizar dos objetos del mismo tipo estos no serán reconocidos de igual manera por el robot debido a las condiciones de luz, a los cambios de forma, y a los cambios de aparencía.\\
-		\vspace{0.2in}
+		%\vspace{0.2in}
 
 
 		%¿Cómo se solucionaria el problema?
-		Dadas las caracteristicas antes descritas, es preciso estimar la probabilidad de que un robot pueda manipular correctamente los objetos. Para ello es necesario conocer la probalidad de que el robot haya reconocido un objeto exitosamente, además es preciso conocer la posición de los objetos con respecto del robot, que el brazo haya llegado a la posición del objeto y que el actuador final, a su vez, haya sujetado el objeto de la mejor manera.\\
-		\vspace{0.2in}
+		Dadas las caracteristicas antes descritas, es preciso estimar la probabilidad de que un robot pueda manipular correctamente los objetos. Para ello es necesario dividir la tarea en operaciones la primera de ellas conciste en estimar la posición del objeto, tener un indicador que nos ayude a determinar cual es la mejor forma de tomar un objeto y conocer la probalidad de que el robot haya reconocido un objeto exitosamente. Otra de las operaciones necesarias es llevar el actuador final del brazo robótico a una posición (x, y, z) deseada. Por último es necesario contar con un planeador de acciones para coordinar cada uno de los eventos dentro de la tarea.\\
+		%\vspace{0.2in}
 
-		Podemos observar que las problematicas son variadas, sin embargo podemos reducir el problema principal en tres tareas secundarias: Idenficar un objeto, Obtener una aproximación de cual será la mejpr manera de tomarlo y Caracterizar el sistema en conjunto para obtener un parámetro de confiabilidad.\\
-		\vspace{0.2in}
+
+		Podemos observar que las problematicas son variadas, sin embargo podemos reducir el problema principal en tres tareas secundarias: Idenficar un objeto, Obtener una aproximación de cual será la mejor manera de tomarlo y caracterizar el sistema en conjunto para obtener un parámetro de confiabilidad.\\
+		%\vspace{0.2in}
 
 		%¿Qué encontraremos en el documento?
-		En el capítulo 3 de este documento se aborda la manera en que se desarrolló el algoritmo de Análisis de componentes principales para obtener cual era la mejor orientación para tomar un objeto a partir de su forma. En el capítulo 4 se describe el sistema de manipulación utilizado para manipular los objetos. Se comienza por conocer las características de los actuadores utilizados, se obtinen las ecuaciones correspondientes a la cinemática de los brazos. En el capítulo 5 se realiza la integración de las partes antes mencionadas, la plataforma sobre la cual se desarrolló el sistema y se describe el desarrollo del modelo probabilístico utilizado para mejorar la manipulación de objetos para un robot de servicios.     
+		En el capítulo 3 de este documento se aborda la manera en que se desarrollaron los algoritmos de visión computacional para realizar la extracción de un plano, identificar la posición de un objeto, implementar un algoritmo de Análisis de componentes principales para obtener cual era la mejor orientación para tomar un objeto a partir de su forma. En el capítulo 4 se describe el sistema de manipulación utilizado para manipular los objetos. Se comienza por conocer las características de los actuadores utilizados, se obtinen las ecuaciones correspondientes a la cinemática de los brazos para llevarlo hasta una posicón (x, y, z) deseda. En el capítulo 5 se realiza la integración de las tareas antes mencionadas, la plataforma sobre la cual se desarrolló el sistema y se describe el desarrollo del modelo probabilístico utilizado para mejorar la manipulación de objetos en un robot de servicios.\\     
 
 
-	\section*{Hipotesis}
-		Un sistema de visión computacional con implementación de un algoritmo de análisis de componentes principales podrá indicarnos cual es la mejor orientación para tomar un objeto.  
+	\section{Hipotesis}
+		\begin{itemize}
 
-		%Un modelo bayesiano ayudará a caracterizar un sistema de manipulación formado por un sensor Kinect y un brazo robótico.
-	\vspace{0.25in}
+			\item Un sistema de visión computacional con implementación de un algoritmo de análisis de componentes principales podrá indicarnos cual es la mejor orientación para tomar un objeto.\\
 
-	\section*{Objetivos}
+			\item Un modelo bayesiano ayudará a caracterizar un sistema de manipulación formado por un sensor Kinect y un brazo robótico.
+			%\vspace{0.25in}
+			
+		\end{itemize}
+
+	\section{Objetivos}
 		\subsection*{Objetivo general}
-			Implemetar un algoritmo que mejore la manipulación de objetos para un brazo robótico de 7DOF en un robot de servicios. 
+			Implemetar un conjunto de algoritmos que mejore un sistema de manipulación de objetos formado por un kinect y un brazo robótico de 7DOF en un robot de servicios. 
 		\subsection*{Objetivos específicos} 
 			\begin{itemize}
+				\item Implementar un algoritmo de visión computacional para identificar un plano.
+
+				\item Implementar un algoritmo de visión computacional para determinar la posición de un objeto.
+
 				\item Implementar un algoritmo de analisis de componentes principales para identificar la orientación de los objetos. 
 
-				\item Caracterizar, usando modelos probabilísticos, los subsistemas de reconocimiento de objetos y control de movimiento del manipulador.
+				\item Calcular la cinemática inversa de un brazo robótico de 7DOF para llevarlo a una posición deseada (x, y, z).
 
 				\item Caracterizar el sistema de manipulación de objetos usando un modelo bayesiano.
 
@@ -121,32 +132,33 @@
 
 
 \chapter{Marco teórico}
-	\section*{Robots de servicio}
-		Dado que este trabajo se centrará en los robots de servicio, en partícular en una métodologia de reconocimiento y manipulación de objetos, resulta fundamental poner en evidencia el panorama actual de los robots de servicio. La idea general de la robótica personal de servicio doméstico (Domestic Service Robot DSR) ha existido desde hace mucho tiempo, pero es un tema de investigación relativamente joven. El objetivo de crear robots de servicios útiles, autónomos y personales que puedan interactuar con seres humanos y objetos en el mundo real en un entorno natural plantea un gran número de problemas sin resolver en muchas disciplinas científicas.\\
-		\vspace{0.2in}
+	\section{Robots de servicio}
+		%Conceptos
 
-		Recientemente, el progreso en estos campos de investigación, así como el progreso y la normalización en el desarrollo de hardware y software, ha llevado a un aumento en la disponibilidad de recursos, métodos y componentes para el desarrollo  de DSR. Por ello estamos cada vez más cerca de convivir con robots de servicios de manera exitosa en diversos lugares, por ejemplo hospitales \cite{hospitalRobots}, oficinas, construcciones, o tiendas departamentales \cite{robotsInStores}.\\ 
-		\vspace{0.2in}
+
+		%Estado del arte
+		Dado que este trabajo se centrará en los robots de servicio, en partícular en una métodologia de reconocimiento y manipulación de objetos, resulta fundamental poner en evidencia el panorama actual de los robots de servicio. La idea general de la robótica de servicio doméstico ha existido desde hace mucho tiempo, pero es un tema de investigación relativamente joven. El objetivo de crear robots de servicios útiles y autónomos que puedan interactuar con seres humanos y objetos en el mundo real en un entorno natural plantea un gran número de problemas sin resolver en muchas disciplinas científicas.\\
+		%\vspace{0.2in}
+
+		Recientemente, el progreso en estos campos de investigación, así como el progreso y la normalización en el desarrollo de hardware y software, ha llevado a un aumento en la disponibilidad de recursos, métodos y componentes para el desarrollo  de Robots de servicio doméstico . Por ello estamos cada vez más cerca de convivir con robots de servicios de manera exitosa en diversos lugares, por ejemplo hospitales \cite{hospitalRobots}, oficinas, construcciones, o tiendas departamentales \cite{robotsInStores}.\\ 
+		%\vspace{0.2in}
 
 
 		Estos desarrollos han sido posibles gracias a herramientas de código libre como lo es Ubuntu, ya que ha servido como base para el desarrollo de software especializado para robots, por ejemplo ROS \cite{rosEpage}. Este conjunto de librerías especializadas para robots proveen, por ejemplo, algoritmos de control, como lo podemos ver en Carmen \cite{montemerlo2003}.\\
-		\vspace{0.2in}
+		%\vspace{0.2in}
 
 		En la parte de simulación se cuenta con ejemplos como el USARSim \cite{balakirsky2006}, rviz\cite{rVizEpage} o Gazebo\cite{gazeboEpage}. Por lo que respecta a los algoritmos de visión computacional existen bibliotecas de código abierto por ejemplo OpenCV \cite{openCV} el cual tiene un gran campo de aplicaciones como se muestra en [ Bradski y Pisarevsky, 2000]. Por lo que corresponde a los kits standar de hardware, podemos mencionar la construcción de robots de plataforma standar por ejemplo VolksBot \cite{wisspeintner2007} y las plataformas bases por ejemplo ActivRobots \cite{ActivRobots}, Pepper\cite{pepperEpage}, Asimo\cite{asimoEpage} ha hecho posible desarrollar software de manera más rápida y eficiente.\\
-		\vspace{0.2in}
+		%\vspace{0.2in}
 
-		En resumen, una mayor disponibilidad, accesibilidad y compatibilidad de estas tecnologías permite a los grupos de investigación no sólo abordar un pequeño subconjunto de los problemas en los robots DSR, sino también permite abordar un problema en partícular. Obviamente, DSR no se trata únicamente de integrar soluciones existentes. Pero la consiguiente reutilización de la tecnología existente puede ayudar a ahorrar tiempo y esfuerzos para que los investigadores puedan centrarse en un campo de investigación en particular. Sin embargo, lo que parece estar faltando es la conjunción internacional y multidisciplinaria de la investigación y el desarrollo de los sistemas en los robots DSR.\\
-		\vspace{0.2in}
-
-	\section*{Técnicas de roconocimiento de objetos}
+	\section{Técnicas de roconocimiento de objetos}
 
 
 
-	\section*{Cinemática utilizadas en brazos robóticos}
+	\section{Cinemática utilizadas en brazos robóticos}
 
 
 
-	\section*{Planeación de tareas}
+	\section{Planeación de tareas}
 
 
 
