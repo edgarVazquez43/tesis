@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 2.8)
+project(kinenct_00)
+find_package(OpenCV REQUIRED)
+add_executable(kinect00 kinect00.cpp)
+target_link_libraries(kinect00 ${OpenCV_LIBS})

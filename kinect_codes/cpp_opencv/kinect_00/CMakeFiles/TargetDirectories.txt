@@ -1,0 +1,1 @@
+/home/edgar/github/tesis/kinect_codes/cpp_opencv/kinect_00/CMakeFiles/kinect00.dir
