@@ -5,3 +5,5 @@
 *.toc
 *.log
 *.out
+*.cpp~
+*.txt~

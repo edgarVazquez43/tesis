@@ -1,0 +1,8 @@
+prefix=/home/edgar/github/tesis/catkin_ws/devel
+
+Name: kinect_man
+Description: Description of kinect_man
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/edgar/github/tesis/catkin_ws/devel/lib 
+Requires: 

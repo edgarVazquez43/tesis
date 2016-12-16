@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/edgar/github/tesis/catkin_ws/devel/setup.sh
