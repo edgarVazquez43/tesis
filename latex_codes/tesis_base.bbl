@@ -19,10 +19,14 @@ H.~Endres, W.~Feiten, and G.~Lawitzky, ``Field test of a navigation system:
 ``{Pagina principal de Ros}.'' \url{http://www.ros.org/}.
 \newblock Consultado: 10-2016.
 
-\bibitem{montemerlo2003}
-J.~Pineau, M.~Montemerlo, M.~Pollack, N.~Roy, and S.~Thrun, ``Towards robotic
-  assistants in nursing homes: Challenges and results,'' {\em Robotics and
-  autonomous systems}, vol.~42, no.~3, pp.~271--281, 2003.
+\bibitem{carnegieMellon}
+``{Robot Carnegie Mellon} herramientas de navegación.''
+  \url{http://carmen.sourceforge.net/}.
+\newblock Consultado: 10-2016.
+
+\bibitem{cMellonEpage}
+``{Página principal universidad Carnegie Mellon}.'' \url{http://www.cmu.edu/}.
+\newblock Consultado: 1-2017.
 
 \bibitem{balakirsky2006}
 S.~Balakirsky, C.~Scrapper, S.~Carpin, and M.~Lewis, ``Usarsim: providing a
@@ -41,6 +45,12 @@ S.~Balakirsky, C.~Scrapper, S.~Carpin, and M.~Lewis, ``Usarsim: providing a
 ``{Biblioteca abierta} visión computacional.''
   \url{http://sourceforge.net/projects/opencv/}.
 \newblock Consultado: 10-2016.
+
+\bibitem{bradski2000}
+G.~R. Bradski and V.~Pisarevsky, ``Intel's computer vision library:
+  applications in calibration, stereo segmentation, tracking, gesture, face and
+  object recognition,'' in {\em Computer Vision and Pattern Recognition, 2000.
+  Proceedings. IEEE Conference on}, vol.~2, pp.~796--797, IEEE, 2000.
 
 \bibitem{wisspeintner2007}
 T.~Wisspeintner and W.~Nowak, {\em VolksBot-A Construction Kit for
