@@ -2,8 +2,12 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/opencv.hpp>
 #include "ros/ros.h"
+#ifndef PLANE_3D
+#define PLANE_3D
 #include "plane3D.hpp"
 #include "findPlaneRansac.hpp"
+#endif
+
 
 int rectXMinD = 0, rectXMinBGR = 0;
 int rectYMinD = 0, rectYMinBGR = 0;
@@ -66,7 +70,10 @@ int main(int argc, char** argv)
 
   cv::Mat depthMap;
   cv::Mat rgbImage;
-  std::vector<cv::Vec3f> randomSamples;
+  //std::vector<cv::Vec3f> randomSamples;
+  cv::Mat randomSamples;
+  cv::Mat consensus;
+  cv::Vec3f point0, point1, point2;
 
   while( ros::ok() && cv::waitKey(15) != 27 )
   {
@@ -97,19 +104,15 @@ int main(int argc, char** argv)
     
 
   randomSamples = randomSample(3, depthMap);
-  std::cout << "P1:[" << randomSamples[0].val[0] << ", " << randomSamples[0].val[1] << ", " << randomSamples[0].val[2] << "]" << std::endl;
-  std::cout << "P2:[" << randomSamples[1].val[0] << ", " << randomSamples[1].val[1] << ", " << randomSamples[1].val[2] << "]" << std::endl;
-  std::cout << "P3:[" << randomSamples[2].val[0] << ", " << randomSamples[2].val[1] << ", " << randomSamples[2].val[2] << "]" << std::endl;
+  //point0 = randomSamples.at<cv::Vec3f>(0, 0);
+  //point1 = randomSamples.at<cv::Vec3f>(1, 0);
+  //point2 = randomSamples.at<cv::Vec3f>(2, 0);
 
-
-    cv::rectangle(depthMap, cv::Point(rectXMinD, rectYMinD), cv::Point(rectXMaxD, rectYMaxD), cv::Scalar(0, 250, 0));
-    cv::rectangle(rgbImage, cv::Point(rectXMinBGR, rectYMinBGR), cv::Point(rectXMaxBGR, rectYMaxBGR), cv::Scalar(0, 0, 255));
-    cv::imshow("Kinect depth", depthMap);
-    cv::imshow("Kinect BGR", rgbImage);
+  cv::rectangle(depthMap, cv::Point(rectXMinD, rectYMinD), cv::Point(rectXMaxD, rectYMaxD), cv::Scalar(0, 250, 0));
+  cv::rectangle(rgbImage, cv::Point(rectXMinBGR, rectYMinBGR), cv::Point(rectXMaxBGR, rectYMaxBGR), cv::Scalar(0, 0, 255));
+  cv::imshow("Kinect depth", depthMap);
+  cv::imshow("Kinect BGR", rgbImage);
   }
-
-  // randomSamples = randomSample(3, depthMap);
-  // std::cout << "P1:[" << randomSamples[0].val[0] << ", " << randomSamples[0].val[1] << ", " << randomSamples[0].val[2] << "]" << std::endl;
-  // std::cout << "P2:[" << randomSamples[1].val[0] << ", " << randomSamples[1].val[1] << ", " << randomSamples[1].val[2] << "]" << std::endl;
-  // std::cout << "P3:[" << randomSamples[2].val[0] << ", " << randomSamples[2].val[1] << ", " << randomSamples[2].val[2] << "]" << std::endl;
+  consensus = findPlaneConsensus(randomSamples, depthMap, 0.005);
+ // std::cout << "Mat_Consensus: " << consensus << std::endl;
 }

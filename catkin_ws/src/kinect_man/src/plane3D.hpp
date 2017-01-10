@@ -2,12 +2,12 @@
 #include "opencv2/core/core.hpp"
 #include "opencv2/highgui/highgui.hpp"
 
-class Plane3D{
+class plane3D{
 
 	public:
-		Plane3D(); 
-		Plane3D(cv::Point3f p1, cv::Point3f p2, cv::Point3f p3);  
-		Plane3D(cv::Point3f normal, cv::Point3f point); 
+		plane3D(); 
+		plane3D(cv::Point3f p1, cv::Point3f p2, cv::Point3f p3);  
+		plane3D(cv::Point3f normal, cv::Point3f point); 
 
 		double GetA();
 		double GetB();
@@ -27,7 +27,7 @@ class Plane3D{
 };
 
 // Definicion de un plano por un punto y el vector normal al plano
-Plane3D::Plane3D()
+plane3D::plane3D()
 {
 	cv::Point3f p1(0.0 , 0.0, 0.0); 
 	cv::Point3f normal(0.0, 0.0, 1.0); 
@@ -39,7 +39,7 @@ Plane3D::Plane3D()
 }
 
 // Definicion de un plano por tres puntos 
-Plane3D::Plane3D(cv::Point3f p1, cv::Point3f p2, cv::Point3f p3)
+plane3D::plane3D(cv::Point3f p1, cv::Point3f p2, cv::Point3f p3)
 {
 	cv::Point3f p12 = p2 - p1; 
 	cv::Point3f p13 = p3 - p1; 
@@ -60,7 +60,7 @@ Plane3D::Plane3D(cv::Point3f p1, cv::Point3f p2, cv::Point3f p3)
 }
 
 // Definicion de un plano por un vector normal y un ponto
-Plane3D::Plane3D(cv::Point3f normal, cv::Point3f p1)
+plane3D::plane3D(cv::Point3f normal, cv::Point3f p1)
 {
 	if( normal == cv::Point3f(0,0,0) ) 
 		throw "Cant create Plane3D, normal is 0,0,0"; 
@@ -74,38 +74,42 @@ Plane3D::Plane3D(cv::Point3f normal, cv::Point3f p1)
 	this-> d = - ( normal.x*p1.x + normal.y*p1.y + normal.z*p1.z );
 }
 
-double Plane3D::GetA()
+double plane3D::GetA()
 {	
 	return this->a; 
 }
 
-double Plane3D::GetB()
+double plane3D::GetB()
 {	
 	return this->b; 
 }
 
-double Plane3D::GetC()
+double plane3D::GetC()
 {	
 	return this->c; 
 }
 
-double Plane3D::GetD()
+double plane3D::GetD()
 {
 	return this->d; 
 }
 
-cv::Point3f Plane3D::GetNormal()
+cv::Point3f plane3D::GetNormal()
 {
 	return cv::Point3f(this->a, this->b, this->c); 
 }
 
-cv::Vec4d Plane3D::GetPlaneComp()
+cv::Vec4d plane3D::GetPlaneComp()
 {
 	return cv::Vec4d(this->a, this->b, this->c, this->d); 
 }
 
-double Plane3D::DistanceToPoint(cv::Point3f p, bool signedDistance)
+double plane3D::DistanceToPoint(cv::Point3f p, bool signedDistance)
 {
+	double a = this->a;
+	double b = this->b;
+	double c = this->c;
+	double d = this->d;
 	double num = a*p.x + b*p.y + c*p.z + d ; 
 	double den = std::sqrt( a*a + b*b + c*c ); 
 
