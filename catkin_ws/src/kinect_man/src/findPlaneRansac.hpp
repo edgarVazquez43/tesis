@@ -8,6 +8,8 @@
 #include "opencv2/core/core.hpp"
 #include "opencv2/highgui/highgui.hpp"
 #include "plane3D.hpp"
+#endif
+
 
 // Muetreo aleatorio de n muestras de la nube de puntos
 // Devuele nos valores del punto P[x, y, z] respecto al robot
@@ -20,8 +22,6 @@ cv::Mat findPlaneConsensus(std::vector<cv::Vec3d> sample, cv::Mat points, float 
 
 // Obtenemos la ecuacion del plano que mejor se justa a los puntos
 std::vector<double> planeRANSAC(cv::Mat points);
-
-#endif
 
 
 /*

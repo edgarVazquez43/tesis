@@ -42,10 +42,11 @@ int main(int argc, char** argv)
 
   cv::namedWindow("Kinect depth");
   // New window for BGR image
-  cv::namedWindow("Kinect BGR");
+  //cv::namedWindow("Kinect BGR");
 
   cv::Mat depthMap;
   cv::Mat rgbImage;
+  cv::Mat croppedImage;
   //std::vector<cv::Vec3f> randomSamples;
   cv::Mat randomSamples;
   cv::Mat consensus;
@@ -88,12 +89,12 @@ int main(int argc, char** argv)
   cv::rectangle(rgbImage, cv::Point(rectXMinBGR, rectYMinBGR), cv::Point(rectXMaxBGR, rectYMaxBGR), cv::Scalar(0, 0, 255));
 
   cv::Rect myROI(30, 30, 520, 430);
-  cv::Mat croppedImage = depthMap(myROI);
+  croppedImage = depthMap(myROI);
 
   cv::imshow("Kinect depth", depthMap);
 //cv::imshow("Kinect BGR", rgbImage);
   cv::imshow("Depth crop", croppedImage);
   }
-  consensus = findPlaneConsensus(randomSamples, depthMap, 0.005);
+  consensus = findPlaneConsensus(randomSamples, croppedImage, 0.005);
  // std::cout << "Mat_Consensus: " << consensus << std::endl;
 }
