@@ -14,28 +14,6 @@ int rectYMinD = 0, rectYMinBGR = 0;
 int rectXMaxD = 1, rectXMaxBGR = 1;
 int rectYMaxD = 1, rectYMaxBGR = 1;
 
-void callback_click_depth(int event, int x, int y, int flags, void* userdata)
-{
-  if(event == cv::EVENT_LBUTTONDOWN)
-    {
-      rectXMinD = (x - 3) >= 0 ? x - 3 : 0;
-      rectYMinD = (y - 3) >= 0 ? y - 3 : 0;
-      rectXMaxD = (x + 3) < 640 ? x + 3 : 639;
-      rectYMaxD = (y + 3) < 480 ? y + 3 : 479;
-    }
-}
-
-void callback_click_BGR(int event, int x, int y, int flags, void* userdata)
-{
-  if(event == cv::EVENT_LBUTTONDOWN)
-    {
-      rectXMinBGR = (x - 3) >= 0 ? x - 3 : 0;
-      rectYMinBGR = (y - 3) >= 0 ? y - 3 : 0;
-      rectXMaxBGR = (x + 3) < 640 ? x + 3 : 639;
-      rectYMaxBGR = (y + 3) < 480 ? y + 3 : 479;
-    }
-}
-
 
 int main(int argc, char** argv)
 {
@@ -61,12 +39,10 @@ int main(int argc, char** argv)
   capture.set(CV_CAP_OPENNI_DEPTH_GENERATOR_REGISTRATION, CV_CAP_OPENNI_DEPTH_GENERATOR_REGISTRATION_ON);
   std::cout << "Kinect manager.-> Kinect sensor started :D" << std::endl;
   std::cout << "Kinect manager.-> Sistem ready to use" << std::endl;
-  
+
   cv::namedWindow("Kinect depth");
-  cv::setMouseCallback("Kinect depth", callback_click_depth, NULL);
   // New window for BGR image
   cv::namedWindow("Kinect BGR");
-  cv::setMouseCallback("Kinect BGR", callback_click_BGR, NULL);
 
   cv::Mat depthMap;
   cv::Mat rgbImage;
@@ -88,12 +64,12 @@ int main(int argc, char** argv)
 
     for(int i=rectXMinD; i<=rectXMaxD; i++)
       for(int j=rectYMinD; j<=rectYMaxD; j++)
-	     {
-	       depth = depthMap.at<cv::Vec3f>(j, i);
-	       x += depth.val[0];
-	       y += depth.val[1];
-	       z += depth.val[2];
-	       counter++;
+       {
+         depth = depthMap.at<cv::Vec3f>(j, i);
+         x += depth.val[0];
+         y += depth.val[1];
+         z += depth.val[2];
+         counter++;
        }
 
     counter /=2;
@@ -101,7 +77,7 @@ int main(int argc, char** argv)
     //std::cout << "Counter: " << counter << std::endl;
     //if (x/counter < 1000 && y/counter < 1000 && z/counter < 1000)
     //  std::cout << "Mean XYZ: X= " << x/counter << "  Y=" << y/counter << "  Z=" << z/counter << std::endl;
-    
+
 
   randomSamples = randomSample(3, depthMap);
   //point0 = randomSamples.at<cv::Vec3f>(0, 0);
@@ -110,8 +86,13 @@ int main(int argc, char** argv)
 
   cv::rectangle(depthMap, cv::Point(rectXMinD, rectYMinD), cv::Point(rectXMaxD, rectYMaxD), cv::Scalar(0, 250, 0));
   cv::rectangle(rgbImage, cv::Point(rectXMinBGR, rectYMinBGR), cv::Point(rectXMaxBGR, rectYMaxBGR), cv::Scalar(0, 0, 255));
+
+  cv::Rect myROI(30, 30, 520, 430);
+  cv::Mat croppedImage = depthMap(myROI);
+
   cv::imshow("Kinect depth", depthMap);
-  cv::imshow("Kinect BGR", rgbImage);
+//cv::imshow("Kinect BGR", rgbImage);
+  cv::imshow("Depth crop", croppedImage);
   }
   consensus = findPlaneConsensus(randomSamples, depthMap, 0.005);
  // std::cout << "Mat_Consensus: " << consensus << std::endl;
