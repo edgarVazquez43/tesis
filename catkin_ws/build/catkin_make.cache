@@ -1,2 +1,0 @@
-kinect_man
--DCATKIN_DEVEL_PREFIX=/home/edgar-ii/github/tesis/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/edgar-ii/github/tesis/catkin_ws/install -G Unix Makefiles
