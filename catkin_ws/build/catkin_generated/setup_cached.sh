@@ -7,4 +7,7 @@
 # new environment variables
 
 # modified environment variables
-export PWD="/home/edgar/github/tesis/catkin_ws/build"
+export LD_LIBRARY_PATH="/opt/ros/indigo/lib"
+export PKG_CONFIG_PATH="/opt/ros/indigo/lib/pkgconfig"
+export PWD="/home/edgar-ii/github/tesis/catkin_ws/build"
+export ROS_PACKAGE_PATH="/home/edgar-ii/github/tesis/catkin_ws/src:/opt/ros/indigo/share:/opt/ros/indigo/stacks"

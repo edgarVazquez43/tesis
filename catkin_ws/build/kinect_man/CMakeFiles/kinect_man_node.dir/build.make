@@ -35,10 +35,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/edgar/github/tesis/catkin_ws/src
+CMAKE_SOURCE_DIR = /home/edgar-ii/github/tesis/catkin_ws/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/edgar/github/tesis/catkin_ws/build
+CMAKE_BINARY_DIR = /home/edgar-ii/github/tesis/catkin_ws/build
 
 # Include any dependencies generated for this target.
 include kinect_man/CMakeFiles/kinect_man_node.dir/depend.make
@@ -50,18 +50,18 @@ include kinect_man/CMakeFiles/kinect_man_node.dir/progress.make
 include kinect_man/CMakeFiles/kinect_man_node.dir/flags.make
 
 kinect_man/CMakeFiles/kinect_man_node.dir/src/kinect_man_node.cpp.o: kinect_man/CMakeFiles/kinect_man_node.dir/flags.make
-kinect_man/CMakeFiles/kinect_man_node.dir/src/kinect_man_node.cpp.o: /home/edgar/github/tesis/catkin_ws/src/kinect_man/src/kinect_man_node.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/edgar/github/tesis/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_1)
+kinect_man/CMakeFiles/kinect_man_node.dir/src/kinect_man_node.cpp.o: /home/edgar-ii/github/tesis/catkin_ws/src/kinect_man/src/kinect_man_node.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/edgar-ii/github/tesis/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object kinect_man/CMakeFiles/kinect_man_node.dir/src/kinect_man_node.cpp.o"
-	cd /home/edgar/github/tesis/catkin_ws/build/kinect_man && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/kinect_man_node.dir/src/kinect_man_node.cpp.o -c /home/edgar/github/tesis/catkin_ws/src/kinect_man/src/kinect_man_node.cpp
+	cd /home/edgar-ii/github/tesis/catkin_ws/build/kinect_man && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/kinect_man_node.dir/src/kinect_man_node.cpp.o -c /home/edgar-ii/github/tesis/catkin_ws/src/kinect_man/src/kinect_man_node.cpp
 
 kinect_man/CMakeFiles/kinect_man_node.dir/src/kinect_man_node.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/kinect_man_node.dir/src/kinect_man_node.cpp.i"
-	cd /home/edgar/github/tesis/catkin_ws/build/kinect_man && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/edgar/github/tesis/catkin_ws/src/kinect_man/src/kinect_man_node.cpp > CMakeFiles/kinect_man_node.dir/src/kinect_man_node.cpp.i
+	cd /home/edgar-ii/github/tesis/catkin_ws/build/kinect_man && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/edgar-ii/github/tesis/catkin_ws/src/kinect_man/src/kinect_man_node.cpp > CMakeFiles/kinect_man_node.dir/src/kinect_man_node.cpp.i
 
 kinect_man/CMakeFiles/kinect_man_node.dir/src/kinect_man_node.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/kinect_man_node.dir/src/kinect_man_node.cpp.s"
-	cd /home/edgar/github/tesis/catkin_ws/build/kinect_man && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/edgar/github/tesis/catkin_ws/src/kinect_man/src/kinect_man_node.cpp -o CMakeFiles/kinect_man_node.dir/src/kinect_man_node.cpp.s
+	cd /home/edgar-ii/github/tesis/catkin_ws/build/kinect_man && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/edgar-ii/github/tesis/catkin_ws/src/kinect_man/src/kinect_man_node.cpp -o CMakeFiles/kinect_man_node.dir/src/kinect_man_node.cpp.s
 
 kinect_man/CMakeFiles/kinect_man_node.dir/src/kinect_man_node.cpp.o.requires:
 .PHONY : kinect_man/CMakeFiles/kinect_man_node.dir/src/kinect_man_node.cpp.o.requires
@@ -79,77 +79,74 @@ kinect_man_node_OBJECTS = \
 # External object files for target kinect_man_node
 kinect_man_node_EXTERNAL_OBJECTS =
 
-/home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: kinect_man/CMakeFiles/kinect_man_node.dir/src/kinect_man_node.cpp.o
-/home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: kinect_man/CMakeFiles/kinect_man_node.dir/build.make
-/home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /opt/ros/indigo/lib/libtf.so
-/home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /opt/ros/indigo/lib/libtf2_ros.so
-/home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /opt/ros/indigo/lib/libactionlib.so
-/home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /opt/ros/indigo/lib/libmessage_filters.so
-/home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /opt/ros/indigo/lib/libroscpp.so
-/home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/lib/x86_64-linux-gnu/libboost_signals.so
-/home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/lib/x86_64-linux-gnu/libboost_filesystem.so
-/home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /opt/ros/indigo/lib/libxmlrpcpp.so
-/home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /opt/ros/indigo/lib/libtf2.so
-/home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /opt/ros/indigo/lib/libroscpp_serialization.so
-/home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /opt/ros/indigo/lib/librosconsole.so
-/home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /opt/ros/indigo/lib/librosconsole_log4cxx.so
-/home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /opt/ros/indigo/lib/librosconsole_backend_interface.so
-/home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/lib/liblog4cxx.so
-/home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/lib/x86_64-linux-gnu/libboost_regex.so
-/home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /opt/ros/indigo/lib/librostime.so
-/home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/lib/x86_64-linux-gnu/libboost_date_time.so
-/home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /opt/ros/indigo/lib/libcpp_common.so
-/home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/lib/x86_64-linux-gnu/libboost_system.so
-/home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/lib/x86_64-linux-gnu/libboost_thread.so
-/home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/lib/x86_64-linux-gnu/libpthread.so
-/home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/lib/x86_64-linux-gnu/libconsole_bridge.so
-/home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/local/lib/libopencv_viz.so.2.4.9
-/home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/local/lib/libopencv_videostab.so.2.4.9
-/home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/local/lib/libopencv_video.so.2.4.9
-/home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/local/lib/libopencv_superres.so.2.4.9
-/home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/local/lib/libopencv_stitching.so.2.4.9
-/home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/local/lib/libopencv_photo.so.2.4.9
-/home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/local/lib/libopencv_objdetect.so.2.4.9
-/home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/local/lib/libopencv_nonfree.so.2.4.9
-/home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/local/lib/libopencv_ml.so.2.4.9
-/home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/local/lib/libopencv_legacy.so.2.4.9
-/home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/local/lib/libopencv_imgproc.so.2.4.9
-/home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/local/lib/libopencv_highgui.so.2.4.9
-/home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/local/lib/libopencv_gpu.so.2.4.9
-/home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/local/lib/libopencv_flann.so.2.4.9
-/home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/local/lib/libopencv_features2d.so.2.4.9
-/home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/local/lib/libopencv_core.so.2.4.9
-/home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/local/lib/libopencv_contrib.so.2.4.9
-/home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/local/lib/libopencv_calib3d.so.2.4.9
-/home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/local/lib/libopencv_nonfree.so.2.4.9
-/home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/local/lib/libopencv_gpu.so.2.4.9
-/home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/local/lib/libopencv_photo.so.2.4.9
-/home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/local/lib/libopencv_objdetect.so.2.4.9
-/home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/local/lib/libopencv_legacy.so.2.4.9
-/home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/local/lib/libopencv_video.so.2.4.9
-/home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/local/lib/libopencv_ml.so.2.4.9
-/home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/local/lib/libopencv_calib3d.so.2.4.9
-/home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/local/lib/libopencv_features2d.so.2.4.9
-/home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/local/lib/libopencv_highgui.so.2.4.9
-/home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/local/lib/libopencv_imgproc.so.2.4.9
-/home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/local/lib/libopencv_flann.so.2.4.9
-/home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/local/lib/libopencv_core.so.2.4.9
-/home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: kinect_man/CMakeFiles/kinect_man_node.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX executable /home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node"
-	cd /home/edgar/github/tesis/catkin_ws/build/kinect_man && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/kinect_man_node.dir/link.txt --verbose=$(VERBOSE)
+/home/edgar-ii/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: kinect_man/CMakeFiles/kinect_man_node.dir/src/kinect_man_node.cpp.o
+/home/edgar-ii/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: kinect_man/CMakeFiles/kinect_man_node.dir/build.make
+/home/edgar-ii/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /opt/ros/indigo/lib/libtf.so
+/home/edgar-ii/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /opt/ros/indigo/lib/libtf2_ros.so
+/home/edgar-ii/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /opt/ros/indigo/lib/libactionlib.so
+/home/edgar-ii/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /opt/ros/indigo/lib/libmessage_filters.so
+/home/edgar-ii/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /opt/ros/indigo/lib/libroscpp.so
+/home/edgar-ii/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/lib/x86_64-linux-gnu/libboost_signals.so
+/home/edgar-ii/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/lib/x86_64-linux-gnu/libboost_filesystem.so
+/home/edgar-ii/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /opt/ros/indigo/lib/libxmlrpcpp.so
+/home/edgar-ii/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /opt/ros/indigo/lib/libtf2.so
+/home/edgar-ii/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /opt/ros/indigo/lib/libroscpp_serialization.so
+/home/edgar-ii/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /opt/ros/indigo/lib/librosconsole.so
+/home/edgar-ii/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /opt/ros/indigo/lib/librosconsole_log4cxx.so
+/home/edgar-ii/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /opt/ros/indigo/lib/librosconsole_backend_interface.so
+/home/edgar-ii/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/lib/liblog4cxx.so
+/home/edgar-ii/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/lib/x86_64-linux-gnu/libboost_regex.so
+/home/edgar-ii/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /opt/ros/indigo/lib/librostime.so
+/home/edgar-ii/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/lib/x86_64-linux-gnu/libboost_date_time.so
+/home/edgar-ii/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /opt/ros/indigo/lib/libcpp_common.so
+/home/edgar-ii/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/lib/x86_64-linux-gnu/libboost_system.so
+/home/edgar-ii/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/lib/x86_64-linux-gnu/libboost_thread.so
+/home/edgar-ii/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/lib/x86_64-linux-gnu/libpthread.so
+/home/edgar-ii/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/lib/x86_64-linux-gnu/libconsole_bridge.so
+/home/edgar-ii/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/lib/x86_64-linux-gnu/libopencv_videostab.so.2.4.8
+/home/edgar-ii/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/lib/x86_64-linux-gnu/libopencv_video.so.2.4.8
+/home/edgar-ii/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/lib/x86_64-linux-gnu/libopencv_superres.so.2.4.8
+/home/edgar-ii/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/lib/x86_64-linux-gnu/libopencv_stitching.so.2.4.8
+/home/edgar-ii/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/lib/x86_64-linux-gnu/libopencv_photo.so.2.4.8
+/home/edgar-ii/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/lib/x86_64-linux-gnu/libopencv_ocl.so.2.4.8
+/home/edgar-ii/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/lib/x86_64-linux-gnu/libopencv_objdetect.so.2.4.8
+/home/edgar-ii/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/lib/x86_64-linux-gnu/libopencv_ml.so.2.4.8
+/home/edgar-ii/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/lib/x86_64-linux-gnu/libopencv_legacy.so.2.4.8
+/home/edgar-ii/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/lib/x86_64-linux-gnu/libopencv_imgproc.so.2.4.8
+/home/edgar-ii/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/lib/x86_64-linux-gnu/libopencv_highgui.so.2.4.8
+/home/edgar-ii/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/lib/x86_64-linux-gnu/libopencv_gpu.so.2.4.8
+/home/edgar-ii/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/lib/x86_64-linux-gnu/libopencv_flann.so.2.4.8
+/home/edgar-ii/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/lib/x86_64-linux-gnu/libopencv_features2d.so.2.4.8
+/home/edgar-ii/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/lib/x86_64-linux-gnu/libopencv_core.so.2.4.8
+/home/edgar-ii/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/lib/x86_64-linux-gnu/libopencv_contrib.so.2.4.8
+/home/edgar-ii/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/lib/x86_64-linux-gnu/libopencv_calib3d.so.2.4.8
+/home/edgar-ii/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/lib/x86_64-linux-gnu/libopencv_photo.so.2.4.8
+/home/edgar-ii/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/lib/x86_64-linux-gnu/libopencv_legacy.so.2.4.8
+/home/edgar-ii/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/lib/x86_64-linux-gnu/libopencv_video.so.2.4.8
+/home/edgar-ii/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/lib/x86_64-linux-gnu/libopencv_objdetect.so.2.4.8
+/home/edgar-ii/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/lib/x86_64-linux-gnu/libopencv_ml.so.2.4.8
+/home/edgar-ii/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/lib/x86_64-linux-gnu/libopencv_calib3d.so.2.4.8
+/home/edgar-ii/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/lib/x86_64-linux-gnu/libopencv_features2d.so.2.4.8
+/home/edgar-ii/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/lib/x86_64-linux-gnu/libopencv_highgui.so.2.4.8
+/home/edgar-ii/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/lib/x86_64-linux-gnu/libopencv_imgproc.so.2.4.8
+/home/edgar-ii/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/lib/x86_64-linux-gnu/libopencv_flann.so.2.4.8
+/home/edgar-ii/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: /usr/lib/x86_64-linux-gnu/libopencv_core.so.2.4.8
+/home/edgar-ii/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node: kinect_man/CMakeFiles/kinect_man_node.dir/link.txt
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX executable /home/edgar-ii/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node"
+	cd /home/edgar-ii/github/tesis/catkin_ws/build/kinect_man && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/kinect_man_node.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
-kinect_man/CMakeFiles/kinect_man_node.dir/build: /home/edgar/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node
+kinect_man/CMakeFiles/kinect_man_node.dir/build: /home/edgar-ii/github/tesis/catkin_ws/devel/lib/kinect_man/kinect_man_node
 .PHONY : kinect_man/CMakeFiles/kinect_man_node.dir/build
 
 kinect_man/CMakeFiles/kinect_man_node.dir/requires: kinect_man/CMakeFiles/kinect_man_node.dir/src/kinect_man_node.cpp.o.requires
 .PHONY : kinect_man/CMakeFiles/kinect_man_node.dir/requires
 
 kinect_man/CMakeFiles/kinect_man_node.dir/clean:
-	cd /home/edgar/github/tesis/catkin_ws/build/kinect_man && $(CMAKE_COMMAND) -P CMakeFiles/kinect_man_node.dir/cmake_clean.cmake
+	cd /home/edgar-ii/github/tesis/catkin_ws/build/kinect_man && $(CMAKE_COMMAND) -P CMakeFiles/kinect_man_node.dir/cmake_clean.cmake
 .PHONY : kinect_man/CMakeFiles/kinect_man_node.dir/clean
 
 kinect_man/CMakeFiles/kinect_man_node.dir/depend:
-	cd /home/edgar/github/tesis/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/edgar/github/tesis/catkin_ws/src /home/edgar/github/tesis/catkin_ws/src/kinect_man /home/edgar/github/tesis/catkin_ws/build /home/edgar/github/tesis/catkin_ws/build/kinect_man /home/edgar/github/tesis/catkin_ws/build/kinect_man/CMakeFiles/kinect_man_node.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/edgar-ii/github/tesis/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/edgar-ii/github/tesis/catkin_ws/src /home/edgar-ii/github/tesis/catkin_ws/src/kinect_man /home/edgar-ii/github/tesis/catkin_ws/build /home/edgar-ii/github/tesis/catkin_ws/build/kinect_man /home/edgar-ii/github/tesis/catkin_ws/build/kinect_man/CMakeFiles/kinect_man_node.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : kinect_man/CMakeFiles/kinect_man_node.dir/depend
 

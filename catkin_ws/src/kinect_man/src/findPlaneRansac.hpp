@@ -18,7 +18,7 @@ cv::Mat randomSample(int n, cv::Mat points);
 // Obtenemos los puntos que se ajustan al plano definido por tres puntos
 cv::Mat findPlaneConsensus(std::vector<cv::Vec3d> sample, cv::Mat points, float threshold);
 
-// Obtenemos la ecuacion del plano que mejor se justa a los puntos 
+// Obtenemos la ecuacion del plano que mejor se justa a los puntos
 std::vector<double> planeRANSAC(cv::Mat points);
 
 #endif
@@ -46,12 +46,12 @@ cv::Mat randomSample(int n, cv::Mat points)
 	int H = points.rows;
 	int W = points.cols;
 	bool isReg;
-	
+
 	std::vector<int> pixel_i;
 	std::vector<int> pixel_j;
 	cv::Mat sample;
 	cv::Vec3d validPoint;
-	
+
 	// Generamos numeros aleatorios
 	for (int i = 0; i < n; i++)
 	{
@@ -72,7 +72,7 @@ cv::Mat randomSample(int n, cv::Mat points)
 	for (int i = 0; i < n; i++)
 	{
 		validPoint = points.at<cv::Vec3d>(pixel_i[i], pixel_j[i]);
-		sample.push_back(validPoint);	
+		sample.push_back(validPoint);
 	}
 	return sample;
 }
@@ -81,7 +81,7 @@ cv::Mat findPlaneConsensus(cv::Mat sample, cv::Mat points, float threshold)
 {
 	//cv::Mat points es la nube de puntos del kinect
 	cv::Mat consensus;
-	cv::Point3d p0, p1, p2, px; 
+	cv::Point3d p0, p1, p2, px;
 	cv::Vec4d planeComp;
 
 	bool signedDistance = false;
@@ -107,7 +107,7 @@ cv::Mat findPlaneConsensus(cv::Mat sample, cv::Mat points, float threshold)
 			px = points.at<cv::Point3d>(i, j);
 			if ( verifyPoint(px))
 			{
-				error = N.DistanceToPoint(px, signedDistance);		
+				error = N.DistanceToPoint(px, signedDistance);
 				//std::cout << "error: " << error << std::endl;
 				// Camparamos si la distancia está dentro de la tolerancia
 				if (error < threshold)

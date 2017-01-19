@@ -1,8 +1,8 @@
-# Install script for directory: /home/edgar/github/tesis/catkin_ws/src/kinect_man
+# Install script for directory: /home/edgar-ii/github/tesis/catkin_ws/src/kinect_man
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  SET(CMAKE_INSTALL_PREFIX "/home/edgar/github/tesis/catkin_ws/install")
+  SET(CMAKE_INSTALL_PREFIX "/home/edgar-ii/github/tesis/catkin_ws/install")
 ENDIF(NOT DEFINED CMAKE_INSTALL_PREFIX)
 STRING(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -33,17 +33,17 @@ IF(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
 ENDIF(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/edgar/github/tesis/catkin_ws/build/kinect_man/catkin_generated/installspace/kinect_man.pc")
+  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/edgar-ii/github/tesis/catkin_ws/build/kinect_man/catkin_generated/installspace/kinect_man.pc")
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
   FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinect_man/cmake" TYPE FILE FILES
-    "/home/edgar/github/tesis/catkin_ws/build/kinect_man/catkin_generated/installspace/kinect_manConfig.cmake"
-    "/home/edgar/github/tesis/catkin_ws/build/kinect_man/catkin_generated/installspace/kinect_manConfig-version.cmake"
+    "/home/edgar-ii/github/tesis/catkin_ws/build/kinect_man/catkin_generated/installspace/kinect_manConfig.cmake"
+    "/home/edgar-ii/github/tesis/catkin_ws/build/kinect_man/catkin_generated/installspace/kinect_manConfig-version.cmake"
     )
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinect_man" TYPE FILE FILES "/home/edgar/github/tesis/catkin_ws/src/kinect_man/package.xml")
+  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinect_man" TYPE FILE FILES "/home/edgar-ii/github/tesis/catkin_ws/src/kinect_man/package.xml")
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 

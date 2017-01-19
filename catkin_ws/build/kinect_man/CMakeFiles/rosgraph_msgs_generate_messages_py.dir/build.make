@@ -35,10 +35,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/edgar/github/tesis/catkin_ws/src
+CMAKE_SOURCE_DIR = /home/edgar-ii/github/tesis/catkin_ws/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/edgar/github/tesis/catkin_ws/build
+CMAKE_BINARY_DIR = /home/edgar-ii/github/tesis/catkin_ws/build
 
 # Utility rule file for rosgraph_msgs_generate_messages_py.
 
@@ -56,10 +56,10 @@ kinect_man/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build: rosgraph_msg
 .PHONY : kinect_man/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build
 
 kinect_man/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/clean:
-	cd /home/edgar/github/tesis/catkin_ws/build/kinect_man && $(CMAKE_COMMAND) -P CMakeFiles/rosgraph_msgs_generate_messages_py.dir/cmake_clean.cmake
+	cd /home/edgar-ii/github/tesis/catkin_ws/build/kinect_man && $(CMAKE_COMMAND) -P CMakeFiles/rosgraph_msgs_generate_messages_py.dir/cmake_clean.cmake
 .PHONY : kinect_man/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/clean
 
 kinect_man/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/depend:
-	cd /home/edgar/github/tesis/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/edgar/github/tesis/catkin_ws/src /home/edgar/github/tesis/catkin_ws/src/kinect_man /home/edgar/github/tesis/catkin_ws/build /home/edgar/github/tesis/catkin_ws/build/kinect_man /home/edgar/github/tesis/catkin_ws/build/kinect_man/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/edgar-ii/github/tesis/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/edgar-ii/github/tesis/catkin_ws/src /home/edgar-ii/github/tesis/catkin_ws/src/kinect_man /home/edgar-ii/github/tesis/catkin_ws/build /home/edgar-ii/github/tesis/catkin_ws/build/kinect_man /home/edgar-ii/github/tesis/catkin_ws/build/kinect_man/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : kinect_man/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/depend
 

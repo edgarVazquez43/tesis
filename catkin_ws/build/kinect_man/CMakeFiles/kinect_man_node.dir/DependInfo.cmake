@@ -4,7 +4,7 @@ SET(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 SET(CMAKE_DEPENDS_CHECK_CXX
-  "/home/edgar/github/tesis/catkin_ws/src/kinect_man/src/kinect_man_node.cpp" "/home/edgar/github/tesis/catkin_ws/build/kinect_man/CMakeFiles/kinect_man_node.dir/src/kinect_man_node.cpp.o"
+  "/home/edgar-ii/github/tesis/catkin_ws/src/kinect_man/src/kinect_man_node.cpp" "/home/edgar-ii/github/tesis/catkin_ws/build/kinect_man/CMakeFiles/kinect_man_node.dir/src/kinect_man_node.cpp.o"
   )
 SET(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -21,8 +21,7 @@ SET(CMAKE_TARGET_LINKED_INFO_FILES
 
 # The include file search paths:
 SET(CMAKE_C_TARGET_INCLUDE_PATH
-  "/usr/local/include/opencv"
-  "/usr/local/include"
+  "/usr/include/opencv"
   "/opt/ros/indigo/include"
   )
 SET(CMAKE_CXX_TARGET_INCLUDE_PATH ${CMAKE_C_TARGET_INCLUDE_PATH})

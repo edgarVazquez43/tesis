@@ -10,3 +10,5 @@
 *#
 *.includecache
 *.cpp.o
+build/
+devel/
