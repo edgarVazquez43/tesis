@@ -5,7 +5,7 @@
 \usepackage{hyperref}
 \usepackage{enumerate}
 \usepackage{graphicx}
-\graphicspath{ {../images/} }
+\graphicspath{ {../imgs/} }
 
 
 \begin{document}
@@ -38,10 +38,10 @@
 		\vspace*{0.2in}
 
 		\begin{Large}
-			\textbf{Caracterización de un sistema de reconocimiento y manipulación de objetos para un robot de servicio} \\
+			\textbf{ Desarrollo de un sistema de detección y manipulación de objetos para un robot de Servicio} \\
 		\end{Large}
 		\vspace*{0.65in}
-		
+
 		\rule{110mm}{0.1mm}
 
 		\vspace*{0.35in}
@@ -81,7 +81,7 @@
 		%\vspace{0.2in}
 
 		%Problemática robots de servicio.
-		La creación de estos sistemas autónomos requiere la integración de un gran conjunto de capacidades y tecnologías. Los ejemplos incluyen la interacción humano-robot (habla, identificación de personas, seguimiento de personas, entre otros), navegación, planificación de acciones, control de comportamientos, reconocimiento de objetos, manipulación de objetos o seguimiento de objetos. Con respecto a la inteligencia, los sistemas deben contener métodos de planificaciónde acciones y comportamientos adaptativos. Los procedimientos apropiados deberían, por ejemplo, permitir al operador del robot enseñar nuevos comportamientos y entornos vía comandos de voz o gestos. Los futuros hogares probablemente contendrán dispositivos electrónicos más inteligentes capaces de comunicarse entre sí, inteligencia ambiental, incluyendo el uso de internet como base común de conocimientos, de modo que los robots desempeñarán un papel más importante.\\
+		La creación de estos sistemas autónomos requiere la integración de un gran conjunto de capacidades y tecnologías. Los ejemplos incluyen la interacción humano-robot (habla, identificación de personas, seguimiento de personas, entre otros), navegación, planificación de acciones, control de comportamientos, detección y reconocimiento de objetos, manipulación de objetos o seguimiento de objetos. Con respecto a la inteligencia, los sistemas deben contener métodos de planificaciónde acciones y comportamientos adaptativos. Los procedimientos apropiados deberían, por ejemplo, permitir al operador del robot enseñar nuevos comportamientos y entornos vía comandos de voz o gestos. Los futuros hogares probablemente contendrán dispositivos electrónicos más inteligentes capaces de comunicarse entre sí, inteligencia ambiental, incluyendo el uso de internet como base común de conocimientos, de modo que los robots desempeñarán un papel más importante.\\
 		%\vspace{0.2in}
 
 		%Problemática de la manipulación
@@ -98,30 +98,27 @@
 		%\vspace{0.2in}
 
 		%¿Qué encontraremos en el documento?
-		En el capítulo 3 de este documento se aborda la manera en que se desarrollaron los algoritmos de visión computacional para realizar la extracción de un plano, identificar la posición de un objeto, implementar un algoritmo de Análisis de componentes principales para obtener cual será la mejor orientación para tomar un objeto a partir de su forma. En el capítulo 4 se describe el sistema de manipulación utilizado. Se comienza por conocer las características de los actuadores utilizados, se obtienen las ecuaciones correspondientes a la cinemática de los brazos para llevarlo hasta una posicón (x, y, z) deseda. En el capítulo 5 se realiza la integración de las tareas antes mencionadas, la plataforma sobre la cual se desarrolló el sistema y se describe el desarrollo del modelo probabilístico utilizado para mejorar la manipulación de objetos en un robot de servicios.\\     
+		En el capítulo 3 de este documento se aborda la manera en que se desarrollaron los algoritmos de visión computacional para realizar la extracción de un plano, identificar la posición de un objeto, implementar un algoritmo de Análisis de componentes principales para obtener cual será la mejor orientación para tomar un objeto a partir de su forma. En el capítulo 4 se describe el sistema de manipulación utilizado. Se comienza por conocer las características de los actuadores utilizados, se obtienen las ecuaciones correspondientes a la cinemática de los brazos para llevarlo hasta una posicón (x, y, z) deseda. En el capítulo 5 se realiza la integración de las tareas antes mencionadas, la plataforma sobre la cual se desarrolló el sistema y se describe el desarrollo del modelo probabilístico utilizado para mejorar la manipulación de objetos en un robot de servicios.\\
 
 
 	\section{Hipótesis}
 		\begin{itemize}
 
-			\item Un sistema de visión computacional con implementación de un algoritmo de análisis de componentes principales podrá indicarnos cuál es la mejor orientación para tomar un objeto.\\
-
-			%Esta no es una hipótesis
-			\item Un modelo bayesiano ayudará a caracterizar un sistema de manipulación formado por un sensor Kinect y un brazo robótico.
+			\item Un sistema de visión computacional con implementación de un algoritmo de análisis de componentes principales podrá indicarnos cuál es la mejor orientación para tomar un objeto y por tanto mejorará manipulación de objetos.\\
 			%\vspace{0.25in}
-			
+
 		\end{itemize}
 
 	\section{Objetivos}
 		\subsection*{Objetivo general}
-			Implemetar un conjunto de algoritmos que mejore un sistema de manipulación de objetos formado por un kinect y un brazo robótico de 7DOF en un robot de servicios. 
-		\subsection*{Objetivos específicos} 
+			Implemetar un conjunto de algoritmos de visión computacional que mejore un sistema de detección y manipulación de objetos formado por un sensor kinect y un brazo robótico de 7DOF en un robot de servicios.
+		\subsection*{Objetivos específicos}
 			\begin{itemize}
 				\item Implementar un algoritmo de visión computacional para identificar un plano.
 
 				\item Implementar un algoritmo de visión computacional para determinar la posición de un objeto.
 
-				\item Implementar un algoritmo de analisis de componentes principales para identificar la orientación de los objetos. 
+				\item Implementar un algoritmo de analisis de componentes principales para identificar la orientación de los objetos.
 
 				\item Calcular la cinemática inversa de un brazo robótico de 7DOF para llevarlo a una posición deseada (x, y, z).
 
@@ -138,10 +135,10 @@
 
 
 		%Estado del arte
-		Dado que este trabajo se centrará en los robots de servicio, en partícular en una metodología de reconocimiento y manipulación de objetos, resulta fundamental poner en evidencia el panorama actual de los robots de servicio. La idea general de la robótica de servicio doméstico ha existido desde hace mucho tiempo, pero es un tema de investigación relativamente joven. El objetivo de crear robots de servicios útiles y autónomos que puedan interactuar con seres humanos y objetos en el mundo real en un entorno natural plantea un gran número de problemas sin resolver en muchas disciplinas científicas.\\
+		Dado que este trabajo se centrará en los robots de servicio, en partícular en una metodología de detección y manipulación de objetos, resulta fundamental poner en evidencia el panorama actual de los robots de servicio. La idea general de la robótica de servicio doméstico ha existido desde hace mucho tiempo, pero es un tema de investigación relativamente joven. El objetivo de crear robots de servicios útiles y autónomos que puedan interactuar con seres humanos y objetos en el mundo real en un entorno natural plantea un gran número de problemas sin resolver en muchas disciplinas científicas.\\
 		%\vspace{0.2in}
 
-		Recientemente, el progreso en estos campos de investigación, así como el progreso y la normalización en el desarrollo de hardware y software, ha llevado a un aumento en la disponibilidad de recursos, métodos y componentes para el desarrollo  de Robots de servicio doméstico . Por ello estamos cada vez más cerca de convivir con robots de servicios de manera exitosa en diversos lugares, por ejemplo hospitales \cite{hospitalRobots}, oficinas, construcciones, o tiendas departamentales \cite{robotsInStores}.\\ 
+		Recientemente, el progreso en estos campos de investigación, así como el progreso y la normalización en el desarrollo de hardware y software, ha llevado a un aumento en la disponibilidad de recursos, métodos y componentes para el desarrollo  de Robots de servicio doméstico . Por ello estamos cada vez más cerca de convivir con robots de servicios de manera exitosa en diversos lugares, por ejemplo hospitales \cite{hospitalRobots}, oficinas, construcciones, o tiendas departamentales \cite{robotsInStores}.\\
 		%\vspace{0.2in}
 
 
@@ -155,7 +152,7 @@
 
 
 
-	\section{Cinemática utilizadas en brazos robóticos}
+	\section{Cinemática inversa en brazos robóticos}
 
 
 
@@ -163,27 +160,25 @@
 
 
 
-\chapter{Reconocimiento de objetos}
-	\section{Kinect} 
+\chapter{Detección de objetos}
+	\section{Kinect}
 	\section{OpenCV}
+	\section{Algoritmo RANSAC}
 	\section{Analísis de componentes principales}
 
 
-\chapter{Brazos}
+\chapter{Manipulador}
 	\section{Documentación servos dynamixel}
 	\section{Cinemática inversa}
-	\section{Propuesta de algoritmo para mejorar la cinemática inversa (Modelo probabilístico)}
 
 
-\chapter{Integración}	
+\chapter{Integración}
 	\section{Máquinas de estados}
 	\section{ROS}
 	\section{Constitución del robot de servicio Justina}
 
 
-
 \chapter{Resultados}
-
 
 
 \chapter{Conclusiones}
