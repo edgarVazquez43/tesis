@@ -1,5 +1,4 @@
-#ifndef PLANE_3D
-#define PLANE_3D
+#pragma once
 #include <iostream>
 #include <stdio.h>
 #include <time.h>
@@ -8,33 +7,33 @@
 #include "opencv2/core/core.hpp"
 #include "opencv2/highgui/highgui.hpp"
 #include "plane3D.hpp"
-#endif
-
 
 // Muetreo aleatorio de n muestras de la nube de puntos
+
+
 // Devuele nos valores del punto P[x, y, z] respecto al robot
-bool validPoint(cv::Vec3d point);
+bool validPoint(cv::Point3f point);
 
 cv::Mat randomSample(int n, cv::Mat points);
 
 // Obtenemos los puntos que se ajustan al plano definido por tres puntos
-cv::Mat findPlaneConsensus(std::vector<cv::Vec3d> sample, cv::Mat points, float threshold);
+plane3D findPlaneConsensus(cv::Mat points, float threshold, int attemps);
 
 // Obtenemos la ecuacion del plano que mejor se justa a los puntos
-std::vector<double> planeRANSAC(cv::Mat points);
+//std::vector<double> planeRANSAC(cv::Mat points);
 
 
-/*
-	Definicion de los metodos
-*/
 
-//Metodo para verificar que no sea un dato erroneo en la lectura
-bool verifyPoint(cv::Vec3d point)
+bool verifyPoint(cv::Point3f point)
 {
 	bool isValidPoint = true;
-
-	if(point == cv::Vec3d(0, 0, 0) || cv::norm(point) > 4.0)
+	//std::cout << "norm_p:  " << cv::norm(point) << std::endl;
+	if( point == cv::Point3f(0, 0, 0) )
 		isValidPoint = false;
+
+	if( std::isnan(point.x) || std::isnan(point.y) || std::isnan(point.z) )
+		isValidPoint = false;
+
 
 	return isValidPoint;
 }
@@ -45,78 +44,138 @@ cv::Mat randomSample(int n, cv::Mat points)
 	int rand_x, rand_y;
 	int H = points.rows;
 	int W = points.cols;
+	//std::cout << "Rows: " << H << std::endl;
+	//std::cout << "Cols: " << W << std::endl;
 	bool isReg;
 
 	std::vector<int> pixel_i;
 	std::vector<int> pixel_j;
 	cv::Mat sample;
-	cv::Vec3d validPoint;
+	cv::Point3f validPoint;
 
 	// Generamos numeros aleatorios
 	for (int i = 0; i < n; i++)
 	{
 		do{
 			isReg = false;
-			rand_x = rand() % H;
-			rand_y = rand() % W;
+			rand_x = rand() % W+30;
+			rand_y = rand() % H+30;
 			// Verificamos que el punto tomado de la muestra no sea zero
-			validPoint = points.at<cv::Vec3d>(rand_x, rand_y);
-			if( !verifyPoint(validPoint) )
+			validPoint = points.at<cv::Point3f>(rand_x, rand_y);
+
+			if( verifyPoint(validPoint) )
+			{
+				if (sample.rows > 0)
+					// Ciclo para verificar que los puntos no esten repetidos
+					// en la muestra
+					for (int j = 0; j < sample.rows; j++)
+					{
+						if( cv::norm(sample.at<cv::Point3f>(j)) == cv::norm(validPoint))
+							isReg = true;
+					}
+				//std::cout << "p:  " << validPoint << std::endl;
+			}
+			else
 				isReg = true;
 		}
 		while(isReg);
-		pixel_i.push_back(rand_x);
-		pixel_j.push_back(rand_y);
-	}
 
-	for (int i = 0; i < n; i++)
-	{
-		validPoint = points.at<cv::Vec3d>(pixel_i[i], pixel_j[i]);
+		validPoint = points.at<cv::Point3f>(rand_x, rand_y);
+		//std::cout << "norm_p:  " << cv::norm(validPoint) << std::endl;
 		sample.push_back(validPoint);
 	}
+
 	return sample;
 }
 
-cv::Mat findPlaneConsensus(cv::Mat sample, cv::Mat points, float threshold)
+plane3D findPlaneConsensus( cv::Mat points, float threshold, int maxAttemps)
 {
-	//cv::Mat points es la nube de puntos del kinect
-	cv::Mat consensus;
-	cv::Point3d p0, p1, p2, px;
-	cv::Vec4d planeComp;
-
 	bool signedDistance = false;
-	int inliers;
-	int pixel_x;
-	int pixel_y;
-	double error;
+	bool sampleValid = false;
+	int W = points.cols;
+	int H = points.rows;
+	int bestInliers;
+	int attemp;
+	int currentInliers;
+	int validPoints;
+	int bestValidPoints;
+	float error;
 
-	inliers = 0;
-	// Determinamos el plano por 3 puntos
-	p0 = sample.at<cv::Point3d>(0, 0);
-	p1 = sample.at<cv::Point3d>(1, 0);
-	p2 = sample.at<cv::Point3d>(2, 0);
+	//cv::Mat points es la nube de puntos del kinect
+	cv::Mat rndSample;
+	cv::Point3f px;
+	cv::Mat bestImage;
 
-	plane3D N(p0, p1, p2);
-	//planeComp = N.GetPlaneComp();
-	//std::cout << "findPlaneRansac.->Plane component: " << planeComp << std::endl;
+	plane3D bestPlane;
+	plane3D falsePlane(cv::Point3f(1.0, 1.0, 1.0), cv::Point3f(1.0, 0.0, 0.0));
 
-	for (int i = 0; i < points.rows; i++)
-		for(int j = 0; j < points.cols; j++)
+
+	bestInliers = 0;
+	validPoints = 0;
+	bestValidPoints = 0;
+	error = 0.0;
+	attemp = 0;
+
+
+	while(attemp < maxAttemps)
+	{
+		//consensus.release();
+		currentInliers =0;
+		validPoints = 0;
+		rndSample = randomSample(3, points);
+
+		// Determinamos el plano por 3 puntos
+		plane3D propusePlane( rndSample.at<cv::Point3f>(0), rndSample.at<cv::Point3f>(1), rndSample.at<cv::Point3f>(2) );
+
+		if(propusePlane.GetNormal() != cv::Point3f(1.0, 1.0, 1.0) )
 		{
-			// Calculamos la distancia de cada uno de los puntos al plano
-			px = points.at<cv::Point3d>(i, j);
-			if ( verifyPoint(px))
+			// Recorremos todo la nube de puntos y comparamos los puntos que entran en el modelo
+			for(int j = 0; j < points.rows; j++)
 			{
-				error = N.DistanceToPoint(px, signedDistance);
-				//std::cout << "error: " << error << std::endl;
-				// Camparamos si la distancia está dentro de la tolerancia
-				if (error < threshold)
-					// Añadimos el punto[x, y] al Mat consensus
-					inliers++;
-					consensus.push_back(px);
+				for (int i = 0; i < points.cols; i++)
+				{
+					// Calculamos la distancia de cada uno de los puntos al plano
+					px = points.at<cv::Point3f>(j, i);
+					if ( verifyPoint(px))
+					{
+						error = propusePlane.DistanceToPoint(px, signedDistance);
+						// Camparamos si la distancia está dentro de la tolerancia
+						if (error < threshold)
+						{
+							// Añadimos el punto[x, y] al Mat consensus
+							currentInliers++;
+						}
+						validPoints++;
+					}
+				}
+
 			}
+
+			if (currentInliers > bestInliers)
+			{
+				bestPlane = propusePlane;
+				bestValidPoints = validPoints;
+				bestInliers = currentInliers;
+				//std::cout << "inliers: " << bestInliers;
+				//std::cout << "   ValidPoints: " << bestValidPoints;
+				//std::cout << "   Porcentaje: " << 100*(float)(bestInliers)/(float)(bestValidPoints) << std::endl;
+				//std::cout << "        -----       " << std::endl;
+			}
+
 		}
 
-	std::cout << "inliers: " << inliers << std::endl;
-	return consensus;
+		attemp++;
+	}
+
+
+	std::cout << "BestModel: " << bestPlane.GetPlaneComp() << std::endl;
+	std::cout << "BestInliers: " << bestInliers;
+	std::cout << " - validPoints: " << bestValidPoints;
+	std::cout << "   Porcentaje: " << 100*(float)(bestInliers)/(float)(bestValidPoints) << std::endl;
+
+	if ( (100*(float)(bestInliers)/(float)(bestValidPoints)) < 25.0 )
+		return falsePlane;
+
+	return bestPlane;
 }
+

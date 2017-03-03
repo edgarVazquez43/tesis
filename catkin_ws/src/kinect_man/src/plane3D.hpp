@@ -1,4 +1,6 @@
+#pragma once
 #include <cmath>
+#include <stdexcept>
 #include "opencv2/core/core.hpp"
 #include "opencv2/highgui/highgui.hpp"
 
@@ -13,20 +15,20 @@ class plane3D{
 		double GetB();
 		double GetC();
 		double GetD();
-		cv::Vec4d GetPlaneComp();
+		cv::Vec4f GetPlaneComp();
 		cv::Point3f GetNormal();
 
-		double DistanceToPoint(cv::Point3f p, bool signedDistance=false);
+		float DistanceToPoint(cv::Point3f p, bool signedDistance=false);
 
 	private:
 		double a;
 		double b;
 		double c;
 		double d;
-		cv::Vec4d planeComp;
+		cv::Vec4f planeComp;
 };
 
-// Definicion de un plano por un punto y el vector normal al plano
+
 plane3D::plane3D()
 {
 	cv::Point3f p1(0.0 , 0.0, 0.0);
@@ -43,15 +45,17 @@ plane3D::plane3D(cv::Point3f p1, cv::Point3f p2, cv::Point3f p3)
 {
 	cv::Point3f p12 = p2 - p1;
 	cv::Point3f p13 = p3 - p1;
+	cv::Point3f normal;
 
-	// Producto cruz
-	cv::Point3f normal = p12.cross( p13 );
+	normal = p12.cross( p13 );
 
-	if( normal == cv::Point3f(0,0,0) )
-		throw "Cant create Plane3D, normal is 0,0,0";
-
-	// Se normaliza el vector
-	normal *= 1 / cv::norm( normal );
+	if( normal == cv::Point3f(0.0, 0.0, 0.0) )
+		normal = cv::Point3f(1.0, 1.0, 1.0);
+	else
+	{
+		// Se normaliza el vector
+		normal *= 1 / cv::norm( normal );
+	}
 
 	this-> a = normal.x;
 	this-> b = normal.y;
@@ -59,14 +63,14 @@ plane3D::plane3D(cv::Point3f p1, cv::Point3f p2, cv::Point3f p3)
 	this-> d = - ( normal.x*p1.x + normal.y*p1.y + normal.z*p1.z );
 }
 
-// Definicion de un plano por un vector normal y un ponto
+// Definicion de un plano por un vector normal y un punto
 plane3D::plane3D(cv::Point3f normal, cv::Point3f p1)
 {
 	if( normal == cv::Point3f(0,0,0) )
-		throw "Cant create Plane3D, normal is 0,0,0";
+		throw std::logic_error("Can't create Plane3D, normal is 0,0,0");
 
 	// Se normaliza el vector
-	normal *= 1 / cv::norm( normal );
+	//normal *= 1 / cv::norm( normal );
 
 	this-> a = normal.x;
 	this-> b = normal.y;
@@ -99,12 +103,12 @@ cv::Point3f plane3D::GetNormal()
 	return cv::Point3f(this->a, this->b, this->c);
 }
 
-cv::Vec4d plane3D::GetPlaneComp()
+cv::Vec4f plane3D::GetPlaneComp()
 {
-	return cv::Vec4d(this->a, this->b, this->c, this->d);
+	return cv::Vec4f(this->a, this->b, this->c, this->d);
 }
 
-double plane3D::DistanceToPoint(cv::Point3f p, bool signedDistance)
+float plane3D::DistanceToPoint(cv::Point3f p, bool signedDistance)
 {
 	double a = this->a;
 	double b = this->b;
