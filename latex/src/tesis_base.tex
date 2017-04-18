@@ -81,7 +81,7 @@
 		%\vspace{0.2in}
 
 		%Problemática robots de servicio.
-		La creación de estos sistemas autónomos requiere la integración de un gran conjunto de capacidades y tecnologías. Los ejemplos incluyen la interacción humano-robot (habla, identificación de personas, seguimiento de personas, entre otros), navegación, planificación de acciones, control de comportamientos, detección y reconocimiento de objetos, manipulación de objetos o seguimiento de objetos. Con respecto a la inteligencia, los sistemas deben contener métodos de planificaciónde acciones y comportamientos adaptativos. Los procedimientos apropiados deberían, por ejemplo, permitir al operador del robot enseñar nuevos comportamientos y entornos vía comandos de voz o gestos. Los futuros hogares probablemente contendrán dispositivos electrónicos más inteligentes capaces de comunicarse entre sí, inteligencia ambiental, incluyendo el uso de internet como base común de conocimientos, de modo que los robots desempeñarán un papel más importante.\\
+		La creación de estos sistemas autónomos requiere la integración de un gran conjunto de capacidades y tecnologías. Los ejemplos incluyen la interacción humano-robot (habla, identificación de personas, seguimiento de personas, entre otros), navegación, planificación de acciones, control de comportamientos, detección y reconocimiento de objetos, manipulación de objetos o seguimiento de objetos. Con respecto a la inteligencia, los sistemas deben contener métodos de planificaciónde acciones y comportamientos adaptables. Los procedimientos apropiados deberían, por ejemplo, permitir al operador del robot enseñar nuevos comportamientos y entornos vía comandos de voz o gestos. Los futuros hogares probablemente contendrán dispositivos electrónicos más inteligentes capaces de comunicarse entre si incluyendo el uso de internet como base común de conocimientos, de modo que los robots desempeñarán un papel más importante.\\
 		%\vspace{0.2in}
 
 		%Problemática de la manipulación
@@ -94,11 +94,11 @@
 		%\vspace{0.2in}
 
 
-		Podemos observar que las problematicas son variadas, sin embargo podemos reducir el problema principal en tres tareas secundarias: Idenficar un objeto, Obtener una aproximación de cuál será la mejor manera de tomarlo y caracterizar el sistema en conjunto para obtener un parámetro de confiabilidad.\\
+		Podemos observar que las problematicas son variadas, sin embargo podemos reducir el problema principal en tres tareas secundarias: Detectar un objeto, obtener una aproximación de cuál será la mejor manera de tomarlo y caracterizar el sistema en conjunto para obtener un parámetro de confiabilidad.\\
 		%\vspace{0.2in}
 
 		%¿Qué encontraremos en el documento?
-		En el capítulo 3 de este documento se aborda la manera en que se desarrollaron los algoritmos de visión computacional para realizar la extracción de un plano, identificar la posición de un objeto, implementar un algoritmo de Análisis de componentes principales para obtener cual será la mejor orientación para tomar un objeto a partir de su forma. En el capítulo 4 se describe el sistema de manipulación utilizado. Se comienza por conocer las características de los actuadores utilizados, se obtienen las ecuaciones correspondientes a la cinemática de los brazos para llevarlo hasta una posicón (x, y, z) deseda. En el capítulo 5 se realiza la integración de las tareas antes mencionadas, la plataforma sobre la cual se desarrolló el sistema y se describe el desarrollo del modelo probabilístico utilizado para mejorar la manipulación de objetos en un robot de servicios.\\
+		En el capítulo 3 de este documento se aborda la manera en que se desarrollaron los algoritmos de visión computacional para realizar la extracción de un plano, identificar la posición de un objeto, implementar un algoritmo de Análisis de Componentes Principales para obtener cual será la mejor orientación para tomar un objeto a partir de su forma. En el capítulo 4 se describe el sistema de manipulación utilizado. Se comienza por conocer las características de los actuadores utilizados, se obtienen las ecuaciones correspondientes a la cinemática de los brazos para llevarlo hasta una posicón (x, y, z, roll, pitch, yaw) deseda. En el capítulo 5 se realiza la integración de las tareas antes mencionadas, la plataforma sobre la cual se desarrolló el sistema y se describe el desarrollo del modelo probabilístico utilizado para mejorar la manipulación de objetos en un robot de servicios.\\
 
 
 	\section{Hipótesis}
@@ -111,7 +111,7 @@
 
 	\section{Objetivos}
 		\subsection*{Objetivo general}
-			Implemetar un conjunto de algoritmos de visión computacional que mejore un sistema de detección y manipulación de objetos formado por un sensor kinect y un brazo robótico de 7DOF en un robot de servicios.
+			Implemetar un conjunto de algoritmos de visión computacional que mejore el sistema de detección y manipulación de objetos formado por un sensor kinect y un brazo robótico de 7DOF en un robot de servicios.
 		\subsection*{Objetivos específicos}
 			\begin{itemize}
 				\item Implementar un algoritmo de visión computacional para identificar un plano.
@@ -120,7 +120,7 @@
 
 				\item Implementar un algoritmo de analisis de componentes principales para identificar la orientación de los objetos.
 
-				\item Calcular la cinemática inversa de un brazo robótico de 7DOF para llevarlo a una posición deseada (x, y, z).
+				\item Calcular la cinemática inversa de un brazo robótico de 7DOF para llevarlo a una posición deseada (x, y, z, roll, pitch, yaw).
 
 				\item Caracterizar el sistema de manipulación de objetos usando un modelo bayesiano.
 
@@ -148,11 +148,18 @@
 		En la parte de simulación se cuenta con ejemplos como el USARSim \cite{balakirsky2006}, rviz \cite{rVizEpage} o Gazebo \cite{gazeboEpage}. Por lo que respecta a los algoritmos de visión computacional existen bibliotecas de código abierto por ejemplo OpenCV \cite{openCV} el cual tiene un gran campo de aplicaciones\cite{bradski2000}. Por lo que corresponde a los kits standar de hardware, podemos mencionar la construcción de robots de plataforma standar por ejemplo VolksBot \cite{wisspeintner2007} y las plataformas bases por ejemplo ActivRobots \cite{ActivRobots}, Pepper \cite{pepperEpage}, Asimo \cite{asimoEpage} ha hecho posible desarrollar software de manera más rápida y eficiente.\\
 		%\vspace{0.2in}
 
-	\section{Técnicas de roconocimiento de objetos}
+	\section{Fundamentos básico de Visión Artificial}
+		\subsection{Etapas de la visión artificial}
+		\subsection{Representación de una imagen}
+		\subsection{Procesamiento}
+		\subsection{Características del objeto}
 
 
-
-	\section{Cinemática inversa en brazos robóticos}
+	\section{Fundamentos básicos de Robots Mnipuladores}
+		\subsection{Configuraciones típicas}
+		\subsection{Sistemas mecánicos}
+		\subsection{Manipuladores antropomorficos}
+		\subsection{Programación de robots}
 
 
 
@@ -168,6 +175,7 @@
 
 
 \chapter{Manipulador}
+	\section{Descripción de los elementos del sistema de manipulación}
 	\section{Documentación servos dynamixel}
 	\section{Cinemática inversa}
 
