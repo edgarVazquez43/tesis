@@ -1,34 +1,56 @@
-1. Introducción
-La idea general de la robótica personal de servicio doméstico (DSR) ha existido desde hace mucho tiempo, pero es un tema de investigación relativamente joven. El objetivo de crear servicios útiles, autónomos y robots personales que puede interactuar con seres humanos y objetos en el mundo real en un entorno natural plantea un gran número de problemas sin resolver en muchas disciplinas científicas.
+1Points Cloud----------------
+
+Para optimizar los movimientos de un robot, no sólo se debe identificar cada objeto que se encuentra en el entorno de trabajo, sino también
+Situado en referencia al propio robot. Normalmente, la segmentación de objetos de una imagen se logra mediante la segmentación de color.
+Esta segmentación puede conseguirse procesando los componentes cromáticos R, G y B. Sin embargo, este método tiene la
+Desventaja de haber sido muy sensible a los cambios en la iluminación. Conversión de la imagen RGB en el espacio de color CIE-Lab
+Evita la falta de sensibilidad aumentando la precisión de la segmentación del color. Desafortunadamente, si varios objetos
+Del mismo color se presentan en la escena, no es posible identificar uno de estos objetos utilizando sólo este espacio de color.
+Por lo tanto, necesitamos considerar una fuente de datos adicional, en este caso la profundidad, para discriminar objetos que son
+No en el mismo plano que el objeto de interés. En este trabajo, se introduce un algoritmo para detectar objetos, esencialmente
+En ambientes interiores, utilizando CIE-Lab y técnicas de segmentación de profundidad. Procesamos las imágenes de color y profundidad
+Proporcionado por el sensor Kinect para proponer una estrategia visual con un rendimiento en tiempo real.
 
 
-El sistema debe ser capaz de manipular objetos en varias ubicaciones y desde diferentes alturas, y necesita ser capaz de locomoción en diferentes terrenos. Cuando se interactúa con un humano el robot debería poseer alguna inteligencia (social) básica y debería ser capaz de distinguir diferentes personas. Por último, pero no menos importante, el funcionamiento seguro y robusto de estos sistemas en ámbientes dinámicos es un requisito fundamental para su futura aceptación y
-aplicabilidad.
+Este proyecto se ocupa del problema de detectar objetos basados ​​en un nuevo dispositivo de detección RGB-D
+Cámara: el sensor de Microsoft Kinect [8, 9]. La rápida evolución de esta reciente tecnología
+Calidad de imágenes sincronizadas de color y profundidad en el rendimiento de alta frecuencia. En particular, la profundidad
+La imagen se obtiene mediante una matriz proyectada por infrarrojos que rebote sobre los objetos. La cámara IR captura
+Estos haces, con una varianza de intensidad, y calcula la distancia a cada objeto en la escena. Aquí nosotros
+Procese la imagen de color RGB para obtener una imagen de espacio de color CIE-Lab. Luego, calculamos el euclidiano
+Distancias entre un píxel seleccionado del objeto de interés y el resto de los puntos de la imagen, este
+La información se interpreta como un valor de probabilidad para cada punto de la imagen en el espacio de color [10]. Desde el color
+Y la información de profundidad son proporcionados por diferentes sensores dentro del kinect, una operación de homografía es
+Aplicado a la imagen de probabilidad con el fin de obtener una adecuación geométrica con respecto a la imagen de profundidad.
+Después de eso, combinamos información de probabilidad y profundidad para calcular la segmentación final del objeto
+en escena.
+Este artículo está organizado de la siguiente forma: La sección 2 describe nuestro algoritmo propuesto para la detección de objetos.
+El concepto de homografía y cómo relacionar diferentes planos de imagen del conjunto de datos se presenta en sec-
+3. Las ventajas y la transformación de imagen en color RGB a CIE-Lab se describen en la sección 4. La
+La sección 5 describe cómo hacer la segmentación de color y profundidad seguida de algunos resultados experimentales
+Y conclusiones.
+
+5. Segmentación de la profundidad de color
+En primer lugar, explicamos los resultados utilizando sólo el algoritmo de segmentación de color. La prueba consiste en varios tipos
+De sillas con color diferente como se muestra en la Fig. 4.a. La imagen de color segmentada correspondiente cuando
+Seleccione la silla naranja se muestra en la Fig. 4.b. Examinando esta figura, observamos que el color de la imagen seleccionada
+Objeto se resalta en negro, siendo el resto de los objetos representados en escala de grises. En la Fig. 4.c muestra
+El caso cuando seleccionamos la silla azul.
+La imagen de color RGB mostrada en la Fig. 5.a se transforma en el espacio de color CIE-Lab como se describe
+En la sección anterior. Esta transformación simplifica la segmentación del color y es sólo una cuestión de Calculando la distancia euclidiana para cada componente al punto de interés. Un ejemplo de este procedimiento
+Se presenta en la Fig. 5.b, donde el punto de interés se elige en la silla media.
+La imagen probabilística permite identificar todos los objetos con el mismo color. La máscara inicial es ob-
+Eliminado todos los objetos para los cuales las distancias euclidianas son mayores que un umbral definido
+experimentalmente. Esta máscara se presenta en la Fig. 5.c. Hasta ahora, todos los objetos del mismo color pueden ser
+Se extrae de la imagen RGB aplicando la máscara inicial. Sin embargo, para obtener otra máscara que
+Contiene sólo el objeto de interés, se utiliza la información de profundidad. Por lo tanto, la máscara inicial y la profundidad
+Información se combinan para eliminar los objetos con diferentes colores e información geométrica
+Al objeto interesante.
 
 
-La creación de estos sistemas autónomos requiere la integración de un gran conjunto de capacidades y tecnologías. Los ejemplos incluyen la interacción humano-robot (habla, gesto, identificación de personas, seguimiento de personas, entre otros), navegación y cartografía, razonamiento, planificación, control de comportamientos, reconocimiento de objetos, manipulación de objetos o seguimiento de objetos. Con respecto a la inteligencia, los sistemas deben contener métodos de planificación y comportamiento adaptativos robustos. Los métodos de programación intuitivos (en forma de códigos de computadora) son necesarios para una amplia aceptación y usabilidad. Los procedimientos apropiados deberían, por ejemplo, permitir al operador del robot enseñar nuevos comportamientos y entornos vía comandos de voz o gestos. Como futuros hogares probablemente contendrán dispositivos electrónicos más inteligentes capaces de comunicarse entre sí, inteligencia ambiental, incluyendo el uso de Internet como base común de conocimientos, desempeñará ciertamente un papel más importante.
 
 
-Recientemente, el progreso en estos campos de investigación, así como el progreso y la normalización en el desarrollo de hardware y software, ha llevado a un aumento en la disponibilidad de recursos, métodos y componentes para el desarrollo  de DSR. Esto incluye la disponibilidad de marcos de software para el control de robot (por ejemplo, Carmen 1 [ Montemerlo et al., 2003 ], Etapa Player / 2 [ Gerkey et al., 2003] , MRPT 3, 4 MRS), simulación (por ejemplo USARSim 5 [ Balakirsky 2006 ]), y las bibliotecas de código abierto de  que contienen algoritmos para la visión por ordenador (por ejemplo, OpenCV 6 con diversas aplicaciones como se muestra en la [ Bradski y Pisarevsky, 2000]) o el control de robot (por ejemplo Orocos 7 [ Bruyninckx, 2001] ). 
 
 
-En:
-1 kit de herramientas de navegación del robot Carnegie Mellon (http://carmen.sourceforge.net/)
-2 El proyecto de DVD / Etapa (http://playerstage.sourceforge.net/)
-3 El kit de herramientas de programación del robot móvil (http://babel.isa.uma.es/mrpt/index.php Main página)
-4 Microsoft Robotics Studio (http://msdn.microsoft.com/en-us/robotics/default.aspx)
-5 Sistema Unificado de Automatización y Simulación del robot (http://sourceforge.net/projects/usarsim)
-6 La Biblioteca Abierta de Visión por Computador (http://sourceforge.net/projects/opencv/)
-7 Software de Control del robot abierta (http://www.orocos.org/)
+Manipuladores  ---- -- -- - ------------------------>
 
-
-por lo que corresponde a los kits de hardware, la construcción de los robots (por ejemplo VolksBot [ Wisspeintner y Nowak, 2007] y las plataformas bases (por ejemplo ActivRobots 9), el cálculo más rápido y eficiente de la energía o el peso ligero de los dispositivos de manipulación (por ejemplo Katana 10), así como sensores en miniatura (por ejemplo LIDAR 11) están disponibles.
-
-
-En resumen, una mayor disponibilidad, accesibilidad y compatibilidad de estas tecnologías permite a los grupos de investigación no sólo abordar un pequeño subconjunto de los problemas en los robots DSR, sino también permite abordar un problema en partícular. Obviamente, DSR no se trata únicamente de integrar soluciones existentes. Pero la consiguiente reutilización de la tecnología existente puede ayudar a ahorrar tiempo y esfuerzos para que los investigadores puedan centrarse en un campo de investigación en particular.
-
-
-Esto también se ve confirmado por la presencia, en el mercado, de aplicaciones robotizadas de servicios bastante especializadas. Estas aplicaciones incluyen la limpieza de suelos (por ejemplo Roomba y Scooba 12), cortadoras de césped (por ejemplo RoboMow 13) y vigilancia (por ejemplo Robowatch 14). 
-
-
-Sin embargo, estos robots de servicio no poseen las propiedades de un robot de servicio doméstico autónomo e inteligente multipropósito. Entre los ejemplos prominentes de proyectos de investigación en robots domésticos auxiliares y personales se incluyen Ready-Bot 15 y 16 PR2. Wakamaru 17 y 18 PaPeRo se centran más en los estudios de interacciones sociales. Muchos de estos proyectos abordan aspectos relevantes de los robots DSR. Sin embargo, lo que parece estar faltando es la conjunción internacional y multidisciplinaria de la investigación y el desarrollo de los sistemas en los robots DSR.
