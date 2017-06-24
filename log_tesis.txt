@@ -10,8 +10,45 @@ Actividades realizadas hasta el momento...
 
 4.- Se observó una pérdida de datos en la comunicación con los servos del brazo. Por consiguiente, analizamos cada uno de los servos por separado. Para ello se realizaron dos pruebas:
     
-    4.1.- Sin par de torsión en los motores se realizó la comunicación con cada uno de ellos transmitiendo 200, 500 y 1000 datos correspondientes a la lectura de la posición para cada caso. Se contabililizó el total de datos vaciós que reportó cada uno de los servomotores. [Ver tabla 1]
+    ****Corregir está prueba. Transmitir 1k datos a diferentes baudarates para cada brazo y observar la cantidad de datos perdidos ó el momento en que falla el nodo.  
+    
+5.- Se observó un problema de caída de voltaje en la cadena cinemática.
 
-    4.2.- (Pendiente de Realizar) Con par de torsión llevar los servomotores a una posición demandante de corriente. Realizar la lectura de la posición que reportan los servomotores y contabilizar los datos erroneos.     
+    5.1.- Primer problema----> La alimentación de la base era la misma que los brazos. (En el mismo nodo de corriente, misma batería).
+    	  *Se resolvió poniendo una alimentación independiente y haciendo tierras comunes.
+
+
+    5.2.- Segundo problema---> El número de motores en la cadena cinemática producia una caída de voltaje en cada uno de los motores, por tanto la el voltaje en los elementos finales de la cadena cinematica era menor lo que ocasionaba un retrazo en la comunicación y perdida de datos.
+    	  *Se resolvió separando la alimenatción a lo largo de la cadena cinematica en dos circuitos paralelos.
+
+----------------------        
+Desarrollo de Algoritmo de visión.
+
+1.- Se trabajó con el kinect y la nube de profundidad proporcionada por el sensor.
+
+2.- Se desarrollo un algoritmo RANSAC para encontar UN plano en cualquier orientación y a cualquier altura. (Por el momento es solo un plano. Se podrian buscar más planos)
+
+3.- Se segmentó el plano de acuerdo a la cantidad de puntos que cumplen con la ecuación.
+
+4.- Se segmentaron los objetos que se encuentran sobre el plano. Para ello se eliminaron los puntos del plano, los puntos debajo del plano, los puntos muy lejanos en x. Con ello se logró "aislar" la nube de puntos correspondientes. **Por lo pronto solo funciona con un objeto sobre el plano.
+
+    **** Es recomendable aplicar un Cloustering para obtener tantos conjuntos de puntos como objetos sobre el plano haya.
+
+5.- Se aplicó el algoritmo PCA a la nube de puntos de los objetos para obtener la distribución de los puntos a lo largo de los ejes coordinados (x, y, z). Se obtuvo la desviación estandart de los puntos a lo largo de los ejes. Para compararlos y determinar cual es el eje mayor del objeto y poder manipularlo en ese sentido.
+
+    **** Hace falta hacer la comparación y determinar el ángulo correcto para la mejor manipulación.
+
+
+--------------------------
+Desarrollo de la cinemática directa del manipulador
+
+1.- Se midieron las longitudes de los eslabones del manipulador.
+
+2.- Se determinaron las transformaciones procurando que los ejes de rotación coindieran con los ejes "z" de cada sistema.
+
+*** 3.- Determinar los parametros Denavith-Hartemberg.
+
+*** 4.- Determinar la matriz de transformación final de griper con respecto del sistema inercial del mismo brazo. (Nos servirá para verificar siu el gripper coindice con nuestra posisición deseada).
+
 
 	
