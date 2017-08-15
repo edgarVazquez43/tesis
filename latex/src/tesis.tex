@@ -1,0 +1,89 @@
+\documentclass[a4paper, openright, 12pt]{report}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{subfiles}
+\usepackage{blindtext}
+\graphicspath{ {../imgs/} {../../imgs/} }
+
+
+\begin{document}
+
+
+\begin{titlepage}
+
+	\begin{center}
+		\vspace*{-1in}
+		\begin{figure}[htb]
+			\begin{center}
+			\includegraphics[width=3.5cm, height=4cm]{/unam.png}
+			\end{center}
+		\end{figure}
+		\vspace*{0.35in}
+
+		\begin{large}
+			\rule{130mm}{0.1mm}\\
+			UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO
+		\end{large}
+		\vspace*{0.55in}
+
+		FACULTAD DE INGENIERÍA \\
+		\vspace*{0.25in}
+		DEPARTAMENTO DE INGENIERÍA MECÁNICA E INDUSTRIAL\\
+		\vspace*{0.6in}
+		\begin{large}
+			TESIS:\\
+		\end{large}
+		\vspace*{0.2in}
+
+		\begin{Large}
+			\textbf{ Desarrollo de un sistema de detección y manipulación de objetos para un robot de Servicio} \\
+		\end{Large}
+		\vspace*{0.65in}
+
+		\rule{110mm}{0.1mm}
+
+		\vspace*{0.35in}
+		\begin{large}
+			Edgar de Jesús Vázquez Silva \\
+			\vspace*{0.25in}
+			Noviembre 2016\\
+		\end{large}
+
+
+	\end{center}
+
+\end{titlepage}
+
+
+
+\tableofcontents{}
+
+
+\newpage{}
+
+\subfile{sections/introduccion}
+
+\subfile{sections/marcoTeorico}
+
+\subfile{sections/deteccionObjetos}
+
+\subfile{sections/manipulador}
+
+\subfile{sections/integracion}
+
+\subfile{sections/resultadosConclusiones}
+
+\newpage{}
+
+
+\bibliographystyle{ieeetr}
+\bibliography{biblio.bib}
+
+
+
+\end{document}
+
