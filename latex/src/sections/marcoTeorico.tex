@@ -21,6 +21,7 @@
 
 		\begin{figure}[htb]
 			\begin{center}
+			\caption{Robot asimo desarrollado por la companía Honda.}
 			\includegraphics[width=3.5cm, height=5cm]{/asimo.jpg}
 			\end{center}
 		\end{figure}
@@ -39,6 +40,7 @@
 
 		\begin{figure}[htb]
 			\begin{center}
+			\caption{Robot serial elaborado por la companía ABB.}
 			\includegraphics[width=3.5cm, height=4cm]{/serial_abb.jpg}
 			\end{center}
 		\end{figure}
@@ -76,6 +78,7 @@ Los principales parámetros que caracterizan a los robots industriales son:
 
 		\begin{figure}[htb]
 			\begin{center}
+			\caption{Robot paralelo.}
 			\includegraphics[width=6.5cm, height=4.5cm]{/robotParalelo.jpg}
 			\end{center}
 		\end{figure}
@@ -88,11 +91,25 @@ Los principales parámetros que caracterizan a los robots industriales son:
 
 			*La matriz de transformación homogénea es una matriz de 4x4 que trasnforma un vector expresado en coordenadas homogéneas desde un sistema de coordenadas hasta otro sistema de coordenadas. La matriz de transformación homogénea tiene la siguiente estructura:\\
 
-			***Matriz Transformación Homogénea
+			
+			$$
+			T_{0,1} =
+			\begin{bmatrix}
+    			n_{x} & s_{x} & a_{x} &  p_{x} \\
+			    n_{y} & s_{y} & a_{y} &  p_{y} \\
+			    n_{z} & s_{z} & a_{z} &  p_{z} \\
+			    0     &   0   &   0   &    1
+			\end{bmatrix}
+			$$
 
-			donde los vectores n, s, a, son vectores ortogonales unitarios y p es un vector que describe la posición x, y, z del origen del sistema actual respecto del sistema de referencia.
+			donde los vectores n, s, a, son vectores ortogonales unitarios que representan la rotación del sistema y p es un vector que describe la posición x, y, z del origen del sistema actual respecto del sistema de referencia.
 
-			*** Gráfico sistemas de referencia.
+			\begin{figure}[htb]
+				\begin{center}
+				\caption{Esquema de sistemas de referencia en robot antropomórfico de seis grados de libertad.}
+				\includegraphics[width=5.5cm, height=6.5cm]{/esquema_serial.jpg}
+				\end{center}
+			\end{figure}
 
 
 
