@@ -21,8 +21,8 @@
 
 		\begin{figure}[htb]
 			\begin{center}
-			\caption{Robot asimo desarrollado por la companía Honda.}
 			\includegraphics[width=3.5cm, height=5cm]{/asimo.jpg}
+			\caption{Robot asimo desarrollado por la companía Honda.}
 			\end{center}
 		\end{figure}
 
@@ -40,13 +40,13 @@
 
 		\begin{figure}[htb]
 			\begin{center}
-			\caption{Robot serial elaborado por la companía ABB.}
 			\includegraphics[width=3.5cm, height=4cm]{/serial_abb.jpg}
+			\caption{Robot serial elaborado por la companía ABB.}
 			\end{center}
 		\end{figure}
 
 		\subsection{Configuraciones típicas y parámetros característicos}
-			****Según la geometría de su estructura mecánica, un manipulador puede ser:
+			Según la geometría de su estructura mecánica, un manipulador puede ser:
 
 			\begin{itemize}
 				\item{Cartesiano, cuyo posicionamiento en el espacio se lleva a cabo mediante articulaciones lineales.}
@@ -73,13 +73,13 @@ Los principales parámetros que caracterizan a los robots industriales son:
 
 		\item{Capacidad de carga. Es el peso que puede transportar el elemento terminal del manipulador. Es una de las características que más se tienen en cuenta en la selección de un robot dependiendo de la tarea a la que se destine.}
 
-		\item{Velocidad. Es la máxima velocidad que alcanzan el PT y las articulaciones.}
+		\item{Velocidad. Es la máxima velocidad que alcanzan el actuador final y las articulaciones.}
 	\end{itemize}
 
 		\begin{figure}[htb]
 			\begin{center}
-			\caption{Robot paralelo.}
 			\includegraphics[width=6.5cm, height=4.5cm]{/robotParalelo.jpg}
+			\caption{Robot paralelo.}
 			\end{center}
 		\end{figure}
 
@@ -104,12 +104,10 @@ Los principales parámetros que caracterizan a los robots industriales son:
 
 			donde los vectores n, s, a, son vectores ortogonales unitarios que representan la rotación del sistema y p es un vector que describe la posición x, y, z del origen del sistema actual respecto del sistema de referencia.
 
-			\begin{figure}[htb]
-				\begin{center}
+			\begin{SCfigure}
+				\includegraphics[width=4.5cm, height=6.5cm]{/esquema_serial.jpg}
 				\caption{Esquema de sistemas de referencia en robot antropomórfico de seis grados de libertad.}
-				\includegraphics[width=5.5cm, height=6.5cm]{/esquema_serial.jpg}
-				\end{center}
-			\end{figure}
+			\end{SCfigure}
 
 
 
@@ -120,16 +118,35 @@ Los principales parámetros que caracterizan a los robots industriales son:
 %%  Imagenes RGD y Points Clouds
 %%  ----------------------------------------------
 	\section{Imágenes RGB-D}
-		En la robótica de servicios resulta imprescindible contar con robots que sean capacez de percibir su entorno, los elementos que los rodean y determinar características de los mismos. Los humanos, dadas estas necesidades, hemos desarrollado el sentido de la vista que nos permite determinar características del entorno y de los objetos que lo componen tales como el color, la forma, las dimensiones o su ubicación en el espacio.\\
+		En la robótica de servicios resulta imprescindible contar con robots que sean capacez de percibir su entorno, los elementos que los rodean y determinar características de los mismos. Los humanos, dadas estas necesidades, hemos desarrollado el sentido de la vista que nos permite determinar características del entorno y de los objetos que lo componen tales como el color, la forma, las dimensiones ó su ubicación en el espacio.\\
 
-		En este sentido la visión artificial es la disciplina encargada de estudiar los procesos de reconocer y localizar objetos en el entorno. Entender estos procesos nos ayudará a construir máquinas con capacidades similares.\\
+		Para optimizar los movimientos de un robot, no sólo se debe identificar cada objeto que se encuentra en el entorno de trabajo, sino también la posición que estos guardan respecto al robot. Normalmente, la segmentación de objetos de una imagen se logra mediante la segmentación de color, esta segmentación se logra a partir del análisis cromático de los componentes RGB de la imagen obtenida del objeto; sin embargo, este método es poco eficiente debido a que es sumamente suceptible a los cambios en la iluminación.\\ %REFFF
 
-		\begin{figure}[htb]
-			\begin{center}
-			\caption{Esquema de sistemas de referencia en robot antropomórfico de seis grados de libertad.}
-			\includegraphics[width=5.5cm, height=6.5cm]{/kinect.jpg}
-			\includegraphics[width=5.5cm, height=6.5cm]{/kinect_2.jpg}
-			\end{center}
+		Por lo tanto, necesitamos considerar una fuente de datos adicional, en este caso la profundidad, para discriminar objetos que no están en el rango de interés. En este documento se reportan los datos obtenidos al resolver este problema con la incorporación de un sensor RGB-D.\\
+
+		La rápida evolución de esta reciente tecnología ha resultado en el aumento de la calidad de las imágenes, la mejora en la sincronización del color con la profundida y la disminución del tiempo de muestreo entre cada imagen. En partícular, la profundida de la imagen se obtiene en una matriz resultado de la proyección de rayos infrarrojos sobre los objetos. El sensor cuenta con una cámara infrarroja que obtiene la lectura de los haces infrarrojos reflejados sobre los objetos.\\
+
+		El sensor Kinect incorpora algunos avances en el hardware de sensado. Algunos de los más notables son la incorporación de un sensor de profundidad, un cámara de color y un arreglo de cuatro microfonos que, en conjunto, proporcionan una captura de movimiento de cuerpo completo en 3D. La figura 2.5 muestra la disposición del proyector de infrarrojos (IR), la cámara de color y la cámara IR. El sensor de profundidad consta de un proyector IR combinado con una cámara IR, la cual es un sensor semiconductor de metal-óxido monocromático. El sensor de profundidad es desarrollado por la companía israeli PrimeSense.\\
+
+		Aunque la tecnología exacta es cerrada, se basa en el principio de la estructura de la luz y su difracción. El proyector IR es un lasér IR que pasa a traves de una rejilla de difracción y se esparce como una nube de puntos. Dada la geometría de construcción entre el proyector IR y la cámara IR se puede reconstruir un modelo 3D si se observa un punto en el proyector y posteriormente se ubica su corresponsiente reflexión en la cámara, esto se puede lograr utilizando triangulación.\\
+
+		Debido a que el patrón de puntos es relativamente al azar, la coincidencia entre la imagen IR y el patrón del proyector puede realizarse de forma directa comparando pequeñas vecindades utilizando, por ejemplo, referencias cruzadas.\\ %REFFFF
+
+		El valor de la profundidad se codifica en escala de grises, cuanto más oscuro sea un píxel, más cerca está el punto de la cámara en el espacio, los píxeles negros indican que no se posee información respecto a la distancia en ese píxel. Esto puede suceder si los píxeles están demasiado lejos o demasiado cerca de la cámara IR.\\
+
+		\begin{figure}
+
+			\begin{subfigure}[t]{.5\textwidth}
+			\includegraphics[width=5.5cm, height=3.0cm]{/kinect.jpg}	
+			\caption{Sensor kinect}
+			\end{subfigure}%
+			\begin{subfigure}[t]{.5\textwidth}
+			\includegraphics[width=6.5cm, height=3.0cm]{/kinect_2.jpg}
+			\caption{Sensor kinect estructura}
+			\end{subfigure}
+
+			\caption{Sensor kinect elaborado por Microsoft.}
+
 		\end{figure}
 
 		%%\subsection{Características de las imágenes RGB-D}
