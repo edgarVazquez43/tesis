@@ -6,7 +6,7 @@ Actividades realizadas hasta el momento...
 2.- Un problema que se idenficó en las librerías existentes fue el orden en el cual estaba escrito el código por lo tanto se procedio  a ordenarlo.
 	Otro problema que se observó fue que la estructura de bibliotecas proporcionada por los fabricantes era ineficiente debido a la gran catidad de archivos (al menos tres archivos direntes en diferentes carpetas) por lo tanto se procedión a ordenar los archivos e intentar conténer el código en el menor numero de archivos posible.
 
-3.- Con base en una librería ya existente se creó una nueva librería con los métodos mínimos necesarios paratanipular los servos conectados en una cadena cinemática. Para probar dicha libería se incorporó con el software ya existente de Justina.
+3.- Con base en una librería ya existente se creó una nueva librería con los métodos mínimos necesarios para manipular los servos conectados en una cadena cinemática. Para probar dicha libería se incorporó con el software ya existente de Justina.
 
 4.- Se observó una pérdida de datos en la comunicación con los servos del brazo. Por consiguiente, analizamos cada uno de los servos por separado. Para ello se realizaron dos pruebas:
     
@@ -33,6 +33,7 @@ Desarrollo de Algoritmo de visión.
 4.- Se segmentaron los objetos que se encuentran sobre el plano. Para ello se eliminaron los puntos del plano, los puntos debajo del plano, los puntos muy lejanos en x. Con ello se logró "aislar" la nube de puntos correspondientes. **Por lo pronto solo funciona con un objeto sobre el plano.
 
     **** Es recomendable aplicar un Cloustering para obtener tantos conjuntos de puntos como objetos sobre el plano haya.
+    **** Me gustaría aplicar un RANSAC para formas. Y determinar las dimensiones de los objetos.
 
 5.- Se aplicó el algoritmo PCA a la nube de puntos de los objetos para obtener la distribución de los puntos a lo largo de los ejes coordinados (x, y, z). Se obtuvo la desviación estandart de los puntos a lo largo de los ejes. Para compararlos y determinar cual es el eje mayor del objeto y poder manipularlo en ese sentido.
 
@@ -46,9 +47,9 @@ Desarrollo de la cinemática directa del manipulador
 
 2.- Se determinaron las transformaciones procurando que los ejes de rotación coindieran con los ejes "z" de cada sistema.
 
-*** 3.- Determinar los parametros Denavith-Hartemberg.
+3.- Se determinaron los parametros Denavith-Hartemberg. Para el brazo de 7 DOF. Se realizó la simulación y se comparó la posición del efector final con la simulación. Resultó ser coincidente.
 
-*** 4.- Determinar la matriz de transformación final de griper con respecto del sistema inercial del mismo brazo. (Nos servirá para verificar siu el gripper coindice con nuestra posisición deseada).
+4.- Determinar la matriz de transformación final de griper con respecto del sistema inercial del mismo brazo. (Nos servirá para verificar si el gripper coindice con nuestra posisición deseada). Se realizó una prueba satisfactoria y con ello se podría dar retroalimentación.
 
 
 	
