@@ -115,9 +115,19 @@ Los principales parámetros que caracterizan a los robots industriales son:
 			\end{SCfigure}
 
 
-\subsection{Cinemática directa}
-	Aquí irá todo lo referente a la cinemática directa del manipulador y de Justina.
+		\subsection{Cinemática directa}
+			El problema de la cinemática directa consiste en determinar la posición del efector final en el espacio dado el valor de cada una de las articulaciones. El valor de los ángulos de las articulaciones se determinan con ayuda de sistemas de refencia ubicados en cada una de las articulaciones del robot.\\
 
+			Un robot manipulador está compuesto de un conjunto de enlaces conectados por varias juntas. Las articulaciones pueden ser muy simples, tales como una articulación de revolución o una articulación prismática. Una articulación de revolución es como una bisagra y permite una rotación relativa alrededor de un solo eje coordenado; una junta prismática permite un movimiento lineal a lo largo de un solo eje. En ambos casos podemos observar el que la articulación tiene un solo grado de libertad de movimiento: el ángulo de rotación en el caso de una articulación de revolución, y la cantidad de desplazamiento lineal en el caso de una articulación prismática.\\
+
+			Con el supuesto de que cada articulación tiene un solo grado de libertad, la acción de cada una de las aticulaciones se puede describir por un solo número real: el ángulo de rotación en el caso de una articulación de revolución o el desplazamiento en el caso de una junta prismática. El objetivo del análisis de la cinemática directa es determinar el efecto acumulativo de todo el conjunto de variables de la articulación y observarlo en el efector final.\\
+
+			El análisis cinemático de un manipulador de n-enlaces puede ser extremadamente complejo y las convenciones que se presentan a continuación simplifican el análisis considerablemente.\\
+
+			***********
+			Un robot manipulador con n articulaciones tendrá n + 1 enlaces, ya que cada articulación conecta dos enlaces. Se numeran las articulaciones de 1 a n, y se numeran los enlaces de 0 a n, comenzando desde la base en un sistema de referencia fijo. Para esta convención, la articulación i conecta el enlace i - 1 al enlace i. Se considera la ubicación de la junta i a fijar con respecto a la conexión i - 1.\\
+
+			Cuando se acciona la articulación i, el enlace se mueve por lo tanto, el enlace 0 (el primer eslabón) es fijo, y no se mueve cuando las juntas son accionado. Por supuesto, el robot manipulador podría ser móvil (por ejemplo, podría ser montado en una plataforma móvil o en un vehículo autónomo), pero no consideraremos este caso en el presente capítulo, ya que puede manejarse fácilmente extendiendo ligeramente las técnicas presentado aquí.\\
 
 
 
