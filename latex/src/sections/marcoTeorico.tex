@@ -11,7 +11,34 @@
 
 
 		%Estado del arte
-		Dado que este trabajo se centrará en los robots de servicio, en particular en una metodología de detección y manipulación de objetos, resulta fundamental poner en evidencia el panorama actual de los robots de servicio. La idea general de la robótica de servicio doméstico ha existido desde hace mucho tiempo, pero es un tema de investigación relativamente joven. El objetivo de crear robots de servicios útiles y autónomos que puedan interactuar con seres humanos y objetos en el mundo real en un entorno natural plantea un gran número de problemas sin resolver en muchas disciplinas científicas.\\
+		Dado que este trabajo se centrará en los robots de servicio es importante mencionar que un robots de servicio es un robot capaz de realizar tareas de la vida diaria en un ambiente similar al de un hogar real. Actualmente el desarrollo de este tipo de robot está guiado por la comtencia internacional Robocup @Home.\cite{robocupAtHome} Esta categoría promueve la incorporación de habilidades robóticas avanzadas para la interacción con los humanos y con el entorno de operación. Esta competencia se enfoca a desarrollar habilidades en los robots de servicios. Ejemplos de estas habilidades son la localización y navegación segura en ambientes no controlados, la comunicación natural humano-robot por voz y gestos y habilidades visuales para el reconocimiento y la manipulación de objetos.\cite{femexrobotics}\\
+
+		Los robots de servicio enfrentan diversos retos: desarrollar tareas en ámbientes dinámicos, características de entornos no estandarizados, incertidumbre ante escenarios desconocidos. Dadas las condiciones en que estos robots operan los programadores y desarrolladores de robots de servicios han optado por dotar a los robots de ciertas capacidades. Por ejemplo el robot Cosero, consta de un sistema de percepción del entorno, un sistema de manipulación, un sistema de interacción humano-robot y un sistema de planeación de tareas.\\ %%%%REFFFFFF
+
+		\textit{Tabla con las características de los robots de servicio.}\\
+
+		\begin{figure}[htb]
+			\begin{center}
+			\includegraphics[width=3.5cm, height=5cm]{/cosero.png}
+			\caption{Estructura de software del robot Cosero.}
+			\end{center}
+		\end{figure}
+
+		\begin{figure}[htb]
+			\begin{center}
+			\includegraphics[width=3.5cm, height=5cm]{/markovito.png}
+			\caption{Estructura de software del robot Cosero.}
+			\end{center}
+		\end{figure}
+
+		\begin{figure}[htb]
+			\begin{center}
+			\includegraphics[width=3.5cm, height=5cm]{/justina.png}
+			\caption{Estructura de software del robot Cosero.}
+			\end{center}
+		\end{figure}
+
+		En particular en una metodología de detección y manipulación de objetos, resulta una tarea fundamental a resolver en los robots de servicio. La idea general de la robótica de servicio doméstico ha existido desde hace mucho tiempo, pero es un tema de investigación relativamente joven. El objetivo de crear robots de servicios útiles y autónomos que puedan interactuar con seres humanos y objetos en el mundo real en un entorno natural plantea un gran número de problemas sin resolver en muchas disciplinas científicas.\\
 		%\vspace{0.2in}
 
 		Recientemente, el progreso en estos campos de investigación, así como el progreso y la normalización en el desarrollo de hardware y software, ha llevado a un aumento en la disponibilidad de recursos, métodos y componentes para el desarrollo  de Robots de servicio doméstico . Por ello estamos cada vez más cerca de convivir con robots de servicios de manera exitosa en diversos lugares, por ejemplo hospitales \cite{hospitalRobots}, oficinas, construcciones, o tiendas departamentales \cite{robotsInStores}.\\
@@ -120,14 +147,13 @@ Los principales parámetros que caracterizan a los robots industriales son:
 
 			Un robot manipulador está compuesto de un conjunto de enlaces conectados por varias juntas. Las articulaciones pueden ser muy simples, tales como una articulación de revolución o una articulación prismática. Una articulación de revolución es como una bisagra y permite una rotación relativa alrededor de un solo eje coordenado; una junta prismática permite un movimiento lineal a lo largo de un solo eje. En ambos casos podemos observar el que la articulación tiene un solo grado de libertad de movimiento: el ángulo de rotación en el caso de una articulación de revolución, y la cantidad de desplazamiento lineal en el caso de una articulación prismática.\\
 
-			Con el supuesto de que cada articulación tiene un solo grado de libertad, la acción de cada una de las aticulaciones se puede describir por un solo número real: el ángulo de rotación en el caso de una articulación de revolución o el desplazamiento en el caso de una junta prismática. El objetivo del análisis de la cinemática directa es determinar el efecto acumulativo de todo el conjunto de variables de la articulación y observarlo en el efector final.\\
+			Con el supuesto de que cada articulación tiene un solo grado de libertad, la acción de cada una de las aticulaciones se puede describir por un solo número real: el ángulo de rotación en el caso de una articulación de revolución o el desplazamiento en el caso de una junta prismática. El objetivo del análisis de la cinemática directa es determinar el efecto acumulativo de todo el conjunto de variables de la articulación y observarlo en el efector final.\cite{spong2008robot}\\
 
 			El análisis cinemático de un manipulador de n-enlaces puede ser extremadamente complejo y las convenciones que se presentan a continuación simplifican el análisis considerablemente.\\
 
-			***********
-			Un robot manipulador con n articulaciones tendrá n + 1 enlaces, ya que cada articulación conecta dos enlaces. Se numeran las articulaciones de 1 a n, y se numeran los enlaces de 0 a n, comenzando desde la base en un sistema de referencia fijo. Para esta convención, la articulación i conecta el enlace i - 1 al enlace i. Se considera la ubicación de la junta i a fijar con respecto a la conexión i - 1.\\
+			Un robot manipulador con n grados de libertad tendrá por consecuencia n articulaciones. Se numeran las articulaciones de 1 a n, y se numeran los enlaces de 0 a n, comenzando desde la base en un sistema de referencia fijo. Para esta convención, la articulación i conecta el enlace i - 1 al enlace i.\\
 
-			Cuando se acciona la articulación i, el enlace se mueve por lo tanto, el enlace 0 (el primer eslabón) es fijo, y no se mueve cuando las juntas son accionado. Por supuesto, el robot manipulador podría ser móvil (por ejemplo, podría ser montado en una plataforma móvil o en un vehículo autónomo), pero no consideraremos este caso en el presente capítulo, ya que puede manejarse fácilmente extendiendo ligeramente las técnicas presentado aquí.\\
+			Cuando se acciona la articulación i el enlace se mueve, por lo tanto, el enlace 0 (el primer eslabón) es fijo, y no se mueve cuando las juntas consecuentes son accionadas. Por supuesto, el robot manipulador podría ser móvil (por ejemplo, podría ser montado en una plataforma móvil o en un vehículo autónomo), pero para esta primer parte abordaremos el problema suponiendo una plataforma fija.\\
 
 
 
