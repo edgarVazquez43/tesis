@@ -19,21 +19,21 @@
 
 		\begin{figure}[htb]
 			\begin{center}
-			\includegraphics[width=3.5cm, height=5cm]{/cosero.png}
+			\includegraphics[width=8.5cm, height=5cm]{/cosero.png}
 			\caption{Estructura de software del robot Cosero.}
 			\end{center}
 		\end{figure}
 
 		\begin{figure}[htb]
 			\begin{center}
-			\includegraphics[width=3.5cm, height=5cm]{/markovito.png}
+			\includegraphics[width=8.5cm, height=5cm]{/markovito.png}
 			\caption{Estructura de software del robot Cosero.}
 			\end{center}
 		\end{figure}
 
 		\begin{figure}[htb]
 			\begin{center}
-			\includegraphics[width=3.5cm, height=5cm]{/justina.png}
+			\includegraphics[width=8.5cm, height=5cm]{/justina.png}
 			\caption{Estructura de software del robot Cosero.}
 			\end{center}
 		\end{figure}
@@ -197,7 +197,318 @@ Los principales parámetros que caracterizan a los robots industriales son:
 
 
 	\section{Algoritmo RANSAC}
+		\subsection{Algoritmo}
+		El algoritmo RANSAC (RANdom Sample And Consensus) fue introducido por primera vez por Fischler y Bolles en 1981, como un método para estimar los parámetros de un determinado modelo a partir de un conjunto de datos contaminados por grandes cantidades de outliers. Un dato es considerado un outlier si no encaja en el modelo propuesto, dentro de un umbral de error que define el valor máximo desviación atribuible al efecto del ruido.\\
+
+		RANSAC selecciona uniformemente al azar un subconjunto de muestras de datos y lo utiliza para crear un modelo de estimación de parámetros. Luego determina si las muestras que están dentro de una tolerancia de error del  modelo antes propuesto. Si estas muestras se consideran como parte del modelo generado se agrupan en un conjunto llamdo \"consenso\". De manera análoga se llama \"outliers\" al conjunto de tos que superan el umbral de error con respecto al modelo. Si el recuento de los datos agrupados en el consenso es suficientemente alto con respecto de los outliers, se considera que el modelo se ajusta al conjuto de datos, siendo el modelo propuesto un modelo que se aproxima al conjunto total de datos.\\
+
+		A continuación se muestra el seudocódigo básico para el algoritmo RANSAC.\\
+
+		
+		\noindent\fbox{
+		\begin{minipage}{1.0\textwidth}\scriptsize
+		\begin{algorithmic}
+			
+			\State{Parámetros:}
+			    \State{datos – conjunto de datos observados}
+			    \State{modelo – una propuesta de modelo que puede ajustar al conjunto de datos}
+			    \State{n – el número mínimo de datos con los cuales se considera un buen modelo}
+			    \State{k – el número máximo de iteraciones para algoritmo}
+			    \State{t – el valor del umbral que determinará si un punto se justa al modelo}\\
+
+			\State{Salidas:}
+			    \State{mejorAjuste – modelo encontrado con los parámetros o una variable vacía si no se encontró ningún modelo que justara.}\\
+
+			\State{Inicialización de variables:}
+			\State{iteraciones = 0}
+			\State{mejorModelo = vacío}
+			\State{mejorError = Algo realemente grande}\\
+			
+
+		
+			\While{ $iteraciones < k$}
+				\State{Generación del modelo a partir de datos aleatoriamente seleccionados.}
+			    \State{$modeloPropuesto = f(datos)$}
+			    \State{inliers = 0}
+
+			    \For{ cada punto \textbf{in} datos \textbf{ and not} en inliers }
+			    	\State{calcular error}
+			        \If{ punto ajusta en modeloPropuesto \textbf{with an} error $<$ \textbf{than} t}
+			            \State{añadir punto a inliers}
+			            \State{errorModelo = errorModelo + error }
+			        \EndIf{}
+			    \EndFor{}\\
+
+			    \If{ número de elementos \textbf{in} inliers $is > n$} 
+			        \State{\textit{esto significa que tenemos un buen modelo} }
+
+			        \State{\textit{Verificamos si el modelo calculado supera al mejor modelo calculado con anterioridad.} }
+			        \If{ errorModelo $<$ mejorError}
+			            \State{mejorAjuste = mejorModelo}
+			            \State{mejorError = errorModelo}
+			        \EndIf{}
+			    \EndIf{}
+			    
+			    \State{incrementamos iteraciones}
+			\EndWhile{}
+
+			\State{\textit{Llegamos al numero de iteraciones k y devolvemos el mejor modelo obtenido.}}\\
+
+			\State{\textbf{return} mejorAjuste}
+		\end{algorithmic}
+		
+		\end{minipage}
+		}
+
+
+		\subsection{Modelo matemático de un plano}
+		En matemáticas, un plano es una superficie plana, bidimensional que se extiende infinitamente lejos. Un plano es el análogo bidimensional de un punto (dimensiones cero), una línea (una dimensión) y un espacio tridimensional. Los planos pueden surgir como subespacios de algún espacio de dimensión superior, como si las paredes de una habitación estuviesen extendidas infinitamente, o pudieran disfrutar de una existencia independiente por derecho propio, como en el caso de la geometría euclidiana.\\
+
+		Cuando se trabaja exclusivamente en el espacio euclidiano bidimensional, se utiliza el artículo definido, por lo que el plano se refiere a todo el espacio. Muchas tareas fundamentales en matemáticas, geometría, trigonometría, teoría de gráficas y representación gráfica se realizan en un espacio bidimensional, o, en otras palabras, en el plano.\\
+
+		
+		En un espacio euclidiano de cualquier número de dimensiones, un plano está determinado únicamente por cualquiera de los siguientes:\\
+
+		\begin{itemize}
+	    	\item{Tres puntos no colineales (puntos no en una sola línea).}
+    		\item{Una línea y un punto no en esa línea.}
+    		\item{Dos líneas distintas, pero que se cruzan.}
+    		\item{Dos líneas paralelas.}
+    	\end{itemize}
+
+
+		Las siguientes afirmaciones se mantienen en el espacio euclidiano tridimensional, pero no en las dimensiones superiores, aunque tienen análogos de mayor dimensión:\\
+
+		\begin{itemize}
+			\item{Dos planos distintos son paralelos o se intersecan en una línea.}
+	    	\item{Una línea es paralela a un plano, lo cruza en un solo punto, o está contenida en el plano.}
+	    	\item{Dos líneas distintas perpendiculares al mismo plano deben ser paralelas entre sí.}
+	    	\item{Dos planos distintos perpendiculares a la misma línea deben ser paralelos entre sí.}
+	    \end{itemize}
+
+		\section{Forma punto-normal y forma general de la ecuación de un plano}
+
+		De manera análoga a la forma en que se describen las líneas en un espacio bidimensional utilizando una forma de pendiente de puntos para sus ecuaciones, los planos en un espacio tridimensional tienen una descripción natural que utiliza un punto en el plano y un vector ortogonal a él (Vector normal) para indicar su \"inclinación\".\\
+
+		Específicamente, sea $r_0$ el vector de posición de algún punto $P_0 = (x_0, y_0, z_0)$, y sea $n = (a, b, c)$ un vector no nulo. El plano determinado por el punto $P_0$ y el vector n consiste en aquellos puntos $P$, con el vector de posición $r$, de tal manera que el vector trazado de $P_0$ a $P$ sea perpendicular a $n$. Recordando que dos vectores son perpendiculares si y sólo si su producto punto es cero, se deduce que el plano deseado puede ser descrito como el conjunto de todos los puntos $r$ tales que:\\
+
+		\begin{equation}
+		\begin{split}
+		    n.(r-r_0) = 0
+	    \end{split}
+	    \end{equation}
+
+		(El punto aquí significa un producto punto, no la multiplicación escalar.) Ampliado esto se convierte\\
+
+		\begin{equation}
+			\begin{split}
+	    	A (x - x_0) + B(y - y_0) + C(z - z_0) = 0
+			\end{split}
+		\end{equation}
+
+		Que es la forma punto-normal de la ecuación de un plano. Esta es sólo una ecuación lineal\\
+
+		\begin{equation}
+			\begin{split}
+	    	ax + by + cz + d = 0
+	    	\end{split}
+    	\end{equation}
+		
+		donde:\\
+
+		\begin{equation}
+			\begin{split}
+			d = - (ax_0 + by_0 + cz_0)
+	    	\end{split}
+    	\end{equation}
+
+		Es un plano que tiene como vector el vector $n = (a, b, c)$. Esta ecuación familiar para un plano se llama la forma general de la ecuación del plano.
+
+		\subsection{Modelo del plano definido por tres puntos}
+
+		Sea $p_1=(x_1, y_1, z_1)$, $p_2=(x_2, y_2, z_2)$, y $p_3=(x_3, y_3, z_3)$ puntos en el estacio $R^3$ no-colineales.\\
+
+		Este plano también puede ser descrito por el "punto y un vector normal" prescripción anterior. Un vector normal adecuado se da por el producto cruz.\\
+		
+		\begin{equation}
+			\begin{split}
+			n = (p_2 - p_1) \times (p_3 - p_1)
+			\end{split}
+		\end{equation}
+
+		Y el punto $r_0$ puede considerarse como cualquiera de los puntos dados $p_1$, $p_2$ o $p_3$ (o cualquier otro punto en el plano).\\
+		
+
+		\textbf{Distancia desde un punto a un plano.}\\
+
+		Para un plano $\Pi: ax + by + cz + d = 0$ y un punto $P_1 = (x_1, y_1, z_1)$ no necesariamente en el plano, la distancia más corta de $P_1$ al plano es\\
+
+		\begin{equation}
+			\begin{split}
+			D = \dfrac{| ax_1 + by_1 + cz_1 + d |}{\sqrt{a^2 + b^2 + c^2}}
+			\end{split}
+		\end{equation}
+
+		De lo cual podemos obervar que el punto $p_1$ se encuentra en el plano si y sólo si $D = 0$.\\
+
+		Si $\sqrt{a^2 + b^2 + c^2} = 1$ significa que a, b, y c están normalizados,  entonces la ecuación se convierte en:\\
+		
+		\begin{equation}
+			\begin{split}
+			D = | ax_1 + by_1 + cz_1 + d |
+			\end{split}
+		\end{equation}
+
+		****Imagen plano
+
 	\section{Algoritmo PCA}
+		El Análisis de Componentes Principales (PCA) ha sido llamado Uno de los resultados más valiosos de la algebra lineal. PCA Se usa abundantemente en muchas formas de análisis, desde la neurociencia a la computación gráfica debido a que es un método simple. El PCA proporciona una metodología para reducir un conjunto de datos complejos a una dimensión inferior.\\	
+
+		El algoritmo PCA tiene sus bases en las estadísticas y parte de la idea de que se cuenta con un gran conjunto de datos, y desea analizar ese conjunto en términos de las relaciones entre los puntos individuales dentro de ese conjunto de datos. Se pretende analizar algunas de las medidas que podemos calcular en un conjunto de datos, y lo que estás medidas dicen acerca de los datos en sí.\\
+
+		El tema entero de las estadísticas se basa en la idea de que usted tiene este gran conjunto de datos, Y desea analizar ese conjunto en términos de las relaciones entre un puntos de ese conjunto y el resto de los datos. A continuación se intenta explicar las matemáticas detrás de PCA.\\
+	
+		\subsection{Desviación estándar}
+		
+			La desviación estándar es una medida de la dispersión de un conjunto de datos respecto de la media. Se calcula como la raíz cuadrada de la varianza, determinando la variación entre cada punto perteneciente al conjunto de  datos respecto a la media. Si los puntos de datos están más lejos de la media, hay una desviación más alta dentro del conjunto de datos.\\
+
+			Por tanto para calcular la desviación estándar primero debemos calcular la media del conjuto de datos.\\
+
+			Cálculo de la media de un conjunto de datos.\\
+			
+			\begin{equation}
+				\begin{split}
+					\bar{X} = \dfrac{\Sigma^n_{i=1} X_i}{n}
+				\end{split}
+			\end{equation}
+
+			Donde $n$ es el numero totalo de datos contenido en la muestra.\\
+			
+			Cálculo de la desviación estandar.\\
+			\begin{equation}
+				\begin{split}
+					\sigma = \sqrt{\dfrac{\Sigma^n_{i=1} (X_i - \bar{X})^2} {(n-1)} }
+				\end{split}
+			\end{equation}
+
+			***Imagen
+
+
+
+		\subsection{Varianza}
+			La noción de varianza se suele emplear en el ámbito de la estadística. Es utilizada para identificar a la media de las desviaciones cuadráticas de una variable de carácter aleatorio, considerando el valor medio de ésta.\\
+			
+			La varianza de las variables aleatorias, por lo tanto, consiste en una medida vinculada a su dispersión. Se trata del valor esperado del cuadrado de la desviación de esa variable considerada frente su media y se mide en una unidad diferente. Por ejemplo: en los casos en que la variable mide una distancia en kilómetros, su varianza se expresa en kilómetros al cuadrado.\\
+
+			Cabe destacar que las medidas de dispersión (también identificadas con el nombre de medidas de variabilidad) se encargan de expresar la variabilidad de una distribución por medio de un número, en los casos en que las diferentes puntuaciones de la variable están muy alejadas de la media. A mayor valor de la medida de dispersión, mayor variabilidad. En cambio, a menor valor, más homogeneidad.\\
+
+			Por lo que respecta a su representación matemática se puede expresar como el cuadrado del valor de la desviación estandar, como se muestra a continuación.\\ 
+
+			\begin{equation}
+				\begin{split}
+					s = \sigma^2
+				\end{split}
+			\end{equation}
+
+			\begin{equation}
+				\begin{split}
+					s = \dfrac{\Sigma^n_{i=1} (X_i - \bar{X})^2} {(n-1)}
+				\end{split}
+			\end{equation}
+
+		\subsection{Covarianza}
+		
+			Las dos últimas medidas que hemos observado son puramente uni-dimensionales. Conjuntos de datos como este podrían ser: alturas de todas las personas en la sala, las calificaciones para el último examen, etc. Sin embargo, muchos conjuntos de datos tienen más de una dimensión y el objetivo del Análisis de Componentes Principales son estos conjuntos de datos. En tal caso es importante observar si existe alguna relación entre las diferentes dimensiones. Por ejemplo, podríamos tener como nuestro conjunto de datos tanto la altura de todos los estudiantes en una clase, y la calificación  que recibieron en un exámen.\\ 
+
+			Podríamos entonces realizar un análisis estadístico para ver si la altura de un estudiante tiene algún efecto en su calificación. La desviación estándar y la varianza sólo funcionan en una dimensión, de modo que podríamos solamente calcular la desviación estándar para cada dimensión del conjunto de datos de forma independiente de las otras dimensiones. Sin embargo, es útil tener una medida similar para mucho las dimensiones varían de la media con respecto a la otra. La covarianza es tal medida. Covarianza siempre se mide entre 2 dimensiones. Si se calcula la covarianza entre una dimensión y sí, se obtiene la diferencia.\\
+
+
+			Por lo tanto, si se tiene un conjunto de datos en 3 dimensiones $(x, y, z)$, entonces se podría medir la covarianza entre: las dimensiones $(x, y)$, las dimensiones $(x, z)$ y las dimensiones $(y, z)$. Como se puede observar la medición de la covarianza entre $(x, x)$, $(y, y)$ o $(z, z)$ se puede reducir a calcular la varianza de cada dimensión respectivamente. La fórmula para la covarianza es muy similar a la fórmula para la varianza. La formula:\\ 
+
+			\begin{equation}
+				\begin{split}
+					var(X) = \dfrac{\Sigma^n_{i=1} (X_i - \bar{X} ) (X_i - \bar{X}) } {(n - 1)}
+				\end{split}
+			\end{equation}
+
+			\begin{equation}
+			\begin{split}
+				cov(X, Y) = \dfrac{\Sigma^n_{i=1} (X_i - \bar{X} ) (Y_i - \bar{Y}) } {(n - 1)}
+			\end{split}
+			\end{equation}
+
+
+		\subsection{Matriz de covarianzas}
+		
+			Cuando se dispone de un conjunto de datos multidimensionales la información obtenida de los cálculos de las covarianzas se dispone en forma de matriz para facilitar su manejo, tal matriz es llamada \"Matriz de covarianzas\". La matriz de covarianzas es de dimensiones $n \times n$ donde n es el número de dimensiones totales en el conjunto de datos.\\
+
+			A continuación se muestra la matriz de covarianzas para un conjunto de datos de 3 dimensiones, llamadas $x, y,$ y $z.$
+
+
+			\begin{equation}
+				C =
+				\begin{bmatrix}
+	    			cov(x, x) & cov(x, y) & cov(x, z) \\
+				    cov(y, x) & cov(y, y) & cov(y, z) \\
+				    cov(z, x) & cov(z, y) & cov(z, z)
+				\end{bmatrix}
+			\end{equation}
+
+		\subsection{Eigenvalores y Eigenvectores}
+
+			Se conocen como valores propios de una matriz al conjunto de valores que resuleven la ecuación:\\
+
+			\begin{equation}
+				\begin{split}
+					|A - \lambda I | = 0
+				\end{split}
+			\end{equation}
+
+			\begin{equation}
+				\begin{split}
+					det( A - \lambda I ) = 0
+				\end{split}
+			\end{equation}
+
+			Tambien puede observarse que $\lambda$ es un vector de valores escalares que a su vez son solución del polinomio de grado $n$. Donde $n$ es la dimensión de la matriz $A$: \\
+
+			Polinomio característico.\\
+			\begin{equation}
+				| A - \lambda I | = (\lambda_1 - \lambda) (\lambda_2 - \lambda) (\lambda_3 - \lambda)... (\lambda_n - \lambda)
+			\end{equation}
+
+			
+			Por lo tanto, existe un eigenvector asociado a cada uno de los valores propios de la matriz A\\
+			
+			\begin{equation}
+				\begin{split}
+					( A - \lambda I )v = 0
+				\end{split}
+			\end{equation}
+
+
+			Para encontrar el valor de los vectores caratecterísticos de la matriz A se determinan los valores característicos de la matriz A se resuleve la ecuación:\\
+
+			
+			\begin{equation}
+				\begin{split}
+					(A - \lambda_1 I) \vec{v_1} = 0 \\
+					(A - \lambda_2 I) \vec{v_2} = 0 \\
+					. \\
+					. \\
+					. \\
+					(A - \lambda_3 I) \vec{v_n} = 0 
+				\end{split}
+			\end{equation}
+
+			Es importante observar que el conjunto de todos los vectores propios asociados a un valor propio dado $\vec{E_\lambda}$, junto con el vector 0 , forman un espacio vectorial.\\
+
+			Por lo tanto, $\vec{E_\lambda}$ representa un subespacio de $R^n$ porque es el espacio solución de un sistema homogéneo de ecuaciones lineales y está conformado por  matrices columna $\vec{v}$ de $n x 1$ que pertenecen a $R^n$.\\
+
+			Los vectores característicos $\vec{v_1}, \vec{v_2}, \vec{v_2} ... \vec{v_n}$ , asociados a los valores característicos distintos $\lambda_1, \lambda_2, ...\lambda_n$ de la matriz A, \textbf{son linealmente independientes, y este conjunto es una base en $R^n$}. Si la matriz A es simétrica y real, entonces las base es ortogonal.\\
+
+			Es importante resaltar estas dos caraterísticas puesto que la aplicación que se desarrollará en este trabajo se basa en el principio de la indepencia lineal de los vectores propios y que estos construyen una base ortogonal del conjunto de datos observados.
+
 	\section{Características del objeto}
 
 
