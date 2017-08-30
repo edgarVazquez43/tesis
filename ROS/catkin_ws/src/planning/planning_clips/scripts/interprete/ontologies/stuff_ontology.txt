@@ -1,0 +1,214 @@
+(attribute 		is_kind_of 		top)
+(stuff  		is_kind_of  	top)
+(aka 			is_kind_of 		attribute)
+
+
+
+
+#
+
+(person 		is_kind_of 		stuff)
+(item 			is_kind_of 		stuff)
+(place 			is_kind_of 		stuff)
+
+
+# personas y robot
+(robot 	 		is_kind_of 		person)
+(man 			is_kind_of 		person)
+(woman	 		is_kind_of 		person)
+(anna	 		is_kind_of 		person)
+(beth	 		is_kind_of 		person)
+(carmen	 		is_kind_of 		person)
+(jennifer	 		is_kind_of 		person)
+(jessica	 		is_kind_of 		person)
+(kimberly	 		is_kind_of 		person)
+(kristina	 		is_kind_of 		person)
+(laura	 		is_kind_of 		person)
+(mary	 		is_kind_of 		person)
+(sarah	 		is_kind_of 		person)
+(alfred	 		is_kind_of 		person)
+(charles	 		is_kind_of 		person)
+
+(john	 		is_kind_of 		person)
+(luis	 		is_kind_of 		person)
+(paul	 		is_kind_of 		person)
+(richard	 		is_kind_of 		person)
+(robert	 		is_kind_of 		person)
+(steve	 		is_kind_of 		person)
+
+(susan			is_kind_of		person)
+(mary_jane		is_kind_of		person)
+(gabrielle		is_kind_of		person)
+(elsa			is_kind_of		person)
+
+(arthur			is_kind_of		person)
+(mike			is_kind_of		person)
+(richi			is_kind_of		person)
+
+
+
+
+(emma			is_kind_of		person)
+(taylor			is_kind_of		person)
+(sophia			is_kind_of		person)
+(isabella			is_kind_of		person)
+(ava			is_kind_of		person)
+(robin			is_kind_of		person)
+(emily			is_kind_of		person)
+(angel			is_kind_of		person)
+(madison			is_kind_of		person)
+(charlotte			is_kind_of		person)
+
+(noah			is_kind_of		person)
+(liam			is_kind_of		person)
+(mason			is_kind_of		person)
+(jacob			is_kind_of		person)
+(william			is_kind_of		person)
+(ethan			is_kind_of		person)
+(michael			is_kind_of		person)
+(alexander			is_kind_of		person)
+(daniel			is_kind_of		person)
+(james	 		is_kind_of 		person)
+
+
+
+(me  			is_kind_of			person)
+(i				is_kind_of			person)
+(you			is_kind_of			person)
+(he 			is_kind_of			person)
+(she			is_kind_of			person)
+(couch			is_kind_of			person)
+
+# lugares
+(room 			is_kind_of  	place)
+(there 			is_kind_of 		place)
+(here 			is_kind_of 		place)
+(bedroom 	 	is_kind_of 		place)
+(garden 		is_kind_of 		place)
+(kitchen 		is_kind_of 		place)
+(lounge 		is_kind_of  	place)
+(bathroom	 	is_kind_of 		place)
+(dresser 		is_kind_of 		place)
+(dining_room 	is_kind_of 		place)
+(chair 			is_kind_of 		place)
+(bin	 	 	is_kind_of 		place)
+(bed 	 		is_kind_of 		place)
+(bathroom_locker 	is_kind_of 		place)
+(shelf	 		is_kind_of  	place)
+(diner_table	is_kind_of 		place)
+(hall	 		is_kind_of 		place)
+(kitchen_table 	is_kind_of 		place)
+(corridor	 	is_kind_of 		place)
+(living_room	 	is_kind_of 		place)
+(corridor		is_kind_of		place)
+(table 			is_kind_of		place)
+
+(desk			is_kind_of		place)
+(bedside			is_kind_of		place)
+(bar			is_kind_of		place)
+(sink			is_kind_of		place)
+(cupboard		is_kind_of		place)
+(sideshelf		is_kind_of		place)
+(tv_stand		is_kind_of		place)
+(dining_table		is_kind_of		place)
+(bookcase		is_kind_of		place)
+(living_shelf		is_kind_of		place)
+(living_table		is_kind_of		place)
+(drawer			is_kind_of		place)
+(cabinet		is_kind_of		place)
+(office		is_kind_of		place)
+
+
+# comida
+(beverage 			is_kind_of 		item)
+(milk 			is_kind_of 		item)
+(coke 			is_kind_of 		item)
+(orange_juice 			is_kind_of 		item)
+(beer 			is_kind_of 		item)
+(fruit 			is_kind_of 		item)
+(apple 			is_kind_of 		item)
+(banana 			is_kind_of 		item)
+(orange 			is_kind_of 		item)
+(pear 			is_kind_of 		item)
+(snacks 			is_kind_of 		item)
+(lays 			is_kind_of 		item)
+(crackers 			is_kind_of 		item)
+(pringles 			is_kind_of 		item)
+(chocolate 			is_kind_of 		item)
+(cleaning_stuff 			is_kind_of 		item)
+(cloth 			is_kind_of 		item)
+(detergent 			is_kind_of 		item)
+(sponge 			is_kind_of 		item)
+(brush 			is_kind_of 		item)
+
+(mexican fritters	is_kind_of 		item)
+(soup			is_kind_of 		item)
+(pocky			is_kind_of 		item)
+
+
+(choco_syrup		is_kind_of		place)
+(bisquits		is_kind_of		place)
+(baby_sweets		is_kind_of		place)
+(egg		is_kind_of		place)
+
+(pretzels		is_kind_of		place)
+(pringles		is_kind_of		place)
+
+(beer		is_kind_of		place)
+(coconut_milk			is_kind_of 		item)
+(coke		is_kind_of		place)
+(tea		is_kind_of		place)
+
+(apple		is_kind_of		place)
+(paprika		is_kind_of		place)
+(pumper_nickel		is_kind_of		place)
+
+(shampoo		is_kind_of		place)
+(soap		is_kind_of		place)
+(sponge		is_kind_of		place)
+(cloth		is_kind_of		place)
+
+(bowl		is_kind_of		place)
+(tray		is_kind_of		place)
+(plate		is_kind_of		place)
+
+
+
+# bebidas
+(drink 			is_kind_of  	item)
+(coffe 			is_kind_of 		drink)
+(water 			is_kind_of 		drink)
+(milk 			is_kind_of 		drink)
+(beer 			is_kind_of 		drink)
+(coke 			is_kind_of 		drink)
+(juice 			is_kind_of 		drink)
+(grape juice 		is_kind_of 		drink)
+(cranberry_juice	is_kind_of 		drink)
+(nescafe latte		is_kind_of 		drink)
+
+(snacks		is_kind_of 		item)
+(candies		is_kind_of 		item)
+(food		is_kind_of 		item)
+(drinks		is_kind_of 		item)
+(toiletries		is_kind_of 		item)
+(containers		is_kind_of 		item)
+(cloth		is_kind_of 		item)
+(microwave		is_kind_of 		item)
+
+
+
+(question 		is_kind_of 		stuff)
+(a_question 	is_kind_of 		question)
+(your_name 		is_kind_of 		question)
+(your_team_name 	is_kind_of 		question)
+(introduce_yourself 	is_kind_of 		question)
+(the_day		is_kind_of		question)
+(the_time		is_kind_of		question)
+(what_time_is_it	is_kind_of		question)
+(the_name_of_your_team	is_kind_of		question)
+(what_day_is_tomorrow	is_kind_of		question)
+(the_day_of_the_month	is_kind_of		question)
+
+
+
+
