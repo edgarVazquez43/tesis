@@ -19,6 +19,9 @@ cv::Mat GenerateRandomSample(int n, cv::Mat points);
 plane3D FindPlaneRANSAC(cv::Mat points, float threshold, int attemps);
 
 
+int verifyInliersOnPlane(cv::Mat points, plane3D propusePlane, float threshold);
+
+
 
 
 bool VerifyPoint(cv::Point3f point)
@@ -170,7 +173,42 @@ plane3D FindPlaneRANSAC( cv::Mat points, float threshold, int maxAttemps)
 	}
 
 	std::cout << "BestModel: " << bestPlane.GetPlaneComp() << std::endl;
+	std::cout << "   Inliers: " << bestInliers << std::endl;
 	std::cout << "   Porcentaje_plane: " << 100*(float)(bestInliers)/(float)(bestValidPoints) << std::endl;
 	return bestPlane;
+}
+
+int verifyInliersOnPlane(cv::Mat points, plane3D propusePlane, float threshold)
+{
+	int inliers_onPropousePlane = 0;
+	float error;
+	cv::Point3f px;
+
+	// Recorremos todo la nube de puntos y comparamos los puntos que entran en el modelo
+			for(int j = 0; j < points.rows; j++)
+			{
+				for (int i = 0; i < points.cols; i++)
+				{
+					// Calculamos la distancia de cada uno de los puntos al plano
+					px = points.at<cv::Point3f>(j, i);
+					if ( VerifyPoint(px))
+					{
+						error = propusePlane.DistanceToPoint(px, false);
+						// Camparamos si la distancia está dentro de la tolerancia
+						if (error < threshold)
+						{
+							// Añadimos el punto[x, y] al Mat consensus
+							inliers_onPropousePlane++;
+						}
+					}
+				}
+
+			}
+
+	std::cout << std::endl;
+	std::cout << "PropouseModel: " << propusePlane.GetPlaneComp() << std::endl;
+	std::cout << "   Inliers: " << inliers_onPropousePlane << std::endl;
+
+	return inliers_onPropousePlane;
 }
 

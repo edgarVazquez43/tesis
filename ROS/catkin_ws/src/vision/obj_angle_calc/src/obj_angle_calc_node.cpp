@@ -47,11 +47,12 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 	cv::Point3f px;
 
 	plane3D bestPlane;
+	
 
 
 	// *** Parametros de RANSAC *** //
-	attemps = 70;		// Numero de iteraciones para RANSAC
-	threshold = 0.02;	// Distancia al plano en metros
+	attemps = 3000;		// Numero de iteraciones para RANSAC
+	threshold = 0.005;	// Distancia al plano en metros
 
 	x_min = 1000;
 	y_min = 1000;
@@ -98,6 +99,13 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 	// ##### Find best fit model to point cloud
 	// Return plane with Normal = (1, 1, 1) is didn't find plane
 	bestPlane = FindPlaneRANSAC(croppedDepth, threshold, attemps);
+	FindPlaneRANSAC(croppedDepth, threshold, int(attemps*0.5) );
+	
+	//cv::Point3f normal(bestPlane.GetA()*0.1, bestPlane.GetB()*0.1, bestPlane.GetC()*0.1);
+	//cv::Point3f p1(0.02, 0.02, 1.0);
+	//plane3D propusePlane(normal, p1);
+
+	//verifyInliersOnPlane(croppedDepth, propusePlane, threshold);
 
 	// /* Code for coloring the plane
 	if(bestPlane.GetNormal() != cv::Point3f(1.0, 1.0, 1.0) )

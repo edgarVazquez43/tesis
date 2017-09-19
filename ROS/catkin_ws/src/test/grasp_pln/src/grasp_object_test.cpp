@@ -50,7 +50,7 @@ bool markerSetup()
     axis_list_marker.scale.y = 0.03;
     axis_list_marker.scale.z = 0.03;
 
-    centroid_marker.color.b = 1.0f;
+    centroid_marker.color.g = 1.0f;
     centroid_marker.color.a = 1.0;
 
     endEffector_marker.color.g = 1.0f;
@@ -193,6 +193,7 @@ int main(int argc, char** argv)
                              srv_kd.response.cartesian_pose.data[2]);
             v = transform * v;
 
+            /*
             std::cout << "respect robot" << std::endl;
             std::cout << "    x = " << v.x() << std::endl;
             std::cout << "    y = " << v.y() << std::endl;
@@ -200,6 +201,7 @@ int main(int argc, char** argv)
             endEffector_pose.position.x = v.x();
             endEffector_pose.position.y = v.y();
             endEffector_pose.position.z = v.z();
+            */
         }
 
 
@@ -209,24 +211,25 @@ int main(int argc, char** argv)
         axis_resp_1 = srv_detectObj.response.recog_objects[0].principal_axis[1];
         axis_resp_2 = srv_detectObj.response.recog_objects[0].principal_axis[2];
 
-        //std::cout << "Centroid: " << centroid.position << std::endl;
-        //std::cout << std::endl;
+        std::cout << "Centroid: " << centroid.position << std::endl;
+        std::cout << std::endl;
 
         //std::cout << "Principal_axis: " << std::endl <<srv.response.recog_objects[0].principal_axis[0] << std::endl;
         //std::cout << srv.response.recog_objects[0].principal_axis[1] << std::endl;
         //std::cout << srv.response.recog_objects[0].principal_axis[2] << std::endl;
 
-	endEffector_marker.pose.position = endEffector_pose.position;
+    	endEffector_marker.pose.position = endEffector_pose.position;
         centroid_marker.pose.position = centroid.position;
         //centroid_marker.pose.position.x = v.x();
         //centroid_marker.pose.position.y = v.y();
         //centroid_marker.pose.position.z = v.z();
         marker_pub.publish(endEffector_marker);
+        marker_pub.publish(centroid_marker);
         axis_list_marker = buildMarkerAxis(axis_resp_0,
 					   axis_resp_1,
 					   axis_resp_2,
 					   centroid);
-        marker_pub.publish(axis_list_marker);
+        //marker_pub.publish(axis_list_marker);
 
         std::cout << "---------------------------" << std::endl;
         ros::spinOnce();
