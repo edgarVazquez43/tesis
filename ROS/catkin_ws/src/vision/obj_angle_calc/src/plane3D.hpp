@@ -5,27 +5,28 @@
 #include "opencv2/highgui/highgui.hpp"
 
 class plane3D{
-
-	public:
-		plane3D();
-		plane3D(cv::Point3f p1, cv::Point3f p2, cv::Point3f p3);
-		plane3D(cv::Point3f normal, cv::Point3f point);
-
-		double GetA();
-		double GetB();
-		double GetC();
-		double GetD();
-		cv::Vec4f GetPlaneComp();
-		cv::Point3f GetNormal();
-
-		float DistanceToPoint(cv::Point3f p, bool signedDistance=false);
-
-	private:
-		double a;
-		double b;
-		double c;
-		double d;
-		cv::Vec4f planeComp;
+  
+public:
+  int inliers;
+  plane3D();
+  plane3D(cv::Point3f p1, cv::Point3f p2, cv::Point3f p3);
+  plane3D(cv::Point3f normal, cv::Point3f point);
+  
+  double GetA();
+  double GetB();
+  double GetC();
+  double GetD();
+  cv::Vec4f GetPlaneComp();
+  cv::Point3f GetNormal();
+  
+  float DistanceToPoint(cv::Point3f p, bool signedDistance=false);
+  
+private:
+  double a;
+  double b;
+  double c;
+  double d;
+  cv::Vec4f planeComp;
 };
 
 
@@ -61,6 +62,7 @@ plane3D::plane3D(cv::Point3f p1, cv::Point3f p2, cv::Point3f p3)
 	this-> b = normal.y;
 	this-> c = normal.z;
 	this-> d = - ( normal.x*p1.x + normal.y*p1.y + normal.z*p1.z );
+	this-> inliers = 0;
 }
 
 // Definicion de un plano por un vector normal y un punto

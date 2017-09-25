@@ -175,6 +175,7 @@ plane3D FindPlaneRANSAC( cv::Mat points, float threshold, int maxAttemps)
 	std::cout << "BestModel: " << bestPlane.GetPlaneComp() << std::endl;
 	std::cout << "   Inliers: " << bestInliers << std::endl;
 	std::cout << "   Porcentaje_plane: " << 100*(float)(bestInliers)/(float)(bestValidPoints) << std::endl;
+	bestPlane.inliers = bestInliers;
 	return bestPlane;
 }
 

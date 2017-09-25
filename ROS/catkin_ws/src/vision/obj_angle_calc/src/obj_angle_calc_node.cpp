@@ -1,4 +1,6 @@
 #include <iostream>
+#include <fstream>
+#include <ctime>
 #include <opencv2/opencv.hpp>
 #include <boost/thread/thread.hpp>
 #include <opencv2/highgui/highgui.hpp>
@@ -14,10 +16,11 @@
 ros::ServiceClient cltRgbdRobot;
 point_cloud_manager::GetRgbd srv;
 
+std::ofstream fs ("errorPlane.txt");
 
 
 bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
-					vision_msgs::DetectObjects::Response &resp)
+		       vision_msgs::DetectObjects::Response &resp)
 {
 	std::cout << "Calling service to calculate PCA....." << std::endl;
 
@@ -47,11 +50,13 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 	cv::Point3f px;
 
 	plane3D bestPlane;
+	plane3D idealPlane;
+	plane3D modelPlane;
 	
 
 
 	// *** Parametros de RANSAC *** //
-	attemps = 3000;		// Numero de iteraciones para RANSAC
+	attemps = 2000;		// Numero de iteraciones para RANSAC
 	threshold = 0.005;	// Distancia al plano en metros
 
 	x_min = 1000;
@@ -98,26 +103,34 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 
 	// ##### Find best fit model to point cloud
 	// Return plane with Normal = (1, 1, 1) is didn't find plane
+	clock_t begin = std::clock();
 	bestPlane = FindPlaneRANSAC(croppedDepth, threshold, attemps);
-	FindPlaneRANSAC(croppedDepth, threshold, int(attemps*0.5) );
+	clock_t end = std::clock();
+	double duration = double(end-begin) / CLOCKS_PER_SEC;
+	std::cout << "--- Duration process: " << duration << std::endl;
+
+	begin = std::clock();
+	modelPlane = FindPlaneRANSAC(croppedDepth, threshold, int(attemps*0.1) );
+	end = std::clock();
+	duration = double(end-begin) / CLOCKS_PER_SEC;
 	
-	//cv::Point3f normal(bestPlane.GetA()*0.1, bestPlane.GetB()*0.1, bestPlane.GetC()*0.1);
-	//cv::Point3f p1(0.02, 0.02, 1.0);
-	//plane3D propusePlane(normal, p1);
+	std::cout << "inliersOn - Ideal:  " << bestPlane.inliers << std::endl; 
+	std::cout << "inliersOn - Model:  " << modelPlane.inliers << std::endl;
+	std::cout << std::endl << "--- Points error:  " << int(bestPlane.inliers - modelPlane.inliers) << std::endl;
+	std::cout << "--- Duration process: " << duration << std::endl;
 
-	//verifyInliersOnPlane(croppedDepth, propusePlane, threshold);
-
+	fs << "Ideal: " << bestPlane.inliers << " Model: " << modelPlane.inliers << " Error: " << (bestPlane.inliers - modelPlane.inliers) << std::endl;
 	// /* Code for coloring the plane
 	if(bestPlane.GetNormal() != cv::Point3f(1.0, 1.0, 1.0) )
 	{
 		for(int j = 0; j < planeBGR.rows; j++)
 			for (int i = 0; i < planeBGR.cols; i++)
 			{
-				// Calculamos la distancia de cada uno de los puntos al plano
-				px = croppedDepth.at<cv::Point3f>(j, i);
-				// Camparamos si la distancia está dentro de la tolerancia
-				if (bestPlane.DistanceToPoint(px, false) < threshold)
-					planeBGR.at<cv::Vec3b>(j, i) = cv::Vec3b(0, 255, 0);
+			  // Calculamos la distancia de cada uno de los puntos al plan
+			  px = croppedDepth.at<cv::Point3f>(j, i);
+			  // Camparamos si la distancia está dentro de la tolerancia
+			  if (bestPlane.DistanceToPoint(px, false) < threshold)
+			    planeBGR.at<cv::Vec3b>(j, i) = cv::Vec3b(0, 255, 0);
 			}
 
 		// ##### Return the point cloud of objects cropped
@@ -248,6 +261,7 @@ int main(int argc, char** argv)
 		if( cv::waitKey(5) == 'q' )
 			break;
 	}
+	fs.close();
 	cv::destroyAllWindows();
 	return 0;
 }
