@@ -1,5 +1,4 @@
 #include <iostream>
-#include <fstream>
 #include <ctime>
 #include <opencv2/opencv.hpp>
 #include <boost/thread/thread.hpp>
@@ -15,9 +14,6 @@
 
 ros::ServiceClient cltRgbdRobot;
 point_cloud_manager::GetRgbd srv;
-
-std::ofstream fs ("errorPlane.txt");
-
 
 bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 		       vision_msgs::DetectObjects::Response &resp)
@@ -56,7 +52,7 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 
 
 	// *** Parametros de RANSAC *** //
-	attemps = 2000;		// Numero de iteraciones para RANSAC
+	attemps = 40;		// Numero de iteraciones para RANSAC
 	threshold = 0.005;	// Distancia al plano en metros
 
 	x_min = 1000;
@@ -103,23 +99,15 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 
 	// ##### Find best fit model to point cloud
 	// Return plane with Normal = (1, 1, 1) is didn't find plane
+
 	clock_t begin = std::clock();
-	bestPlane = FindPlaneRANSAC(croppedDepth, threshold, attemps);
+	bestPlane = FindPlaneRANSAC(croppedDepth, threshold, attemps );
 	clock_t end = std::clock();
 	double duration = double(end-begin) / CLOCKS_PER_SEC;
-	std::cout << "--- Duration process: " << duration << std::endl;
-
-	begin = std::clock();
-	modelPlane = FindPlaneRANSAC(croppedDepth, threshold, int(attemps*0.1) );
-	end = std::clock();
-	duration = double(end-begin) / CLOCKS_PER_SEC;
 	
-	std::cout << "inliersOn - Ideal:  " << bestPlane.inliers << std::endl; 
-	std::cout << "inliersOn - Model:  " << modelPlane.inliers << std::endl;
-	std::cout << std::endl << "--- Points error:  " << int(bestPlane.inliers - modelPlane.inliers) << std::endl;
+	std::cout << "--- inliersOn - modelPlane:  " << bestPlane.inliers << std::endl; 
 	std::cout << "--- Duration process: " << duration << std::endl;
 
-	fs << "Ideal: " << bestPlane.inliers << " Model: " << modelPlane.inliers << " Error: " << (bestPlane.inliers - modelPlane.inliers) << std::endl;
 	// /* Code for coloring the plane
 	if(bestPlane.GetNormal() != cv::Point3f(1.0, 1.0, 1.0) )
 	{
@@ -261,7 +249,6 @@ int main(int argc, char** argv)
 		if( cv::waitKey(5) == 'q' )
 			break;
 	}
-	fs.close();
 	cv::destroyAllWindows();
 	return 0;
 }
