@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <ctime>
 #include <opencv2/opencv.hpp>
 #include <boost/thread/thread.hpp>
@@ -11,6 +12,8 @@
 #include "objExtract.hpp"
 #include "findPlaneRansac.hpp"
 #include "vision_msgs/DetectObjects.h"
+
+std::ofstream myFile;
 
 ros::ServiceClient cltRgbdRobot;
 point_cloud_manager::GetRgbd srv;
@@ -194,6 +197,7 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 		std::cout << "    I can't find a object on the table..... :(" << std::endl;
 
 
+	myFile << "centroid: " << centroid_coord[0] << " " << centroid_coord[1] << " " << centroid_coord[2] << "\n";
 	std::cout << "    x_obj: " << centroid_coord[0] << " - y_obj: " << centroid_coord[1] << " - z_obj: " << centroid_coord[2] << std::endl;
 	std::cout << "--------------------------------------" << std::endl;
 
@@ -234,6 +238,10 @@ int main(int argc, char** argv)
 	ros::ServiceServer srvPCAobject;
 	ros::Publisher marker_pub;
 
+	myFile.open("/home/edgar/centroid_juice.txt");
+
+
+
 	srvPCAobject = n.advertiseService("detect_object/PCA_calculator", callbackPCAobject);
 	cltRgbdRobot = n.serviceClient<point_cloud_manager::GetRgbd>("/hardware/point_cloud_man/get_rgbd_wrt_robot");
 
@@ -249,6 +257,7 @@ int main(int argc, char** argv)
 		if( cv::waitKey(5) == 'q' )
 			break;
 	}
+	myFile.close();
 	cv::destroyAllWindows();
 	return 0;
 }
