@@ -11,6 +11,7 @@
 #include "plane3D.hpp"
 #include "objExtract.hpp"
 #include "findPlaneRansac.hpp"
+#include "segmentedObject.hpp"
 #include "vision_msgs/DetectObjects.h"
 
 std::ofstream myFile;
@@ -27,6 +28,7 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 
 	std::vector<float> centroid_coord;
 	std::vector<cv::Point3f> principal_axis_calculated;
+	std::vector<segmentedObject> objectList;
 
 	int xmin, ymin, H, W;
 	int x_min, x_max;
@@ -49,13 +51,9 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 	cv::Point3f px;
 
 	plane3D bestPlane;
-	plane3D idealPlane;
-	plane3D modelPlane;
-	
-
 
 	// *** Parametros de RANSAC *** //
-	attemps = 40;		// Numero de iteraciones para RANSAC
+	attemps = 60;		// Numero de iteraciones para RANSAC
 	threshold = 0.005;	// Distancia al plano en metros
 
 	x_min = 1000;
@@ -133,6 +131,11 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 		std::cout << "I can't found the plane....   :( " << std::endl;
 		objectsDepth = cv::Mat(50, 50, CV_8UC3);
 	}
+
+	segmentedObject object_1(objectsDepth, 25, 25, 50, 50);
+	objectList = clusterObjects(objectsDepth);
+	objectsDepth = objectList[0].pointsObject;
+
 	// */
 
 	/* // This aply when objectsDepth size == objectsBGR size
@@ -161,6 +164,8 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 	if(objectsDepth.size() != cv::Size(50, 50) )
 	{
 		centroid_coord = CalculateCentroid(objectsDepth, h_table);
+		object_1.getCentroid();
+		object_1.getPrincipalAxis();
 
 		//This is for response
 		resp.recog_objects.push_back(objectDetected);
@@ -181,6 +186,19 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 		resp.recog_objects[0].principal_axis.push_back(q1);
 
 		//This is the bigger axis
+		resp.recog_objects[0].principal_axis[0].x = float(object_1.principalAxis[0].x);
+		resp.recog_objects[0].principal_axis[0].y = float(object_1.principalAxis[0].y);
+		resp.recog_objects[0].principal_axis[0].z = float(object_1.principalAxis[0].z);
+
+		resp.recog_objects[0].principal_axis[1].x = float(object_1.principalAxis[1].x);
+		resp.recog_objects[0].principal_axis[1].y = float(object_1.principalAxis[1].y);
+		resp.recog_objects[0].principal_axis[1].z = float(object_1.principalAxis[1].z);
+
+		resp.recog_objects[0].principal_axis[2].x = float(object_1.principalAxis[2].x);
+		resp.recog_objects[0].principal_axis[2].y = float(object_1.principalAxis[2].y);
+		resp.recog_objects[0].principal_axis[2].z = float(object_1.principalAxis[2].z);
+
+		/*
 		resp.recog_objects[0].principal_axis[0].x = float(principal_axis_calculated[0].x);
 		resp.recog_objects[0].principal_axis[0].y = float(principal_axis_calculated[0].y);
 		resp.recog_objects[0].principal_axis[0].z = float(principal_axis_calculated[0].z);
@@ -192,6 +210,7 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 		resp.recog_objects[0].principal_axis[2].x = float(principal_axis_calculated[2].x);
 		resp.recog_objects[0].principal_axis[2].y = float(principal_axis_calculated[2].y);
 		resp.recog_objects[0].principal_axis[2].z = float(principal_axis_calculated[2].z);
+		*/
 	}
 	else
 		std::cout << "    I can't find a object on the table..... :(" << std::endl;
@@ -199,6 +218,7 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 
 	myFile << "centroid: " << centroid_coord[0] << " " << centroid_coord[1] << " " << centroid_coord[2] << "\n";
 	std::cout << "    x_obj: " << centroid_coord[0] << " - y_obj: " << centroid_coord[1] << " - z_obj: " << centroid_coord[2] << std::endl;
+	std::cout << "centroid_segme: " << object_1.centroid[0] << "  " << object_1.centroid[1] << "  " << object_1.centroid[2] << std::endl;
 	std::cout << "--------------------------------------" << std::endl;
 
 	cv::rectangle(imgBGR, cv::Point(xmin, ymin), cv::Point(xmin+W, ymin+H), cv::Scalar(0, 255, 0));
@@ -212,7 +232,8 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 	//cv::imshow("Cropped Depth", croppedDepth);
 	//cv::imshow("Cropped RGB", croppedBRG);
 	cv::imshow("plane 3D", planeBGR);
-	cv::imshow("Objects Point Cloud", objectsDepth*255.0 );
+	//cv::imshow("Objects Point Cloud", objectsDepth*255.0 );
+	cv::imshow("Objects Point Cloud", objectsDepth);
 	//cv::imshow("objects", objectsBGR);
 
 

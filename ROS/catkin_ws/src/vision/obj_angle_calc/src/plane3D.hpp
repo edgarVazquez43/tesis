@@ -8,6 +8,7 @@ class plane3D{
   
 public:
   int inliers;
+  
   plane3D();
   plane3D(cv::Point3f p1, cv::Point3f p2, cv::Point3f p3);
   plane3D(cv::Point3f normal, cv::Point3f point);

@@ -229,7 +229,7 @@ int main(int argc, char** argv)
 					   axis_resp_1,
 					   axis_resp_2,
 					   centroid);
-        //marker_pub.publish(axis_list_marker);
+        marker_pub.publish(axis_list_marker);
 
         std::cout << "---------------------------" << std::endl;
         ros::spinOnce();

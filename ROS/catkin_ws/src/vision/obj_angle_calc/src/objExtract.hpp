@@ -9,16 +9,13 @@
 #include "opencv2/core/core.hpp"
 #include "opencv2/highgui/highgui.hpp"
 #include "plane3D.hpp"
-
+#include "segmentedObject.hpp"
 
 float CalculateZPlane(plane3D plane, cv::Mat points);
-
 cv::Mat ExtractObj(plane3D plane, cv::Mat points);
-
 std::vector<float> CalculateCentroid(cv::Mat objectsDepth, float z_plane);
-
 std::vector<cv::Point3f> CalculatePCA(cv::Mat object, std::vector<float> centroid);
-
+std::vector<segmentedObject> clusterObjects(cv::Mat pointsObject);
 
 
 float CalculateZPlane(plane3D plane, cv::Mat points)
@@ -245,4 +242,59 @@ std::vector<cv::Point3f> CalculatePCA(cv::Mat object, std::vector<float> centroi
 	principal_comp.push_back(axis_3* sqrt( eig.eigenvalues()(0) )*2.0);
 
 	return principal_comp;
+}
+
+std::vector<segmentedObject> clusterObjects(cv::Mat pointsObject)
+{
+	float threshold = 0.0002;
+	float norma_i = 0.0;
+	float norma_i_1 = 100000.0;
+
+	cv::Point3f px;
+	cv::Mat pointsObj_1;
+
+	std::vector<segmentedObject> objectList;
+
+	pointsObj_1 = pointsObject.clone();
+
+
+	for(int j = 0; j < pointsObject.rows; j++)
+		for (int i = 0; i < pointsObject.cols; i++)
+		{
+			px = pointsObject.at<cv::Point3f>(j,i);
+			if ( px != cv::Point3f(0.0, 0.0, 0.0) && px != cv::Point3f(0, 255, 0))
+			{
+				norma_i = sqrt(px.x*px.x + px.y*px.y + px.z*px.z);
+				std::cout << "norma_i: " << norma_i << std::endl;
+				std::cout << "norma_i_1: " << norma_i_1 << std::endl;
+				std::cout << "V_abs: " << fabs(norma_i_1 - norma_i) << std::endl;
+				if ( fabs(norma_i_1 - norma_i) < threshold )
+					pointsObj_1.at<cv::Point3f>(j,i) = cv::Point3f(100, 255, 100);
+				else
+					pointsObj_1.at<cv::Point3f>(j,i) = cv::Point3f(0.0, 0.0, 0.0);
+			}
+			norma_i_1 = norma_i;
+		}
+
+	/*
+	for(int i = 0; i < objectsDepth.rows; i++)
+		for(int j = 0; j < objectsDepth.cols; j++)
+		{
+			if( objectsDepth.at<cv::Point3f>(i, j) != cv::Point3f(0.0, 0.0, 0.0) )
+			{
+				y_min = (i < y_min) ? i : y_min;
+				x_min = (j < x_min) ? j : x_min;
+				y_max = (i > y_max) ? i : y_max;
+				x_max = (j > x_max) ? j : x_max;
+			}
+		}
+	*/
+
+
+	segmentedObject object_1(pointsObj_1, 0, 0, 100, 100);
+
+	objectList.push_back(object_1);
+
+	return objectList;
+
 }
