@@ -29,6 +29,7 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 	std::vector<float> centroid_coord;
 	std::vector<cv::Point3f> principal_axis_calculated;
 	std::vector<segmentedObject> objectList;
+	segmentedObject object_1;
 
 	int xmin, ymin, H, W;
 	int x_min, x_max;
@@ -123,7 +124,7 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 			}
 
 		// ##### Return the point cloud of objects cropped
-		objectsDepth = ExtractObj(bestPlane, croppedDepth);
+		object_1 = ExtractObj(bestPlane, croppedDepth);
 		h_table = CalculateZPlane(bestPlane, croppedDepth);
 	}
 	else
@@ -132,49 +133,22 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 		objectsDepth = cv::Mat(50, 50, CV_8UC3);
 	}
 
-	segmentedObject object_1(objectsDepth, 25, 25, 50, 50);
-	objectList = clusterObjects(objectsDepth);
-	objectsDepth = objectList[0].pointsObject;
+	objectsDepth = object_1.pointsObject;
 
-	// */
-
-	/* // This aply when objectsDepth size == objectsBGR size
-	//  Code for coloring objects
-	for(int j = 0; j < objectsDepth.rows; j++)
-		for (int i = 0; i < objectsDepth.cols; i++)
-			if ( objectsDepth.at<cv::Point3f>(j, i) != cv::Point3f(0.0, 0.0, 0.0) )
-				objectsBGR.at<cv::Vec3b>(j, i) = cv::Vec3b(150, 0, 0);
-	*/
-
-	/*
-	for(int i = 0; i < objectsDepth.rows; i++)
-		for(int j = 0; j < objectsDepth.cols; j++)
-		{
-			if( objectsDepth.at<cv::Point3f>(i, j) != cv::Point3f(0.0, 0.0, 0.0) )
-			{
-				y_min = (i < y_min) ? i : y_min;
-				x_min = (j < x_min) ? j : x_min;
-				y_max = (i > y_max) ? i : y_max;
-				x_max = (j > x_max) ? j : x_max;
-			}
-		}
-	*/
 
 	// Search the centroid of object PointCloud
 	if(objectsDepth.size() != cv::Size(50, 50) )
 	{
-		centroid_coord = CalculateCentroid(objectsDepth, h_table);
 		object_1.getCentroid();
 		object_1.getPrincipalAxis();
 
 		//This is for response
 		resp.recog_objects.push_back(objectDetected);
-		resp.recog_objects[0].pose.position.x = centroid_coord[0];
-		resp.recog_objects[0].pose.position.y = centroid_coord[1];
-		resp.recog_objects[0].pose.position.z = centroid_coord[2];
+		resp.recog_objects[0].pose.position.x = object_1.centroid[0];
+		resp.recog_objects[0].pose.position.y = object_1.centroid[1];
+		resp.recog_objects[0].pose.position.z = object_1.centroid[2];
 
 		std::cout << "   Z_prom:  " << h_table  << std::endl;
-		principal_axis_calculated = CalculatePCA(objectsDepth, centroid_coord);
 		//std::cout << "   axis[0]:  " << principal_axis_calculated[0] << "  -  norm:  " << cv::norm(principal_axis_calculated[0]) << std::endl;
 		//std::cout << "   axis[1]:  " << principal_axis_calculated[1] << "  -  norm:  " << cv::norm(principal_axis_calculated[1]) << std::endl;
 		//std::cout << "   axis[2]:  " << principal_axis_calculated[2] << "  -  norm:  " << cv::norm(principal_axis_calculated[2]) << std::endl;
@@ -198,43 +172,25 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 		resp.recog_objects[0].principal_axis[2].y = float(object_1.principalAxis[2].y);
 		resp.recog_objects[0].principal_axis[2].z = float(object_1.principalAxis[2].z);
 
-		/*
-		resp.recog_objects[0].principal_axis[0].x = float(principal_axis_calculated[0].x);
-		resp.recog_objects[0].principal_axis[0].y = float(principal_axis_calculated[0].y);
-		resp.recog_objects[0].principal_axis[0].z = float(principal_axis_calculated[0].z);
 
-		resp.recog_objects[0].principal_axis[1].x = float(principal_axis_calculated[1].x);
-		resp.recog_objects[0].principal_axis[1].y = float(principal_axis_calculated[1].y);
-		resp.recog_objects[0].principal_axis[1].z = float(principal_axis_calculated[1].z);
-
-		resp.recog_objects[0].principal_axis[2].x = float(principal_axis_calculated[2].x);
-		resp.recog_objects[0].principal_axis[2].y = float(principal_axis_calculated[2].y);
-		resp.recog_objects[0].principal_axis[2].z = float(principal_axis_calculated[2].z);
-		*/
 	}
 	else
 		std::cout << "    I can't find a object on the table..... :(" << std::endl;
 
 
-	myFile << "centroid: " << centroid_coord[0] << " " << centroid_coord[1] << " " << centroid_coord[2] << "\n";
-	std::cout << "    x_obj: " << centroid_coord[0] << " - y_obj: " << centroid_coord[1] << " - z_obj: " << centroid_coord[2] << std::endl;
+	myFile << "centroid: " << object_1.centroid[0] << " " << object_1.centroid[1] << " " << object_1.centroid[2] << "\n";
 	std::cout << "centroid_segme: " << object_1.centroid[0] << "  " << object_1.centroid[1] << "  " << object_1.centroid[2] << std::endl;
 	std::cout << "--------------------------------------" << std::endl;
 
 	cv::rectangle(imgBGR, cv::Point(xmin, ymin), cv::Point(xmin+W, ymin+H), cv::Scalar(0, 255, 0));
 	cv::rectangle(imgDepth, cv::Point(xmin, ymin), cv::Point(xmin+W, ymin+H), cv::Scalar(0, 255, 0));
-	//cv::rectangle(objectsBGR, cv::Point(x_min, y_min), cv::Point(x_max, y_max), cv::Scalar(0, 255, 0));
-	//cv::rectangle(objectsDepth, cv::Point(x_min, y_min), cv::Point(x_max, y_max), cv::Scalar(0, 255, 0));
+	cv::rectangle(objectsBGR, object_1.ROI, cv::Scalar(250, 10, 0));
 
-	objectsDepth.convertTo(objectsDepth, CV_8UC3);
 	cv::imshow("Original RGB", imgBGR);
-	//cv::imshow("Original Depth", imgDepth);
-	//cv::imshow("Cropped Depth", croppedDepth);
-	//cv::imshow("Cropped RGB", croppedBRG);
+	cv::imshow("objects", objectsBGR);
 	cv::imshow("plane 3D", planeBGR);
-	//cv::imshow("Objects Point Cloud", objectsDepth*255.0 );
 	cv::imshow("Objects Point Cloud", objectsDepth);
-	//cv::imshow("objects", objectsBGR);
+	
 
 
 	/*
@@ -260,9 +216,6 @@ int main(int argc, char** argv)
 	ros::Publisher marker_pub;
 
 	myFile.open("/home/edgar/centroid_juice.txt");
-
-
-
 	srvPCAobject = n.advertiseService("detect_object/PCA_calculator", callbackPCAobject);
 	cltRgbdRobot = n.serviceClient<point_cloud_manager::GetRgbd>("/hardware/point_cloud_man/get_rgbd_wrt_robot");
 

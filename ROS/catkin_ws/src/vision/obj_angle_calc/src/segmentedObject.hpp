@@ -7,6 +7,7 @@
 class segmentedObject{
   
 public:
+	segmentedObject();
 	segmentedObject(cv::Mat pointsObject, int xMin, int yMin, int xMax, int yMax);
 
 	bool getCentroid();
@@ -21,6 +22,11 @@ private:
 
   
 };
+
+segmentedObject::segmentedObject()
+{
+	
+}
 
 
 // Definicion de un plano por tres puntos
