@@ -11,9 +11,9 @@
 
 
 		%Estado del arte
-		Dado que este trabajo se centrará en los robots de servicio es importante mencionar que un robots de servicio es un robot capaz de realizar tareas de la vida diaria en un ambiente similar al de un hogar real. Actualmente el desarrollo de este tipo de robot está guiado por la comtencia internacional Robocup @Home.\cite{robocupAtHome} Esta categoría promueve la incorporación de habilidades robóticas avanzadas para la interacción con los humanos y con el entorno de operación. Esta competencia se enfoca a desarrollar habilidades en los robots de servicios. Ejemplos de estas habilidades son la localización y navegación segura en ambientes no controlados, la comunicación natural humano-robot por voz y gestos y habilidades visuales para el reconocimiento y la manipulación de objetos.\cite{femexrobotics}\\
+		Dado que este trabajo se centrará en los robots de servicio es importante mencionar que un robots de servicio es un robot capaz de realizar tareas de la vida diaria en un ambiente similar al de un hogar real. Actualmente el desarrollo de este tipo de robot está guiado por la competencia internacional Robocup @Home.\cite{robocupAtHome} Esta categoría promueve la incorporación de habilidades robóticas avanzadas para la interacción con los humanos y con el entorno de operación. Esta competencia se enfoca a desarrollar habilidades en los robots de servicios. Ejemplos de estas habilidades son la localización y navegación segura en ambientes no controlados, la comunicación natural humano-robot por voz y gestos y habilidades visuales para el reconocimiento y la manipulación de objetos.\cite{femexrobotics}\\
 
-		Los robots de servicio enfrentan diversos retos: desarrollar tareas en ámbientes dinámicos, características de entornos no estandarizados, incertidumbre ante escenarios desconocidos. Dadas las condiciones en que estos robots operan los programadores y desarrolladores de robots de servicios han optado por dotar a los robots de ciertas capacidades. Por ejemplo el robot Cosero, consta de un sistema de percepción del entorno, un sistema de manipulación, un sistema de interacción humano-robot y un sistema de planeación de tareas.\\ %%%%REFFFFFF
+		Los robots de servicio enfrentan diversos retos: desarrollar tareas en ambientes dinámicos, características de entornos no estandarizados, incertidumbre ante escenarios desconocidos. Dadas las condiciones en que estos robots operan los programadores y desarrolladores de robots de servicios han optado por dotar a los robots de ciertas capacidades. Por ejemplo el robot Cosero, consta de un sistema de percepción del entorno, un sistema de manipulación, un sistema de interacción humano-robot y un sistema de planeación de tareas.\\ %%%%REFFFFFF
 
 		\textit{Tabla con las características de los robots de servicio.}\\
 
@@ -45,16 +45,16 @@
 		%\vspace{0.2in}
 
 
-		Estos desarrollos han sido posibles gracias a herramientas de código abierto como lo es Ubuntu, ya que ha servido como base para el desarrollo de software especializado para robots, por ejemplo ROS \cite{rosEpage}. Este conjunto de librerías especializadas para robots pueden llegar a ser muy patículares y estar enfocados a una sola área de invetigación de las antes mencionadas, por ejemplo: Carmen \cite{carnegieMellon}, un conjuto de liberías y algoritmos de control para navegación de robots, desarrollados por la universidad Carnegie Mellon\cite{cMellonEpage}.\\
+		Estos desarrollos han sido posibles gracias a herramientas de código abierto como lo es Ubuntu, ya que ha servido como base para el desarrollo de software especializado para robots, por ejemplo ROS \cite{rosEpage}. Este conjunto de librerías especializadas para robots pueden llegar a ser muy particulares y estar enfocados a una sola área de investigación de las antes mencionadas, por ejemplo: Carmen \cite{carnegieMellon}, un conjunto de librerías y algoritmos de control para navegación de robots, desarrollados por la universidad Carnegie Mellon\cite{cMellonEpage}.\\
 		%\vspace{0.2in}
 
-		En la parte de simulación se cuenta con ejemplos como el USARSim \cite{balakirsky2006}, rviz \cite{rVizEpage} o Gazebo \cite{gazeboEpage}. Por lo que respecta a los algoritmos de visión computacional existen bibliotecas de código abierto por ejemplo OpenCV \cite{openCV} el cual tiene un gran campo de aplicaciones\cite{bradski2000}. Por lo que corresponde a los kits standar de hardware, podemos mencionar la construcción de robots de plataforma standar por ejemplo VolksBot \cite{wisspeintner2007} y las plataformas bases por ejemplo ActivRobots \cite{ActivRobots}, Pepper \cite{pepperEpage}, Asimo \cite{asimoEpage} ha hecho posible desarrollar software de manera más rápida y eficiente.\\
+		En la parte de simulación se cuenta con ejemplos como el USARSim \cite{balakirsky2006}, rviz \cite{rVizEpage} o Gazebo \cite{gazeboEpage}. Por lo que respecta a los algoritmos de visión computacional existen bibliotecas de código abierto por ejemplo OpenCV \cite{openCV} el cual tiene un gran campo de aplicaciones\cite{bradski2000}. Por lo que corresponde a los kits estándar de hardware, podemos mencionar la construcción de robots de plataforma estándar por ejemplo VolksBot \cite{wisspeintner2007} y las plataformas bases por ejemplo ActivRobots \cite{ActivRobots}, Pepper \cite{pepperEpage}, Asimo \cite{asimoEpage} ha hecho posible desarrollar software de manera más rápida y eficiente.\\
 		%\vspace{0.2in}
 
 		\begin{figure}[htb]
 			\begin{center}
 			\includegraphics[width=3.5cm, height=5cm]{/asimo.jpg}
-			\caption{Robot asimo desarrollado por la companía Honda.}
+			\caption{Robot asimo desarrollado por la compañía Honda.}
 			\end{center}
 		\end{figure}
 
@@ -64,16 +64,16 @@
 %%  ---------------------------------
 
 	\section{Fundamentos básicos de Robots Manipuladores}
-		La manipulación adecuada de objetos es una característica imprescindible en los robots de servicio dadas las condiciones de su entorno y las tareas cotidianas que le podemos asignar a dicho robot. Una posible solución a la problemática de la manipulación de objetos es la incorporación de manipuladores seriales a una base móvil; sin embargo se debe tener encuenta que los objetos a ser manipulados se encuentran en condiciones aleatorias de posición y orientación, estas características implican que el manipulador serial debería ser capaz de alcanzar una posición (x, y, z) con cualquier orientación (roll, pitch, yaw).\\
+		La manipulación adecuada de objetos es una característica imprescindible en los robots de servicio dadas las condiciones de su entorno y las tareas cotidianas que le podemos asignar a dicho robot. Una posible solución a la problemática de la manipulación de objetos es la incorporación de manipuladores seriales a una base móvil; sin embargo se debe tener en cuenta que los objetos a ser manipulados se encuentran en condiciones aleatorias de posición y orientación, estas características implican que el manipulador serial debería ser capaz de alcanzar una posición (x, y, z) con cualquier orientación (roll, pitch, yaw).\\
 
 		Los robots manipuladores clásicos presentan una configuración antropomórfica serial, que hace semejanza con un brazo humano. La arquitectura típica de un manipulador consiste en una serie de barras rígidas unidas entre sí mediante el uso de articulaciones rotacionales o prismáticas. De manera general cada articulación logra su movimiento gracias a un actuador y a la adición de algunos elelmentos complementarios como sensores de posición y de velocidad\cite{baturone2005}.\\
 
-		Los robots manipuladores clásicos están caracterizados, desde el punto de vista mecánico, por una serie de propiedades talez como los grados de libertad, el espacio de trabajo, la rígidez estructural, peso propio y la capacidad de llegar a un punto deseado con exactitud en multiples repeticiones. Además en los robots manipuladores suelen tomarse en cuenta otras características adicionales: la carga útil máxima y la velocidad de trabajo.\\
+		Los robots manipuladores clásicos están caracterizados, desde el punto de vista mecánico, por una serie de propiedades tales como los grados de libertad, el espacio de trabajo, la rigidez estructural, peso propio y la capacidad de llegar a un punto deseado con exactitud en múltiples repeticiones. Además en los robots manipuladores suelen tomarse en cuenta otras características adicionales: la carga útil máxima y la velocidad de trabajo.\\
 
 		\begin{figure}[htb]
 			\begin{center}
 			\includegraphics[width=3.5cm, height=4cm]{/serial_abb.jpg}
-			\caption{Robot serial elaborado por la companía ABB.}
+			\caption{Robot serial elaborado por la compañía ABB.}
 			\end{center}
 		\end{figure}
 
@@ -117,11 +117,11 @@ Los principales parámetros que caracterizan a los robots industriales son:
 
 
 		\subsection{Descripciones espaciales y transformaciones}
-			La cinemática es la ciencia del movimiento que trata el tema sin considerar las fuerzas que lo ocasionan. Dentro de esta ciencia se estudian la posición, la velocidad y la aceleración. En conseciencia, el estudio de la cinemática de manipuladores se refiere a todas las propiedades geométricas y las basadas en los cambios de estas a lo largo del tiempo. Dadas las características de este trabajo solo se abordarán la cinemática directa e inversa, sin llegar a analizar la dinámica del manipulador.\\
+			La cinemática es la ciencia del movimiento que trata el tema sin considerar las fuerzas que lo ocasionan. Dentro de esta ciencia se estudian la posición, la velocidad y la aceleración. En consecuencia, el estudio de la cinemática de manipuladores se refiere a todas las propiedades geométricas y las basadas en los cambios de estas a lo largo del tiempo. Dadas las características de este trabajo solo se abordarán la cinemática directa e inversa, sin llegar a analizar la dinámica del manipulador.\\
 
-			El problema de la cinemática directa se plantea en términos de encontrar una matriz de trasformación que relaciona el sistema de coordenadas ligado al cuerpo en movimiento respecto a un sistema de coordenadas que permanece estático y se toma como referencia. Para lograr esta representación se usa la matriz de transformación homogénena con una dimension 4x4, la cual incluye las operaciones de rotación y translación.\\
+			El problema de la cinemática directa se plantea en términos de encontrar una matriz de trasformación que relaciona el sistema de coordenadas ligado al cuerpo en movimiento respecto a un sistema de coordenadas que permanece estático y se toma como referencia. Para lograr esta representación se usa la matriz de transformación homogénena con una dimensión 4x4, la cual incluye las operaciones de rotación y translación.\\
 
-			La matriz de transformación homogénea es una matriz de 4x4 que trasnforma un vector expresado en coordenadas homogéneas desde un sistema de coordenadas hasta otro sistema de coordenadas. La matriz de transformación homogénea tiene la siguiente estructura:\\
+			La matriz de transformación homogénea es una matriz de 4x4 que transforma un vector expresado en coordenadas homogéneas desde un sistema de coordenadas hasta otro sistema de coordenadas. La matriz de transformación homogénea tiene la siguiente estructura:\\
 
 			
 			$$
@@ -143,11 +143,11 @@ Los principales parámetros que caracterizan a los robots industriales son:
 
 
 		\subsection{Cinemática directa}
-			El problema de la cinemática directa consiste en determinar la posición del efector final en el espacio dado el valor de cada una de las articulaciones. El valor de los ángulos de las articulaciones se determinan con ayuda de sistemas de refencia ubicados en cada una de las articulaciones del robot.\\
+			El problema de la cinemática directa consiste en determinar la posición del efector final en el espacio dado el valor de cada una de las articulaciones. El valor de los ángulos de las articulaciones se determinan con ayuda de sistemas de referencia ubicados en cada una de las articulaciones del robot.\\
 
 			Un robot manipulador está compuesto de un conjunto de enlaces conectados por varias juntas. Las articulaciones pueden ser muy simples, tales como una articulación de revolución o una articulación prismática. Una articulación de revolución es como una bisagra y permite una rotación relativa alrededor de un solo eje coordenado; una junta prismática permite un movimiento lineal a lo largo de un solo eje. En ambos casos podemos observar el que la articulación tiene un solo grado de libertad de movimiento: el ángulo de rotación en el caso de una articulación de revolución, y la cantidad de desplazamiento lineal en el caso de una articulación prismática.\\
 
-			Con el supuesto de que cada articulación tiene un solo grado de libertad, la acción de cada una de las aticulaciones se puede describir por un solo número real: el ángulo de rotación en el caso de una articulación de revolución o el desplazamiento en el caso de una junta prismática. El objetivo del análisis de la cinemática directa es determinar el efecto acumulativo de todo el conjunto de variables de la articulación y observarlo en el efector final.\cite{spong2008robot}\\
+			Con el supuesto de que cada articulación tiene un solo grado de libertad, la acción de cada una de las articulaciones se puede describir por un solo número real: el ángulo de rotación en el caso de una articulación de revolución o el desplazamiento en el caso de una junta prismática. El objetivo del análisis de la cinemática directa es determinar el efecto acumulativo de todo el conjunto de variables de la articulación y observarlo en el efector final.\cite{spong2008robot}\\
 
 			El análisis cinemático de un manipulador de n-enlaces puede ser extremadamente complejo y las convenciones que se presentan a continuación simplifican el análisis considerablemente.\\
 
@@ -161,17 +161,17 @@ Los principales parámetros que caracterizan a los robots industriales son:
 %%  Imagenes RGD y Points Clouds
 %%  ----------------------------------------------
 	\section{Imágenes RGB-D}
-		En la robótica de servicios resulta imprescindible contar con robots que sean capacez de percibir su entorno, los elementos que los rodean y determinar características de los mismos. Los humanos, dadas estas necesidades, hemos desarrollado el sentido de la vista que nos permite determinar características del entorno y de los objetos que lo componen tales como el color, la forma, las dimensiones ó su ubicación en el espacio.\\
+		En la robótica de servicios resulta imprescindible contar con robots que sean capaces de percibir su entorno, los elementos que los rodean y determinar características de los mismos. Los humanos, dadas estas necesidades, hemos desarrollado el sentido de la vista que nos permite determinar características del entorno y de los objetos que lo componen tales como el color, la forma, las dimensiones ó su ubicación en el espacio.\\
 
 		Para optimizar los movimientos de un robot, no sólo se debe identificar cada objeto que se encuentra en el entorno de trabajo, sino también la posición que estos guardan respecto al robot. Normalmente, la segmentación de objetos de una imagen se logra mediante la segmentación de color, esta segmentación se logra a partir del análisis cromático de los componentes RGB de la imagen obtenida del objeto; sin embargo, este método es poco eficiente debido a que es sumamente suceptible a los cambios en la iluminación. \cite{objectDetectingKinect}\\ 
 
 		Por lo tanto, necesitamos considerar una fuente de datos adicional, en este caso la profundidad, para discriminar objetos que no están en el rango de interés. En este documento se reportan los datos obtenidos al resolver este problema con la incorporación de un sensor RGB-D.\\
 
-		La rápida evolución de esta reciente tecnología ha resultado en el aumento de la calidad de las imágenes, la mejora en la sincronización del color con la profundida y la disminución del tiempo de muestreo entre cada imagen. En partícular, la profundida de la imagen se obtiene en una matriz resultado de la proyección de rayos infrarrojos sobre los objetos. El sensor cuenta con una cámara infrarroja que obtiene la lectura de los haces infrarrojos reflejados sobre los objetos.\\
+		La rápida evolución de esta reciente tecnología ha resultado en el aumento de la calidad de las imágenes, la mejora en la sincronización del color con la profundidad y la disminución del tiempo de muestreo entre cada imagen. En particular, la profundidad de la imagen se obtiene en una matriz resultado de la proyección de rayos infrarrojos sobre los objetos. El sensor cuenta con una cámara infrarroja que obtiene la lectura de los haces infrarrojos reflejados sobre los objetos.\\
 
-		El sensor Kinect incorpora un sensor de profundidad, un cámara de color y un arreglo de cuatro microfonos que, en conjunto, proporcionan una captura de movimiento de cuerpo completo en 3D. La figura 2.5 muestra la disposición del proyector de infrarrojos (IR), la cámara de color y la cámara IR. El sensor de profundidad consta de un proyector IR combinado con una cámara IR, la cual es un sensor semiconductor de metal-óxido monocromático. El sensor de profundidad es desarrollado por la companía israeli PrimeSense.\\
+		El sensor Kinect incorpora un sensor de profundidad, un cámara de color y un arreglo de cuatro micrófonos que, en conjunto, proporcionan una captura de movimiento de cuerpo completo en 3D. La figura 2.5 muestra la disposición del proyector de infrarrojos (IR), la cámara de color y la cámara IR. El sensor de profundidad consta de un proyector IR combinado con una cámara IR, la cual es un sensor semiconductor de metal-óxido monocromático. El sensor de profundidad es desarrollado por la compañía israelí PrimeSense.\\
 
-		Aunque la tecnología exacta es cerrada, se basa en el principio de la estructura de la luz y su difracción. El proyector IR es un lasér IR que pasa a traves de una rejilla de difracción y se esparce como una nube de puntos. Dada la geometría de construcción entre el proyector IR y la cámara IR se puede reconstruir un modelo 3D si se observa un punto en el proyector y posteriormente se ubica su corresponsiente reflexión en la cámara, esto se puede lograr utilizando triangulación.\\
+		Aunque la tecnología exacta es cerrada, se basa en el principio de la estructura de la luz y su difracción. El proyector IR es un láser IR que pasa a través de una rejilla de difracción y se esparce como una nube de puntos. Dada la geometría de construcción entre el proyector IR y la cámara IR se puede reconstruir un modelo 3D si se observa un punto en el proyector y posteriormente se ubica su correspondiente reflexión en la cámara, esto se puede lograr utilizando triangulación.\\
 
 		Debido a que el patrón de puntos es relativamente al azar, la coincidencia entre la imagen IR y el patrón del proyector puede realizarse de forma directa comparando pequeñas vecindades utilizando, por ejemplo, referencias cruzadas.\cite{kinectFeatures}\\
 
@@ -200,7 +200,7 @@ Los principales parámetros que caracterizan a los robots industriales son:
 		\subsection{Algoritmo}
 		El algoritmo RANSAC (RANdom Sample And Consensus) fue introducido por primera vez por Fischler y Bolles en 1981, como un método para estimar los parámetros de un determinado modelo a partir de un conjunto de datos contaminados por grandes cantidades de outliers. Un dato es considerado un outlier si no encaja en el modelo propuesto, dentro de un umbral de error que define el valor máximo desviación atribuible al efecto del ruido.\\
 
-		RANSAC selecciona uniformemente al azar un subconjunto de muestras de datos y lo utiliza para crear un modelo de estimación de parámetros. Luego determina si las muestras que están dentro de una tolerancia de error del  modelo antes propuesto. Si estas muestras se consideran como parte del modelo generado se agrupan en un conjunto llamdo \"consenso\". De manera análoga se llama \"outliers\" al conjunto de tos que superan el umbral de error con respecto al modelo. Si el recuento de los datos agrupados en el consenso es suficientemente alto con respecto de los outliers, se considera que el modelo se ajusta al conjuto de datos, siendo el modelo propuesto un modelo que se aproxima al conjunto total de datos.\\
+		RANSAC selecciona uniformemente al azar un subconjunto de muestras de datos y lo utiliza para crear un modelo de estimación de parámetros. Luego determina si las muestras que están dentro de una tolerancia de error del  modelo antes propuesto. Si estas muestras se consideran como parte del modelo generado se agrupan en un conjunto llamado \"consenso\". De manera análoga se llama \"outliers\" al conjunto de tos que superan el umbral de error con respecto al modelo. Si el recuento de los datos agrupados en el consenso es suficientemente alto con respecto de los outliers, se considera que el modelo se ajusta al conjunto de datos, siendo el modelo propuesto un modelo que se aproxima al conjunto total de datos.\\
 
 		A continuación se muestra el seudocódigo básico para el algoritmo RANSAC.\\
 
@@ -222,7 +222,7 @@ Los principales parámetros que caracterizan a los robots industriales son:
 			\State{Inicialización de variables:}
 			\State{iteraciones = 0}
 			\State{mejorModelo = vacío}
-			\State{mejorError = Algo realemente grande}\\
+			\State{mejorError = Algo realmente grande}\\
 			
 
 		
@@ -324,9 +324,16 @@ Los principales parámetros que caracterizan a los robots industriales son:
 
 		Es un plano que tiene como vector el vector $n = (a, b, c)$. Esta ecuación familiar para un plano se llama la forma general de la ecuación del plano.
 
+		\begin{figure}[h!]
+			\begin{center}
+			\includegraphics[width=7.5cm, height=6.0cm]{/planeEquation.png}	
+			\caption{Ecuación de un plano definido por un punto y su normal.}
+			\end{center}
+		\end{figure}
+
 		\subsection{Modelo del plano definido por tres puntos}
 
-		Sea $p_1=(x_1, y_1, z_1)$, $p_2=(x_2, y_2, z_2)$, y $p_3=(x_3, y_3, z_3)$ puntos en el estacio $R^3$ no-colineales.\\
+		Sea $p_1=(x_1, y_1, z_1)$, $p_2=(x_2, y_2, z_2)$, y $p_3=(x_3, y_3, z_3)$ puntos en el espacio $R^3$ no-colineales.\\
 
 		Este plano también puede ser descrito por el "punto y un vector normal" prescripción anterior. Un vector normal adecuado se da por el producto cruz.\\
 		
@@ -349,7 +356,7 @@ Los principales parámetros que caracterizan a los robots industriales son:
 			\end{split}
 		\end{equation}
 
-		De lo cual podemos obervar que el punto $p_1$ se encuentra en el plano si y sólo si $D = 0$.\\
+		De lo cual podemos observar que el punto $p_1$ se encuentra en el plano si y sólo si $D = 0$.\\
 
 		Si $\sqrt{a^2 + b^2 + c^2} = 1$ significa que a, b, y c están normalizados,  entonces la ecuación se convierte en:\\
 		
@@ -359,10 +366,9 @@ Los principales parámetros que caracterizan a los robots industriales son:
 			\end{split}
 		\end{equation}
 
-		****Imagen plano
 
 	\section{Algoritmo PCA}
-		El Análisis de Componentes Principales (PCA) ha sido llamado Uno de los resultados más valiosos de la algebra lineal. PCA Se usa abundantemente en muchas formas de análisis, desde la neurociencia a la computación gráfica debido a que es un método simple. El PCA proporciona una metodología para reducir un conjunto de datos complejos a una dimensión inferior.\\	
+		El Análisis de Componentes Principales (PCA) ha sido llamado Uno de los resultados más valiosos de la álgebra lineal. PCA Se usa abundantemente en muchas formas de análisis, desde la neurociencia a la computación gráfica debido a que es un método simple. El PCA proporciona una metodología para reducir un conjunto de datos complejos a una dimensión inferior.\\	
 
 		El algoritmo PCA tiene sus bases en las estadísticas y parte de la idea de que se cuenta con un gran conjunto de datos, y desea analizar ese conjunto en términos de las relaciones entre los puntos individuales dentro de ese conjunto de datos. Se pretende analizar algunas de las medidas que podemos calcular en un conjunto de datos, y lo que estás medidas dicen acerca de los datos en sí.\\
 
@@ -372,7 +378,7 @@ Los principales parámetros que caracterizan a los robots industriales son:
 		
 			La desviación estándar es una medida de la dispersión de un conjunto de datos respecto de la media. Se calcula como la raíz cuadrada de la varianza, determinando la variación entre cada punto perteneciente al conjunto de  datos respecto a la media. Si los puntos de datos están más lejos de la media, hay una desviación más alta dentro del conjunto de datos.\\
 
-			Por tanto para calcular la desviación estándar primero debemos calcular la media del conjuto de datos.\\
+			Por tanto para calcular la desviación estándar primero debemos calcular la media del conjunto de datos.\\
 
 			Cálculo de la media de un conjunto de datos.\\
 			
@@ -382,16 +388,22 @@ Los principales parámetros que caracterizan a los robots industriales son:
 				\end{split}
 			\end{equation}
 
-			Donde $n$ es el numero totalo de datos contenido en la muestra.\\
+			Donde $n$ es el numero total de datos contenido en la muestra.\\
 			
-			Cálculo de la desviación estandar.\\
+			Cálculo de la desviación estándar.\\
 			\begin{equation}
 				\begin{split}
 					\sigma = \sqrt{\dfrac{\Sigma^n_{i=1} (X_i - \bar{X})^2} {(n-1)} }
 				\end{split}
 			\end{equation}
 
-			***Imagen
+
+			\begin{figure}
+				\begin{center}
+				\includegraphics[width=10.5cm, height=7.0cm]{/standarDeviation4.jpg}	
+				\caption{Distribución normal con media cero y diferentes desviaciones estándar.}
+				\end{center}
+			\end{figure}
 
 
 
@@ -402,7 +414,7 @@ Los principales parámetros que caracterizan a los robots industriales son:
 
 			Cabe destacar que las medidas de dispersión (también identificadas con el nombre de medidas de variabilidad) se encargan de expresar la variabilidad de una distribución por medio de un número, en los casos en que las diferentes puntuaciones de la variable están muy alejadas de la media. A mayor valor de la medida de dispersión, mayor variabilidad. En cambio, a menor valor, más homogeneidad.\\
 
-			Por lo que respecta a su representación matemática se puede expresar como el cuadrado del valor de la desviación estandar, como se muestra a continuación.\\ 
+			Por lo que respecta a su representación matemática se puede expresar como el cuadrado del valor de la desviación estándar, como se muestra a continuación.\\ 
 
 			\begin{equation}
 				\begin{split}
@@ -418,7 +430,7 @@ Los principales parámetros que caracterizan a los robots industriales son:
 
 		\subsection{Covarianza}
 		
-			Las dos últimas medidas que hemos observado son puramente uni-dimensionales. Conjuntos de datos como este podrían ser: alturas de todas las personas en la sala, las calificaciones para el último examen, etc. Sin embargo, muchos conjuntos de datos tienen más de una dimensión y el objetivo del Análisis de Componentes Principales son estos conjuntos de datos. En tal caso es importante observar si existe alguna relación entre las diferentes dimensiones. Por ejemplo, podríamos tener como nuestro conjunto de datos tanto la altura de todos los estudiantes en una clase, y la calificación  que recibieron en un exámen.\\ 
+			Las dos últimas medidas que hemos observado son puramente uni-dimensionales. Conjuntos de datos como este podrían ser: alturas de todas las personas en la sala, las calificaciones para el último examen, etc. Sin embargo, muchos conjuntos de datos tienen más de una dimensión y el objetivo del Análisis de Componentes Principales son estos conjuntos de datos. En tal caso es importante observar si existe alguna relación entre las diferentes dimensiones. Por ejemplo, podríamos tener como nuestro conjunto de datos tanto la altura de todos los estudiantes en una clase, y la calificación  que recibieron en un examen.\\ 
 
 			Podríamos entonces realizar un análisis estadístico para ver si la altura de un estudiante tiene algún efecto en su calificación. La desviación estándar y la varianza sólo funcionan en una dimensión, de modo que podríamos solamente calcular la desviación estándar para cada dimensión del conjunto de datos de forma independiente de las otras dimensiones. Sin embargo, es útil tener una medida similar para mucho las dimensiones varían de la media con respecto a la otra. La covarianza es tal medida. Covarianza siempre se mide entre 2 dimensiones. Si se calcula la covarianza entre una dimensión y sí, se obtiene la diferencia.\\
 
@@ -456,7 +468,7 @@ Los principales parámetros que caracterizan a los robots industriales son:
 
 		\subsection{Eigenvalores y Eigenvectores}
 
-			Se conocen como valores propios de una matriz al conjunto de valores que resuleven la ecuación:\\
+			Se conocen como valores propios de una matriz al conjunto de valores que resuelven la ecuación:\\
 
 			\begin{equation}
 				\begin{split}
@@ -470,7 +482,7 @@ Los principales parámetros que caracterizan a los robots industriales son:
 				\end{split}
 			\end{equation}
 
-			Tambien puede observarse que $\lambda$ es un vector de valores escalares que a su vez son solución del polinomio de grado $n$. Donde $n$ es la dimensión de la matriz $A$: \\
+			También puede observarse que $\lambda$ es un vector de valores escalares que a su vez son solución del polinomio de grado $n$. Donde $n$ es la dimensión de la matriz $A$: \\
 
 			Polinomio característico.\\
 			\begin{equation}
@@ -487,7 +499,7 @@ Los principales parámetros que caracterizan a los robots industriales son:
 			\end{equation}
 
 
-			Para encontrar el valor de los vectores caratecterísticos de la matriz A se determinan los valores característicos de la matriz A se resuleve la ecuación:\\
+			Para encontrar el valor de los vectores característicos de la matriz A se determinan los valores característicos de la matriz A se resuelve la ecuación:\\
 
 			
 			\begin{equation}
@@ -507,7 +519,7 @@ Los principales parámetros que caracterizan a los robots industriales son:
 
 			Los vectores característicos $\vec{v_1}, \vec{v_2}, \vec{v_2} ... \vec{v_n}$ , asociados a los valores característicos distintos $\lambda_1, \lambda_2, ...\lambda_n$ de la matriz A, \textbf{son linealmente independientes, y este conjunto es una base en $R^n$}. Si la matriz A es simétrica y real, entonces las base es ortogonal.\\
 
-			Es importante resaltar estas dos caraterísticas puesto que la aplicación que se desarrollará en este trabajo se basa en el principio de la indepencia lineal de los vectores propios y que estos construyen una base ortogonal del conjunto de datos observados.
+			Es importante resaltar estas dos características puesto que la aplicación que se desarrollará en este trabajo se basa en el principio de la independencia lineal de los vectores propios y que estos construyen una base ortogonal del conjunto de datos observados.
 
 	\section{Características del objeto}
 
