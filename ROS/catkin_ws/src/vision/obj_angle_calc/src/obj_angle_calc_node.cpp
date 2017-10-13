@@ -63,9 +63,6 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 	x_max = 0;
 	y_max = 0;
 
-	xmin = 190;
-	ymin = 120;
-
 	x_obj = 0.0;
 	y_obj = 0.0;
 	z_obj = 0.0;
@@ -73,8 +70,11 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 
 	points_obj = 0;
 
-	W = 260;
-	H = 320;
+	xmin = 300;
+	ymin = 140;
+
+	W = 150;
+	H = 280;
 
 	centroid_coord.push_back(0.0);
 	centroid_coord.push_back(0.0);
