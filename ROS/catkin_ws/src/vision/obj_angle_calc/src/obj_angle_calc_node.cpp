@@ -27,13 +27,12 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 	vision_msgs::VisionObject objectDetected;
 
 	std::vector<float> centroid_coord;
+	std::vector<float> dimensions;
 	std::vector<cv::Point3f> principal_axis_calculated;
 	std::vector<segmentedObject> objectList;
 	segmentedObject object_1;
 
 	int xmin, ymin, H, W;
-	int x_min, x_max;
-	int y_min, y_max;
 	int attemps;
 	int points_obj;
 	float x_obj, y_obj, z_obj;
@@ -54,14 +53,8 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 	plane3D bestPlane;
 
 	// *** Parametros de RANSAC *** //
-	attemps = 60;		// Numero de iteraciones para RANSAC
+	attemps = 160;		// Numero de iteraciones para RANSAC
 	threshold = 0.005;	// Distancia al plano en metros
-
-	x_min = 1000;
-	y_min = 1000;
-
-	x_max = 0;
-	y_max = 0;
 
 	x_obj = 0.0;
 	y_obj = 0.0;
@@ -124,16 +117,16 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 			}
 
 		// ##### Return the point cloud of objects cropped
-		object_1 = ExtractObj(bestPlane, croppedDepth);
+		object_1 = ExtractObj(bestPlane, croppedBRG, croppedDepth);
 		h_table = CalculateZPlane(bestPlane, croppedDepth);
+		objectsDepth = object_1.pointsObject;
+		objectsBGR = object_1.pointsBRG;
 	}
 	else
 	{
 		std::cout << "I can't found the plane....   :( " << std::endl;
 		objectsDepth = cv::Mat(50, 50, CV_8UC3);
 	}
-
-	objectsDepth = object_1.pointsObject;
 
 
 	// Search the centroid of object PointCloud
@@ -171,27 +164,29 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 		resp.recog_objects[0].principal_axis[2].x = float(object_1.principalAxis[2].x);
 		resp.recog_objects[0].principal_axis[2].y = float(object_1.principalAxis[2].y);
 		resp.recog_objects[0].principal_axis[2].z = float(object_1.principalAxis[2].z);
+		dimensions = getFeatures(objectsBGR, objectsDepth);
+		//dimensions[0] ----> x_lengh
+		//dimensions[0] ----> x_lengh
+		//dimensions[0] ----> x_lengh
+		myFile << "-" << dimensions[0] << " " << dimensions[1] << " " << dimensions[2] << " "
+		 << object_1.standartDeviations[0] << "  " << object_1.standartDeviations[1] << "  " << object_1.standartDeviations[2] << "\n";
+		std::cout << "centroid_segme: " << object_1.centroid[0] << "  " << object_1.centroid[1] << "  " << object_1.centroid[2] << std::endl;
+		std::cout << "standartDeviation: " << object_1.standartDeviations[0] << "  " << object_1.standartDeviations[1] << "  " << object_1.standartDeviations[2] << std::endl;
+		std::cout << "--------------------------------------" << std::endl;
+
+		cv::rectangle(imgBGR, cv::Point(xmin, ymin), cv::Point(xmin+W, ymin+H), cv::Scalar(0, 255, 0));
+		cv::rectangle(imgDepth, cv::Point(xmin, ymin), cv::Point(xmin+W, ymin+H), cv::Scalar(0, 255, 0));
+		//cv::rectangle(objectsBGR, object_1.ROI, cv::Scalar(250, 10, 0));
+
+		cv::imshow("Original RGB", imgBGR);
+		cv::imshow("objects", objectsBGR);
+		cv::imshow("plane 3D", planeBGR);
+		cv::imshow("Objects Point Cloud", objectsDepth);
 
 
 	}
 	else
 		std::cout << "    I can't find a object on the table..... :(" << std::endl;
-
-
-	myFile << "centroid: " << object_1.centroid[0] << " " << object_1.centroid[1] << " " << object_1.centroid[2] << "\n";
-	std::cout << "centroid_segme: " << object_1.centroid[0] << "  " << object_1.centroid[1] << "  " << object_1.centroid[2] << std::endl;
-	std::cout << "--------------------------------------" << std::endl;
-
-	cv::rectangle(imgBGR, cv::Point(xmin, ymin), cv::Point(xmin+W, ymin+H), cv::Scalar(0, 255, 0));
-	cv::rectangle(imgDepth, cv::Point(xmin, ymin), cv::Point(xmin+W, ymin+H), cv::Scalar(0, 255, 0));
-	cv::rectangle(objectsBGR, object_1.ROI, cv::Scalar(250, 10, 0));
-
-	cv::imshow("Original RGB", imgBGR);
-	cv::imshow("objects", objectsBGR);
-	cv::imshow("plane 3D", planeBGR);
-	cv::imshow("Objects Point Cloud", objectsDepth);
-	
-
 
 	/*
 	//######  Code for video recorder  ######
@@ -215,7 +210,7 @@ int main(int argc, char** argv)
 	ros::ServiceServer srvPCAobject;
 	ros::Publisher marker_pub;
 
-	myFile.open("/home/edgar/centroid_juice.txt");
+	myFile.open("/home/edgar/coca_dimensions.txt");
 	srvPCAobject = n.advertiseService("detect_object/PCA_calculator", callbackPCAobject);
 	cltRgbdRobot = n.serviceClient<point_cloud_manager::GetRgbd>("/hardware/point_cloud_man/get_rgbd_wrt_robot");
 

@@ -12,8 +12,10 @@
 #include "segmentedObject.hpp"
 
 float CalculateZPlane(plane3D plane, cv::Mat points);
-segmentedObject ExtractObj(plane3D plane, cv::Mat points);
-std::vector<segmentedObject> clusterObjects(cv::Mat pointsObject);
+segmentedObject ExtractObj(plane3D plane, cv::Mat pointsBRG, cv::Mat points);
+std::vector<segmentedObject> clusterObjects(cv::Mat pointsBRG, cv::Mat pointsObject);
+
+std::vector<float> getFeatures(cv::Mat pointsBRG, cv::Mat pointsObject);
 
 
 float CalculateZPlane(plane3D plane, cv::Mat points)
@@ -42,8 +44,7 @@ float CalculateZPlane(plane3D plane, cv::Mat points)
 }
 
 
-
-segmentedObject ExtractObj(plane3D plane, cv::Mat points)
+segmentedObject ExtractObj(plane3D plane,cv::Mat pointsBRG ,cv::Mat points)
 {
 	int z_numbers;
 	int x_min, x_max;
@@ -52,6 +53,7 @@ segmentedObject ExtractObj(plane3D plane, cv::Mat points)
 	float threshold;
 
 	cv::Mat objectsPC;
+	cv::Mat objectBRG;
 	cv::Point3f px;
 
 	z_numbers = 0;
@@ -63,6 +65,7 @@ segmentedObject ExtractObj(plane3D plane, cv::Mat points)
 	threshold = 0.02;
 
 	objectsPC = points.clone();
+	objectBRG = pointsBRG.clone();
 
 	//std::cout << "obj_extr--->  planeComp:  " << plane.GetPlaneComp() << std::endl;
 	//std::cout << "obj_extr--->  points_size: " << points.size() << std::endl;
@@ -77,6 +80,7 @@ segmentedObject ExtractObj(plane3D plane, cv::Mat points)
 				z_numbers++;
 				z_plane += px.z;
 				objectsPC.at<cv::Point3f>(i, j) = cv::Point3f(0.0, 0.0, 0.0);
+				objectBRG.at<cv::Vec3b>(i, j) = cv::Vec3b(0, 0, 0);
 			}
 		}
 
@@ -88,7 +92,10 @@ segmentedObject ExtractObj(plane3D plane, cv::Mat points)
 		{
 			px = points.at<cv::Point3f>(i, j);
 			if( px.z < (z_plane - 0.01) || px.x < 0.10 || px.x > 0.80)
+			{
 				objectsPC.at<cv::Point3f>(i, j) = cv::Point3f(0.0, 0.0, 0.0);
+				objectBRG.at<cv::Vec3b>(i, j) = cv::Vec3b(0, 0, 0);
+			}
 		}
 
 
@@ -114,15 +121,16 @@ segmentedObject ExtractObj(plane3D plane, cv::Mat points)
 	{
 		cv::Rect myCrop(x_min, y_min, x_max -x_min, y_max - y_min);
 		objectsPC = objectsPC(myCrop);
+		objectBRG = objectBRG(myCrop);
 	}
 
-	segmentedObject object_1(objectsPC, x_min, y_min, x_max, y_max);
+	segmentedObject object_1(objectBRG, objectsPC, x_min, y_min, x_max, y_max);
 
 	return object_1;
 }
 
 
-std::vector<segmentedObject> clusterObjects(cv::Mat pointsObject)
+std::vector<segmentedObject> clusterObjects(cv::Mat pointsBRG, cv::Mat pointsObject)
 {
 	float threshold = 0.0002;
 	float norma_i = 0.0;
@@ -169,10 +177,68 @@ std::vector<segmentedObject> clusterObjects(cv::Mat pointsObject)
 	*/
 
 
-	segmentedObject object_1(pointsObj_1, 0, 0, 100, 100);
+	segmentedObject object_1(pointsBRG, pointsObj_1, 0, 0, 100, 100);
 
 	objectList.push_back(object_1);
 
 	return objectList;
+}
 
+std::vector<float> getFeatures(cv::Mat pointsBRG, cv::Mat pointsObject)
+{
+	float xMin, xMax;
+	float yMin, yMax;
+	float zMin, zMax;
+
+	float x_lenght;
+	float y_lenght;
+	float z_lenght;
+
+	float r;
+	float g;
+	float b;
+
+	xMin = 10000000.0;
+	yMin = 10000000.0;
+	zMin = 10000000.0;
+
+	xMax = 0.0;
+	xMax = 0.0;
+	xMax = 0.0;
+
+
+	std::vector<float> features;
+	cv::Point3f px;
+
+	for(int j = 0; j < pointsObject.rows; j++)
+		for (int i = 0; i < pointsObject.cols; i++)
+		{
+			px = pointsObject.at<cv::Point3f>(j,i);
+
+			if ( px != cv::Point3f(0.0, 0.0, 0.0) && px != cv::Point3f(0, 255, 0))
+			{
+				xMin = (px.x < xMin) ? px.x : xMin;
+				xMax = (px.x > xMax) ? px.x : xMax;
+				
+				yMin = (px.y < yMin) ? px.y : yMin;
+				yMax = (px.y > yMax) ? px.y : yMax;
+				
+				zMin = (px.z < zMin) ? px.z : zMin;
+				zMax = (px.z > zMax) ? px.z : zMax;
+			}
+		}
+
+	x_lenght = xMax - xMin;
+	y_lenght = yMax - yMin;
+	z_lenght = zMax - zMin;
+
+	std::cout << "x_lenght: " << xMax - xMin << std::endl;
+	std::cout << "y_lenght: " << yMax - yMin << std::endl;
+	std::cout << "z_lenght: " << zMax - zMin << std::endl;
+
+	features.push_back(x_lenght);
+	features.push_back(y_lenght);
+	features.push_back(z_lenght);
+
+	return features;
 }

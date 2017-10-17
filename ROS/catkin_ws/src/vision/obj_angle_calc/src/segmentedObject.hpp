@@ -8,15 +8,18 @@ class segmentedObject{
   
 public:
 	segmentedObject();
-	segmentedObject(cv::Mat pointsObject, int xMin, int yMin, int xMax, int yMax);
+	segmentedObject(cv::Mat pointsBRG, cv::Mat pointsObject, int xMin, int yMin, int xMax, int yMax);
 
 	bool getCentroid();
 	bool getPrincipalAxis();
 
 	cv::Mat pointsObject;
+	cv::Mat pointsBRG;
   	cv::Rect ROI;
   	std::vector<float> centroid;
 	std::vector<cv::Point3f> principalAxis;
+	std::vector<float> dimensions;
+	std::vector<float> standartDeviations;
 
 private:
 
@@ -30,9 +33,10 @@ segmentedObject::segmentedObject()
 
 
 // Definicion de un plano por tres puntos
-segmentedObject::segmentedObject(cv::Mat pointsObject, int xMin, int yMin, int xMax, int yMax)
+segmentedObject::segmentedObject(cv::Mat pointsBRG, cv::Mat pointsObject, int xMin, int yMin, int xMax, int yMax)
 {
 	cv::Rect myCrop(xMin, yMin, xMax - xMin, yMax - yMin);
+	this-> pointsBRG = pointsBRG;
 	this-> pointsObject = pointsObject;
 	this-> ROI = myCrop;
 }
@@ -148,6 +152,10 @@ bool segmentedObject::getPrincipalAxis()
 	axis_3 = cv::Point3f(eig.eigenvectors()(0,0), eig.eigenvectors()(1,0), eig.eigenvectors()(2,0));
 
 	//Multiply axis for the corresponding standart deviation
+	this->standartDeviations.push_back( sqrt(eig.eigenvalues()(0))*2 );
+	this->standartDeviations.push_back( sqrt(eig.eigenvalues()(1))*2 );
+	this->standartDeviations.push_back( sqrt(eig.eigenvalues()(2))*2 );
+
 	this->principalAxis.push_back(axis_1* sqrt( eig.eigenvalues()(2) )*2.0);
 	this->principalAxis.push_back(axis_2* sqrt( eig.eigenvalues()(1) )*2.0);
 	this->principalAxis.push_back(axis_3* sqrt( eig.eigenvalues()(0) )*2.0);

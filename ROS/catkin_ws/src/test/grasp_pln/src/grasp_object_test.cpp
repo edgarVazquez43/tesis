@@ -184,8 +184,8 @@ int main(int argc, char** argv)
         else
         {
             std::cout << "DirectKinematics.-> Calculated cartesian...." << std::endl;
-	    std::cout << "[x, y, z, roll, pitch, yaw]" << std::endl;
-	    for (int i=0; i < 7; i++) std::cout << "   " << srv_kd.response.cartesian_pose.data[i] << std::endl;
+	        std::cout << "[x, y, z, roll, pitch, yaw]" << std::endl;
+	        for (int i=0; i < 7; i++) std::cout << "   " << srv_kd.response.cartesian_pose.data[i] << std::endl;
 
             listener.lookupTransform("/base_link", "/base_ra_arm", ros::Time(0), transform);
 
