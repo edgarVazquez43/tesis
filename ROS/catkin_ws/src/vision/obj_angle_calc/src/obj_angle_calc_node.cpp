@@ -100,8 +100,8 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 	clock_t end = std::clock();
 	double duration = double(end-begin) / CLOCKS_PER_SEC;
 	
-	std::cout << "--- inliersOn - modelPlane:  " << bestPlane.inliers << std::endl; 
-	std::cout << "--- Duration process: " << duration << std::endl;
+	//std::cout << "--- inliersOn - modelPlane:  " << bestPlane.inliers << std::endl; 
+	//std::cout << "--- Duration process: " << duration << std::endl;
 
 	// /* Code for coloring the plane
 	if(bestPlane.GetNormal() != cv::Point3f(1.0, 1.0, 1.0) )
@@ -141,7 +141,7 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 		resp.recog_objects[0].pose.position.y = object_1.centroid[1];
 		resp.recog_objects[0].pose.position.z = object_1.centroid[2];
 
-		std::cout << "   Z_prom:  " << h_table  << std::endl;
+		//std::cout << "   Z_prom:  " << h_table  << std::endl;
 		//std::cout << "   axis[0]:  " << principal_axis_calculated[0] << "  -  norm:  " << cv::norm(principal_axis_calculated[0]) << std::endl;
 		//std::cout << "   axis[1]:  " << principal_axis_calculated[1] << "  -  norm:  " << cv::norm(principal_axis_calculated[1]) << std::endl;
 		//std::cout << "   axis[2]:  " << principal_axis_calculated[2] << "  -  norm:  " << cv::norm(principal_axis_calculated[2]) << std::endl;
@@ -165,13 +165,27 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 		resp.recog_objects[0].principal_axis[2].y = float(object_1.principalAxis[2].y);
 		resp.recog_objects[0].principal_axis[2].z = float(object_1.principalAxis[2].z);
 		dimensions = getFeatures(objectsBGR, objectsDepth);
-		//dimensions[0] ----> x_lengh
-		//dimensions[0] ----> x_lengh
-		//dimensions[0] ----> x_lengh
-		myFile << "-" << dimensions[0] << " " << dimensions[1] << " " << dimensions[2] << " "
-		 << object_1.standartDeviations[0] << "  " << object_1.standartDeviations[1] << "  " << object_1.standartDeviations[2] << "\n";
-		std::cout << "centroid_segme: " << object_1.centroid[0] << "  " << object_1.centroid[1] << "  " << object_1.centroid[2] << std::endl;
-		std::cout << "standartDeviation: " << object_1.standartDeviations[0] << "  " << object_1.standartDeviations[1] << "  " << object_1.standartDeviations[2] << std::endl;
+
+		myFile << "- " << dimensions[0] << " " << dimensions[1] << " " << dimensions[2] << " "
+		 << object_1.standartDeviations[0] << " " << object_1.standartDeviations[1] << " " << object_1.standartDeviations[2] << " "
+		 << dimensions[3]/255 << " " << dimensions[4]/255 << " " << dimensions[5]/255 << "\n";
+		
+		std::cout << "Caracteristicas del objeto:    " << std::endl;
+		std::cout << "	Dimensiones: " << std::endl;
+		std::cout << "		x:  " << dimensions[0] << std::endl;
+		std::cout << "		y:  " << dimensions[1] << std::endl;
+		std::cout << "		z:  " << dimensions[2] << std::endl << std::endl; 
+		std::cout << "	Desviaciones estandar: " << std::endl;
+		std::cout << "		x:  " << object_1.standartDeviations[0] << std::endl;
+		std::cout << "		y:  " << object_1.standartDeviations[1] << std::endl;
+		std::cout << "		z:  " << object_1.standartDeviations[2] << std::endl << std::endl; 
+		std::cout << "	Color: " << std::endl;
+		std::cout << "		Red:  " << dimensions[3]/255 << std::endl;
+		std::cout << "		Green:  " << dimensions[4]/255 << std::endl;
+		std::cout << "		Blue:  " << dimensions[5]/255 << std::endl; 
+
+		//std::cout << "centroid_segme: " << object_1.centroid[0] << "  " << object_1.centroid[1] << "  " << object_1.centroid[2] << std::endl;
+		//std::cout << "standartDeviation: " << object_1.standartDeviations[0] << "  " << object_1.standartDeviations[1] << "  " << object_1.standartDeviations[2] << std::endl;
 		std::cout << "--------------------------------------" << std::endl;
 
 		cv::rectangle(imgBGR, cv::Point(xmin, ymin), cv::Point(xmin+W, ymin+H), cv::Scalar(0, 255, 0));
@@ -210,7 +224,7 @@ int main(int argc, char** argv)
 	ros::ServiceServer srvPCAobject;
 	ros::Publisher marker_pub;
 
-	myFile.open("/home/edgar/coca_dimensions.txt");
+	myFile.open("/home/edgar/juice_dimensions.txt");
 	srvPCAobject = n.advertiseService("detect_object/PCA_calculator", callbackPCAobject);
 	cltRgbdRobot = n.serviceClient<point_cloud_manager::GetRgbd>("/hardware/point_cloud_man/get_rgbd_wrt_robot");
 

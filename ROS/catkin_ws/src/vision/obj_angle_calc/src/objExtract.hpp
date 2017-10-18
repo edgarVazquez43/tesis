@@ -186,6 +186,11 @@ std::vector<segmentedObject> clusterObjects(cv::Mat pointsBRG, cv::Mat pointsObj
 
 std::vector<float> getFeatures(cv::Mat pointsBRG, cv::Mat pointsObject)
 {
+	cv::Vec3b intensity;
+	int blue;
+	int green;
+	int red;
+
 	float xMin, xMax;
 	float yMin, yMax;
 	float zMin, zMax;
@@ -198,6 +203,8 @@ std::vector<float> getFeatures(cv::Mat pointsBRG, cv::Mat pointsObject)
 	float g;
 	float b;
 
+	int pixelNumber = 0;
+
 	xMin = 10000000.0;
 	yMin = 10000000.0;
 	zMin = 10000000.0;
@@ -205,6 +212,10 @@ std::vector<float> getFeatures(cv::Mat pointsBRG, cv::Mat pointsObject)
 	xMax = 0.0;
 	xMax = 0.0;
 	xMax = 0.0;
+
+	blue = 0;
+	red = 0;
+	green = 0;
 
 
 	std::vector<float> features;
@@ -214,7 +225,7 @@ std::vector<float> getFeatures(cv::Mat pointsBRG, cv::Mat pointsObject)
 		for (int i = 0; i < pointsObject.cols; i++)
 		{
 			px = pointsObject.at<cv::Point3f>(j,i);
-
+			intensity = pointsBRG.at<cv::Vec3b>(j, i);
 			if ( px != cv::Point3f(0.0, 0.0, 0.0) && px != cv::Point3f(0, 255, 0))
 			{
 				xMin = (px.x < xMin) ? px.x : xMin;
@@ -225,6 +236,12 @@ std::vector<float> getFeatures(cv::Mat pointsBRG, cv::Mat pointsObject)
 				
 				zMin = (px.z < zMin) ? px.z : zMin;
 				zMax = (px.z > zMax) ? px.z : zMax;
+				
+				blue  += intensity.val[0];
+				green += intensity.val[1];
+				red   += intensity.val[2];
+
+				pixelNumber++;
 			}
 		}
 
@@ -232,13 +249,28 @@ std::vector<float> getFeatures(cv::Mat pointsBRG, cv::Mat pointsObject)
 	y_lenght = yMax - yMin;
 	z_lenght = zMax - zMin;
 
+	blue = (blue/pixelNumber);
+	green = (green/pixelNumber);
+	red = (red/pixelNumber);
+
+	/*
 	std::cout << "x_lenght: " << xMax - xMin << std::endl;
 	std::cout << "y_lenght: " << yMax - yMin << std::endl;
 	std::cout << "z_lenght: " << zMax - zMin << std::endl;
 
+	std::cout << "blue: "  << blue  << std::endl;
+	std::cout << "green: " << green << std::endl;
+	std::cout << "red: "   << red   << std::endl;
+	*/
+
 	features.push_back(x_lenght);
 	features.push_back(y_lenght);
 	features.push_back(z_lenght);
+
+	//Valores RGB medios
+	features.push_back(red);
+	features.push_back(green);
+	features.push_back(blue);
 
 	return features;
 }

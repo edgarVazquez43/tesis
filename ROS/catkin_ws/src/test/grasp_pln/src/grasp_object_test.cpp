@@ -176,6 +176,7 @@ int main(int argc, char** argv)
         */
 
 
+        /*
         if(!cltDirectKinematics.call(srv_kd))
         {
             std::cout << std::endl << "Justina::Manip can't calling inverse kinematics service" << std::endl << std::endl;
@@ -201,8 +202,9 @@ int main(int argc, char** argv)
             endEffector_pose.position.x = v.x();
             endEffector_pose.position.y = v.y();
             endEffector_pose.position.z = v.z();
-            */
+            
         }
+        */
 
 
 

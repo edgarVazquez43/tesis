@@ -172,9 +172,9 @@ plane3D FindPlaneRANSAC( cv::Mat points, float threshold, int maxAttemps)
 		return falsePlane;
 	}
 
-	std::cout << "BestModel: " << bestPlane.GetPlaneComp() << std::endl;
-	std::cout << "   Inliers: " << bestInliers << std::endl;
-	std::cout << "   Porcentaje_plane: " << 100*(float)(bestInliers)/(float)(bestValidPoints) << std::endl;
+	//std::cout << "BestModel: " << bestPlane.GetPlaneComp() << std::endl;
+	//std::cout << "   Inliers: " << bestInliers << std::endl;
+	//std::cout << "   Porcentaje_plane: " << 100*(float)(bestInliers)/(float)(bestValidPoints) << std::endl;
 	bestPlane.inliers = bestInliers;
 	return bestPlane;
 }
@@ -207,8 +207,8 @@ int verifyInliersOnPlane(cv::Mat points, plane3D propusePlane, float threshold)
 			}
 
 	std::cout << std::endl;
-	std::cout << "PropouseModel: " << propusePlane.GetPlaneComp() << std::endl;
-	std::cout << "   Inliers: " << inliers_onPropousePlane << std::endl;
+	//std::cout << "PropouseModel: " << propusePlane.GetPlaneComp() << std::endl;
+	//std::cout << "   Inliers: " << inliers_onPropousePlane << std::endl;
 
 	return inliers_onPropousePlane;
 }
