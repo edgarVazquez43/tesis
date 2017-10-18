@@ -38,6 +38,8 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 	float x_obj, y_obj, z_obj;
 	float threshold;
 	float h_table;
+	std::string object_name;
+	std::string object_price;
 
 	cv::Mat imgBGR;
 	cv::Mat imgDepth;
@@ -63,10 +65,10 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 
 	points_obj = 0;
 
-	xmin = 300;
+	xmin = 100;
 	ymin = 140;
 
-	W = 150;
+	W = 350;
 	H = 280;
 
 	centroid_coord.push_back(0.0);
@@ -188,13 +190,42 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 		//std::cout << "standartDeviation: " << object_1.standartDeviations[0] << "  " << object_1.standartDeviations[1] << "  " << object_1.standartDeviations[2] << std::endl;
 		std::cout << "--------------------------------------" << std::endl;
 
+		if(dimensions[2] > 0.115)
+		{
+			object_name = "Jugo";
+			object_price = "18.00";
+		}
+		else
+		{
+			object_name = "Coca-cola";
+			object_price = "12.00";
+		}
+
+
 		cv::rectangle(imgBGR, cv::Point(xmin, ymin), cv::Point(xmin+W, ymin+H), cv::Scalar(0, 255, 0));
 		cv::rectangle(imgDepth, cv::Point(xmin, ymin), cv::Point(xmin+W, ymin+H), cv::Scalar(0, 255, 0));
-		//cv::rectangle(objectsBGR, object_1.ROI, cv::Scalar(250, 10, 0));
+		cv::rectangle(croppedBRG, object_1.ROI, cv::Scalar(10, 200, 0));
+
+		cv::putText(croppedBRG, object_name, 
+			cv::Point(30,30),
+			cv::FONT_HERSHEY_COMPLEX_SMALL,
+			1.0,
+			cv::Scalar(10, 200, 0),
+			1,
+			CV_AA);
+
+		cv::putText(croppedBRG, object_price, 
+			cv::Point(30,60),
+			cv::FONT_HERSHEY_COMPLEX_SMALL,
+			1.0,
+			cv::Scalar(10, 200, 0),
+			1,
+			CV_AA);
+
 
 		cv::imshow("Original RGB", imgBGR);
+		cv::imshow("OBJECT RECONIZING", croppedBRG);
 		cv::imshow("objects", objectsBGR);
-		cv::imshow("plane 3D", planeBGR);
 		cv::imshow("Objects Point Cloud", objectsDepth);
 
 
