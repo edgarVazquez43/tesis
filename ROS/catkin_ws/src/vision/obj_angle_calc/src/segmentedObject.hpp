@@ -19,6 +19,7 @@ public:
   	std::vector<float> centroid;
 	std::vector<cv::Point3f> principalAxis;
 	std::vector<float> dimensions;
+	std::vector<float> colors;
 	std::vector<float> standartDeviations;
 
 private:
