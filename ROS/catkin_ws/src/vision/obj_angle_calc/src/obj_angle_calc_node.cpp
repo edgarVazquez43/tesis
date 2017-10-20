@@ -32,6 +32,7 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 	std::vector<float> dimensions;
 	std::vector<float> analogVector;
 	std::vector<int> P;
+	std::vector<int> Tout;
 
 	std::vector<cv::Point3f> principal_axis_calculated;
 	std::vector<segmentedObject> objectList;
@@ -189,8 +190,6 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 		analogVector.push_back( dimensions[4]/255 );
 		analogVector.push_back( dimensions[5]/255 );
 
-		P = normalizingVector(analogVector);
-
 		resp.recog_objects[0].colors.x = dimensions[3]/255;
 		resp.recog_objects[0].colors.y = dimensions[4]/255;
 		resp.recog_objects[0].colors.z = dimensions[5]/255;
@@ -203,6 +202,7 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 		 << object_1.standartDeviations[0] << " " << object_1.standartDeviations[1] << " " << object_1.standartDeviations[2] << " "
 		 << dimensions[3]/255 << " " << dimensions[4]/255 << " " << dimensions[5]/255 << "\n";
 		
+		P = normalizingVector(analogVector);
 		std::cout << "Caracteristicas del objeto:    " << std::endl;
 		std::cout << "	Dimensiones: " << std::endl;
 		std::cout << "		x:  " << object_1.dimensions[0] << "   " << P[0] << std::endl;
@@ -212,20 +212,32 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 		std::cout << "		Red:  "   << object_1.colors[0] << "   " << P[3] << std::endl;
 		std::cout << "		Green:  " << object_1.colors[1] << "   " << P[4] << std::endl;
 		std::cout << "		Blue:  "  << object_1.colors[2] << "   " << P[5] << std::endl; 
+		
+		Tout = nn_calculate(P);
 
 		//std::cout << "centroid_segme: " << object_1.centroid[0] << "  " << object_1.centroid[1] << "  " << object_1.centroid[2] << std::endl;
 		//std::cout << "standartDeviation: " << object_1.standartDeviations[0] << "  " << object_1.standartDeviations[1] << "  " << object_1.standartDeviations[2] << std::endl;
 		std::cout << "--------------------------------------" << std::endl;
 
-		if(object_1.dimensions[2] > 0.115)
+		if(Tout[0] == 0 && Tout[1] == 0 && Tout[2] == 0)
+		{
+			object_name = "Coca-cola";
+			object_price = "12.00";
+		}
+		else if(Tout[0] == 0 && Tout[1] == 1 && Tout[2] == 0)
 		{
 			object_name = "Jugo";
 			object_price = "18.00";
 		}
-		else
+		else if(Tout[0] == 0 && Tout[1] == 0 && Tout[2] == 1)
 		{
-			object_name = "Coca-cola";
-			object_price = "12.00";
+			object_name = "Milk";
+			object_price = "18.00";
+		}
+		else if(Tout[0] == 0 && Tout[1] == 1 && Tout[2] == 1)
+		{
+			object_name = "Desodorante";
+			object_price = "18.00";
 		}
 
 
