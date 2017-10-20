@@ -1,6 +1,142 @@
 \documentclass[../tesis_main.text]{subfiles}
 
 \chapter{Manipulador}
-	\section{Descripción de los elementos del sistema de manipulación}
+	En esta sección de hablará de las caracteriscias mecánicas del brazo robótico ensamblado en el robot de servicio Justina. Se describirán los elementos que componen el brazo robótico haciendo enfasís en la ubicación de los actuadores y como influye esto en el modelo matematico del mismo.
+
 	\section{Documentación servos dynamixel}
+		Los servomotores DYNAMIXEL son un sistema de actuador inteligente desarrollados con el propósito de ser las uniones de conexión en un robot o estructura mecánica. Los servomotores DYNAMIXELS están diseñados para ser modulares y soportar la conexión en cadena  en cualquier robot o diseño mecánico para movimientos robóticos potentes y flexibles.\\
+
+		El DYNAMIXEL es un actuador de alto rendimiento con reductor, controlador y un protocolo de red completamente integrados, todo en un módulo de servomotor programable y en red. El estado del actuador se puede leer y monitorear a través de un flujo de paquetes de datos. ***cite dynamixel page.\\
+
+		>>>> Gamas de dynamixel\\
+		\subsection{Serie X}
+
+			Características básicas.\\
+
+			\begin{itemize}
+				\item{Improved Torque, Compact Size}
+				\item{Enhanced Durability and Expandibility}
+				\item{Hollow Back Case Minimizes Cable Stress (3-way-routing)}
+				\item{Direct Screw Assembly to the Case(without Nut Insert)}
+				\item{Improved Heat Sink Featuring an Aluminum Case}
+			\end{itemize}
+
+			Funciones de control.\\
+			\begin{itemize}
+				\item{6 Operating Modes}
+				\item{Current-Based Torque Control (4096 steps, 2.69mA/step)}
+				\item{Profile Control for Smooth Motion Planning}
+				\item{Trajectory Data and Moving Status (In-Position, Following Error, etc.)}
+				\item{Energy Saving (Reduced Current from 100mA to 40mA)}
+			\end{itemize}
+
+
+
+			\subsection{Serie AX}
+
+			Características básicas.\\
+
+			\begin{itemize}
+				\item{Improved Torque, Compact Size}
+				\item{Enhanced Durability and Expandibility}
+				\item{Hollow Back Case Minimizes Cable Stress (3-way-routing)}
+				\item{Direct Screw Assembly to the Case(without Nut Insert)}
+				\item{Improved Heat Sink Featuring an Aluminum Case}
+			\end{itemize}
+
+			Funciones de control.\\
+			\begin{itemize}
+				\item{6 Operating Modes}
+				\item{Current-Based Torque Control (4096 steps, 2.69mA/step)}
+				\item{Profile Control for Smooth Motion Planning}
+				\item{Trajectory Data and Moving Status (In-Position, Following Error, etc.)}
+				\item{Energy Saving (Reduced Current from 100mA to 40mA)}
+			\end{itemize}
+
+
+			\subsection{Serie MX}
+
+			Características básicas.\\
+
+			Key Features:
+
+    Contactless motion and position sensing\\
+    High resolution for precise movements\\
+    Standard TTL communication interface\\
+    High speed communication up to 4.5 Mbps\\
+    PID Control for auto-correction in positioning\\
+
+Key Benefits:
+
+    High reliability and durability\\
+    Control of high precision movements\\
+    Control of high speed movements\\
+    Easy to use\\
+
+
+			\begin{itemize}
+				\item{Improved Torque, Compact Size}
+				\item{Enhanced Durability and Expandibility}
+				\item{Hollow Back Case Minimizes Cable Stress (3-way-routing)}
+				\item{Direct Screw Assembly to the Case(without Nut Insert)}
+				\item{Improved Heat Sink Featuring an Aluminum Case}
+			\end{itemize}
+
+			Funciones de control.\\
+			\begin{itemize}
+				\item{6 Operating Modes}
+				\item{Current-Based Torque Control (4096 steps, 2.69mA/step)}
+				\item{Profile Control for Smooth Motion Planning}
+				\item{Trajectory Data and Moving Status (In-Position, Following Error, etc.)}
+				\item{Energy Saving (Reduced Current from 100mA to 40mA)}
+			\end{itemize}
+
+
+			\subsection{Serie RX}
+
+			Características básicas.\\
+
+			\begin{itemize}
+				\item{Improved Torque, Compact Size}
+				\item{Enhanced Durability and Expandibility}
+				\item{Hollow Back Case Minimizes Cable Stress (3-way-routing)}
+				\item{Direct Screw Assembly to the Case(without Nut Insert)}
+				\item{Improved Heat Sink Featuring an Aluminum Case}
+			\end{itemize}
+
+			Funciones de control.\\
+			\begin{itemize}
+				\item{6 Operating Modes}
+				\item{Current-Based Torque Control (4096 steps, 2.69mA/step)}
+				\item{Profile Control for Smooth Motion Planning}
+				\item{Trajectory Data and Moving Status (In-Position, Following Error, etc.)}
+				\item{Energy Saving (Reduced Current from 100mA to 40mA)}
+			\end{itemize}
+
+
+		>>>> Tablas de caracteristicas generales\\
+		>>>> Caracteristicas por modelo (MX-106, MX-64, MX-28)\\		
+		>>>> Caracteristicas de conexión\\
+
+	\section{Descripción de los elementos del sistema de manipulación}
+		El sistema de Hardware del brazo robótico está compuesto por servomotores Dynamixel fabricados por la compañía Robotis (***cite Robotis Official page). Eta compañia cuenta con diversas gamas de modelos de servomotores según las necesidades de la apliación. A continuación se describirá el sistema en orden descendente.\\
+
+		**Imagen del brazo resaltando servomotores...\\
+
+
+		En la parte superior del brazo robótico se encuentran dos servomotores Dynamixel MX-106 conectados como maestro-esclavo, configurados en este modo trabajan de manera conjunta aumentando el par unitario de cada uno de los servos. Dadas las caracteristicas antes descritas en la tabla [] podemos observar que la configuración de servomotores entrega un par de torsión máximo de *****... El sentido de giro positivo del arreglo de servomotores es el mostrado en la figura []. \\
+
+		Posteriormente se encuentra un servomotor modelo MX-106 
+
+
+		>>>> Cadena completa y muestra de las conexiones electricas (comparación antes y despues.) 
+
+
+
+	
+
+	\section{Cinemática directa}
+		>>> Teoría trasformaciones y medidas del brazo robotico
+		>>> Implementación (Descrpción con ROS)
+
 	\section{Cinemática inversa}
