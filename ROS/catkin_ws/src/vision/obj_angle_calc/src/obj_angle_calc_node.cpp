@@ -232,12 +232,12 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 		else if(Tout[0] == 0 && Tout[1] == 0 && Tout[2] == 1)
 		{
 			object_name = "Milk";
-			object_price = "18.00";
+			object_price = "8.00";
 		}
 		else if(Tout[0] == 0 && Tout[1] == 1 && Tout[2] == 1)
 		{
 			object_name = "Desodorante";
-			object_price = "18.00";
+			object_price = "24.00";
 		}
 
 

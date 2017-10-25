@@ -4,119 +4,176 @@
 	En esta sección de hablará de las caracteriscias mecánicas del brazo robótico ensamblado en el robot de servicio Justina. Se describirán los elementos que componen el brazo robótico haciendo enfasís en la ubicación de los actuadores y como influye esto en el modelo matematico del mismo.
 
 	\section{Documentación servos dynamixel}
-		Los servomotores DYNAMIXEL son un sistema de actuador inteligente desarrollados con el propósito de ser las uniones de conexión en un robot o estructura mecánica. Los servomotores DYNAMIXELS están diseñados para ser modulares y soportar la conexión en cadena  en cualquier robot o diseño mecánico para movimientos robóticos potentes y flexibles.\\
+		Los servomotores Dynamixel son un sistema de actuador inteligente desarrollados con el propósito de funcionar como uniones de conexión en un robot o estructura mecánica. Los servomotores Dynamixel están diseñados para ser modulares y soportar la conexión en cadena en cualquier robot o diseño mecánico. Este tipo de servomotores es popular por los beneficios que ofrece: movimientos robóticos potentes y flexibles.\\
 
-		El DYNAMIXEL es un actuador de alto rendimiento con reductor, controlador y un protocolo de red completamente integrados, todo en un módulo de servomotor programable y en red. El estado del actuador se puede leer y monitorear a través de un flujo de paquetes de datos. ***cite dynamixel page.\\
+		El conjunto de servomotores Dynamixel son un grupo de actuadores de alto rendimiento con reductor, controlador y un protocolo de red completamente integrados en un módulo de servomotor programable y en red. El estado del actuador se puede leer y monitorear a través de un flujo de paquetes de datos. ***cite dynamixel page.\\
 
-		>>>> Gamas de dynamixel\\
-		\subsection{Serie X}
+		Los servomotores de la marca Dynamixel, cuentan con diferentes gamas de productos de acuerdo a las necesidades de cada proyecto. El brazo robótico referente a este documento está constituido unicamente por motores de la gama MX, de la cual se describen las caracteristicas más sobresalientes a continuación.\\  
 
-			Características básicas.\\
-
-			\begin{itemize}
-				\item{Improved Torque, Compact Size}
-				\item{Enhanced Durability and Expandibility}
-				\item{Hollow Back Case Minimizes Cable Stress (3-way-routing)}
-				\item{Direct Screw Assembly to the Case(without Nut Insert)}
-				\item{Improved Heat Sink Featuring an Aluminum Case}
-			\end{itemize}
-
-			Funciones de control.\\
-			\begin{itemize}
-				\item{6 Operating Modes}
-				\item{Current-Based Torque Control (4096 steps, 2.69mA/step)}
-				\item{Profile Control for Smooth Motion Planning}
-				\item{Trajectory Data and Moving Status (In-Position, Following Error, etc.)}
-				\item{Energy Saving (Reduced Current from 100mA to 40mA)}
-			\end{itemize}
-
-
-
-			\subsection{Serie AX}
+			\subsection{Motores dynamixel Serie MX}
 
 			Características básicas.\\
 
 			\begin{itemize}
-				\item{Improved Torque, Compact Size}
-				\item{Enhanced Durability and Expandibility}
-				\item{Hollow Back Case Minimizes Cable Stress (3-way-routing)}
-				\item{Direct Screw Assembly to the Case(without Nut Insert)}
-				\item{Improved Heat Sink Featuring an Aluminum Case}
-			\end{itemize}
+				\item{Movimiento sin contacto y detección de posición}
+				\item{Alta resolución para movimientos precisos}
+				\item{Interfaz de comunicación TTL estándar }
+				\item{Comunicación de alta velocidad de hasta 4.5 Mbps}
+				\item{Control PID para autocorrección en posicionamiento}
+				\item{Alta fiabilidad y durabilidad}
+				\item{Control de movimientos de alta precisión}
+				\item{Control de movimientos de alta velocidad}
+				\item{Fácil de usar}
+							\end{itemize}
 
 			Funciones de control.\\
 			\begin{itemize}
-				\item{6 Operating Modes}
-				\item{Current-Based Torque Control (4096 steps, 2.69mA/step)}
-				\item{Profile Control for Smooth Motion Planning}
-				\item{Trajectory Data and Moving Status (In-Position, Following Error, etc.)}
-				\item{Energy Saving (Reduced Current from 100mA to 40mA)}
+				\item{6 modos de funcionamiento}
+				\item{Control de par basado en corriente (4096 steps, 2.69mA/step)}
+				\item{Planeación de perfil de control para suavizado de movimiento}
+				\item{Datos de trayectoria y estado en movimiento (en posición, siguiente error, etc.)}
+				\item{Ahorro de energía (corriente reducida de 100 mA a 40 mA)}
 			\end{itemize}
 
 
-			\subsection{Serie MX}
+		*** Caracteristicas por modelo (MX-106, MX-64, MX-28)\\	
+		\subsection{MX-106}
 
-			Características básicas.\\
+			El actuador de robot MX-106T Dynamixel Robot es la última generación del actuador Robotis Dynamixel; equipado con un procesador Cortex M3 de 32 bits a 72 mhz, un codificador magnético sin contacto con una resolución 4 veces mayor que la serie AX / RX y hasta 3 mbps con el nuevo bus TTL 2.0. Cada servo tiene la capacidad de rastrear su velocidad, temperatura, posición del eje, voltaje y carga. Como si esto no fuera suficiente, el algoritmo de control PID recientemente implementado utilizado para mantener la posición del eje se puede ajustar individualmente para cada servo, lo que le permite controlar la velocidad y la fuerza de la respuesta del motor. Todos los servos de la serie MX usan un voltaje nominal de 12v, por lo que las Dynamixels AX y MX se pueden mezclar sin tener que preocuparse por fuentes de alimentación separadas. Toda la gestión del sensor y el control de posición son manejados por el microcontrolador integrado del servo. Este enfoque distribuido deja a su controlador principal libre para realizar otras funciones.\\
 
-			Key Features:
+			Todos los servos DYNAMIXEL son compatibles con una amplia variedad de cuernos, rodillos y bastidores para ayudarlo a construir fácilmente su proyecto de robótica. Este hardware se conecta directamente a su servo DYNAMIXEL, lo que le permite montarlo en su proyecto u otros servos DYNAMIXEL. Algunos robots pueden construirse casi por completo a partir de servos y marcos DYNAMIXEL. Puede ver una lista completa de marcos que son compatibles con este servo en nuestra tabla de compatibilidad DYNAMIXEL\\
 
-    Contactless motion and position sensing\\
-    High resolution for precise movements\\
-    Standard TTL communication interface\\
-    High speed communication up to 4.5 Mbps\\
-    PID Control for auto-correction in positioning\\
-
-Key Benefits:
-
-    High reliability and durability\\
-    Control of high precision movements\\
-    Control of high speed movements\\
-    Easy to use\\
+			Si desea controlar este servo DYNAMIXEL de un microcontrolador compatible con Arduino, eche un vistazo al ArbotiX-M Robocontroller. El ArbotiX-M Robocontroller fue diseñado para eliminar todas las conjeturas del control de los servos DYNAMIXEL del Arduino Envinroment. Tenemos bibliotecas Arduino para los servos DYNAMIXEL y el servo TTL DYNAMIXEL de 3 pines se conectará directamente al ArbotiX-M. Para obtener consejos sobre cómo obtener todo lo que necesita para despegar su proyecto ArbotiX / DYNAMIXEL, consulte nuestra Guía de compras ArbotiX-M / DYNAMIXEL.\\
 
 
-			\begin{itemize}
-				\item{Improved Torque, Compact Size}
-				\item{Enhanced Durability and Expandibility}
-				\item{Hollow Back Case Minimizes Cable Stress (3-way-routing)}
-				\item{Direct Screw Assembly to the Case(without Nut Insert)}
-				\item{Improved Heat Sink Featuring an Aluminum Case}
-			\end{itemize}
 
-			Funciones de control.\\
-			\begin{itemize}
-				\item{6 Operating Modes}
-				\item{Current-Based Torque Control (4096 steps, 2.69mA/step)}
-				\item{Profile Control for Smooth Motion Planning}
-				\item{Trajectory Data and Moving Status (In-Position, Following Error, etc.)}
-				\item{Energy Saving (Reduced Current from 100mA to 40mA)}
-			\end{itemize}
-
-
-			\subsection{Serie RX}
-
-			Características básicas.\\
-
-			\begin{itemize}
-				\item{Improved Torque, Compact Size}
-				\item{Enhanced Durability and Expandibility}
-				\item{Hollow Back Case Minimizes Cable Stress (3-way-routing)}
-				\item{Direct Screw Assembly to the Case(without Nut Insert)}
-				\item{Improved Heat Sink Featuring an Aluminum Case}
-			\end{itemize}
-
-			Funciones de control.\\
-			\begin{itemize}
-				\item{6 Operating Modes}
-				\item{Current-Based Torque Control (4096 steps, 2.69mA/step)}
-				\item{Profile Control for Smooth Motion Planning}
-				\item{Trajectory Data and Moving Status (In-Position, Following Error, etc.)}
-				\item{Energy Saving (Reduced Current from 100mA to 40mA)}
-			\end{itemize}
+\begin{tabular}{ |p{6.5cm}||p{2.1cm}|p{2.1cm}|p{2.1cm}|  }
+ \hline
+ \multicolumn{4}{|c|}{\textbf{MX-106} } \\
+ \hline
+ Voltaje de operación  &  14.8v   &	   12v   &   11.1v\\
+ \hline
+ Par de bloqueo        &  102kg.cm  &  85.6kg.cm  &  81.5kg.cm\\
+ Velocidad sin carga   &  55rpm     &  45rpm      &  41rpm\\
+ \hline
+ Peso                  &  \multicolumn{3}{|c|}{153g} \\
+ \hline
+ Tamaño                &  \multicolumn{3}{|c|}{40.2 x 65.1 x 46 mm} \\
+ \hline
+ Resolución            &  \multicolumn{3}{|c|}{ 0.088 grado/valor de registro} \\
+ \hline
+ Relación de reducción &  \multicolumn{3}{|c|}{1/255} \\
+ \hline
+ Corriente máxima      &  \multicolumn{3}{|c|}{5.2A @ 12V} \\
+ \hline
+ Protocolo             &  \multicolumn{3}{|c|}{TTL Serial Asincrono} \\
+ \hline
+ Velocidad del puerto  &  \multicolumn{3}{|c|}{8000bps ~ 3Mbps} \\
+ \hline
+ Retroalimentación de posición & \multicolumn{3}{|c|}{ SI} \\
+ \hline
+ Retroalimentación de temperatura & \multicolumn{3}{|c|}{ SI}\\
+ \hline
+ PID                   & \multicolumn{3}{|c|}{ SI } \\
+ \hline
+ Material              & \multicolumn{3}{|c|}{ Carcasa platica y reducción metálica} \\
+ \hline
+ Motor                 & \multicolumn{3}{|c|}{ Maxon RE-MAX} \\
+ \hline
+\end{tabular}
 
 
-		>>>> Tablas de caracteristicas generales\\
-		>>>> Caracteristicas por modelo (MX-106, MX-64, MX-28)\\		
-		>>>> Caracteristicas de conexión\\
+
+
+
+		\subsection{MX-64}
+El actuador de servo Dynamixel Robot MX-64T es la última generación del actuador Robotis Dynamixel; equipado con un procesador Cortex M3 de 32 bits a 72 mhz, un codificador magnético sin contacto con una resolución 4 veces mayor que la serie AX / RX y hasta 3 mbps con el nuevo bus TTL 2.0. Cada servo tiene la capacidad de rastrear su velocidad, temperatura, posición del eje, voltaje y carga. Como si esto no fuera suficiente, el algoritmo de control PID recientemente implementado utilizado para mantener la posición del eje se puede ajustar individualmente para cada servo, lo que le permite controlar la velocidad y la fuerza de la respuesta del motor. Todos los servos de la serie MX usan un voltaje nominal de 12v, por lo que los MX Dynamixels se pueden mezclar sin tener que preocuparse por fuentes de alimentación separadas. Toda la gestión del sensor y el control de posición son manejados por el microcontrolador integrado del servo. Este enfoque distribuido deja a su controlador principal libre para realizar otras funciones.\\\
+
+Todos los servos DYNAMIXEL son compatibles con una amplia variedad de cuernos, rodillos y bastidores para ayudarlo a construir fácilmente su proyecto de robótica. Este hardware se conecta directamente a su servo DYNAMIXEL, lo que le permite montarlo en su proyecto u otros servos DYNAMIXEL. Algunos robots pueden construirse casi por completo a partir de servos y marcos DYNAMIXEL. Puede ver una lista completa de marcos que son compatibles con este servo en nuestra tabla de compatibilidad DYNAMIXEL\\
+
+Si desea controlar este servo DYNAMIXEL de un microcontrolador compatible con Arduino, eche un vistazo al ArbotiX-M Robocontroller. El ArbotiX-M Robocontroller fue diseñado para eliminar todas las conjeturas del control de los servos DYNAMIXEL del Arduino Envinroment. Tenemos bibliotecas Arduino para los servos DYNAMIXEL y el servo TTL DYNAMIXEL de 3 pines se conectará directamente al ArbotiX-M. Para obtener consejos sobre cómo obtener todo lo que necesita para despegar su proyecto ArbotiX / DYNAMIXEL, consulte nuestra Guía de compras ArbotiX-M / DYNAMIXEL.\\
+
+
+\begin{tabular}{ |p{6.5cm}||p{2.1cm}|p{2.1cm}|p{2.1cm}|  }
+ \hline
+ \multicolumn{4}{|c|}{\textbf{MX-64} } \\
+ \hline
+ Voltaje de operación  &  14.8v   &	   12v   &   11.1v\\
+ \hline
+ Par de bloqueo        &  74kg.cm   &  61kg.cm   &  56kg.cm\\
+ Velocidad sin carga   &  78rpm     &  63rpm     &  58rpm\\
+ \hline
+ Peso                  &  \multicolumn{3}{|c|}{126g} \\
+ \hline
+ Tamaño                &  \multicolumn{3}{|c|}{40.2 x 61.1 x 41 mm} \\
+ \hline
+ Resolución            &  \multicolumn{3}{|c|}{ 0.088 grado/valor de registro} \\
+ \hline
+ Relación de reducción &  \multicolumn{3}{|c|}{1/200} \\
+ \hline
+ Corriente máxima      &  \multicolumn{3}{|c|}{4.1A @ 12V} \\
+ \hline
+ Protocolo             &  \multicolumn{3}{|c|}{TTL Serial Asincrono} \\
+ \hline
+ Velocidad del puerto  &  \multicolumn{3}{|c|}{8000bps ~ 3Mbps} \\
+ \hline
+ Retroalimentación de posición & \multicolumn{3}{|c|}{ SI} \\
+ \hline
+ Retroalimentación de temperatura & \multicolumn{3}{|c|}{ SI}\\
+ \hline
+ PID                   & \multicolumn{3}{|c|}{ SI } \\
+ \hline
+ Material              & \multicolumn{3}{|c|}{ Carcasa platica y reducción metálica} \\
+ \hline
+ Motor                 & \multicolumn{3}{|c|}{ Maxon RE-MAX} \\
+ \hline
+\end{tabular}
+
+		\subsection{MX-28}
+El actuador de robot Dynamixel MX-28T Robot es la última generación del actuador Robotis Dynamixel; equipado con un procesador Cortex M3 de 32 bits a 72 mhz, un codificador magnético sin contacto con una resolución 4 veces mayor que la serie AX / RX y hasta 3 mbps con el nuevo bus TTL 2.0. Cada servo tiene la capacidad de rastrear su velocidad, temperatura, posición del eje, voltaje y carga. Como si esto no fuera suficiente, el algoritmo de control PID recientemente implementado utilizado para mantener la posición del eje se puede ajustar individualmente para cada servo, lo que le permite controlar la velocidad y la fuerza de la respuesta del motor. Todos los servos de la serie MX usan un voltaje nominal de 12v, por lo que las Dynamixels AX y MX se pueden mezclar sin tener que preocuparse por fuentes de alimentación separadas. Toda la gestión del sensor y el control de posición son manejados por el microcontrolador integrado del servo. Este enfoque distribuido deja a su controlador principal libre para realizar otras funciones.\\
+
+Todos los servos DYNAMIXEL son compatibles con una amplia variedad de cuernos, rodillos y bastidores para ayudarlo a construir fácilmente su proyecto de robótica. Este hardware se conecta directamente a su servo DYNAMIXEL, lo que le permite montarlo en su proyecto u otros servos DYNAMIXEL. Algunos robots pueden construirse casi por completo a partir de servos y marcos DYNAMIXEL. Puede ver una lista completa de marcos que son compatibles con este servo en nuestra tabla de compatibilidad DYNAMIXEL\\
+
+Si desea controlar este servo DYNAMIXEL de un microcontrolador compatible con Arduino, eche un vistazo al ArbotiX-M Robocontroller. El ArbotiX-M Robocontroller fue diseñado para eliminar todas las conjeturas del control de los servos DYNAMIXEL del Arduino Envinroment. Tenemos bibliotecas Arduino para los servos DYNAMIXEL y el servo TTL DYNAMIXEL de 3 pines se conectará directamente al ArbotiX-M. Para obtener consejos sobre cómo obtener todo lo que necesita para despegar su proyecto ArbotiX / DYNAMIXEL, consulte nuestro ArbotiX-M / DYNAMIX\\
+
+
+\begin{tabular}{ |p{6.5cm}||p{2.1cm}|p{2.1cm}|p{2.1cm}|  }
+ \hline
+ \multicolumn{4}{|c|}{\textbf{MX-28} } \\
+ \hline
+ Voltaje de operación  &  14.8v   &	   12v   &   11.1v\\
+ \hline
+ Par de bloqueo        &  31.6kg.cm  &  25.5kg.cm   &  23.4kg.cm\\
+ Velocidad sin carga   &  67rpm      &  55rpm       &  50rpm\\
+ \hline
+ Peso                  &  \multicolumn{3}{|c|}{72g} \\
+ \hline
+ Tamaño                &  \multicolumn{3}{|c|}{35.6 x 50.6 x 35.5 mm} \\
+ \hline
+ Resolución            &  \multicolumn{3}{|c|}{ 0.088 grado/valor de registro} \\
+ \hline
+ Relación de reducción &  \multicolumn{3}{|c|}{1/193} \\
+ \hline
+ Corriente máxima      &  \multicolumn{3}{|c|}{1.4A @ 12V} \\
+ \hline
+ Protocolo             &  \multicolumn{3}{|c|}{TTL Serial Asincrono} \\
+ \hline
+ Velocidad del puerto  &  \multicolumn{3}{|c|}{8000bps ~ 3Mbps} \\
+ \hline
+ Retroalimentación de posición & \multicolumn{3}{|c|}{ SI} \\
+ \hline
+ Retroalimentación de temperatura & \multicolumn{3}{|c|}{ SI}\\
+ \hline
+ PID                   & \multicolumn{3}{|c|}{ SI } \\
+ \hline
+ Material              & \multicolumn{3}{|c|}{ Carcasa platica y reducción metálica} \\
+ \hline
+ Motor                 & \multicolumn{3}{|c|}{ Maxon RE-MAX} \\
+ \hline
+\end{tabular}
+
+
+		*** Caracteristicas de conexión\\
 
 	\section{Descripción de los elementos del sistema de manipulación}
 		El sistema de Hardware del brazo robótico está compuesto por servomotores Dynamixel fabricados por la compañía Robotis (***cite Robotis Official page). Eta compañia cuenta con diversas gamas de modelos de servomotores según las necesidades de la apliación. A continuación se describirá el sistema en orden descendente.\\
@@ -129,14 +186,14 @@ Key Benefits:
 		Posteriormente se encuentra un servomotor modelo MX-106 
 
 
-		>>>> Cadena completa y muestra de las conexiones electricas (comparación antes y despues.) 
+		**** Cadena completa y muestra de las conexiones electricas (comparación antes y despues.) 
 
 
 
 	
 
 	\section{Cinemática directa}
-		>>> Teoría trasformaciones y medidas del brazo robotico
-		>>> Implementación (Descrpción con ROS)
+		**** Teoría trasformaciones y medidas del brazo robotico
+		**** Implementación (Descrpción con ROS)
 
 	\section{Cinemática inversa}
