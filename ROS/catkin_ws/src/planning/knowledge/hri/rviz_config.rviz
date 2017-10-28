@@ -5,7 +5,6 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /Global Options1
-        - /PointCloud21
       Splitter Ratio: 0.522221982
     Tree Height: 350
   - Class: rviz/Selection
@@ -26,7 +25,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: PointCloud2
+    SyncSource: ""
 Visualization Manager:
   Class: ""
   Displays:
@@ -81,33 +80,171 @@ Visualization Manager:
     - Alpha: 1
       Class: rviz/RobotModel
       Collision Enabled: false
-      Enabled: false
+      Enabled: true
       Links:
         All Links Enabled: true
         Expand Joint Details: false
         Expand Link Details: false
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
+        base_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        base_ra_arm:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        careta:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        head_link1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        head_link2:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        kinect_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ra_link0:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ra_link1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ra_link2:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        ra_link3:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ra_link4:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ra_link5:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ra_link6:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ra_link7:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ra_link8:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ra_link_grip_center:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        torso_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
       Name: RobotModel
       Robot Description: robot_description
       TF Prefix: ""
       Update Interval: 0
-      Value: false
+      Value: true
       Visual Enabled: true
     - Class: rviz/TF
-      Enabled: false
+      Enabled: true
       Frame Timeout: 15
       Frames:
         All Enabled: true
+        base_link:
+          Value: true
+        base_ra_arm:
+          Value: true
+        careta:
+          Value: true
+        head_link1:
+          Value: true
+        head_link2:
+          Value: true
+        kinect_link:
+          Value: true
+        ra_link0:
+          Value: true
+        ra_link1:
+          Value: true
+        ra_link2:
+          Value: true
+        ra_link3:
+          Value: true
+        ra_link4:
+          Value: true
+        ra_link5:
+          Value: true
+        ra_link6:
+          Value: true
+        ra_link7:
+          Value: true
+        ra_link8:
+          Value: true
+        ra_link_grip_center:
+          Value: true
+        torso_link:
+          Value: true
       Marker Scale: 0.300000012
       Name: TF
       Show Arrows: false
       Show Axes: true
       Show Names: false
       Tree:
-        {}
+        base_link:
+          base_ra_arm:
+            ra_link0:
+              ra_link1:
+                ra_link2:
+                  ra_link3:
+                    ra_link4:
+                      ra_link5:
+                        ra_link6:
+                          ra_link7:
+                            {}
+                          ra_link8:
+                            {}
+                          ra_link_grip_center:
+                            {}
+          torso_link:
+            head_link1:
+              head_link2:
+                kinect_link:
+                  careta:
+                    {}
       Update Interval: 0
-      Value: false
+      Value: true
     - Alpha: 0.699999988
       Class: rviz/Map
       Color Scheme: map
@@ -221,25 +358,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/ThirdPersonFollower
-      Distance: 2.26430345
+      Distance: 2.05320883
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.416953564
-        Y: 0.0482807755
+        X: 0.695738554
+        Y: 0.434899718
         Z: -1.19209278e-06
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.0500000007
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Pitch: 0.850399852
+      Pitch: 0.355400264
       Target Frame: <Fixed Frame>
       Value: ThirdPersonFollower (rviz)
-      Yaw: 3.33219957
+      Yaw: 3.93216968
     Saved: ~
 Window Geometry:
   Displays:
