@@ -27,23 +27,23 @@
       <material name="aluminium_1"><color rgba="0.7 0.7 0.7 1"/></material>
     </visual>
 
-    <!--
+     <!--Shoulder arm -->
      <visual>
-      <origin xyz="0.0 -0.15 0.45" rpy="0.0 0.0 0.0"/>
+       <origin xyz="0.0 -0.028 0.42" rpy="-0.6 0.2 1.5707"/>
       <geometry> 
         <mesh filename="package://knowledge/hardware/stl/brazo/hombrera.stl"/>
       </geometry>
-      <material name="aluminium_1"><color rgba="0.5 0.5 0.5 1"/></material>
+      <material name="golden_shoulder"><color rgba="0.9 0.75 0.25 1"/></material>
      </visual>
 
+     <!--Shoulder arm -->
      <visual>
-      <origin xyz="0.0 0.15 0.45" rpy="0.0 0.0 0.0"/>
+      <origin xyz="0.0 0.028 0.42" rpy="-0.6 0.2 -1.5707"/>
       <geometry> 
         <mesh filename="package://knowledge/hardware/stl/brazo/hombrera.stl"/>
       </geometry>
-      <material name="aluminium_1"><color rgba="0.5 0.5 0.5 1"/></material>
+      <material name="golden_shoulder"><color rgba="0.9 0.75 0.25 1"/></material>
     </visual>
-    -->
     
   </link>
 
@@ -73,7 +73,7 @@
       <geometry> 
         <mesh filename="package://knowledge/hardware/stl/brazo/bone_1.stl"/>
       </geometry>
-      <material name="ra_material"><color rgba="0 0.3 0.3 1"/></material>
+      <material name="ra_material"><color rgba="0.9 0.85 0.75 1"/></material>
     </visual>
 
     <visual>
@@ -102,7 +102,7 @@
       <geometry>
         <mesh filename="package://knowledge/hardware/stl/brazo/bone_2.stl"/>
       </geometry>
-      <material name="ra_material"><color rgba="0 0.3 0.3 1"/></material>
+      <material name="ra_material"><color rgba="0.9 0.85 0.75 1"/></material>
     </visual>
 
     <visual>
@@ -147,26 +147,26 @@
 
   <link name="ra_link7">
     <visual>
-      <origin xyz="0.05 0.0 0.0" rpy="0.0 0.0 0.0"/>
-      <geometry> <box size="0.10 0.02 0.046"/></geometry>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <!--
+      <geometry> <box size="0.10 0.02 0.046"/></geometry>
+      -->
       <geometry>
         <mesh filename="package://knowledge/hardware/stl/brazo/gripper.stl"/>
       </geometry>
-      -->
       <material name="ra_red"><color rgba="0.6 0.1 0.1 1"/></material>
     </visual>
   </link>
 
   <link name="ra_link8">
     <visual>
-      <origin xyz="0.0 0.05 0.0" rpy="0.0 0.0 0.0"/>
-      <geometry> <box size="0.02 0.10 0.046"/></geometry>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 1.5707"/>
       <!--
+      <geometry> <box size="0.02 0.10 0.046"/></geometry>
+      -->
       <geometry>
         <mesh filename="package://knowledge/hardware/stl/brazo/gripper.stl"/>
       </geometry>
-      -->
       <material name="ra_red"><color rgba="0.6 0.1 0.1 1"/></material>
     </visual>
   </link>
@@ -213,16 +213,17 @@
       <geometry>
         <mesh filename="package://knowledge/hardware/stl/careta_2.stl"/>
       </geometry>
-      <material name="blue"><color rgba="0.01 0.01 0.6 1"/></material>
+      <material name="blue"><color rgba="0.1 0.1 0.6 1"/></material>
     </visual>
   </link>
 
 
-
+  <!-- ########################## -->
+  <!--     JOINTS DESCRPTION      -->
 
   <joint name="ra_base_joint" type="fixed">
-    <origin xyz="0.0 -0.225 1.2" rpy="1.5707 1.5707 0.0"/>
-    <parent link="base_link"/>
+    <origin xyz="0.0 -0.225 0.40" rpy="1.5707 1.5707 0.0"/>
+    <parent link="torso_link"/>
     <child link="base_ra_arm"/>
   </joint>
 
@@ -232,6 +233,9 @@
     <child link="torso_link"/>
   </joint>
 
+ <!--      ###########################     -->
+ <!--      Right arm joint description     -->
+ 
   <joint name="ra_1_joint" type="revolute">
     <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
     <parent link="base_ra_arm"/>
@@ -289,7 +293,7 @@
   </joint>
 
   <joint name="ra_grip_right" type="revolute">
-    <origin xyz="0.0 0.04 0.015" rpy="3.141593 -1.570796 3.141592"/>
+    <origin xyz="0.0 0.045 0.0155" rpy="3.141593 -1.570796 3.141592"/>
     <parent link="ra_link6"/>
     <child link="ra_link7"/>
     <limit effort="0.0" lower="0.0" upper="0" velocity="0.0"/>
@@ -297,7 +301,7 @@
   </joint>
 
   <joint name="ra_grip_left" type="revolute">
-    <origin xyz="0.0 -0.04 0.015" rpy="1.5707 0.0 1.5707"/>
+    <origin xyz="0.0 -0.045 0.0155" rpy="1.5707 0.0 1.5707"/>
     <parent link="ra_link6"/>
     <child link="ra_link8"/>
     <limit effort="0.0" lower="0.0" upper="0" velocity="0.0"/>

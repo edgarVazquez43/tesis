@@ -131,6 +131,7 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
+          Value: true
         ra_link3:
           Alpha: 1
           Show Axes: false
@@ -140,7 +141,6 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
         ra_link5:
           Alpha: 1
           Show Axes: false
@@ -358,25 +358,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/ThirdPersonFollower
-      Distance: 2.05320883
+      Distance: 2.59202576
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.695738554
-        Y: 0.434899718
-        Z: -1.19209278e-06
+        X: 0.0648682117
+        Y: 0.156682611
+        Z: -7.15255624e-07
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.0500000007
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Pitch: 0.355400264
+      Pitch: 0.270400792
       Target Frame: <Fixed Frame>
       Value: ThirdPersonFollower (rviz)
-      Yaw: 3.93216968
+      Yaw: 5.41213989
     Saved: ~
 Window Geometry:
   Displays:

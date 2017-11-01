@@ -1,0 +1,53 @@
+digraph G {
+node [shape=box];
+"base_link" [label="base_link"];
+"torso_link" [label="torso_link"];
+"head_link1" [label="head_link1"];
+"head_link2" [label="head_link2"];
+"kinect_link" [label="kinect_link"];
+"careta" [label="careta"];
+"base_ra_arm" [label="base_ra_arm"];
+"ra_link0" [label="ra_link0"];
+"ra_link1" [label="ra_link1"];
+"ra_link2" [label="ra_link2"];
+"ra_link3" [label="ra_link3"];
+"ra_link4" [label="ra_link4"];
+"ra_link5" [label="ra_link5"];
+"ra_link6" [label="ra_link6"];
+"ra_link_grip_center" [label="ra_link_grip_center"];
+"ra_link8" [label="ra_link8"];
+"ra_link7" [label="ra_link7"];
+node [shape=ellipse, color=blue, fontcolor=blue];
+"base_link" -> "base_torso_connect" [label="xyz: 0 0 0.8 \nrpy: 0 -0 0"]
+"base_torso_connect" -> "torso_link"
+"torso_link" -> "pan_connect" [label="xyz: 0 0 0.6 \nrpy: 0 -0 0"]
+"pan_connect" -> "head_link1"
+"head_link1" -> "tilt_connect" [label="xyz: 0 0 0.055 \nrpy: -1.57 0 0"]
+"tilt_connect" -> "head_link2"
+"head_link2" -> "kinect_connect" [label="xyz: 0 -0.08 0 \nrpy: 0 1.5708 -0"]
+"kinect_connect" -> "kinect_link"
+"kinect_link" -> "careta_connect" [label="xyz: 0 0 0 \nrpy: 0 -0 0"]
+"careta_connect" -> "careta"
+"torso_link" -> "ra_base_joint" [label="xyz: 0 -0.225 0.4 \nrpy: 0 1.5708 -1.5708"]
+"ra_base_joint" -> "base_ra_arm"
+"base_ra_arm" -> "ra_1_joint" [label="xyz: 0 0 0 \nrpy: 0 -0 0"]
+"ra_1_joint" -> "ra_link0"
+"ra_link0" -> "ra_2_joint" [label="xyz: 0.064 0 0 \nrpy: 1.5707 -0 0"]
+"ra_2_joint" -> "ra_link1"
+"ra_link1" -> "ra_3_joint" [label="xyz: 0.21 0 0 \nrpy: 0 1.5708 -0"]
+"ra_3_joint" -> "ra_link2"
+"ra_link2" -> "ra_4_joint" [label="xyz: 0 0 0.06 \nrpy: 0 -1.5708 -1.5708"]
+"ra_4_joint" -> "ra_link3"
+"ra_link3" -> "ra_5_joint" [label="xyz: 0.18 0 0 \nrpy: 1.5707 5.55112e-17 1.5707"]
+"ra_5_joint" -> "ra_link4"
+"ra_link4" -> "ra_6_joint" [label="xyz: 0 0 0.036 \nrpy: 0 -1.5708 -1.5708"]
+"ra_6_joint" -> "ra_link5"
+"ra_link5" -> "ra_7_joint" [label="xyz: 0.095 0 0 \nrpy: 1.5707 5.55112e-17 1.5707"]
+"ra_7_joint" -> "ra_link6"
+"ra_link6" -> "ra_grip_center" [label="xyz: 0 0 0.06 \nrpy: 1.5707 5.55112e-17 1.5707"]
+"ra_grip_center" -> "ra_link_grip_center"
+"ra_link6" -> "ra_grip_left" [label="xyz: 0 -0.045 0.0155 \nrpy: 1.5707 5.55112e-17 1.5707"]
+"ra_grip_left" -> "ra_link8"
+"ra_link6" -> "ra_grip_right" [label="xyz: 0 0.045 0.0155 \nrpy: 0 -1.5708 6.28318"]
+"ra_grip_right" -> "ra_link7"
+}
