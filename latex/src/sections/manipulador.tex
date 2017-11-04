@@ -20,7 +20,7 @@
 		Por otro lado los motores Dynamixel de la seire MX cuentan con la implemntación de un algoritmo de control PID para mantener la posición del eje. Las ganancias del algoritmo de control PID se pueden ajustar individualmente para cada servo, lo que le permite controlar la velocidad y la fuerza de la respuesta del motor. Todos los servos de la serie MX usan un voltaje nominal de 12v. La característica más importante de esta seie de servomotores es que la gestión de la información proveniente del sensor y la ejecución del algoritmo de control de posición son manejados por el microcontrolador integrado del servo. Este enfoque distribuido deja a su controlador principal libre para realizar otras funciones.\\
 
 
-		En lo que respecta a la parte mecánica, todos los servos DYNAMIXEL son compatibles con una amplia variedad de bridas, acoplamientos y sujetadores lo cual facilita la construcción de cualquier configuración deseada. Este conjunto de elementos mecánicos permite una conección directa cualquier modelo de servomotores DYNAMIXEL, lo que le permite una gran variedad de configuraciones para cualquier necesidad. Dada la gran variedad de configuraciones, este tipo de elementos de unión y fijación resultó de gran ayuda mecánica al momento de contruir el brazo robótico donde se implentaron los algoritmos descritos en el presente trabajo.\\
+		En lo que respecta a la parte mecánica, todos los servos DYNAMIXEL son compatibles con una amplia variedad de bridas, acoplamientos y sujetadores lo cual facilita la construcción de cualquier configuración deseada. Este conjunto de elementos mecánicos permite una conexión directa cualquier modelo de servomotores DYNAMIXEL, lo que le permite una gran variedad de configuraciones para cualquier necesidad. Dada la gran variedad de configuraciones, este tipo de elementos de unión y fijación resultó de gran ayuda mecánica al momento de contruir el brazo robótico donde se implentaron los algoritmos descritos en el presente trabajo.\\
 
 		\begin{figure}[h!]
 			\begin{center}
@@ -59,6 +59,8 @@
 
 		Los motores que componen esta gama comparten caracteristicas, las cuales se menacionan a continuación:\\
 
+\begin{table}[h!]
+\centering 
 \begin{tabular}{ |p{6.5cm}||p{2.1cm}|p{2.1cm}|p{2.1cm}|  }
  \hline
  \multicolumn{4}{|c|}{\textbf{MOTORES GAMA MX} } \\
@@ -79,13 +81,21 @@
  \hline
  Motor                 & \multicolumn{3}{|c|}{ Maxon RE-MAX} \\
  \hline
-\end{tabular}\\
+\end{tabular}
+\caption{Características servomotores MX.}
+\label{t_manip:1}
+\end{table}
 
 		Los modelos de motores que componen esta gama difieren en caracteríticas tales como las dimensiones, el par máximno a rotor bloqueado, la corriente máxima, o la velocidad máxima. A continuación se en listan las características más sobresalientes para cada modelo de motor.\\ 
 
 
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		\subsection{Características MX-106}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\begin{table}[h]
+\centering
 \begin{tabular}{ |p{6.5cm}||p{2.1cm}|p{2.1cm}|p{2.1cm}|  }
  \hline
  \multicolumn{4}{|c|}{\textbf{MX-106} } \\
@@ -106,6 +116,10 @@
  Corriente máxima      &  \multicolumn{3}{|c|}{5.2A @ 12V} \\
  \hline
 \end{tabular}
+\caption{Características dynamixel modelo MX-106.}
+\label{t_manip:2}
+\end{table}
+
 
 \begin{figure}[h!]
 	\begin{center}
@@ -115,8 +129,12 @@
 \end{figure}
 
 
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		\subsection{Características MX-64}
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{table}[h]
+\centering
 \begin{tabular}{ |p{6.5cm}||p{2.1cm}|p{2.1cm}|p{2.1cm}|  }
  \hline
  \multicolumn{4}{|c|}{\textbf{MX-64} } \\
@@ -137,6 +155,9 @@
  Corriente máxima      &  \multicolumn{3}{|c|}{4.1A @ 12V} \\
  \hline
 \end{tabular}
+\caption{Caracteríisticas Dynamixel modelo MX-64}
+\label{t_manip:3}
+\end{table}
 
 \begin{figure}[h!]
 	\begin{center}
@@ -145,8 +166,14 @@
 	\end{center}
 \end{figure}
 
-		\subsection{Características MX-28}
 
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		\subsection{Características MX-28}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{table}[h]
+\centering
 \begin{tabular}{ |p{6.5cm}||p{2.1cm}|p{2.1cm}|p{2.1cm}|  }
  \hline
  \multicolumn{4}{|c|}{\textbf{MX-28} } \\
@@ -167,6 +194,9 @@
  Corriente máxima      &  \multicolumn{3}{|c|}{1.4A @ 12V} \\
  \hline
 \end{tabular}
+\caption{Caracteríisticas Dynamixel modelo MX-64}
+\label{t_manip:4}
+\end{table}
 
 \begin{figure}[h!]
 	\begin{center}
@@ -205,6 +235,8 @@
 	
 	A continuación se anexa una tabla con las caracteriticas más reelevantes de los registros que posee cada uno de los revomotores dynamixel.\\
 
+\begin{table}[h]
+\centering
 \begin{tabular}{ |p{1.2cm}||p{1.8cm}|p{3.0cm}|p{3.8cm}|p{1.8cm}|  }
  \hline
  \textbf{AREA} &\textbf{Dirección} &\textbf{Nombre} &\textbf{Descripción} &\textbf{Acceso}\\
@@ -247,11 +279,13 @@
  \hline
    &  41 & Present load(H) & Byte alto del registro de la carga presente& L\\
  \hline
-
 \end{tabular}
+\caption{Tabla de registros para servomotores Dynamixel de la gama MX.}
+\label{t_manip:5}
+\end{table}
 
 		\subsection{Caracteristicas de conexión}
-	Se ha mencionado con anterioridad que el brazo robótico con el cual se realizaron las pruebas correspondientes para este trabajo consta de 10 servomotores dynamixel de la gama MX y de diferentes modelos. Para facilitar la comunicación entre los diferentes modelos de servomotores se utilizó un método de conexión "daysi chain" en cual permite una conexión en cadena entre servomotores, asignandole un ID a cada servomotor y realizando la comunicación a través de un solo puerto.\\
+	Se ha mencionado con anterioridad que el brazo robótico con el cual se realizaron las pruebas correspondientes para este trabajo consta de 10 servomotores dynamixel de la gama MX y de diferentes modelos. Para facilitar la comunicación entre los diferentes modelos de servomotores se utilizó un método de conexión \textit{daysi chain} en cual permite una conexión en cadena entre servomotores, asignandole un ID a cada servomotor y realizando la comunicación a través de un solo puerto.\\
 
 	\begin{figure}[h!]
 		\begin{center}
@@ -260,7 +294,7 @@
 		\end{center}
 	\end{figure}
 
-	El sistema \textit{daisy chain} es un esquema de conecciones que forman una sucesión de enlaces, tal que el dispositivo A se encunetra conectado al sipositivo B y este, a su vez, se encuentra concectado a un dispositivo C y así sucesivamente. Es importante señalar que en este tipo de conección los dispositivos no forman redes, en tal caso el dispositivo C no podría estar conectado al dispositivo A. Otro aspecto importante de resaltar es que en este tipo de conecciones al no poder formar redes la comunicación se realiza dispositivo a dispositivo, por tanto los dispositivos ultimos en la cadena pueden presentar retraso o fallas electricas con respecto de los dispositivos primeros en orden de la cadena.\\  
+	El sistema \textit{daisy chain} es un esquema de conexiones que forman una sucesión de enlaces, tal que el dispositivo A se encunetra conectado al dispositivo B y este, a su vez, se encuentra concectado a un dispositivo C y así sucesivamente. Es importante señalar que en este tipo de conexión los dispositivos no forman redes, en tal caso el dispositivo C no podría estar conectado al dispositivo A. Otro aspecto importante de resaltar es que en este tipo de conexiones al no poder formar redes la comunicación se realiza dispositivo a dispositivo, por tanto los dispositivos ultimos en la cadena pueden presentar retraso o fallas electricas con respecto de los dispositivos primeros en orden de la cadena.\\  
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -270,7 +304,7 @@
 	\section{Descripción de los elementos del sistema de manipulación}
 		El sistema de Hardware del brazo robótico está compuesto por un total de 10 servomotores Dynamixel fabricados por la compañía Robotis \cite{dynamixelEpage}. Eta compañia cuenta con diversas gamas de modelos de servomotores según las necesidades de la apliación. A continuación se describirá el sistema en orden descendente.\\
 
-		En la parte superior del brazo robótico se encuentran dos servomotores Dynamixel MX-106 conectados como maestro-esclavo, configurados en este modo trabajan de manera conjunta aumentando el par unitario de cada uno de los servomotores. Dadas las caracteristicas antes descritas en la tabla [] podemos observar que la configuración de servomotores entrega un par de torsión máximo a rotor bloqueado de $16.8N.m$ @ 12V. El sentido de giro positivo del arreglo de servomotores es el mostrado en la figura[4.8]. \\
+		En la parte superior del brazo robótico se encuentran dos servomotores Dynamixel MX-106 conectados como maestro-esclavo, configurados en este modo trabajan de manera conjunta aumentando el par unitario de cada uno de los servomotores. Dadas las caracteristicas antes descritas en la tabla \ref{t_manip:2}  podemos observar que la configuración de servomotores entrega un par de torsión máximo a rotor bloqueado de $16.8N.m$ @ 12V. El sentido de giro positivo del arreglo de servomotores es el mostrado en la figura[4.8]. \\
 
 		\begin{wrapfigure}{l}{0.60\textwidth}
 			\includegraphics[width=8.0cm, height=4.5cm]{/mx106_MS.png}
@@ -295,7 +329,7 @@
 
 		Por último, se encuentra el efector final compuesto de dos actuadores MX-28 ubicados en disposición horizontal. En el eje de acción de cada uno de estos se encuentra una pieza obntenida de impresión 3D que funge como sujetador para manipular objetos.\\
 
-		Como podemos observar el brazo robótico consta de un total de 10 servomotores conectados en \textit{daisy chain}. Dentro de este trabajo se realizó en analisis de la transmición de datos para cada uno de los servomotores. Para este analisis se partió de una configuración de conección previamente establecida, como se muestra en la figura []. Posteriormente se realizaron un total 1000 lecturas del registro \textit{Present Position} para cada uno de los actuadores. Se observó que la cantidad de datos perdidos era proporcional al número que el actuador tenía asignado en la cadena. De esta manera, se realizó la hipotesis que los datos se perdian a lo largo de la cadena de actuadores. Posteriormente se realizaron mediciones de voltaje a lo largo de la cadena, se observó una caida de 0.5V entre el actuador demominado A y los actuadores I-J.\\
+		Como podemos observar el brazo robótico consta de un total de 10 servomotores conectados en \textit{daisy chain}. Dentro de este trabajo se realizó en analisis de la transmición de datos para cada uno de los servomotores. Para este analisis se partió de una configuración de conexión previamente establecida, como se muestra en la figura []. Posteriormente se realizaron un total 1000 lecturas del registro \textit{Present Position} para cada uno de los actuadores. Se observó que la cantidad de datos perdidos era proporcional al número que el actuador tenía asignado en la cadena. De esta manera, se realizó la hipotesis que los datos se perdian a lo largo de la cadena de actuadores. Posteriormente se realizaron mediciones de voltaje a lo largo de la cadena, se observó una caida de 0.5V entre el actuador demominado A y los actuadores I-J.\\
 
 		Los resultados obtenidos nos indicaron dos posibles ejes de acción. El primero de ellos, por facilidad de implementación, fue cambiar la velocidad de transmisión de datos para cada uno de los servomotores, yq ue una velocidad alta podría implicar una colision de datos en la transmisión, lo cúal conllevaría a el fenomeno que observamos. El segundo eje de acción fue el análisis del consumo de corrientes en cada uno de los actuadores. Este evento pudo haber ocasionado la caída de voltaje y posteriormente la perdida de datos al no estar adecuadamente alimentados los dispositivos.\\ 
 		
@@ -305,17 +339,37 @@
 
 
 
-
-
 	
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
               %%%%%%  CINEMATICA DIRECTA   %%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
 
 	\section{Cinemática directa}
-		**** Teoría trasformaciones y medidas del brazo robotico
-		**** Implementación (Descrpción con ROS)
+El problema de cinemática directa consiste en conocer la posición \textit{(x, y, z)} del efector final dada una determinda configuración de ángulos para el conjunto de actuadores que forman el sistema mecánico. Para ello se describe lo posición del efector final en términos de las transformaciones existentes entre este y la base fija del manipulador.\\
+
+
+	\subsection{Teoría trasformaciones y medidas del brazo robotico}
+
+
+	\subsection{Implementación (Descrpción con ROS)}
+
+	Se utilizó un visualizador en 3D para observar el modelo del brazo y verificar el correcto movimiento mecánico del brazo. En tal caso se hizo uso de los paquetes proporcionados por \textit{ROS} para la elaboración de modelos de robots. La descrpción del modelo del robot se realizó en una estructura en formato XML. Esta descripción permite describir las transfomaciones existentes entre cada uno de los frames significativos en el robot, así como permite cargar algún modelo \textit{CAD (Computer Assistand Design)} de las piezas que componen al robot.\\
+
+
+	ROS proporciona una biblioteca de software unicamente dedicada al manejo de información de las transformaciones de un robot, la biblioteca de software lleva el nombre de \textit{tf}. En un nivel práctico, un árbol de transformación define los desplazamientos en términos de translación y rotación entre diferentes marcos de coordenadas. La biblioteca \textit{tf} usa una estructura en árbol para garantizar que solo haya un recorrido único que vincule dos sistemas coordinados entre sí y asume que todas las transformaciones del árbol se dirigen desde los nodos primarios a secundarios.\\ 
+
+	\begin{wrapfigure}{r}{0.45\textwidth}
+		\includegraphics[width=6.5cm, height=3.0cm]{/link_1.png}
+		\caption{Constitución básica de \textit{link} en el sistema ROS.}
+	\end{wrapfigure}
+
+	Para describir una transformación se requiere definir primero un conector, que funcione como cada uno de los elementos físicos, posteriormente la transformación se encargará de relacionar cada uno de estos conectores. Conceptualmente, cada nodo en el árbol de transformación corresponde a un sistema de coordenadas el cual representa cada uno de los conectores; por otra parte cada enlace de conexión corresponde a la transformación que debe aplicarse para pasar del nodo actual a su hijo.\\	
+
+	Para crear el árbol de transformaciones del manipulador de 7DOF, comenzamos por crear un sistema de referencia en la base del brazo, el cual servirá como sistema de referencia fijo, lo llamamos \textit{base\_ra\_arm}. Posteriormente se fueron agregando eslabones 
+
+	%y otro para el marco de coordenadas "base_laser". Para crear una ventaja entre ellos, primero debemos decidir qué nodo será el padre y cuál será el hijo. Recuerde, esta distinción es importante porque asume que todas las transformaciones se mueven de padres a hijos. Elegimos el marco de coordenadas "base_link" como principal, ya que a medida que se agregan otras piezas / sensores al robot, tendrá más sentido que se relacionen con el marco "base_laser" atravesando el marco "base_link". Esto significa que la transformada asociada con el borde que conecta "base_link" y "base_laser" debe ser (x: 0.1m, y: 0.0m, z: 0.2m). Con este árbol de transformación configurado, la conversión del escaneo láser recibido en el marco "base_laser" al marco "base_link" es tan simple como hacer una llamada a la biblioteca tf. Nuestro robot puede usar esta información para razonar acerca de los escaneos láser en el marco "base_link" y planear con seguridad los obstáculos en su entorno.
 
 
 
@@ -326,4 +380,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
               %%%%%%  CINEMATICA INVERSA   %%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+
 	\section{Cinemática inversa}
