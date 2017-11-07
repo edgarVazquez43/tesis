@@ -235,7 +235,7 @@
 	
 	A continuación se anexa una tabla con las caracteriticas más reelevantes de los registros que posee cada uno de los revomotores dynamixel.\\
 
-\begin{table}[h]
+\begin{table}[H]
 \centering
 \begin{tabular}{ |p{1.2cm}||p{1.8cm}|p{3.0cm}|p{3.8cm}|p{1.8cm}|  }
  \hline
@@ -351,11 +351,103 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
 
 
 	\subsection{Teoría trasformaciones y medidas del brazo robotico}
+	Se partió del sistema mecánico previamente construido del brazo robótico del robot de servicio Justina. Para ello se realizaron mediciones de distancias entre los respectivos ejes de acción de cada uno de los actuadores a fin describir los desplazamientos de los sistemas de refencia en el brazo robótico.\\
 
+	***Foto brazo real con medidas\\
+
+
+	Es importante mencionar que para la descripcion de las transformaciones en sistema ROS, podemos contruir la matriz de rotación de tal manera que incluyamos las rotaciones y desplazamientos en los tres ejes coordenados. Esta caracteristica nos proporciona una ventaja sobre los técnicas de descripción de cinematica directa convencionales, tal es el caso del Método Denavith-Hartemberg donde el sistema de transformaciónes debe ser descrito utilizando, unicamente, dos rotaciones y dos translaciones según sus convenciones.\\
+
+	Es importante mencionar esta característica puesto que en algunos casos la concención Denavith-Hartemberg encuentra limitaciones para describir algunas transformaciones. ***cite spog[] issues\\
+
+    \begin{equation}
+	\begin{split}
+		T^{n-1}_n = T_{Z_{n-1}}(d_n) * 
+			R_z(\theta_n)*T_{x_n} (a_n) * R_{x_n}(\alpha)
+    \end{split}
+    \end{equation}
+
+    \begin{equation}
+	\begin{split}
+		T^{n-1}_n = 
+		\begin{bmatrix}
+\cos \theta_n & -\sin \theta_n \cos \alpha_n & \sin \theta_n \sin \alpha_n &  a_n \cos \theta_n \\
+\sin \theta_n & \cos \theta_n \cos \alpha_n & -\cos \theta_n \sin \alpha_n &  a_n \sin \theta_n \\
+0     & \sin \alpha_n & \cos \alpha_n &  d_{n} \\
+0     &       0        &         0      &    1
+		\end{bmatrix}
+    \end{split}
+    \end{equation}
+
+	Como podemos observar, en la convención de transformaciones Denavith-Hartemberg unicamente requerimos determinar el valor de cuatro variables, dos rotaciones $(\alpha, \theta)$ y dos translaciones $(a, d)$.\\  
+
+
+	El sistema de descripción de transformaciones desarrollado por ROS, presenta la ventaja que nos prermite describir la trasformación de una manera más detallada. Sin embargo la solución implementada no siempre suele ser la más óptima, encuanto al manejo de la información por ser una mayor cantidad de datos.\\
+
+	Para ello se parte de la matriz de rotación compuesta roll, pitch, yaw.\\
+
+	\begin{equation}
+	\begin{split}
+		R^{0}_1 = R_{z, \phi } * R_{y, \theta } * R_{x, \psi }
+	\end{split}
+    \end{equation}
+
+    \begin{equation}
+	\begin{split}
+		R^{0}_1 = 
+		\begin{bmatrix}
+		\cos\phi  & -\sin\phi &  0 \\
+		\sin\phi  &  \cos\phi &  0 \\
+		0         &     0     &   1
+		\end{bmatrix}*
+		\begin{bmatrix}
+		\cos\theta   &   0   &  \sin\theta \\
+		   0         &   1   &  0 \\
+		-\sin\theta  &   0   &  \cos\theta
+		\end{bmatrix}*
+		\begin{bmatrix}
+		   1      &     0    &   0\\
+		   0      &   \cos\psi   &  -\sin\psi \\
+		   0      &   \sin\psi   &  \cos\psi
+		\end{bmatrix}\\
+    \end{split}
+    \end{equation}
+
+    \begin{equation}
+	\begin{split}
+		=
+		\begin{bmatrix}
+		   \cos\phi \cos\theta & -\sin\phi \cos\psi - \cos\phi \sin\theta \sin\psi & \sin\phi \sin\psi + \cos\phi \sin\theta \cos\psi\\
+		   \sin\phi \cos\theta & \cos\phi \cos\psi + \sin\phi \sin\theta \sin\psi  & -\cos\phi \sin\psi + \sin\phi \sin\theta \cos\psi \\
+		   -\sin\theta         & \cos\theta \sin\psi   &  \cos\theta \cos\psi
+		\end{bmatrix}
+    \end{split}
+    \end{equation}
+
+	\begin{figure}[h!]
+		\begin{center}
+		\includegraphics[width=6.5cm, height=4.5cm]{/roll_pitch_yaw.jpeg}
+		\caption{Rotaciones roll, pitch, yaw.}
+		\end{center}
+	\end{figure} 
+    
 
 	\subsection{Implementación (Descrpción con ROS)}
 
 	Se utilizó un visualizador en 3D para observar el modelo del brazo y verificar el correcto movimiento mecánico del brazo. En tal caso se hizo uso de los paquetes proporcionados por \textit{ROS} para la elaboración de modelos de robots. La descrpción del modelo del robot se realizó en una estructura en formato XML. Esta descripción permite describir las transfomaciones existentes entre cada uno de los frames significativos en el robot, así como permite cargar algún modelo \textit{CAD (Computer Assistand Design)} de las piezas que componen al robot.\\
+
+	\begin{figure}[h!]
+
+		\begin{subfigure}[t]{.5\textwidth}
+		\includegraphics[width=5.5cm, height=5.0cm]{/tf_example.png}
+		\end{subfigure}%
+		\begin{subfigure}[t]{.5\textwidth}
+		\includegraphics[width=5.5cm, height=5.0cm]{/tf_example2.png}
+		\end{subfigure}
+
+		\caption{Ejemplo de un modelo de robot y sus respectivas transformaciones.}
+	\end{figure}
+
 
 
 	ROS proporciona una biblioteca de software unicamente dedicada al manejo de información de las transformaciones de un robot, la biblioteca de software lleva el nombre de \textit{tf}. En un nivel práctico, un árbol de transformación define los desplazamientos en términos de translación y rotación entre diferentes marcos de coordenadas. La biblioteca \textit{tf} usa una estructura en árbol para garantizar que solo haya un recorrido único que vincule dos sistemas coordinados entre sí y asume que todas las transformaciones del árbol se dirigen desde los nodos primarios a secundarios.\\ 
@@ -367,13 +459,119 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
 
 	Para describir una transformación se requiere definir primero un conector, que funcione como cada uno de los elementos físicos, posteriormente la transformación se encargará de relacionar cada uno de estos conectores. Conceptualmente, cada nodo en el árbol de transformación corresponde a un sistema de coordenadas el cual representa cada uno de los conectores; por otra parte cada enlace de conexión corresponde a la transformación que debe aplicarse para pasar del nodo actual a su hijo.\\	
 
-	Para crear el árbol de transformaciones del manipulador de 7DOF, comenzamos por crear un sistema de referencia en la base del brazo, el cual servirá como sistema de referencia fijo, lo llamamos \textit{base\_ra\_arm}. Posteriormente se fueron agregando eslabones 
+	Para crear el árbol de transformaciones del manipulador de 7DOF, comenzamos por crear un sistema de referencia en la base del brazo, el cual servirá como sistema de referencia fijo, lo llamamos \textit{base\_ra\_arm}. Posteriormente se fueron agregando eslabones según la configuración real del brazo. Para llegar a la configuración se partío de la siguiente restricción: el eje Z debe coincidir con el eje de giro del actuador, en posición y en sentido positivo, como se muestra en la figura.\\ 
 
-	%y otro para el marco de coordenadas "base_laser". Para crear una ventaja entre ellos, primero debemos decidir qué nodo será el padre y cuál será el hijo. Recuerde, esta distinción es importante porque asume que todas las transformaciones se mueven de padres a hijos. Elegimos el marco de coordenadas "base_link" como principal, ya que a medida que se agregan otras piezas / sensores al robot, tendrá más sentido que se relacionen con el marco "base_laser" atravesando el marco "base_link". Esto significa que la transformada asociada con el borde que conecta "base_link" y "base_laser" debe ser (x: 0.1m, y: 0.0m, z: 0.2m). Con este árbol de transformación configurado, la conversión del escaneo láser recibido en el marco "base_laser" al marco "base_link" es tan simple como hacer una llamada a la biblioteca tf. Nuestro robot puede usar esta información para razonar acerca de los escaneos láser en el marco "base_link" y planear con seguridad los obstáculos en su entorno.
+	\begin{figure}[h!]
+		\begin{center}
+		\includegraphics[width=6.5cm, height=4.5cm]{/link_description.png}
+		\caption{Ejemplo de sistema de transformaciones (sistemas de refencia y links).}
+		\end{center}
+	\end{figure} 
+
+	Para crear esta configuración entre los diferentes sistemas de referencia, primero debemos decidir qué nodo será el padre y cuál será el hijo. Esta distinción es importante porque asume que todas las transformaciones se mueven de padres a hijos. Elegimos el sistema de referencia \textit{base\_ra\_arm} como principal, ya que a medida que se agregan otras piezas: motores, eslabones y conectores, tendrá más sentido que se relacionen con un sistema fijo. Esto significa que la transformada asociada con el efector final y el sistema \textit{base\_ra\_arm} puede ser obtenida mediante el árbol de transformaciones configurado. La conversión de la posición del sistema de refencia ubicado en el efector final al sistema de referencia fijo ubicado en la base del brazo puede ser obtenida mediante una llamada a la biblioteca tf.\\
+
+
+	Con la información previamente obtenida de las dimensiones del brazo robótico se construyó la siguienta tabla donde se muestra la información de los desplazamientos y rotaciones de los respectivos sistemas de referencia.\\
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ |p{1.0cm}|p{1.5cm}|p{1.5cm}|p{1.5cm}|p{1.5cm}|p{1.5cm}|p{1.5cm}|}
+ \hline
+  & \multicolumn{3}{|c|}{\textbf{TRANSALACIÓN}} & \multicolumn{3}{|c|}{\textbf{ROTACIÓN}} \\
+ \hline
+  &  x & y & z & roll & pitch & yaw\\
+ \hline
+ 1 &  0.065 & 0.0 & 0.000 & $\pi /2$  &   0.000   & 0.0\\
+ \hline
+ 2  & 0.215 & 0.0 & 0.000 &    0.000  & $\pi /2$  & 0.0\\
+ \hline
+ 3  & 0.000 & 0.0 & 0.060 & $-\pi /2$ & $-\pi /2$ & 0.0\\
+ \hline
+ 4  & 0.190 & 0.0 & 0.000 & $\pi /2$  &   0.000   & $\pi /2$\\
+ \hline
+ 5  & 0.000 & 0.0 & 0.036 & $-\pi /2$ & $-\pi /2$ & 0.0\\
+ \hline
+ 6  & 0.095 & 0.0 & 0.000 & $\pi /2$  &   0.000   & $\pi /2$\\
+ \hline
+\end{tabular}
+\caption{Tabla de parametros de transformaciones entre sistemas de refencia para el brazo robotico de 7DOF.}
+\label{t_manip:6}
+\end{table}
+
+	Con la información obtenida de las dimensiones del brazo robótico real pudimos realizar un modelo virtual del brazo utilizando un archivo en formato XML donde describimos las trasfomaciones entre los diferentes sistemas de referencia y los elemetos de conexión obtenidos de modelos CAD. El resultado se puede observar en la figura[4.13]\\ 
+
+	El formato de descrpción virtual de un modelo de robot en formato XML se compone de \textit{links} y \textit{joints}. Un link describe las características de un elemento de unión, estas pueden ser mecánicas, de material, de posición, etc. Un \textit{joint} por otra parte describe la realción existente entre los origenes de dos links, dicho de otro modo decribe la transformación existente entre los sistemas de refencias (\textit{origenes}) de dos links.\\
+
+	\newpage
+
+	\begin{lstlisting}[language=html, caption=Descripción de sistema de manipulación]
+<link name="base_ra_arm">
+    <visual>
+      <origin xyz="-0.01 0.0 0.0" rpy="1.5707 0.0 1.5707"/>
+      <geometry> 
+        <mesh filename="package://knowledge/hardware/stl/brazo/mx106_2.stl"/>
+      </geometry>
+      <material name="black_gray"><color rgba="0.2 0.2 0.2 1"/></material>
+    </visual>
+  </link>
+
+  <link name="ra_link0">
+    <visual>
+      <origin xyz="0.0 0.0 0.005" rpy="0.0 -1.5707 0.0"/>
+      <geometry> 
+        <mesh filename="package://knowledge/hardware/stl/brazo/mx106_s.stl"/>
+      </geometry>
+      <material name="gray_black"><color rgba="0.3 0.3 0.3 1"/></material>
+    </visual>
+  </link>
+
+  <link name="ra_link1">
+    <visual>
+      <origin xyz="0.0 0.0 0.0" rpy="1.5707 -1.5707 0.0"/>
+      <geometry> 
+        <mesh filename="package://knowledge/hardware/stl/brazo/bone_1.stl"/>
+      </geometry>
+      <material name="ra_material"><color rgba="0.9 0.85 0.75 1"/></material>
+    </visual>
+
+  </link>
+  .
+  .
+  .
+
+
+   <joint name="ra_1_joint" type="revolute">
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    <parent link="base_ra_arm"/>
+    <child link="ra_link0"/>
+    <limit effort="0.0" lower="0.0" upper="0" velocity="0.0"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <joint name="ra_2_joint" type="revolute">
+    <origin xyz="0.064 0.0 0.0" rpy="1.5707 0.0 0.0"/>
+    <parent link="ra_link0"/>
+    <child link="ra_link1"/>
+    <limit effort="0.0" lower="0.0" upper="0" velocity="0.0"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+			\end{lstlisting}
 
 
 
-
+	\begin{figure}[h!]
+		\begin{subfigure}[t]{.5\textwidth}
+		\centering
+		\includegraphics[width=4.2cm, height=8.5cm]{/brazo_lateralView.png}
+		\caption{Vista lateral.}
+		\end{subfigure}%
+		\begin{subfigure}[t]{.5\textwidth}
+		\centering
+		\includegraphics[width=2.2cm, height=8.5cm]{/brazo_posterior.png}
+		\caption{Vista trimetrica.}
+		\end{subfigure}
+		\caption{Modelo virtual del brazo robótico.}
+	\end{figure}	
 
 
 
