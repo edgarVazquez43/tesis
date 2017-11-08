@@ -15,7 +15,7 @@ global armTorqueActive
 global torqueGripper
 global speedGripper
 
-zero_arm =[1542, 1730, 1893, 2182, 2083, 2284, 1922]
+zero_arm =[1374, 1730, 1893, 2182, 2083, 2284, 1922]
 zero_gripper=[1200, 395]
 
 gripperTorqueActive = False
@@ -34,59 +34,6 @@ def printHelp():
     print "JustinaHardwareRightArm.->RIGHT ARM NODE BY MARCOSOfT. Options:"
 
 
-def callbackGripperTorque(msg):
-    global dynMan1
-    global torqueGripper
-    global speedGripper
-    global torqueGripperCCW1
-    global torqueGripperCCW2
-    global gripperTorqueActive
-    global gripperTorqueLimit
-    global attemps
-
-    torqueGripperCCW1 = True     ## Turn direction
-    torqueGripperCCW2 = False    ## Turn direction
-
-    if msg.data > 1.0 :
-        msg.data = 1;
-    if msg.data < -1.0:
-        msg.data = -1;
-
-    if msg.data < 0:
-        torqueGripper = int(-1*1023*msg.data)
-        torqueGripperCCW1 = True
-        torqueGripperCCW2 = False
-    else:
-        torqueGripper = int(1023*msg.data)
-        torqueGripperCCW1 = False
-        torqueGripperCCW2 = True
-
-    speedGripper = 200
-
-    ##### Flag to active gripper on torque mode ######
-    gripperTorqueActive = True
-    attemps = 0
-
-    print "JustinaHardwareRightArm.->Right gripper  - Close gripper"
-
-
-def callbackGripperPos(msg):
-    global dynMan1
-    global gripperGoal_1
-    global gripperGoal_2
-    global gripperTorqueActive
-    global torqueMode
-    global attemps
-
-    gripperPos = msg.data
-    gripperGoal_1 = int(-(  (gripperPos)/(360.0/4095.0*3.14159265358979323846/180.0) ) + zero_gripper[0] )
-    gripperGoal_2 = int((  (gripperPos)/(360.0/4095.0*3.14159265358979323846/180.0) ) + zero_gripper[1] )
-
-    ##### Flag to active gripper on position mode ######
-    gripperTorqueActive = False
-    attemps = 0
-
-    print "JustinaHardwareRightArm.->Right gripper  - Open gripper"
 
 
 def callbackArmPos(msg):
@@ -205,56 +152,15 @@ def main(portName1, portBaud1):
     jointStates.position = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 
     subPos = rospy.Subscriber("/hardware/right_arm/goal_pose", Float32MultiArray, callbackArmPos)
-    subGripper = rospy.Subscriber("/hardware/right_arm/goal_gripper", Float32, callbackGripperPos)
-    subTorqueGripper = rospy.Subscriber("/hardware/right_arm/torque_gripper", Float32, callbackGripperTorque)
 
     pubJointStates = rospy.Publisher("/joint_states", JointState, queue_size = 1)
     pubArmPose = rospy.Publisher("right_arm/current_pose", Float32MultiArray, queue_size = 1)
     pubGripper = rospy.Publisher("right_arm/current_gripper", Float32, queue_size = 1)
-    pubObjOnHand = rospy.Publisher("right_arm/object_on_hand", Bool, queue_size = 1)
     pubBatery = rospy.Publisher("/hardware/robot_state/right_arm_battery", Float32, queue_size = 1)
 
 
     #####################
     ##    Dynamixel   ##
-    for i in range(9):
-        #dynMan1.SetDGain(i, 25)
-        #dynMan1.SetPGain(i, 16)
-        #dynMan1.SetIGain(i, 6)
-        dynMan1.SetDGain(i, 0)
-        dynMan1.SetPGain(i, 32)
-        dynMan1.SetIGain(i, 0)
-
-    ### Set servos features
-    for i in range(9):
-        dynMan1.SetMaxTorque(i, 1023)
-        dynMan1.SetTorqueLimit(i, 768)
-        dynMan1.SetHighestLimitTemperature(i, 80)
-        dynMan1.SetAlarmShutdown(i, 0b00000100)
-
-    #Dynamixel gripper on position Mode...
-    dynMan1.SetCWAngleLimit(7, 0)
-    dynMan1.SetCCWAngleLimit(7, 4095)
-    dynMan1.SetCWAngleLimit(8, 0)
-    dynMan1.SetCCWAngleLimit(8, 4095)
-
-    dynMan1.SetMovingSpeed(7, speedGripper)
-    dynMan1.SetMovingSpeed(8, speedGripper)
-
-    # Set torque_active for each servo
-
-    #for i in range(7):
-    #    dynMan1.SetTorqueEnable(i, 1)
-    #
-    dynMan1.SetTorqueEnable(7, 1)
-    dynMan1.SetTorqueEnable(8, 1)
-
-    # Set initial pos for each servo
-    for i in range(7):
-        dynMan1.SetGoalPosition(i, zero_arm[i])
-
-    dynMan1.SetGoalPosition(7, zero_gripper[0])
-    dynMan1.SetGoalPosition(8, zero_gripper[1])
 
     loop = rospy.Rate(30)
 
@@ -351,8 +257,7 @@ def main(portName1, portBaud1):
         pubJointStates.publish(jointStates)
         pubArmPose.publish(msgCurrentPose)
         pubGripper.publish(msgCurrentGripper)
-        pubObjOnHand.publish(msgObjOnHand)
-
+        
         if i == 20:
             msgBatery = float(dynMan1.GetPresentVoltage(2)/10.0)
             pubBatery.publish(msgBatery)
@@ -391,4 +296,4 @@ if __name__ == '__main__':
         else:
             main(portName1, portBaud1)
     except rospy.ROSInterruptException:
-pass
+        pass

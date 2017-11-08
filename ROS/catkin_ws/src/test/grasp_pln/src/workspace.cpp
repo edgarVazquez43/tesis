@@ -12,7 +12,6 @@ visualization_msgs::Marker endEffector_marker;
 
 void markerSetup()
 {
-
     endEffector_marker.header.frame_id = "base_link";
     
     endEffector_marker.header.stamp = ros::Time::now();
@@ -23,16 +22,14 @@ void markerSetup()
 
     endEffector_marker.id = 0;
 
-    endEffector_marker.type = visualization_msgs::Marker::SPHERE;
+    endEffector_marker.type = visualization_msgs::Marker::POINTS;
 
     // POINTS markers use x and y scale for width/height respectively
-    endEffector_marker.scale.x = 0.040;
-    endEffector_marker.scale.y = 0.040;
-    endEffector_marker.scale.z = 0.040;
+    endEffector_marker.scale.x = 0.010;
+    endEffector_marker.scale.y = 0.010;
 
     endEffector_marker.color.g = 1.0f;
     endEffector_marker.color.a = 1.0;
-
 }
 
 
@@ -129,8 +126,8 @@ int main(int argc, char** argv)
             endEffector_pose.position.z = v.z();
         }
 
-    	endEffector_marker.pose.position = endEffector_pose.position;
-        marker_pub.publish(endEffector_marker);
+    	endEffector_marker.points.push_back(endEffector_pose.position);
+	marker_pub.publish(endEffector_marker);
        
 	std::cout << "---------------------------" << std::endl;
         ros::spinOnce();
