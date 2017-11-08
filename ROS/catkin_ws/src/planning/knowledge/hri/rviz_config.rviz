@@ -84,7 +84,7 @@ Visualization Manager:
       Collision Enabled: false
       Enabled: true
       Links:
-        All Links Enabled: false
+        All Links Enabled: true
         Expand Joint Details: false
         Expand Link Details: false
         Expand Tree: false
@@ -93,7 +93,7 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: false
+          Value: true
         base_ra_arm:
           Alpha: 1
           Show Axes: false
@@ -103,22 +103,22 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: false
+          Value: true
         head_link1:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: false
+          Value: true
         head_link2:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: false
+          Value: true
         kinect_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: false
+          Value: true
         ra_link0:
           Alpha: 1
           Show Axes: false
@@ -172,7 +172,7 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: false
+          Value: true
       Name: RobotModel
       Robot Description: robot_description
       TF Prefix: ""
@@ -183,19 +183,19 @@ Visualization Manager:
       Enabled: true
       Frame Timeout: 15
       Frames:
-        All Enabled: false
+        All Enabled: true
         base_link:
-          Value: false
+          Value: true
         base_ra_arm:
           Value: true
         careta:
-          Value: false
+          Value: true
         head_link1:
-          Value: false
+          Value: true
         head_link2:
-          Value: false
+          Value: true
         kinect_link:
-          Value: false
+          Value: true
         ra_link0:
           Value: true
         ra_link1:
@@ -215,9 +215,9 @@ Visualization Manager:
         ra_link8:
           Value: true
         ra_link_grip_center:
-          Value: false
+          Value: true
         torso_link:
-          Value: false
+          Value: true
       Marker Scale: 0.5
       Name: TF
       Show Arrows: false
@@ -360,7 +360,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/ThirdPersonFollower
-      Distance: 2.13909483
+      Distance: 2.28756642
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
         Stereo Focal Distance: 1

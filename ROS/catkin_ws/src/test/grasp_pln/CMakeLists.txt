@@ -196,3 +196,14 @@ target_link_libraries(grasp_object_test
 )
 
 add_dependencies(grasp_object_test ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+
+add_executable(workspace_test
+  src/workspace.cpp
+)
+
+target_link_libraries(workspace_test
+  ${catkin_LIBRARIES}
+)
+
+add_dependencies(workspace_test ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})

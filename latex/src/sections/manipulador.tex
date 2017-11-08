@@ -358,7 +358,17 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
 
 	Es importante mencionar que para la descripcion de las transformaciones en sistema ROS, podemos contruir la matriz de rotación de tal manera que incluyamos las rotaciones y desplazamientos en los tres ejes coordenados. Esta caracteristica nos proporciona una ventaja sobre los técnicas de descripción de cinematica directa convencionales, tal es el caso del Método Denavith-Hartemberg donde el sistema de transformaciónes debe ser descrito utilizando, unicamente, dos rotaciones y dos translaciones según sus convenciones.\\
 
-	Es importante mencionar esta característica puesto que en algunos casos la concención Denavith-Hartemberg encuentra limitaciones para describir algunas transformaciones. ***cite spog[] issues\\
+	Es importante mencionar esta característica puesto que en algunos casos la concención Denavith-Hartemberg encuentra limitaciones para describir algunas transformaciones arbitrarias. En la representación Denavith-Hartemberg solo hay cuatro parámetros. Pues, mientras que el sistema de referencia i esté rígidamente unido al enlace i, tenemos la libertad para elegir el origen y los ejes de coordenadas del sistema de referencia i+1.\\ 
+
+	Claramente, no es posible representar una transformación homogénea arbitraria usando solo cuatro parámetros. Por lo tanto, comenzamos por determinar qué transformaciones homogéneas se pueden expresar en la forma D\_H.\\
+
+	Supongamos que tenemos dos marcos, indicados por los cuadros 0 y 1, respectivamente. Entonces existe una única matriz de transformación homogénea A que toma las coordenadas del sistema de referencia 1 y las expresa en términos del sistema de referencia 0. Ahora, es necesario aclarar que los sistemas de referencia deben tener dos características adicionales:\\
+
+	\begin{itemize}
+		\item{(DH1):  El eje x1 es perpendicular al eje z0}
+		\item{(DH2):  El eje x1 intersecta el eje z0} \cite{spong2008robot}\\
+	\end{itemize}
+
 
     \begin{equation}
 	\begin{split}
@@ -503,8 +513,8 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
 	El formato de descrpción virtual de un modelo de robot en formato XML se compone de \textit{links} y \textit{joints}. Un link describe las características de un elemento de unión, estas pueden ser mecánicas, de material, de posición, etc. Un \textit{joint} por otra parte describe la realción existente entre los origenes de dos links, dicho de otro modo decribe la transformación existente entre los sistemas de refencias (\textit{origenes}) de dos links.\\
 
 	\newpage
-
-	\begin{lstlisting}[language=html, caption=Descripción de sistema de manipulación]
+	\begin{center}
+	\begin{lstlisting}[language=html, caption=Descripción parcial del sistema de manipulación]
 <link name="base_ra_arm">
     <visual>
       <origin xyz="-0.01 0.0 0.0" rpy="1.5707 0.0 1.5707"/>
@@ -538,8 +548,6 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
   .
   .
   .
-
-
    <joint name="ra_1_joint" type="revolute">
     <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
     <parent link="base_ra_arm"/>
@@ -555,11 +563,14 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
     <limit effort="0.0" lower="0.0" upper="0" velocity="0.0"/>
     <axis xyz="0 0 1"/>
   </joint>
-			\end{lstlisting}
+  .
+  .
+  .
+\end{lstlisting}
+\end{center}
 
 
-
-	\begin{figure}[h!]
+	\begin{figure}[H]
 		\begin{subfigure}[t]{.5\textwidth}
 		\centering
 		\includegraphics[width=4.2cm, height=8.5cm]{/brazo_lateralView.png}
@@ -579,5 +590,11 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
               %%%%%%  CINEMATICA INVERSA   %%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
+	\section{Determinación del área de trabajo}
+	
 
+
+\newpage
 	\section{Cinemática inversa}
+
+

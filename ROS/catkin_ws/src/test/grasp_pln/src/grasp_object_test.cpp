@@ -6,7 +6,6 @@
 #include "vision_msgs/DetectObjects.h"
 #include "manip_msgs/DirectKinematics.h"
 #include "manip_msgs/InverseKinematicsFloatArray.h"
-
 visualization_msgs::Marker endEffector_marker;
 visualization_msgs::Marker centroid_marker, axis_list_marker;
 

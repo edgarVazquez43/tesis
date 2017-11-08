@@ -242,11 +242,12 @@ def main(portName1, portBaud1):
     dynMan1.SetMovingSpeed(8, speedGripper)
 
     # Set torque_active for each servo
-    for i in range(7):
-        dynMan1.SetTorqueEnable(i, 1)
 
-    dynMan1.SetTorqueEnable(7, 1)
-    dynMan1.SetTorqueEnable(8, 1)
+    #for i in range(7):
+    #    dynMan1.SetTorqueEnable(i, 1)
+    #
+    #dynMan1.SetTorqueEnable(7, 1)
+    #dynMan1.SetTorqueEnable(8, 1)
 
     # Set initial pos for each servo
     for i in range(7):
