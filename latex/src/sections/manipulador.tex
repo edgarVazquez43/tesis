@@ -473,15 +473,18 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
 
 	\begin{figure}[h!]
 		\begin{center}
-		\includegraphics[width=6.5cm, height=4.5cm]{/link_description.png}
+		\includegraphics[width=3.5cm, height=4.0cm]{/link_description.png}
 		\caption{Ejemplo de sistema de transformaciones (sistemas de refencia y links).}
 		\end{center}
 	\end{figure} 
 
 	Para crear esta configuración entre los diferentes sistemas de referencia, primero debemos decidir qué nodo será el padre y cuál será el hijo. Esta distinción es importante porque asume que todas las transformaciones se mueven de padres a hijos. Elegimos el sistema de referencia \textit{base\_ra\_arm} como principal, ya que a medida que se agregan otras piezas: motores, eslabones y conectores, tendrá más sentido que se relacionen con un sistema fijo. Esto significa que la transformada asociada con el efector final y el sistema \textit{base\_ra\_arm} puede ser obtenida mediante el árbol de transformaciones configurado. La conversión de la posición del sistema de refencia ubicado en el efector final al sistema de referencia fijo ubicado en la base del brazo puede ser obtenida mediante una llamada a la biblioteca tf.\\
 
+	\subsection{Comparación cinemática directa Denavith-Hartemberg y cescripción completa de transformaciones}
 
-	Con la información previamente obtenida de las dimensiones del brazo robótico se construyó la siguienta tabla donde se muestra la información de los desplazamientos y rotaciones de los respectivos sistemas de referencia.\\
+	Se implementaron dos metodologías de descripciones para el cálculo de la cinemática directa del brazo robótico. La primera de ellas consistió en realizar la descripción completa de las tranfomaciones utilizando la información de rotación y translación de cada uno de los respectivos sistemas de referencia.\\
+
+	En este proceso y con la información previamente obtenida de las dimensiones del brazo robótico se construyó la siguienta tabla donde se muestra la información de los desplazamientos y rotaciones de los respectivos sistemas de referencia.\\
 
 \begin{table}[H]
 \centering
@@ -491,17 +494,17 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
  \hline
   &  x & y & z & roll & pitch & yaw\\
  \hline
- 1 &  0.065 & 0.0 & 0.000 & $\pi /2$  &   0.000   & 0.0\\
+ 1 &  0.065 & 0.00 & 0.000 & $\pi /2$  &   0.000   & 0.000    \\
  \hline
- 2  & 0.215 & 0.0 & 0.000 &    0.000  & $\pi /2$  & 0.0\\
+ 2  & 0.215 & 0.00 & 0.000 &   0.000   & $\pi /2$  & 0.000    \\
  \hline
- 3  & 0.000 & 0.0 & 0.060 & $-\pi /2$ & $-\pi /2$ & 0.0\\
+ 3  & 0.000 & 0.00 & 0.060 & $-\pi /2$ & $-\pi /2$ & 0.000    \\
  \hline
- 4  & 0.190 & 0.0 & 0.000 & $\pi /2$  &   0.000   & $\pi /2$\\
+ 4  & 0.190 & 0.00 & 0.000 & $\pi /2$  &   0.000   & $\pi /2$ \\
  \hline
- 5  & 0.000 & 0.0 & 0.036 & $-\pi /2$ & $-\pi /2$ & 0.0\\
+ 5  & 0.000 & 0.00 & 0.036 & $-\pi /2$ & $-\pi /2$ &  0.000   \\
  \hline
- 6  & 0.095 & 0.0 & 0.000 & $\pi /2$  &   0.000   & $\pi /2$\\
+ 6  & 0.095 & 0.00 & 0.000 & $\pi /2$  &   0.000   & $\pi /2$ \\
  \hline
 \end{tabular}
 \caption{Tabla de parametros de transformaciones entre sistemas de refencia para el brazo robotico de 7DOF.}
@@ -584,6 +587,50 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
 		\caption{Modelo virtual del brazo robótico.}
 	\end{figure}	
 
+	Por otro lado se realizó la descripción del sistema de manipulación utilizando la convención Denavith-Hartemberg. Para ello se comenzó por plantear los ejes $z$ que deben ser coincidentes, en posición y en sentido de giro, con los ejes de acción de cada uno de los actuadores. Sin embargo, en este punto se observó una limitante en el método D-H, al intenar describir la trasformación entre el $link_2$ y el $link_3$ se observó que el método no puede describir con suficiente presición la rotación en el eje $"x"$ y al mismo tiempo un desplamiento en el $eje y$. La manera de solucionar esta limittante consiste en realizar una transformación de rotación en el eje x primero, con esto los dos frames compartiran el mismo origen del sistema de referencia, posteriormente se plantea la trasnlación, ahora en el $eje z$.\\
+
+	Por tanto, los parámetros que describen las transformaciones del brazo según la convencion D-H, se muestra en la siguiente tabla:\\
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ |p{1.5cm}|p{1.5cm}|p{1.5cm}|p{1.5cm}|p{1.5cm}|}
+ \hline
+ \multicolumn{5}{|c|}{\textbf{PARAMETROS DENAVITH-HARTEMBERG}} \\
+ \hline
+      &    D  &   A   & $\alpha$  &  $\theta$ \\
+ \hline
+ 0-1  & 0.000 & 0.065 & $\pi /2$  &   0.000   \\
+ \hline
+ 1-2  & 0.000 & 0.000 & $\pi /2$  & $\pi /2$  \\
+ \hline
+ 2-3  & 0.275 & 0.000 & $-\pi /2$ & $-\pi /2$ \\
+ \hline
+ 3-4  & 0.000 & 0.000 & $\pi /2$  &   0.000   \\
+ \hline
+ 4-5  & 0.226 & 0.000 & $-\pi /2$ &   0.000   \\
+ \hline
+ 5-6  & 0.000 & 0.000 & $\pi /2$  &   0.000   \\
+ \hline
+ 6-7  & 0.165 & 0.000 &   0.000   &   0.000   \\
+ \hline
+\end{tabular}
+\caption{Tabla de parametros D-H para brazo robotico antropomórfico de 7DOF.}
+\label{t_manip:7}
+\end{table}
+
+\begin{figure}[H]
+	\begin{subfigure}[t]{.5\textwidth}
+	\centering
+	\includegraphics[width=4.2cm, height=8.5cm]{/brazo_lateralView.png}
+	\caption{Vista lateral.}
+	\end{subfigure}%
+	\begin{subfigure}[t]{.5\textwidth}
+	\centering
+	\includegraphics[width=2.2cm, height=8.5cm]{/brazo_posterior.png}
+	\caption{Vista trimetrica.}
+	\end{subfigure}
+	\caption{Modelo virtual del brazo robótico.}
+\end{figure}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

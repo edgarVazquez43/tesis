@@ -5,7 +5,6 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /Global Options1
-        - /RobotModel1/Links1
         - /TF1/Frames1
       Splitter Ratio: 0.522221982
     Tree Height: 452
@@ -35,7 +34,7 @@ Visualization Manager:
       Cell Size: 1
       Class: rviz/Grid
       Color: 160; 160; 164
-      Enabled: true
+      Enabled: false
       Line Style:
         Line Width: 0.0299999993
         Value: Lines
@@ -48,7 +47,7 @@ Visualization Manager:
       Plane: XY
       Plane Cell Count: 10
       Reference Frame: <Fixed Frame>
-      Value: true
+      Value: false
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
@@ -84,7 +83,7 @@ Visualization Manager:
       Collision Enabled: false
       Enabled: true
       Links:
-        All Links Enabled: true
+        All Links Enabled: false
         Expand Joint Details: false
         Expand Link Details: false
         Expand Tree: false
@@ -93,7 +92,7 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
+          Value: false
         base_ra_arm:
           Alpha: 1
           Show Axes: false
@@ -103,22 +102,22 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
+          Value: false
         head_link1:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
+          Value: false
         head_link2:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
+          Value: false
         kinect_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
+          Value: false
         ra_link0:
           Alpha: 1
           Show Axes: false
@@ -152,7 +151,6 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
         ra_link7:
           Alpha: 1
           Show Axes: false
@@ -172,7 +170,7 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
+          Value: false
       Name: RobotModel
       Robot Description: robot_description
       TF Prefix: ""
@@ -183,19 +181,19 @@ Visualization Manager:
       Enabled: true
       Frame Timeout: 15
       Frames:
-        All Enabled: true
+        All Enabled: false
         base_link:
-          Value: true
+          Value: false
         base_ra_arm:
-          Value: true
+          Value: false
         careta:
-          Value: true
+          Value: false
         head_link1:
-          Value: true
+          Value: false
         head_link2:
-          Value: true
+          Value: false
         kinect_link:
-          Value: true
+          Value: false
         ra_link0:
           Value: true
         ra_link1:
@@ -211,13 +209,13 @@ Visualization Manager:
         ra_link6:
           Value: true
         ra_link7:
-          Value: true
+          Value: false
         ra_link8:
-          Value: true
+          Value: false
         ra_link_grip_center:
           Value: true
         torso_link:
-          Value: true
+          Value: false
       Marker Scale: 0.5
       Name: TF
       Show Arrows: false
@@ -338,7 +336,7 @@ Visualization Manager:
       Value: true
   Enabled: true
   Global Options:
-    Background Color: 59; 59; 59
+    Background Color: 255; 255; 255
     Fixed Frame: base_link
     Frame Rate: 30
   Name: root
@@ -360,25 +358,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/ThirdPersonFollower
-      Distance: 2.28756642
+      Distance: 2.44511819
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -0.664446831
-        Y: 0.0252096653
+        X: -0.186281443
+        Y: 0.0777702332
         Z: -2.97100087e-08
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.0500000007
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Pitch: 0.495399892
+      Pitch: 0.290399879
       Target Frame: <Fixed Frame>
       Value: ThirdPersonFollower (rviz)
-      Yaw: 5.79211998
+      Yaw: 5.92213583
     Saved: ~
 Window Geometry:
   Displays:
