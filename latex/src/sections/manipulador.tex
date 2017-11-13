@@ -24,7 +24,7 @@
 
 		\begin{figure}[h!]
 			\begin{center}
-			\includegraphics[width=14.5cm, height=6.5cm]{/dynamixel_conexions.jpg}	
+			\includegraphics[width=14.5cm, height=6.5cm]{manipulator/dynamixel_conexions.jpg}	
 			\caption{Variedad de ensambles para servomotores.}
 			\end{center}
 		\end{figure}
@@ -52,7 +52,7 @@
 
 		\begin{figure}[h!]
 			\begin{center}
-			\includegraphics[width=10.5cm, height=8.5cm]{/usb2dynamixel.jpg}	
+			\includegraphics[width=10.5cm, height=8.5cm]{manipulator/usb2dynamixel.jpg}	
 			\caption{Dispositivo de comunicación USB a protocolo serial.}
 			\end{center}
 		\end{figure}
@@ -123,7 +123,7 @@
 
 \begin{figure}[h!]
 	\begin{center}
-	\includegraphics[width=8.5cm, height=8.5cm]{/MX_106R_2.jpg}	
+	\includegraphics[width=8.5cm, height=8.5cm]{manipulator/MX_106R_2.jpg}	
 	\caption{Servomotor dynamixel modelo MX-106.}
 	\end{center}
 \end{figure}
@@ -161,7 +161,7 @@
 
 \begin{figure}[h!]
 	\begin{center}
-	\includegraphics[width=8.5cm, height=8.5cm]{/MX_64R_2.jpg}	
+	\includegraphics[width=8.5cm, height=8.5cm]{manipulator/MX_64R_2.jpg}	
 	\caption{Servomotor dynamixel modelo MX-64.}
 	\end{center}
 \end{figure}
@@ -200,7 +200,7 @@
 
 \begin{figure}[h!]
 	\begin{center}
-	\includegraphics[width=8.5cm, height=8.5cm]{/MX_28R_2.jpg}	
+	\includegraphics[width=8.5cm, height=8.5cm]{manipulator/MX_28R_2.jpg}	
 	\caption{Servomotor dynamixel modelo MX-64.}
 	\end{center}
 \end{figure}
@@ -209,7 +209,7 @@
 
 	\begin{figure}[h!]
 		\begin{center}
-		\includegraphics[width=15.5cm, height=1.5cm]{/trama.png}
+		\includegraphics[width=15.5cm, height=1.5cm]{manipulator/trama.png}
 		\end{center}
 	\end{figure}
 
@@ -289,7 +289,7 @@
 
 	\begin{figure}[h!]
 		\begin{center}
-		\includegraphics[width=8.5cm, height=4.5cm]{/dynamixel_daysi_chain.jpg}
+		\includegraphics[width=8.5cm, height=4.5cm]{manipulator/dynamixel_daysi_chain.jpg}
 		\caption{Servomotores dynamixel en conexión daisy chain.}
 		\end{center}
 	\end{figure}
@@ -307,7 +307,7 @@
 		En la parte superior del brazo robótico se encuentran dos servomotores Dynamixel MX-106 conectados como maestro-esclavo, configurados en este modo trabajan de manera conjunta aumentando el par unitario de cada uno de los servomotores. Dadas las caracteristicas antes descritas en la tabla \ref{t_manip:2}  podemos observar que la configuración de servomotores entrega un par de torsión máximo a rotor bloqueado de $16.8N.m$ @ 12V. El sentido de giro positivo del arreglo de servomotores es el mostrado en la figura[4.8]. \\
 
 		\begin{wrapfigure}{l}{0.60\textwidth}
-			\includegraphics[width=8.0cm, height=4.5cm]{/mx106_MS.png}
+			\includegraphics[width=8.0cm, height=4.5cm]{manipulator/mx106_MS.png}
 			\caption{Configuración maestro-esclavo en servomotores dynamixel.}
 		\end{wrapfigure}
 
@@ -319,7 +319,7 @@
 		Posteriormente se encuentra un servomotor modelo MX-106, ubicado en una disposición horizontal. Unido a este servomotor se encuentra un eslabón obtenido mediante técnicas de manufactura aditiva. Dado que la construcción del brazo robótico esta pensanda desde el punto de vista antropomórfico  este conjunto de servomotores, el maestro-esclavo y el servomotor MX-106 describen los grados de libertad que emulan el movimiento de un hombro humano.\\
 
 		\begin{wrapfigure}{r}{0.30\textwidth}
-			\includegraphics[width=4.5cm, height=12.5cm]{/brazo_4.jpg}
+			\includegraphics[width=4.5cm, height=12.5cm]{manipulator/brazo_4.jpg}
 			\caption{Diseño asistido por computadora del brazo robótico del robot Justina.}
 		\end{wrapfigure}
 
@@ -436,7 +436,7 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
 
 	\begin{figure}[h!]
 		\begin{center}
-		\includegraphics[width=6.5cm, height=4.5cm]{/roll_pitch_yaw.jpeg}
+		\includegraphics[width=6.5cm, height=4.5cm]{manipulator/roll_pitch_yaw.jpeg}
 		\caption{Rotaciones roll, pitch, yaw.}
 		\end{center}
 	\end{figure} 
@@ -449,10 +449,10 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
 	\begin{figure}[h!]
 
 		\begin{subfigure}[t]{.5\textwidth}
-		\includegraphics[width=5.5cm, height=5.0cm]{/tf_example.png}
+		\includegraphics[width=5.5cm, height=5.0cm]{manipulator/tf_example.png}
 		\end{subfigure}%
 		\begin{subfigure}[t]{.5\textwidth}
-		\includegraphics[width=5.5cm, height=5.0cm]{/tf_example2.png}
+		\includegraphics[width=5.5cm, height=5.0cm]{manipulator/tf_example2.png}
 		\end{subfigure}
 
 		\caption{Ejemplo de un modelo de robot y sus respectivas transformaciones.}
@@ -463,7 +463,7 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
 	ROS proporciona una biblioteca de software unicamente dedicada al manejo de información de las transformaciones de un robot, la biblioteca de software lleva el nombre de \textit{tf}. En un nivel práctico, un árbol de transformación define los desplazamientos en términos de translación y rotación entre diferentes marcos de coordenadas. La biblioteca \textit{tf} usa una estructura en árbol para garantizar que solo haya un recorrido único que vincule dos sistemas coordinados entre sí y asume que todas las transformaciones del árbol se dirigen desde los nodos primarios a secundarios.\\ 
 
 	\begin{wrapfigure}{r}{0.45\textwidth}
-		\includegraphics[width=6.5cm, height=3.0cm]{/link_1.png}
+		\includegraphics[width=6.5cm, height=3.0cm]{manipulator/link_1.png}
 		\caption{Constitución básica de \textit{link} en el sistema ROS.}
 	\end{wrapfigure}
 
@@ -473,7 +473,7 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
 
 	\begin{figure}[h!]
 		\begin{center}
-		\includegraphics[width=3.5cm, height=4.0cm]{/link_description.png}
+		\includegraphics[width=3.5cm, height=4.0cm]{manipulator/link_description.png}
 		\caption{Ejemplo de sistema de transformaciones (sistemas de refencia y links).}
 		\end{center}
 	\end{figure} 
@@ -576,18 +576,25 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
 	\begin{figure}[H]
 		\begin{subfigure}[t]{.5\textwidth}
 		\centering
-		\includegraphics[width=4.2cm, height=8.5cm]{/brazo_lateralView.png}
+		\includegraphics[width=4.2cm, height=8.5cm]{manipulator/brazo_lateralView.png}
 		\caption{Vista lateral.}
 		\end{subfigure}%
 		\begin{subfigure}[t]{.5\textwidth}
 		\centering
-		\includegraphics[width=2.2cm, height=8.5cm]{/brazo_posterior.png}
+		\includegraphics[width=2.2cm, height=8.5cm]{manipulator/brazo_posterior.png}
 		\caption{Vista trimetrica.}
 		\end{subfigure}
 		\caption{Modelo virtual del brazo robótico.}
 	\end{figure}	
 
-	Por otro lado se realizó la descripción del sistema de manipulación utilizando la convención Denavith-Hartemberg. Para ello se comenzó por plantear los ejes $z$ que deben ser coincidentes, en posición y en sentido de giro, con los ejes de acción de cada uno de los actuadores. Sin embargo, en este punto se observó una limitante en el método D-H, al intenar describir la trasformación entre el $link_2$ y el $link_3$ se observó que el método no puede describir con suficiente presición la rotación en el eje $"x"$ y al mismo tiempo un desplamiento en el $eje y$. La manera de solucionar esta limittante consiste en realizar una transformación de rotación en el eje x primero, con esto los dos frames compartiran el mismo origen del sistema de referencia, posteriormente se plantea la trasnlación, ahora en el $eje z$.\\
+	Por otro lado se realizó la descripción del sistema de manipulación utilizando la convención Denavith-Hartemberg. Para ello se comenzó por plantear los ejes $z$ que deben ser coincidentes, en posición y en sentido de giro, con los ejes de acción de cada uno de los actuadores. Sin embargo, en este punto se observó una limitante en el método D-H, al intenar describir la trasformación entre el $link_2$ y el $link_3$ se observó que el método no puede describir con suficiente presición la rotación en el eje $"x"$ y al mismo tiempo un desplamiento en el $eje y$. La manera de solucionar esta limittante consiste en realizar una transformación de rotación en el eje x primero, con esto los dos frames compartiran el mismo origen del sistema de referencia, posteriormente se plantea la translación, ahora en el $eje z$.\\
+	
+	\begin{figure}[h!]
+		\begin{center}
+		\includegraphics[width=6.5cm, height=6.0cm]{manipulator/DH_transform_ROS.png}
+		\caption{Ejemplo de  obtención de parametros DH.}
+		\end{center}
+	\end{figure} 
 
 	Por tanto, los parámetros que describen las transformaciones del brazo según la convencion D-H, se muestra en la siguiente tabla:\\
 
@@ -621,16 +628,25 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
 \begin{figure}[H]
 	\begin{subfigure}[t]{.5\textwidth}
 	\centering
-	\includegraphics[width=4.2cm, height=8.5cm]{/brazo_lateralView.png}
-	\caption{Vista lateral.}
+	\includegraphics[width=2.5cm, height=8.5cm]{manipulator/DH_1.png}
+	\caption{Vista trimétrica.}
 	\end{subfigure}%
 	\begin{subfigure}[t]{.5\textwidth}
 	\centering
-	\includegraphics[width=2.2cm, height=8.5cm]{/brazo_posterior.png}
-	\caption{Vista trimetrica.}
+	\includegraphics[width=3.50cm, height=8.5cm]{manipulator/DH_3.png}
+	\caption{Vista de transformaciones.}
 	\end{subfigure}
-	\caption{Modelo virtual del brazo robótico.}
+	\caption{Modelo virtual del brazo robótico utilizando la conveción DH.}
 \end{figure}
+
+
+	Como se puede observar en la Figura 4.14, la descripción de las transformaciones entre el $link 1$ y el $link 2$ comparten el origen. Unicamente difieren en la rotación del respectivo sistema de referencia. Sucede lo mismo para describir la transformación entre las parejas de $links$:  $[3 - 4]$ y $[5 - 6]$.\\
+
+	De la comparación de estas dos representaciones podemos obetener pros y contras de cada una de ellas. Por un lado una representación completa de las trasformaciones nos da la posibilidad de realizar una descripción con mayor presición de cada una de las transformaciones. Esta característica permite alinear cada uno de los sistemas de referencia a el eje de acción de cada uno de los actuadores. En este sentido, es conveniente utilizar esta descripción puesto que simplifica la manera de publicar cada una de las transformaciones entre los sistemas de rerefencia, basta con estar leyendo la posición de cada uno de los actuadores y publicar dicho valor para obtener la representación grafica de la configuración del brazo en el modelo virtual.\\
+
+	Por otro lado, estar escuchando en tiempo real una transformación compuesta de siete trasnformaciones completas requiere un mayor costo computacional comparado con realizar la multiplicación de las mismas siete matrices de transformación solo cuando sea de interés conocer la posición del efector final. En tal caso resulta conveniente tener las dos descripciones: la descripción completa para el despliegue de información de manera visula en el ambiente virtual y la descripción D-H para conocer la posición del efector final cuando sea necesario.\\
+
+	
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
