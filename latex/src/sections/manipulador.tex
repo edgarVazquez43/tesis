@@ -646,7 +646,7 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
 
 	Por otro lado, estar escuchando en tiempo real una transformación compuesta de siete trasnformaciones completas requiere un mayor costo computacional comparado con realizar la multiplicación de las mismas siete matrices de transformación solo cuando sea de interés conocer la posición del efector final. En tal caso resulta conveniente tener las dos descripciones: la descripción completa para el despliegue de información de manera visula en el ambiente virtual y la descripción D-H para conocer la posición del efector final cuando sea necesario.\\
 
-	
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -654,7 +654,85 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 	\section{Determinación del área de trabajo}
-	
+
+	El espacio de trabajo es otro parámetro importante el cual servirá para optimizar las dimensiones del brazo robótico con el cual estamos trabajando. El análisis del espacio de trabajo de robots manipuladores es de gran interés, puesto que la geometría del espacio de trabajo puede considerarse no sólo un aspecto fundamental para el diseño del robot sino que también es esencial para la ubicación del robot en el entorno de trabajo y también para la planificación de trayectorias.\\
+
+	En robótica, el término espacio de trabajo, también denominado espacio de trabajo, puede ser entendido como: \textit{El espacio de trabajo de un robot está definido como el grupo de puntos que pueden ser alcanzados por su efector-final.} \textbf{Cao et al. (2011).}\\
+
+	Dicho de otro modo, el espacio de trabajo de un robot es el espacio en el cual el mecanismo puede trabajar según sus propias restricciones mecánicas. A pesar de que esta definición está muy extendida, diversos autores también se refieren al espacio de trabajo como \textit{volumen de trabajo}.\\
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[t]{.55\textwidth}
+	\centering
+	\includegraphics[width=4.5cm, height=4.5cm]{workSpace/ws_Yi_Cao_1.png}
+	\caption{Nube de puntos del espacio de trabajo en 2D.}
+	\end{subfigure}%
+	\begin{subfigure}[t]{.55\textwidth}
+	\centering
+	\includegraphics[width=5.00cm, height=4.3cm]{workSpace/ws_Yi_Cao_2.png}
+	\caption{Curva de la frontera del espacio de trabajo del brazo robótico.}
+	\end{subfigure}
+	\caption{Vista en 2D del espacio de trabajo de un robot 3R.}
+\end{figure}
+
+	La Figura 4.15 muestra el espacio de trabajo de un robot 3R, donde los puntos  de color azul representan el espacio de trabajo de este robot. Como se ha dicho previamente, los puntos en color azul representan cada una de las posiciones que puede alcanzar el efector-final del robot 3R.\\
+
+
+\textbf{Principales características de un espacio de trabajo.}
+
+	Cuando se pretende estudiar un espacio de trabajo, lo más importante es su forma y volumen (dimensiones y estructura). Ambos aspectos tienen una importancia significativa debido al impacto que éstos ejercen en el diseño del robot y también en su manipulabilidad. En el presente trabajo se dará una mayor importancia al estudio de las dimensiones del espacio de trabajo desde el punto de vista de la manipulabilidad.\\
+
+	En el caso del presente trabajo fue presciso conocer las características de  forma, dimensiones y estructura del robot a analizar. Puesto que de estas caracteristicas depenederá su espacio de trabajo. 
+
+\begin{itemize}
+	\item{La forma es importante para la definición del entorno donde el robot trabajará.}
+
+	\item{Las dimensiones son importantes para la determinación del alcance del efector-final.}
+
+	\item{La estructura del espacio de trabajo es importante para asegurar las características cinemáticas del robot las cuales están relacionadas con la interacción entre el robot y el entorno.}
+\end{itemize}
+
+	Además, la forma, dimensiones y estructura del espacio de trabajo dependen de las propiedades del robot en cuestión. Las dimensiones de los eslabones del robot y las limitationes mecánicas de las articulaciones tienen una gran influencia en las dimensiones del espacio de trabajo. La forma depende de la estructura geométrica del robot y también de las propiedades de los grados de libertad. Por otro lado la estructura del espacio de trabajo viene definida por la estructura del robot y las dimensiones de sus eslabones.\\
+
+
+%%%    ########################################   %%%%%%%%
+%%% IMPLEMENTACION: OBTENCIÓN DEL WS DEL BRAZO ROBOTICO
+%%%    ########################################   %%%%%%%%
+
+	Para la obtención del espacio de trabajo del brazo robótico en cuentión fue presciso partir de las características antes mencionadas. En este aspecto conocemos las tres características necesarias para la obtención del espacio de trabajo del robot, en cuanto a la forma podemos mencionar que el robot en cuestion es antropomórfico de 7 grados de libertad, cuyas dimensiones las hemos obtenido con anterioridad. En cuanto a la estructura podemos mencionar que conocemos el modelo de la cinemática directa del brazo e incluso que podemos visualizar en tiempo real la configuración del brazo antropomórfico, y por ende conocer la posiçión del efector final. Solo hace falta conocer las restricciones mecánicas del brazo robótico, por tanto se incluye la tabla \ref{t_manip:8} .\\
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ |p{0.5cm}|p{1.5cm}|p{1.5cm}|}
+ \hline
+ \multicolumn{3}{|c|}{\textbf{RESTRICCIONES MECÁNICAS }} \\
+ \multicolumn{3}{|c|}{\textbf{DEL BRAZO ROBÓTICO}} \\
+ \hline
+    &  $\theta_1 $ & $[1.47, -1.47]$ \\
+ \hline
+    &  $\theta_2 $ & $[1.25, -0.21]$ \\
+ \hline
+    &  $\theta_3 $ & $[1.5707, -1.5707]$ \\
+ \hline
+    &  $\theta_4 $ & $[2.15, -1.15]$ \\
+ \hline
+    &  $\theta_5 $ & $[1.5707, -1.5707]$ \\
+ \hline
+    &  $\theta_6 $ & $[1.5, -1.35]$ \\
+ \hline
+    &  $\theta_7 $ & $[1.5707, -15707]$ \\
+ \hline
+\end{tabular}
+\caption{Tabla de restricciones mecánicas para brazo robotico antropomórfico de 7DOF.}
+\label{t_manip:8}
+\end{table}
+
+	Dentro de las metodologías planteadas para la obtención del espacio de trabajo de un robot existen diversas vertientes, una de ellas menciona la posibilidad de obtener dicho espacio generando números aleatorios con una distribución normal acotando los valores aleatorios dentro de las restricciones mecánicas. Posteriormente con los valores aleatorios de ángulos y el modelo de la cinemática directa del brazo robótico obtener la posición del efector final e ir graficando cada uno de estos valores en el tiempo. \textbf{****cite}.\\
+
+	Sin embargo, para el desarrollo de este documento se trabajó tanto con el modelo físico del brazo robótico en cuestión, así como con el modelo virtual del mismo. Dadas estas condiciones se planteó el desarrollo de la siguiente manera: con el modelo físico del brazo se obtuvieron en tiempo real las lecturas de posición de cada uno de los actuadores, posteriormenete se actualizaba el modelo virtual del mismo. Con esta información previa, los valores de posición de cada uno de los actuadores y el modelo de la cinemática directa del brazo, se calculaba en tiempo real la posción del efector final. Dicho de otra manera se realizó una construcción en tiempo real del espacio de trabajo del robot.\\
+
+	La ventaja que esta tecnica supone, sobre otras, es la capacidad de obtener el espacio de trabajo tomando en cuenta la restricciones reales del robot, así como observar las trayectorías y los puntos críticos del efector final. En este punto es importante mencionar que para algunos casos el efector final podría alcalzar un punto dentro del área de trabajo; sin embargo dada alguna configuración del brazo esta supone algún esfuerzo indeseado en alguno de los actuadores. Con esta técnica se pudo evitar ese tipo de configuraciones, y construir el espacio de trabajo bajo estos supuestos.\\
 
 
 \newpage
