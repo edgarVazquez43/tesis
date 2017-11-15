@@ -730,9 +730,31 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
 
 	Dentro de las metodologías planteadas para la obtención del espacio de trabajo de un robot existen diversas vertientes, una de ellas menciona la posibilidad de obtener dicho espacio generando números aleatorios con una distribución normal acotando los valores aleatorios dentro de las restricciones mecánicas. Posteriormente con los valores aleatorios de ángulos y el modelo de la cinemática directa del brazo robótico obtener la posición del efector final e ir graficando cada uno de estos valores en el tiempo. \textbf{****cite}.\\
 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=11.00cm, height=7.0cm]{workSpace/esquema_WS2.png}
+	\caption{Esquema de construcción del espacio de trabajo para un robot de 7DOF.}
+\end{figure}
+
 	Sin embargo, para el desarrollo de este documento se trabajó tanto con el modelo físico del brazo robótico en cuestión, así como con el modelo virtual del mismo. Dadas estas condiciones se planteó el desarrollo de la siguiente manera: con el modelo físico del brazo se obtuvieron en tiempo real las lecturas de posición de cada uno de los actuadores, posteriormenete se actualizaba el modelo virtual del mismo. Con esta información previa, los valores de posición de cada uno de los actuadores y el modelo de la cinemática directa del brazo, se calculaba en tiempo real la posción del efector final. Dicho de otra manera se realizó una construcción en tiempo real del espacio de trabajo del robot.\\
 
-	La ventaja que esta tecnica supone, sobre otras, es la capacidad de obtener el espacio de trabajo tomando en cuenta la restricciones reales del robot, así como observar las trayectorías y los puntos críticos del efector final. En este punto es importante mencionar que para algunos casos el efector final podría alcalzar un punto dentro del área de trabajo; sin embargo dada alguna configuración del brazo esta supone algún esfuerzo indeseado en alguno de los actuadores. Con esta técnica se pudo evitar ese tipo de configuraciones, y construir el espacio de trabajo bajo estos supuestos.\\
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[t]{.55\textwidth}
+	\centering
+	\includegraphics[width=4.50cm, height=4.5cm]{workSpace/ws_9.png}
+	\caption{Vista superior.}
+	\end{subfigure}%
+	\begin{subfigure}[t]{.55\textwidth}
+	\centering
+	\includegraphics[width=4.20cm, height=4.5cm]{workSpace/ws_8.png}
+	\caption{Vista lateral.}
+	\end{subfigure}
+	\caption{Nube de puntos del espacio de trabajo de un robot antropomórfico de 7DOF.}
+\end{figure}
+
+	La ventaja que esta técnica supone, sobre otras, es la capacidad de obtener el espacio de trabajo tomando en cuenta la restricciones reales del robot, así como observar las trayectorías y los puntos críticos del efector final. En este sentido es importante mencionar que para algunos casos el efector final podría alcalzar un punto dentro del área de trabajo; sin embargo dada alguna configuración del brazo esta podría suponer un esfuerzo indeseado en alguno de los actuadores. Con esta técnica se pudo evitar ese tipo de configuraciones, y construir el espacio de trabajo bajo estos supuestos.\\
 
 
 \newpage

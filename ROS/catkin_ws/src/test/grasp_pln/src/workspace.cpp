@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include "ros/ros.h"
 #include <geometry_msgs/Vector3.h>
 #include <tf/transform_listener.h>
@@ -36,9 +37,9 @@ void markerSetup()
 void currentPosCallback(const std_msgs::Float32MultiArray::ConstPtr& msg)
 {
   currentPos.data = msg->data;
-  std::cout << "Current pose: " << std::endl;
-  for(int i=0; i < currentPos.data.size(); i++) std::cout << currentPos.data[i] << " ";
-  std::cout << "" << std::endl;
+  //std::cout << "Current pose: " << std::endl;
+  //for(int i=0; i < currentPos.data.size(); i++) std::cout << currentPos.data[i] << " ";
+  //std::cout << "" << std::endl;
 }
 
 
@@ -59,6 +60,9 @@ int main(int argc, char** argv)
     ros::Subscriber currentPos_sub;
     tf::TransformListener listener;
     tf::StampedTransform transform;
+
+    std::ofstream myFile;
+    myFile.open("/home/edgar/ws_points.txt");
 
 
     cltDirectKinematics = n.serviceClient<manip_msgs::DirectKinematics>("/manipulation/ik_geometric/direct_kinematics");
@@ -87,8 +91,8 @@ int main(int argc, char** argv)
 	  articular[i] = currentPos.data[i];
 	srv_kd.request.articular_pose.data = articular;
 	
-	std::cout << "CurrentPose size:  " << currentPos.data.size() << std::endl;
-	std::cout << "Request size:  " << srv_kd.request.articular_pose.data.size() << std::endl;
+	//std::cout << "CurrentPose size:  " << currentPos.data.size() << std::endl;
+	//std::cout << "Request size:  " << srv_kd.request.articular_pose.data.size() << std::endl;
 
 	if(!cltDirectKinematics.call(srv_kd))
         {
@@ -98,9 +102,9 @@ int main(int argc, char** argv)
         else
         {
 	    loop.sleep();
-            std::cout << "DirectKinematics.-> Calculated cartesian...." << std::endl;
-	    std::cout << "[x, y, z, roll, pitch, yaw]" << std::endl;
-	    for (int i=0; i < 7; i++) std::cout << "   " << srv_kd.response.cartesian_pose.data[i] << std::endl;
+            //std::cout << "DirectKinematics.-> Calculated cartesian...." << std::endl;
+	    //std::cout << "[x, y, z, roll, pitch, yaw]" << std::endl;
+	    //for (int i=0; i < 7; i++) std::cout << "   " << srv_kd.response.cartesian_pose.data[i] << std::endl;
 
 	    try
 	    { 
@@ -117,15 +121,14 @@ int main(int argc, char** argv)
                           srv_kd.response.cartesian_pose.data[2]);
             v = transform * v;
 
-            std::cout << "respect robot" << std::endl;
-            std::cout << "    x = " << v.x() << std::endl;
-            std::cout << "    y = " << v.y() << std::endl;
-            std::cout << "    z = " << v.z() << std::endl;
+            std::cout << "Point transform respect robot: " << std::endl;
+            std::cout << "   P(x, y, z) = [" << v.x() << ",  " << v.y() << ", " << v.z() << "]" <<  std::endl;
             endEffector_pose.position.x = v.x();
             endEffector_pose.position.y = v.y();
             endEffector_pose.position.z = v.z();
-        }
-
+	    myFile << v.x() << " " << v.y() << " " << v.z() << "\n";
+	}
+	
     	endEffector_marker.points.push_back(endEffector_pose.position);
 	marker_pub.publish(endEffector_marker);
        
@@ -133,5 +136,7 @@ int main(int argc, char** argv)
         ros::spinOnce();
         loop.sleep();
     }
+
+    myFile.close();
     return 0;
 }
