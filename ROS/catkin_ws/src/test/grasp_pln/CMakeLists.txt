@@ -187,6 +187,8 @@ include_directories(
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
 
+
+##### GRASP TEST  #####
 add_executable(grasp_object_test
   src/grasp_object_test.cpp
 )
@@ -198,6 +200,7 @@ target_link_libraries(grasp_object_test
 add_dependencies(grasp_object_test ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 
+##### WORKSPACE_CONSTRUCTION TEST  #####
 add_executable(workspace_test
   src/workspace.cpp
 )
@@ -206,4 +209,28 @@ target_link_libraries(workspace_test
   ${catkin_LIBRARIES}
 )
 
+
 add_dependencies(workspace_test ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+
+##### WORKSPACE_DISPLAY TEST  #####
+add_executable(workspace_display
+  src/workspace_display.cpp
+)
+
+target_link_libraries(workspace_display
+  ${catkin_LIBRARIES}
+)
+
+add_dependencies(workspace_display ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+##### WORKSPACE_DISPLAY TEST  #####
+add_executable(workspace_features
+  src/workspace_features.cpp
+)
+
+target_link_libraries(workspace_features
+  ${catkin_LIBRARIES}
+)
+
+add_dependencies(workspace_features ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
