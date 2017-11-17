@@ -13,7 +13,7 @@ visualization_msgs::Marker endEffector_marker;
 
 
 void markerSetup()
-{
+{ 
     endEffector_marker.header.frame_id = "base_link";
     endEffector_marker.header.stamp = ros::Time::now();
     endEffector_marker.ns = "endEffector_r";
@@ -34,7 +34,7 @@ void markerSetup()
 int main(int argc, char** argv)
 {
     std::cout << "INITIALIZING A TEST FOR WORKSPACE RIGHT ARM BY EDGAR-II..." << std::endl;
-    ros::init(argc, argv, "grasp_pln");
+    ros::init(argc, argv, "workspace_display");
     ros::NodeHandle n;
 
     ros::Publisher marker_pub;

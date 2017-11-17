@@ -46,7 +46,7 @@ void currentPosCallback(const std_msgs::Float32MultiArray::ConstPtr& msg)
 int main(int argc, char** argv)
 {
     std::cout << "INITIALIZING A TEST FOR WORKSPACE RIGHT ARM BY EDGAR-II..." << std::endl;
-    ros::init(argc, argv, "grasp_pln");
+    ros::init(argc, argv, "workspace_construction");
     ros::NodeHandle n;
 
     std::vector<float> cartesian;
