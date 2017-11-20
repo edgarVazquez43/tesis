@@ -26,19 +26,29 @@ void printHelp()
     std::cout << "PLEASE DON'T TRY TO OPERATE JUSTINA IF YOU ARE NOT QUALIFIED ENOUGH" << std::endl;
 }
 
+
+// #############  INVERSE KINEMATIC  ####################
+//   ##########   CALLBACK FUNCTION   #################
 bool callbackInverseKinematicsFloatArray( manip_msgs::InverseKinematicsFloatArray::Request &req,
                                          manip_msgs::InverseKinematicsFloatArray::Response &resp)
 {
     std::cout << "Calling service to calculate Inverse Kinematics...." << std::endl;
-
 
     if (req.cartesian_pose.data.size() == 7 )
     {
         InverseKinematics::GetInverseKinematics(req.cartesian_pose.data, resp.articular_pose.data);
         return true ;
     }
+    else
+      {
+	std::cout << "Cannot calculate inverse kinematic, invalid args number... :( " << std::endl;
+ 	return false;
+      }
 }
 
+
+// #############  DIRECT KINEMATIC  ################
+//   ##########  CALLBACK FUNCTION   #############
 bool callbackDirectKinematics(manip_msgs::DirectKinematics::Request &req, manip_msgs::DirectKinematics::Response &resp)
 {
     std::cout << "Calling service to calculate Direct Kinematics...." << std::endl;
@@ -46,61 +56,33 @@ bool callbackDirectKinematics(manip_msgs::DirectKinematics::Request &req, manip_
     return InverseKinematics::GetDirectKinematics(req.articular_pose.data, resp.cartesian_pose.data);
 }
 
-/*
-bool callbackInverseKinematicsFloatArray(manip_msgs::InverseKinematicsFloatArray::Request &req,
-                                         manip_msgs::InverseKinematicsFloatArray::Response &resp)
-{
-    //In all cases, the resulting articular pose is a std::vector<float> with seven values corresponding to the 7DOF of the arm
-    if(req.cartesian_pose.data.size() == 7)
-        return InverseKinematics::GetInverseKinematics(req.cartesian_pose.data, resp.articular_pose.data);
-    if(req.cartesian_pose.data.size() == 6)
-    {
-        float x = req.cartesian_pose.data[0];
-        float y = req.cartesian_pose.data[1];
-        float z = req.cartesian_pose.data[2];
-        float roll = req.cartesian_pose.data[3];
-        float pitch = req.cartesian_pose.data[4];
-        float yaw = req.cartesian_pose.data[5];
-        return InverseKinematics::GetInverseKinematics(x, y, z, roll, pitch, yaw, resp.articular_pose.data);
-    }
-    if (req.cartesian_pose.data.size() == 3)
-    {
-        float x = req.cartesian_pose.data[0];
-        float y = req.cartesian_pose.data[1];
-        float z = req.cartesian_pose.data[2];
-        return InverseKinematics::GetInverseKinematics(x, y, z, resp.articular_pose.data);
-    }
-    std::cout << "Ik_Geometric.->Cannot calculate inv kinematics: Invalid number of args in request." << std::endl;
-    return false;
-}
 
-*/
 
 
 int main(int argc, char** argv)
 {
-    for (int i = 0; i < argc; i++)
-	{
-		std::string strParam(argv[i]);
-		if (strParam.compare("--help") == 0 || strParam.compare("-h") == 0)
-		{
-			printHelp();
-            return 0;
-		}
-	}
-
-
-    std::cout << "INITIALIZING INVERSE KINEMATICS GEOMETRIC BY EDGAR-II... " << std::endl;
-    ros::init(argc, argv, "low_level_moves");
-    ros::NodeHandle n;
-    ros::ServiceServer srvSrvIKFloatArray = n.advertiseService("ik_geometric/ik_float_array", callbackInverseKinematicsFloatArray);
-    ros::ServiceServer srvSrvDirectKin = n.advertiseService("ik_geometric/direct_kinematics", callbackDirectKinematics);
-    ros::Rate loop(10);
-
-    while(ros::ok())
+  for (int i = 0; i < argc; i++)
     {
-        ros::spinOnce();
-        loop.sleep();
+      std::string strParam(argv[i]);
+      if (strParam.compare("--help") == 0 || strParam.compare("-h") == 0)
+	{
+	  printHelp();
+	  return 0;
+	}
     }
-    return 0;
+
+
+  std::cout << "INITIALIZING INVERSE KINEMATICS GEOMETRIC BY EDGAR-II... " << std::endl;
+  ros::init(argc, argv, "low_level_moves");
+  ros::NodeHandle n;
+  ros::ServiceServer srvSrvIKFloatArray = n.advertiseService("ik_geometric/ik_float_array", callbackInverseKinematicsFloatArray);
+  ros::ServiceServer srvSrvDirectKin = n.advertiseService("ik_geometric/direct_kinematics", callbackDirectKinematics);
+  ros::Rate loop(10);
+  
+  while(ros::ok())
+    {
+      ros::spinOnce();
+      loop.sleep();
+    }
+  return 0;
 }

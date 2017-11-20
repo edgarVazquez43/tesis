@@ -1,24 +1,67 @@
 #include "InverseKinematics.h"
 
+// #####################################
+//   KINEMATIC INVERSE FOR SEVEN VALUES
 bool InverseKinematics::GetInverseKinematics(std::vector<float>& cartesian, std::vector<float>& articular)
 {
-    std::cout << "Trying to calculate InverseKinematics .... " << std::endl;
+  std::cout << "Trying to calculate InverseKinematics .... " << std::endl;
+
+  float x_g, y_g, z_g, roll, pitch, yaw;
+
+  //Denavith-Hartemberg parameters
+  float dhD[7]     = {0,       0,  0.275,   0, 0.226,  0, 0.165};
+  float dhA[7]     = {0.065,   0,    0,     0,   0,    0,   0  };
+  float dhAlpha[7] = {1.5708, 1.5708, -1.5708, 1.5708, -1.5708, 1.5708, 0};
+  float dhTheta[7] = {0,      1.5708, -1.5708,    0,      0,      0,    0};
+  tf::Quaternion q;
+  tf::Transform R5_EE;
+  tf::Vector3 wristPosition(0,0,0);
+
+  x_g = cartesian[0];
+  y_g = cartesian[1];
+  z_g = cartesian[2];
+  
+  roll  = cartesian[3];
+  pitch = cartesian[4];
+  yaw   = cartesian[5];
+    
+  std::cout << "Data recived..." << std::endl;
+  for(int i = 0; i < cartesian.size(); i++ )
+    std::cout << cartesian[i] << std::endl;
+  
+  q.setRPY(roll, pitch, yaw);
+  R5_EE.setIdentity();
+  R5_EE.setRotation(q);
+
+  wristPosition[0] = dhD[6];
+  wristPosition = R5_EE * wristPosition; //XYZ position of the end effector
+  
+    
+    
     return true;
 }
 
 
+// #####################################
+//   KINEMATIC INVERSE FOR SEVEN VALUES
 bool InverseKinematics::GetInverseKinematics(float x, float y, float z, float roll, float pitch, float yaw, std::vector<float>& articular)
 {
 
     return true;
 }
 
+
+// #####################################
+//   KINEMATIC INVERSE FOR SEVEN VALUES
 bool InverseKinematics::GetInverseKinematics(float x, float y, float z, std::vector<float>& articular)
 {
 
     return true;
 }
 
+
+// #####################################
+//   KINEMATIC INVERSE FOR SEVEN VALUES
 bool InverseKinematics::GetDirectKinematics(std::vector<float>& articular, std::vector<float>& cartesian)
 {
   std::cout << "Trying to calculate DirectKinematics (Edgar Version)" << std::endl;
