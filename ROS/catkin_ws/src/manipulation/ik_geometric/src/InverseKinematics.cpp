@@ -7,7 +7,17 @@ bool InverseKinematics::GetInverseKinematics(std::vector<float>& cartesian, std:
   std::cout << "Trying to calculate InverseKinematics .... " << std::endl;
 
   float x_g, y_g, z_g, roll, pitch, yaw;
+  float x_wc, y_wc, z_wc;
+  float x_n, y_n, z_n;
 
+  // Auxiliar variables for angles calculate
+  float phi, psi, alpha, beta, gamma;
+  float r, r_p, r_pp;
+  float a, b, c;
+
+  articular.resize(7);
+  for(int i = 0; i<articular.size(); i++) articular[i] = 0;
+  
   //Denavith-Hartemberg parameters
   float dhD[7]     = {0,       0,  0.275,   0, 0.226,  0, 0.165};
   float dhA[7]     = {0.065,   0,    0,     0,   0,    0,   0  };
@@ -33,12 +43,54 @@ bool InverseKinematics::GetInverseKinematics(std::vector<float>& cartesian, std:
   R5_EE.setIdentity();
   R5_EE.setRotation(q);
 
-  wristPosition[0] = dhD[6];
+  // 0.165 means distance end-effector to WristCenter
+  wristPosition[3] = 0.165;
   wristPosition = R5_EE * wristPosition; //XYZ position of the end effector
+
+  // Using decoupling kinematic we split problem inverse position an inverse orientation 
+  // p_wc is the point to calculate inverse position 
+  x_wc = x_g - wristPosition[0];
+  y_wc = y_g - wristPosition[1];
+  z_wc = z_g - wristPosition[2];
+
+  // std::cout << "x_wc: " << x_wc << std::endl;
+  // std::cout << "y_wc: " << y_wc << std::endl;
+  // std::cout << "z_wc: " << z_wc << std::endl;
+
+  // Calculate magnitud of vetcor OWc and proyecctions on planes XY, XZ
+  r = sqrt( x_wc*x_wc + y_wc*y_wc + z_wc*z_wc );
+  r_p = sqrt( x_wc*x_wc + z_wc*z_wc );            // Proyection on plane ZX
+  r_pp = sqrt( x_wc*x_wc + y_wc*y_wc );           // Proyection on plane XY
+
+  std::cout << "r: " << r << std::endl;
+  std::cout << "r_p: " << r_p << std::endl;
+  std::cout << "r_pp: " << r_pp << std::endl;
   
-    
-    
-    return true;
+  phi = atan2(y_wc, r_p);
+  std::cout << "phi: " << phi << std::endl;
+
+  // Correct displacement between M1 and M2
+  // d0 = dhA[0] --- d1 = dhD[2] --- d2 = dhD[4]
+  x_n = x_wc - (0.065 * sin(phi));
+  y_n = y_wc - (0.065 * cos(phi));
+
+  // d1 = dhD[2] = l2 + l3 = 0.275
+  psi = asin(z_wc/dhD[2]);
+
+  // Code for cosine-law 
+  // d2 = dhD[4] = l4 + l5 = 0.226
+  a = dhD[4];
+  b = dhA[0] + (dhD[2]*cos(psi));
+  c = r_pp;
+
+  alpha = acos( (a*a - b*b - c*c)/(-2*b*c) );
+  gamma = acos( (c*c - a*a - b*b)/(-2*a*b) );
+
+  articular[0] = phi + alpha;
+  articular[1] = psi;
+  articular[3] = 3.141592 - gamma;
+
+  return true;
 }
 
 

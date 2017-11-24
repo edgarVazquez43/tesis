@@ -28,7 +28,6 @@ void printHelp()
 
 
 // #############  INVERSE KINEMATIC  ####################
-//   ##########   CALLBACK FUNCTION   #################
 bool callbackInverseKinematicsFloatArray( manip_msgs::InverseKinematicsFloatArray::Request &req,
                                          manip_msgs::InverseKinematicsFloatArray::Response &resp)
 {
@@ -48,7 +47,6 @@ bool callbackInverseKinematicsFloatArray( manip_msgs::InverseKinematicsFloatArra
 
 
 // #############  DIRECT KINEMATIC  ################
-//   ##########  CALLBACK FUNCTION   #############
 bool callbackDirectKinematics(manip_msgs::DirectKinematics::Request &req, manip_msgs::DirectKinematics::Response &resp)
 {
     std::cout << "Calling service to calculate Direct Kinematics...." << std::endl;

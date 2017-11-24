@@ -817,5 +817,101 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
 
 \newpage
 	\section{Cinemática inversa}
+	El problame de la cinemática inversa consiste en dada una posición deseada $p(x, y, z, roll, pitch, yaw)$ encontar el valor de cada una una de las juntas cinemáticas que lleven al brazo a la posoción desea. Este problema suele ser uno de los más interesantes y complejos, dentro del estudio de la robótica. Es preciso mencionar que para llevar el efector final a cualquier posición y orientación deseada se requiere por lo menos un brazo robótico de 6DOF. En el desarrolo de este trabajo se plantea la resolución de la cinemática para un brazo robótico de 7DOF, lo cual suele aumentar el grado de complejidad en la resolución del problema.\\
 
+\begin{equation}
+\begin{split}
+	H = 
+	\begin{bmatrix}
+	R  &  0  \\
+	0  &  1  \\ 
+	\end{bmatrix}
+\end{split}
+\end{equation}
+
+	El problema de la cinemática inversa consiste en encontrar una o todas las soluciones:\\
+
+\begin{equation}
+	T^{0}_{n}(q_1, q_2...  q_n) = H
+\end{equation}	
+	
+	Donde \textit{H} representa la matriz de posición y orientación deseada del efector final. Por tanto $q_1... q_n$ son los valores de las respectivas juntas mecánicas. Representado de otra manera:\\ 
+
+\begin{equation}
+	f(q_1, q_2...  q_n) = f(x, y, z, roll, pitch, yaw) 
+\end{equation}	
+
+
+	Para abordar la resolución de dicho problema se hizo uso del concepto de \textit{desacople cinemático}. Utilizando este concepto se puede simplificar el problema del cálculo completo de la cinemática inversa. Por medio del desacople cinemático se pueden considerar de manera independiente el cálculo de la orientación inversa y el cálculo de la posición inversa.\\
+
+	\subsection{Desacople cinemático}
+	Como se ha mencionado con anterioridad el problema de la cinemática inversa puede resolverse por separado en la resolución de la orientación inversa y la posición inversa, para manipuladores de 6 DOF o más. Es impornate mencionar que para utilizar esta metodología de resolución el manipulador debe poseer la configuración de \textit{muñeca esférica}. Es necesario partir de esta premisa puesto que la configuración de muñeca esférica implica que los tres ultimos ejes de acción de intersectan en un punto llamado $O_c$. Además estos tres últimos ejes de acción pueden determinar la orientación del efector final sin que dependan del valor de las juntas cinemáticas anteriores.\\
+
+\begin{equation}
+	R^0_7(q_1,.....  ,q_7) = R 
+\end{equation}
+
+\begin{equation}
+	o^0_7(q_1,.....  ,q_7) = o 
+\end{equation}
+
+	La suposición de una \textit{muñeca esférica} implica que los ejes $z_4$, $z_5$ y $z_6$ se intersectan en $o_c$. Como se observa en la figura [4.20] el origen del sistema $O_5$ coincide con el centro de la muñeca esférica $O_c$. Es importante resaltar que el movimiento de los tres últimos ejes no afecta la posición del centro de la muñeca $O_c$. 
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[t]{.55\textwidth}
+	\centering
+	\includegraphics[width=2.50cm, height=7.0cm]{manipulator/wrist_center.png}
+	\caption{Vista frontal.}
+	\end{subfigure}%
+	\begin{subfigure}[t]{.55\textwidth}
+	\centering
+	\includegraphics[width=5.00cm, height=7.0cm]{manipulator/wrist_center2.png}
+	\caption{Vista lateral.}
+	\end{subfigure}
+	\caption{Centro de rotación de una muñeca esférica.}
+\end{figure}
+
+	El centro del efector final deseado podemos llamarlo \textit{o} y se puede obtener como la traslación $d_6$ a lo largo del eje \textit{x} a partir del punto $o^0_c$.\\
+
+\begin{equation}
+o = o^0_c + d_6 R \hat{x} 
+\end{equation}
+
+\begin{equation}
+o^0_c = o - d_6 R \hat{x} 
+\end{equation}
+
+\begin{equation}
+\begin{split}
+	\begin{bmatrix}
+	x_{oc}\\
+	y_{oc}\\
+	z_{oc} 
+	\end{bmatrix}
+	=
+	\begin{bmatrix}
+	x_{EE} - d_6 r_{13}\\
+	y_{EE} - d_6 r_{23}\\
+	z_{EE} - d_6 r_{33}
+	\end{bmatrix}
+\end{split} 
+\end{equation}
+
+	De la ecuación 4.13 podemos observar que para realizar el cálculo del punto que representa el centro de la muñena del manipulador solo debemos conocer el punto objetivo del efector final $p_{EE}$ y la orientación deseada \textit{R}. Utilizando la ecuación 4.13 calculamos el centro de la muñeca \textit{(punto en rojo)}. Posteriormente este punto servirá para calcular la cinemática inversa del manipulador quedando unicamente 4 valores de articulaciones por calcular.\\
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[t]{.55\textwidth}
+	\centering
+	\includegraphics[width=3.50cm, height=7.0cm]{manipulator/wristCenter_yaw.png}
+	\caption{Posición desea del efector final. (verde)}
+	\end{subfigure}%
+	\begin{subfigure}[t]{.55\textwidth}
+	\centering
+	\includegraphics[width=3.00cm, height=7.0cm]{manipulator/wristCenter_yaw2.png}
+	\caption{Posición del centro de la muñeca. (rojo)}
+	\end{subfigure}
+	\caption{Centro de la muñeca con rotación $\pi/2$.}
+\end{figure}
 
