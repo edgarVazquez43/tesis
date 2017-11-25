@@ -44,7 +44,7 @@ bool InverseKinematics::GetInverseKinematics(std::vector<float>& cartesian, std:
   R5_EE.setRotation(q);
 
   // 0.165 means distance end-effector to WristCenter
-  wristPosition[3] = 0.165;
+  wristPosition[2] = -0.165;
   wristPosition = R5_EE * wristPosition; //XYZ position of the end effector
 
   // Using decoupling kinematic we split problem inverse position an inverse orientation 
@@ -53,9 +53,9 @@ bool InverseKinematics::GetInverseKinematics(std::vector<float>& cartesian, std:
   y_wc = y_g - wristPosition[1];
   z_wc = z_g - wristPosition[2];
 
-  // std::cout << "x_wc: " << x_wc << std::endl;
-  // std::cout << "y_wc: " << y_wc << std::endl;
-  // std::cout << "z_wc: " << z_wc << std::endl;
+  std::cout << "x_wc: " << x_wc << std::endl;
+  std::cout << "y_wc: " << y_wc << std::endl;
+  std::cout << "z_wc: " << z_wc << std::endl;
 
   // Calculate magnitud of vetcor OWc and proyecctions on planes XY, XZ
   r = sqrt( x_wc*x_wc + y_wc*y_wc + z_wc*z_wc );
@@ -86,7 +86,7 @@ bool InverseKinematics::GetInverseKinematics(std::vector<float>& cartesian, std:
   alpha = acos( (a*a - b*b - c*c)/(-2*b*c) );
   gamma = acos( (c*c - a*a - b*b)/(-2*a*b) );
 
-  articular[0] = phi + alpha;
+  articular[0] = phi - alpha;
   articular[1] = psi;
   articular[3] = 3.141592 - gamma;
 
