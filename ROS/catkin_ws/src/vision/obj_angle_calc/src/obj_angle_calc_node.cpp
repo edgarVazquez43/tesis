@@ -44,9 +44,13 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 	float x_obj, y_obj, z_obj;
 	float threshold;
 	float h_table;
+	
 	std::string object_name;
 	std::string object_price;
-
+	std::string object_calories;
+	std::string object_grasas;
+	std::string object_carbohidratos;
+	
 	cv::Mat imgBGR;
 	cv::Mat imgDepth;
 	cv::Mat planeBGR;
@@ -222,22 +226,34 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 		if(Tout[0] == 0 && Tout[1] == 0 && Tout[2] == 0)
 		{
 			object_name = "Coca-cola";
-			object_price = "12.00";
+			object_price = "$ 12.00";
+			object_calories = "151 [kcal]";
+			object_grasas = "0.0 [g]";
+			object_carbohidratos = "38.9 [g]";
 		}
-		else if(Tout[0] == 0 && Tout[1] == 1 && Tout[2] == 0)
+		else if(Tout[0] == 0 && Tout[1] == 1 && Tout[2] == 1)
 		{
 			object_name = "Jugo";
-			object_price = "18.00";
+			object_price = "$ 18.00";
+			object_calories = "58 [kcal]";
+			object_grasas = "0.0 [g]";
+			object_carbohidratos = "15.0 [g]";
 		}
 		else if(Tout[0] == 0 && Tout[1] == 0 && Tout[2] == 1)
 		{
 			object_name = "Milk";
-			object_price = "8.00";
+			object_price = "$ 8.00";
+			object_calories = "139.5 [kcal]";
+			object_grasas = "4.7 [g]";
+			object_carbohidratos = "22.0 [g]";
 		}
-		else if(Tout[0] == 0 && Tout[1] == 1 && Tout[2] == 1)
+		else if(Tout[0] == 0 && Tout[1] == 1 && Tout[2] == 0)
 		{
-			object_name = "Desodorante";
-			object_price = "24.00";
+			object_name = "Desodorante 150 ml";
+			object_price = "$ 24.00";
+			object_calories = "Butano";
+			object_grasas = "Alcohol  - fragancia";
+			object_carbohidratos = "Agua";
 		}
 
 
@@ -249,7 +265,7 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 			cv::Point(30,30),
 			cv::FONT_HERSHEY_COMPLEX_SMALL,
 			1.0,
-			cv::Scalar(10, 200, 0),
+			cv::Scalar(200, 20, 0),
 			1,
 			CV_AA);
 
@@ -257,7 +273,31 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 			cv::Point(30,60),
 			cv::FONT_HERSHEY_COMPLEX_SMALL,
 			1.0,
-			cv::Scalar(10, 200, 0),
+			cv::Scalar(200, 20, 0),
+			1,
+			CV_AA);
+		
+		cv::putText(croppedBRG, object_calories, 
+			cv::Point(30,90),
+			cv::FONT_HERSHEY_COMPLEX_SMALL,
+			1.0,
+			cv::Scalar(10, 30, 150),
+			1,
+			CV_AA);
+
+		cv::putText(croppedBRG, object_grasas, 
+			cv::Point(30,120),
+			cv::FONT_HERSHEY_COMPLEX_SMALL,
+			1.0,
+			cv::Scalar(10, 30, 150),
+			1,
+			CV_AA);
+		
+		cv::putText(croppedBRG, object_carbohidratos, 
+			cv::Point(30,150),
+			cv::FONT_HERSHEY_COMPLEX_SMALL,
+			1.0,
+			cv::Scalar(10, 30, 150),
 			1,
 			CV_AA);
 

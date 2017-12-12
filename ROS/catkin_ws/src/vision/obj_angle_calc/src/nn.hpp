@@ -19,7 +19,7 @@ std::vector<int> normalizingVector(std::vector<float> analogVector)
 {
 	std::vector<int> p;
 
-	if (analogVector[0] > 0.04)
+	if (analogVector[0] > 0.035)
 		p.push_back(1);
 	else
 		p.push_back(0);
@@ -29,22 +29,22 @@ std::vector<int> normalizingVector(std::vector<float> analogVector)
 	else
 		p.push_back(0);
 
-	if (analogVector[2] > 0.115)
+	if (analogVector[2] > 0.105)
 		p.push_back(1);
 	else
 		p.push_back(0);
 
-	if (analogVector[3] > 0.6)
+	if (analogVector[3] > 0.55)
 		p.push_back(1);
 	else
 		p.push_back(0);
 
-	if (analogVector[4] < 0.45)
+	if (analogVector[4] < 0.38)
 		p.push_back(1);
 	else
 		p.push_back(0);
 
-	if (analogVector[5] > 0.045)
+	if (analogVector[5] > 0.0275)
 		p.push_back(1);
 	else
 		p.push_back(0);
@@ -79,7 +79,7 @@ std::vector<int> nn_calculate(std::vector<int> Pin)
 	*/
 
    	//Vector de entrada Real
-    Pt_e << Pin[0],
+	Pt_e << Pin[0],
     		Pin[1],
     		Pin[2],
     		Pin[3],
@@ -88,25 +88,25 @@ std::vector<int> nn_calculate(std::vector<int> Pin)
   	
   	//Vector de salida propuesto
   	T << 0, 0, 0, 0,
-  		 0, 1, 0, 1,
-    	 0, 0, 1, 1;
+	     0, 1, 0, 1,
+	     0, 0, 1, 1;
 
 
   	//std::cout << "T = " << std::endl << T << std::endl;
 
   	P << 1, 1, 1, 0,
-  		 1, 1, 1, 0,
-    	 0, 1, 0, 1,
-    	 1, 1, 0, 0,
-    	 1, 0, 0, 1,
-    	 1, 1, 1, 1;
+	     0, 1, 1, 0,
+	     0, 1, 0, 1,
+    	     1, 0, 0, 1,
+    	     1, 1, 1, 0,
+	     1, 1, 1, 0;
     //std::cout << "P = " << std::endl << P << std::endl;
 
     //P -- transpuesta
-   	Pt << 1, 1, 0, 1, 1, 1,
-       	  1, 1, 1, 1, 0, 1,
-       	  1, 1, 0, 0, 0, 1,
-       	  0, 0, 1, 0, 1, 1;
+   	Pt << 1, 0, 0, 1, 1, 1,
+       	      1, 1, 1, 0, 1, 1,
+       	      1, 1, 0, 0, 1, 1,
+       	      0, 0, 1, 1, 0, 0;
     //std::cout << "P_t = " << std::endl << Pt << std::endl;
 
 

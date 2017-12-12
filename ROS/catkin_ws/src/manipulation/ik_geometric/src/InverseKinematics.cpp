@@ -12,7 +12,7 @@ bool InverseKinematics::GetInverseKinematics(std::vector<float>& cartesian, std:
 
   // Auxiliar variables for angles calculate
   float phi, psi, alpha, beta, gamma;
-  float r, r_p, r_pp;
+  float r, r_p, r_pp, r13;
   float a, b, c;
 
   articular.resize(7);
@@ -71,11 +71,9 @@ bool InverseKinematics::GetInverseKinematics(std::vector<float>& cartesian, std:
 
   // Correct displacement between M1 and M2
   // d0 = dhA[0] --- d1 = dhD[2] --- d2 = dhD[4]
-  x_n = x_wc - (0.065 * sin(phi));
-  y_n = y_wc - (0.065 * cos(phi));
-
+  
   // d1 = dhD[2] = l2 + l3 = 0.275
-  psi = asin(z_wc/dhD[2]);
+  //psi = asin(z_wc/dhD[2]);
 
   // Code for cosine-law 
   // d2 = dhD[4] = l4 + l5 = 0.226
@@ -86,6 +84,14 @@ bool InverseKinematics::GetInverseKinematics(std::vector<float>& cartesian, std:
   alpha = acos( (a*a - b*b - c*c)/(-2*b*c) );
   gamma = acos( (c*c - a*a - b*b)/(-2*a*b) );
 
+  x_n = x_wc - (0.065 * sin(phi-alpha));
+  y_n = y_wc - (0.065 * cos(phi-alpha));
+
+  r13 = sqrt( x_n*x_n + y_n*y_n + z_wc*z_wc );
+  psi = asin(z_wc/r13);
+
+
+  
   articular[0] = phi - alpha;
   articular[1] = psi;
   articular[3] = 3.141592 - gamma;

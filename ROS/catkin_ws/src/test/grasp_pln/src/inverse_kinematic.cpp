@@ -112,7 +112,7 @@ int main(int argc, char** argv)
     
     // Data request in format [x, y, z, roll, pitch, yaw, elbow]
     cartesian.push_back( 0.25);
-    cartesian.push_back(-0.12);
+    cartesian.push_back(-0.22);
     cartesian.push_back( 0.85);
     // Angles rotation
     cartesian.push_back(0.0);
