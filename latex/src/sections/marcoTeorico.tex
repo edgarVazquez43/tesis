@@ -27,14 +27,14 @@
 		\begin{figure}[htb]
 			\begin{center}
 			\includegraphics[width=8.5cm, height=5cm]{estadoArte/markovito.png}
-			\caption{Estructura de software del robot Cosero.}
+			\caption{Estructura de software del robot Markovito.}
 			\end{center}
 		\end{figure}
 
 		\begin{figure}[htb]
 			\begin{center}
 			\includegraphics[width=8.5cm, height=5cm]{estadoArte/justina.png}
-			\caption{Estructura de software del robot Cosero.}
+			\caption{Estructura de software del robot Justina.}
 			\end{center}
 		\end{figure}
 
@@ -125,7 +125,7 @@ Los principales parámetros que caracterizan a los robots industriales son:
 
 			
 			$$
-			T_{0,1} =
+			T_0 ^ 1  =
 			\begin{bmatrix}
     			n_{x} & s_{x} & a_{x} &  p_{x} \\
 			    n_{y} & s_{y} & a_{y} &  p_{y} \\
@@ -200,7 +200,7 @@ Los principales parámetros que caracterizan a los robots industriales son:
 		\subsection{Algoritmo}
 		El algoritmo RANSAC (RANdom Sample And Consensus) fue introducido por primera vez por Fischler y Bolles en 1981, como un método para estimar los parámetros de un determinado modelo a partir de un conjunto de datos contaminados por grandes cantidades de outliers. Un dato es considerado un outlier si no encaja en el modelo propuesto, dentro de un umbral de error que define el valor máximo desviación atribuible al efecto del ruido.\\
 
-		RANSAC selecciona uniformemente al azar un subconjunto de muestras de datos y lo utiliza para crear un modelo de estimación de parámetros. Luego determina si las muestras que están dentro de una tolerancia de error del  modelo antes propuesto. Si estas muestras se consideran como parte del modelo generado se agrupan en un conjunto llamado \"consenso\". De manera análoga se llama \"outliers\" al conjunto de tos que superan el umbral de error con respecto al modelo. Si el recuento de los datos agrupados en el consenso es suficientemente alto con respecto de los outliers, se considera que el modelo se ajusta al conjunto de datos, siendo el modelo propuesto un modelo que se aproxima al conjunto total de datos.\\
+		RANSAC selecciona uniformemente al azar un subconjunto de muestras de datos y lo utiliza para crear un modelo de estimación de parámetros. Luego determina si las muestras que están dentro de una tolerancia de error del  modelo antes propuesto. Si estas muestras se consideran como parte del modelo generado se agrupan en un conjunto llamado \textit{consenso}. De manera análoga se llama \textit{outliers} al conjunto de tos que superan el umbral de error con respecto al modelo. Si el recuento de los datos agrupados en el consenso es suficientemente alto con respecto de los outliers, se considera que el modelo se ajusta al conjunto de datos, siendo el modelo propuesto un modelo que se aproxima al conjunto total de datos.\\
 
 		A continuación se muestra el seudocódigo básico para el algoritmo RANSAC.\\
 
@@ -288,7 +288,7 @@ Los principales parámetros que caracterizan a los robots industriales son:
 
 		\section{Forma punto-normal y forma general de la ecuación de un plano}
 
-		De manera análoga a la forma en que se describen las líneas en un espacio bidimensional utilizando una forma de pendiente de puntos para sus ecuaciones, los planos en un espacio tridimensional tienen una descripción natural que utiliza un punto en el plano y un vector ortogonal a él (Vector normal) para indicar su \"inclinación\".\\
+		De manera análoga a la forma en que se describen las líneas en un espacio bidimensional utilizando una forma de pendiente de puntos para sus ecuaciones, los planos en un espacio tridimensional tienen una descripción natural que utiliza un punto en el plano y un vector ortogonal a él (Vector normal) para indicar su \textit{inclinación}.\\
 
 		Específicamente, sea $r_0$ el vector de posición de algún punto $P_0 = (x_0, y_0, z_0)$, y sea $n = (a, b, c)$ un vector no nulo. El plano determinado por el punto $P_0$ y el vector n consiste en aquellos puntos $P$, con el vector de posición $r$, de tal manera que el vector trazado de $P_0$ a $P$ sea perpendicular a $n$. Recordando que dos vectores son perpendiculares si y sólo si su producto punto es cero, se deduce que el plano deseado puede ser descrito como el conjunto de todos los puntos $r$ tales que:\\
 
@@ -335,7 +335,7 @@ Los principales parámetros que caracterizan a los robots industriales son:
 
 		Sea $p_1=(x_1, y_1, z_1)$, $p_2=(x_2, y_2, z_2)$, y $p_3=(x_3, y_3, z_3)$ puntos en el espacio $R^3$ no-colineales.\\
 
-		Este plano también puede ser descrito por el "punto y un vector normal" prescripción anterior. Un vector normal adecuado se da por el producto cruz.\\
+		Este plano también puede ser descrito por el "punto y un vector normal" de acuerdp  a la descripción anterior. Un vector normal adecuado se da por el producto cruz.\\
 		
 		\begin{equation}
 			\begin{split}
@@ -452,7 +452,7 @@ Los principales parámetros que caracterizan a los robots industriales son:
 
 		\subsection{Matriz de covarianzas}
 		
-			Cuando se dispone de un conjunto de datos multidimensionales la información obtenida de los cálculos de las covarianzas se dispone en forma de matriz para facilitar su manejo, tal matriz es llamada \"Matriz de covarianzas\". La matriz de covarianzas es de dimensiones $n \times n$ donde n es el número de dimensiones totales en el conjunto de datos.\\
+			Cuando se dispone de un conjunto de datos multidimensionales la información obtenida de los cálculos de las covarianzas se dispone en forma de matriz para facilitar su manejo, tal matriz es llamada \textit{Matriz de covarianzas}. La matriz de covarianzas es de dimensiones $n \times n$ donde n es el número de dimensiones totales en el conjunto de datos.\\
 
 			A continuación se muestra la matriz de covarianzas para un conjunto de datos de 3 dimensiones, llamadas $x, y,$ y $z.$
 
@@ -521,8 +521,13 @@ Los principales parámetros que caracterizan a los robots industriales son:
 
 			Es importante resaltar estas dos características puesto que la aplicación que se desarrollará en este trabajo se basa en el principio de la independencia lineal de los vectores propios y que estos construyen una base ortogonal del conjunto de datos observados.
 
-	\section{Características del objeto}
 
 
-	\section{Planeación de tareas}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%	\section{Características del objeto}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%	\section{Planeación de tareas}
 
