@@ -27,7 +27,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: PointCloud2
+    SyncSource: ""
 Visualization Manager:
   Class: ""
   Displays:
@@ -173,6 +173,16 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        shoulders_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        spine_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         torso_link:
           Alpha: 1
           Show Axes: false
@@ -223,6 +233,10 @@ Visualization Manager:
           Value: false
         ra_link_grip_center:
           Value: false
+        shoulders_link:
+          Value: true
+        spine_link:
+          Value: true
         torso_link:
           Value: false
       Marker Scale: 0.5
@@ -254,6 +268,9 @@ Visualization Manager:
                     {}
                   careta:
                     {}
+            spine_link:
+              shoulders_link:
+                {}
       Update Interval: 0
       Value: true
     - Alpha: 0.699999988
@@ -369,25 +386,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/ThirdPersonFollower
-      Distance: 2.73007536
+      Distance: 3.42460656
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.566869974
-        Y: -0.186921358
-        Z: -6.85453415e-07
+        X: -0.0909237862
+        Y: -0.0396690369
+        Z: -8.04662704e-07
       Focal Shape Fixed Size: false
       Focal Shape Size: 0.0500000007
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Pitch: 0.455398262
+      Pitch: 0.280398577
       Target Frame: <Fixed Frame>
       Value: ThirdPersonFollower (rviz)
-      Yaw: 2.25539589
+      Yaw: 1.42039764
     Saved: ~
 Window Geometry:
   Displays:

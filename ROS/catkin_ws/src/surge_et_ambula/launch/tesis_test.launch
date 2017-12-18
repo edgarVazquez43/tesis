@@ -10,6 +10,7 @@
         <!-- <node name="right_arm" pkg="arms" type="right_arm_woT.py" args="__port1 /dev/justinaRightArm __baud1 200000" output="screen"/> -->
         <node name="right_arm" pkg="arms" type="right_arm_simul_node.py"  output="screen"/>
         <node name="head" pkg="head" type="head_simul_node.py" output="screen"/>
+	 <node name="torso" pkg="torso" type="torso_node.py" output="screen" args="--simul"/>
 	
 	<node name="point_cloud_man" pkg="kinect_man" type="kinect_man_node" output="screen" args=" -- defpath $(find knowledge)/hardware/point_clouds/"/>
 	

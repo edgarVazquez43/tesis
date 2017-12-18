@@ -26,50 +26,64 @@
 ########################################
 -->
 
-  <link name="torso_link">
-    <visual>
-      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
-      <geometry>
-        <box size="0.06 0.08 0.87"/>
-      </geometry>
-      <material name="aluminium_1"><color rgba="0.7 0.7 0.7 1"/></material>
-    </visual>
+<link name="torso_link">
+  <visual>
+    <origin xyz= "0.04 -0.097 -0.55" rpy="1.5707 0 1.5707"/>
+    <geometry>
+      <mesh filename="package://knowledge/hardware/stl/torso.stl"/>
+    </geometry>
+    <material name="black_gray"><color rgba="0.2 0.2 0.2 1"/></material>
+  </visual>
+</link>
 
-    <visual>
-      <origin xyz="0.0 0.0 0.45" rpy="0.0 0.0 0.0"/>
-      <geometry>
-        <box size="0.04 0.36 0.06"/>
-      </geometry>
-      <material name="aluminium_1"><color rgba="0.7 0.7 0.7 1"/></material>
-    </visual>
+<link name="spine_link">
+  <visual>
+    <origin xyz= "0.0 0 -0.12" rpy="0 0 1.5707"/>
+    <geometry>
+      <mesh filename="package://knowledge/hardware/stl/spine.stl"/>
+    </geometry>
+    <material name="gray_white"><color rgba="0.8 0.8 0.8 1"/></material>
+  </visual>
+</link>
 
-     <!--Shoulder arm -->
-     <visual>
-       <origin xyz="0.0 -0.028 0.42" rpy="-0.6 0.2 1.5707"/>
-      <geometry> 
-        <mesh filename="package://knowledge/hardware/stl/brazo/hombrera.stl"/>
-      </geometry>
-      <material name="golden_shoulder"><color rgba="0.9 0.75 0.25 1"/></material>
-     </visual>
+<link name="shoulders_link">
+  <visual>
+    <origin xyz= "0.0 0.02 0.0" rpy="-0.45 0.15 -1.5707"/>
+    <geometry>
+      <mesh filename="package://knowledge/hardware/stl/brazo/hombrera.stl"/>
+    </geometry>
+    <material name="golden"><color rgba="0.8 0.7 0.3 1"/></material>
+  </visual>
 
-     <!--Shoulder arm -->
-     <visual>
-      <origin xyz="0.0 0.028 0.42" rpy="-0.6 0.2 -1.5707"/>
-      <geometry> 
-        <mesh filename="package://knowledge/hardware/stl/brazo/hombrera.stl"/>
-      </geometry>
-      <material name="golden_shoulder"><color rgba="0.9 0.75 0.25 1"/></material>
-    </visual>
-    
-  </link>
+  <visual>
+    <origin xyz= "0.0 -0.02 0.0" rpy="-0.45 0.15 1.5707"/>
+    <geometry>
+      <mesh filename="package://knowledge/hardware/stl/brazo/hombrera.stl"/>
+    </geometry>
+    <material name="golden"><color rgba="0.8 0.8 0.2 1"/></material>
+  </visual>
+  
+</link>
 
+<joint name="torso_connect" type="fixed">
+  <origin xyz= "0.0 0 0.90" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="torso_link"/>
+</joint>
 
-  <joint name="base_torso_connect" type="fixed">
-    <origin xyz="0.0 0.0 0.8" rpy="0.0 0.0 0.0"/>
-    <parent link="base_link"/>
-    <child link="torso_link"/>
-  </joint>
+<joint name="spine_connect" type="prismatic">
+  <origin xyz= "0.0 0 0.09" rpy="0 0 0"/>
+  <parent link="torso_link"/>
+  <child link="spine_link"/>
+  <limit effort="0.0" lower="0.0" upper="0" velocity="0.0"/>
+  <axis xyz="0 0 1" />
+</joint>
 
+<joint name="shoulders_connect" type="fixed">
+  <origin xyz= "0.0 0 0.35" rpy="0 0 0"/>
+  <parent link="spine_link"/>
+  <child link="shoulders_link"/>
+</joint>
 
 <!--
 ########################################
