@@ -112,16 +112,16 @@ int main(int argc, char** argv)
     
     // Data request in format [x, y, z, roll, pitch, yaw, elbow]
     cartesian.push_back( 0.25);
-    cartesian.push_back(-0.22);
-    cartesian.push_back( 0.85);
+    cartesian.push_back(-0.26);
+    cartesian.push_back( 0.95);
     // Angles rotation
     cartesian.push_back(0.0);
-    cartesian.push_back(0.0);
+    cartesian.push_back(1.5707);
     cartesian.push_back(1.5707);
     // Elbow angle
     cartesian.push_back(0.0);
       
-    q.setRPY(cartesian[3], cartesian[4], cartesian[5]);
+    q.setRPY(cartesian[3], cartesian[4]-1.5707, cartesian[5]);
     R5_EE.setIdentity();
     R5_EE.setRotation(q);
     

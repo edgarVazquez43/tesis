@@ -8,7 +8,9 @@ class InverseKinematics
 {
 public:
     static bool GetInverseKinematics(std::vector<float>& cartesian, std::vector<float>& articular);
+    static bool GetInverseKinematics_e(std::vector<float>& cartesian, std::vector<float>& articular);
     static bool GetInverseKinematics(float x, float y, float z, float roll, float pitch, float yaw, std::vector<float>& articular);
+    static bool GetInverseKinematics(float x, float y, float z, float rolll, float pitch, float yaw, float elbowAngle, std::vector<float>& articular);
     static bool GetInverseKinematics(float x, float y, float z, std::vector<float>& articular);
     static bool GetDirectKinematics(std::vector<float>& articular, std::vector<float>& cartesian);
 };

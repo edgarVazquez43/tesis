@@ -35,8 +35,9 @@ bool callbackInverseKinematicsFloatArray( manip_msgs::InverseKinematicsFloatArra
 
     if (req.cartesian_pose.data.size() == 7 )
     {
-        InverseKinematics::GetInverseKinematics(req.cartesian_pose.data, resp.articular_pose.data);
-        return true ;
+      //InverseKinematics::GetInverseKinematics_e(req.cartesian_pose.data, resp.articular_pose.data);
+      InverseKinematics::GetInverseKinematics(req.cartesian_pose.data, resp.articular_pose.data);
+      return true ;
     }
     else
       {
