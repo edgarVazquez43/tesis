@@ -1,29 +1,39 @@
 <launch>
-    <!--
-    <param name="robot_description" command="cat $(find knowledge)/hardware/manipulator_DH.xml" />
-    -->
-    <param name="robot_description" command="cat $(find knowledge)/hardware/manipulator.xml" />
-    <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher"/>
-    <node name="obj_angle_calc" pkg="obj_angle_calc" type="obj_angle_calc_node" output="screen"/>
-    <group ns="hardware">
-        <node name="left_arm" pkg="arms" type="left_arm_simul_node.py" output="screen"/>
-        <!-- <node name="right_arm" pkg="arms" type="right_arm_woT.py" args="__port1 /dev/justinaRightArm __baud1 200000" output="screen"/> -->
-        <node name="right_arm" pkg="arms" type="right_arm_simul_node.py"  output="screen"/>
-        <node name="head" pkg="head" type="head_simul_node.py" output="screen"/>
-	 <node name="torso" pkg="torso" type="torso_node.py" output="screen" args="--simul"/>
-	
-	<node name="point_cloud_man" pkg="kinect_man" type="kinect_man_node" output="screen" args=" -- defpath $(find knowledge)/hardware/point_clouds/"/>
-	
+  <param name="robot_description" command="cat $(find knowledge)/hardware/manipulator.xml" />
+  <param name="robot_description_semantic" textfile="$(find knowledge)/justina_moveit_config/config/7DOF_manipulator.srdf" />
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher"/>
+  
+  <node name="obj_angle_calc" pkg="obj_angle_calc" type="obj_angle_calc_node" output="screen"/>
 
-	<!--       
-	<node name="kinect_man" pkg="kinect_man" type="kinect_man_node" output="screen" args=" __ bag $(find kinect_man)/videos/example.bag"/>
-	-->
-	</group>
-    <group ns="hri">
-        <node name="rviz" pkg="rviz" type="rviz" args="-d $(find knowledge)/hri/rviz_config.rviz"/>
-    </group>
-    <group ns="manipulation">
-        <node name="ik_geometric" pkg="ik_geometric" type="ik_geometric_node" output="screen"/>
-        <node name="manip_pln" pkg="manip_pln" type="manip_pln_node" output="screen" args="-f $(find knowledge)/manipulation/predef_poses/"/>
-    </group>
+  <group ns="hardware">
+    <node name="left_arm" pkg="arms" type="left_arm_simul_node.py" output="screen"/>
+    <!-- <node name="right_arm" pkg="arms" type="right_arm_woT.py" args="__port1 /dev/justinaRightArm __baud1 200000" output="screen"/> -->
+    <node name="right_arm" pkg="arms" type="right_arm_simul_node.py"  output="screen"/>
+    <node name="head" pkg="head" type="head_simul_node.py" output="screen"/>
+    <node name="torso" pkg="torso" type="torso_node.py" output="screen" args="--simul"/>
+    
+    <node name="point_cloud_man" pkg="kinect_man" type="kinect_man_node" output="screen" args=" -- defpath $(find knowledge)/hardware/point_clouds/"/>
+    
+
+    <!--       
+	 <node name="kinect_man" pkg="kinect_man" type="kinect_man_node" output="screen" args=" __ bag $(find kinect_man)/videos/example.bag"/>
+    -->
+  </group>
+  
+  <group ns="hri">
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find knowledge)/hri/rviz_config.rviz"/>
+  </group>
+
+  <group ns="manipulation">
+    <node name="ik_geometric" pkg="ik_geometric" type="ik_geometric_node" output="screen"/>
+    <node name="manip_pln" pkg="manip_pln" type="manip_pln_node" output="screen" args="-f $(find knowledge)/manipulation/predef_poses/"/>
+  </group>
+
+  
+  <group ns="control">
+    <rosparam command="load" file="$(find knowledge)/justina_moveit_config/config/kinematics.yaml"/>
+    <node name="ik_moveit" pkg="ik_moveit" type="ik_moveit_node" output="screen"/>
+  </group>
+
+  
 </launch>
