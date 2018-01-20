@@ -21,6 +21,8 @@ bool dk_right_arm(std::vector<double> pose)
   ROS_INFO_STREAM("->  RIGHT ARM GRIPPER CENTER POSITION  -----------");
   ROS_INFO_STREAM("Translation: " << end_effector_state.translation());
   ROS_INFO_STREAM("Rotation: " << end_effector_state.rotation());
+  Eigen::Vector3d euler = end_effector_state.rotation().eulerAngles(2,1,2);
+  std::cout << "Euler angles: " << euler[0]<< "  " << euler[1]<< "  " << euler[2] << std::endl;
   
   return true;
 }
@@ -73,9 +75,9 @@ int main(int argc, char** argv)
   // DIRECT KINEMATIC
   std::vector<double> joint_values_ra;
   joint_values_ra.resize(7);
-  joint_values_ra[0] = -0.8;
-  joint_values_ra[2] =  0.8;
-  joint_values_ra[5] = -0.8;
+  joint_values_ra[0] = 0.0;
+  joint_values_ra[2] = 0.0;
+  joint_values_ra[5] = 0.0;
    
   std::vector<double> joint_values_la;
   joint_values_la.resize(7);
@@ -84,9 +86,9 @@ int main(int argc, char** argv)
   joint_values_la[5] = -0.8;
 
   
-  dk_right_arm(joint_values_ra);
-  dk_left_arm(joint_values_la);
-  
+  // dk_right_arm(joint_values_ra);
+  // dk_left_arm(joint_values_la);
+ 
   // END --- DIRECT KINEMATIC
 
 
@@ -109,14 +111,49 @@ int main(int argc, char** argv)
   // {
   //   ROS_INFO("Joint %s: %f", joint_name[i].c_str(), joint_values[i]);
   // }
+  Eigen::Affine3d end_effector_state = kinematic_state->getGlobalLinkTransform("ra_link_grip_center");
+  end_effector_state.translate(Eigen::Vector3d(0.0, -0.225024, 0.58));
+  
+  Eigen::Affine3d desired_pose = Eigen::Affine3d::Identity();
+  desired_pose.translate(Eigen::Vector3d(0.0, -0.225024, 0.60));
+  desired_pose.rotate(Eigen::AngleAxisd(0.0 ,   Eigen::Vector3d(0,0,1)));   //yaw
+  desired_pose.rotate(Eigen::AngleAxisd(1.5707 ,   Eigen::Vector3d(0,1,0)));   //pitch
+  desired_pose.rotate(Eigen::AngleAxisd(-1.5707 ,   Eigen::Vector3d(0,0,1)));   //roll
 
-  // bool found_ik = kinematic_state->setFromIK(joint_group_rightArm, en);
+
+  bool found_ik;
+  std::vector<double> result;
+  
   
   ros::Rate loop(10);
   
   while(ros::ok())
   {
     ros::spinOnce();
+    std::cout << "----- Direct kinematic ------" << std::endl;
+    dk_right_arm(joint_values_ra);
+    std::cout << "   " << std::endl;
+    ROS_INFO_STREAM("Translation: " << desired_pose.translation());
+    ROS_INFO_STREAM("Rotation: " << desired_pose.rotation());
+    std::cout << "   " << std::endl;
+    
+    std::cout << "----- Inverse kinematic------" << std::endl;
+    
+    found_ik = kinematic_state->setFromIK(joint_group_rightArm, end_effector_state, "ra_link_grip_center",5, 0.1);
+  
+    if (found_ik)
+      {
+	kinematic_state->copyJointGroupPositions(joint_group_rightArm, result);
+	for (std::size_t i = 0; i < result.size(); ++i)
+	  {
+	    ROS_INFO("Joint: %f", result[i]);
+	  }
+      }
+    else
+      {
+	ROS_INFO("Did not find IK solution");
+      }
+    std::cout << "   " << std::endl;
     loop.sleep();
   }
   

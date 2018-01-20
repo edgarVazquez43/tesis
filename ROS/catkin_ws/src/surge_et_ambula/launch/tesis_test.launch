@@ -12,7 +12,7 @@
     <node name="head" pkg="head" type="head_simul_node.py" output="screen"/>
     <node name="torso" pkg="torso" type="torso_node.py" output="screen" args="--simul"/>
     
-    <node name="point_cloud_man" pkg="kinect_man" type="kinect_man_node" output="screen" args=" -- defpath $(find knowledge)/hardware/point_clouds/"/>
+    <!-- <node name="point_cloud_man" pkg="kinect_man" type="kinect_man_node" output="screen" args=" __ defpath $(find knowledge)/hardware/point_clouds/"/> -->
     
 
     <!--       
@@ -30,10 +30,10 @@
   </group>
 
   
-  <group ns="control">
-    <rosparam command="load" file="$(find knowledge)/justina_moveit_config/config/kinematics.yaml"/>
-    <node name="ik_moveit" pkg="ik_moveit" type="ik_moveit_node" output="screen"/>
-  </group>
+  <!-- <group ns="control"> -->
+  <!--   <rosparam command="load" file="$(find knowledge)/justina_moveit_config/config/kinematics.yaml"/> -->
+  <!--   <node name="ik_moveit" pkg="ik_moveit" type="ik_moveit_node" output="screen"/> -->
+  <!-- </group> -->
 
   
 </launch>
