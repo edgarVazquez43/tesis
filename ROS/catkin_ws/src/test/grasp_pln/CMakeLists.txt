@@ -235,6 +235,19 @@ target_link_libraries(workspace_features
 
 add_dependencies(workspace_features ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
+##### DIRECT_KINEMATIC TEST  #####
+add_executable(direct_kinematic_test
+  src/direct_kinematics.cpp
+)
+
+target_link_libraries(direct_kinematic_test
+  ${catkin_LIBRARIES}
+)
+
+add_dependencies(direct_kinematic_test
+  ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+
 ##### INVERSE_KINEMATIC TEST  #####
 add_executable(inverse_kinematic_test
   src/inverse_kinematic.cpp

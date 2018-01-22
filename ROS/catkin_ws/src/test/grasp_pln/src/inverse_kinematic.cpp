@@ -9,6 +9,7 @@
 #include <visualization_msgs/Marker.h>
 #include "std_msgs/Float32MultiArray.h"
 #include "manip_msgs/InverseKinematicsFloatArray.h"
+#include "manip_msgs/DirectKinematicsFloatArray.h"
 
 visualization_msgs::Marker vertix_marker, wristCenter;
 

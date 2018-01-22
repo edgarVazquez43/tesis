@@ -13,6 +13,7 @@ find_package(catkin REQUIRED COMPONENTS
 add_service_files(
   FILES
   InverseKinematicsFloatArray.srv
+  DirectKinematicsFloatArray.srv
   InverseKinematicsPath.srv
   InverseKinematicsPose.srv
   DirectKinematics.srv
