@@ -202,12 +202,12 @@ bool callbackLeftArmIK(manip_msgs::InverseKinematicsFloatArray::Request &req,
 
   std::cout << "Trying to calculate inverse kinematic.... " << std::endl;
 
-  found_ik = kinematic_state->setFromIK(joint_group_rightArm, desired_pose, "la_link_grip_center", 10, 0.5);
+  found_ik = kinematic_state->setFromIK(joint_group_leftArm, desired_pose, "la_link_grip_center", 10, 0.5);
 
   if (found_ik)
   {
     resp.articular_pose.data.resize(7);
-    kinematic_state->copyJointGroupPositions(joint_group_rightArm, result);
+    kinematic_state->copyJointGroupPositions(joint_group_leftArm, result);
     for (std::size_t i = 0; i < result.size(); ++i)
     {
       ROS_INFO("Joint: %f", result[i]);
@@ -246,18 +246,19 @@ int main(int argc, char** argv)
   // Create a kinematic_state
   kinematic_state = robot_state::RobotStatePtr( new robot_state::RobotState(kinematic_model) );
   joint_group_rightArm = kinematic_model->getJointModelGroup("right_arm");
-  // joint_group_leftArm = kinematic_model->getJointModelGroup("left_arm");
+  joint_group_leftArm = kinematic_model->getJointModelGroup("left_arm");
   joint_names_rightArm = joint_group_rightArm->getVariableNames();
-  // joint_names_leftArm = joint_group_leftArm->getVariableNames();
+  joint_names_leftArm = joint_group_leftArm->getVariableNames();
   
 
   /*
       **** CODE FOR TESTING INVERSE KINEMATIC  ****
    */
-  
+  // bool found_ik;
+  // std::vector<double> result;
   // Eigen::Affine3d desired_pose = Eigen::Affine3d::Identity();
 
-  // desired_pose.translation() = Eigen::Vector3d(0.20, -0.225, 0.54);
+  // desired_pose.translation() = Eigen::Vector3d(0.0, 0.225, 0.94);
   // desired_pose.rotate(Eigen::AngleAxisd(0.0 ,   Eigen::Vector3d(0,0,1)));      // yaw
   // desired_pose.rotate(Eigen::AngleAxisd(0.0 ,   Eigen::Vector3d(0,1,0)));   // pitch
   // desired_pose.rotate(Eigen::AngleAxisd(0.0 ,   Eigen::Vector3d(1,0,0)));  // roll
@@ -267,20 +268,14 @@ int main(int argc, char** argv)
   // ROS_INFO_STREAM("Translation: " << desired_pose.translation());
   // ROS_INFO_STREAM("Rotation: " << desired_pose.rotation());
 
-  
-  // bool found_ik;
-  // std::vector<double> result;
-  
 
   ros::Rate loop(10);
   
   while(ros::ok())
   {
-    ros::spinOnce();
-
     
     // std::cout << "----- Inverse kinematic------" << std::endl;
-    // found_ik = kinematic_state->setFromIK(joint_group_rightArm, desired_pose, "ra_link_grip_center", 5, 0.1);
+    // found_ik = kinematic_state->setFromIK(joint_group_leftArm, desired_pose, "la_link_grip_center", 5, 0.1);
 
     // if (found_ik)
     // {
@@ -296,6 +291,7 @@ int main(int argc, char** argv)
     // }
     // std::cout << "   " << std::endl; 
     
+    ros::spinOnce();
     loop.sleep();
   }
   
