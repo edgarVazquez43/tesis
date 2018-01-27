@@ -35,8 +35,8 @@ bool markerSetup()
 int main(int argc, char** argv)
 {
   std::cout << std::endl;
-  std::cout << "----> INITIALIZING A DIRECT KINEMATIC TEST BY EDGAR-II..." << std::endl;
-  ros::init(argc, argv, "DK_test_MoveIt");
+  std::cout << "----> INITIALIZING INVERSE KINEMATIC TEST BY EDGAR-II..." << std::endl;
+  ros::init(argc, argv, "IK_test_MoveIt");
   ros::NodeHandle n;
   ros::Publisher marker_pub;
   ros::Publisher right_arm_goal_pose_pub;
@@ -72,8 +72,8 @@ int main(int argc, char** argv)
 
   // Data request to Inverse Kinematic
   cartesian.push_back( 0.15);   // X-axis respect robot
-  cartesian.push_back(-0.225);   // Y-axis respect robot     
-  cartesian.push_back(0.90);     // Z-axis respect robot
+  cartesian.push_back( 0.225);   // Y-axis respect robot     
+  cartesian.push_back( 0.90);     // Z-axis respect robot
   
   cartesian.push_back(0.5);      // yaw
   cartesian.push_back(-1.57);      // pitch
@@ -99,7 +99,7 @@ int main(int argc, char** argv)
       marker_pub.publish(endEffector_marker);
       ros::spinOnce();
       
-      if(!cltIKinematicsRA.call(srv_ki))
+      if(!cltIKinematicsLA.call(srv_ki))
         {
 	  std::cout << std::endl <<
 	    "Justina::Manip can't calling inverse kinematics service" << std::endl << std::endl;
@@ -114,7 +114,7 @@ int main(int argc, char** argv)
 	      ra_gp_msgs.data[i] = srv_ki.response.articular_pose.data[i];
 	    }
 
-	  right_arm_goal_pose_pub.publish(ra_gp_msgs);
+	  left_arm_goal_pose_pub.publish(ra_gp_msgs);
 	}
 
       
