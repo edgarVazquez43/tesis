@@ -1,6 +1,7 @@
 <launch>
+  <!-- <param name="robot_description" command="cat $(find knowledge)/hardware/manipulatorMoveIt.xml" /> -->
   <param name="robot_description" command="cat $(find knowledge)/hardware/manipulator.xml" />
-  <param name="robot_description_semantic" textfile="$(find knowledge)/j_config3/config/7DOF_manipulator.srdf" />
+  <param name="robot_description_semantic" textfile="$(find rightArm_config)/config/7DOF_manipulator.srdf" />
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher"/>
   
   <node name="obj_angle_calc" pkg="obj_angle_calc" type="obj_angle_calc_node" output="screen"/>
@@ -27,11 +28,14 @@
   <group ns="manipulation">
     <node name="ik_geometric" pkg="ik_geometric" type="ik_geometric_node" output="screen"/>
     <node name="manip_pln" pkg="manip_pln" type="manip_pln_node" output="screen" args="-f $(find knowledge)/manipulation/predef_poses/"/>
+
+    <rosparam command="load" file="$(find rightArm_config)/config/kinematics.yaml"/>
+    <node name="ik_moveit" pkg="ik_moveit" type="ik_moveit_node" output="screen"/>
   </group>
 
   
   <!-- <group ns="control"> -->
-  <!--   <rosparam command="load" file="$(find knowledge)/justina_moveit_config/config/kinematics.yaml"/> -->
+  <!--   <rosparam command="load" file="$(find rightArm_config)/config/kinematics.yaml"/> -->
   <!--   <node name="ik_moveit" pkg="ik_moveit" type="ik_moveit_node" output="screen"/> -->
   <!-- </group> -->
 

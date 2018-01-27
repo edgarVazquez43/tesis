@@ -234,7 +234,7 @@
     <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
     <parent link="base_ra_arm"/>
     <child link="ra_link0"/>
-    <limit effort="0.0" lower="0.0" upper="0" velocity="0.0"/>
+    <limit effort="1000.0" lower="-1.570795" upper="1.570795" velocity="0.5"/>
     <axis xyz="0 0 1"/>
   </joint>
 
@@ -242,7 +242,7 @@
     <origin xyz="0.064 0.0 0.0" rpy="1.5707 0.0 0.0"/>
     <parent link="ra_link0"/>
     <child link="ra_link1"/>
-    <limit effort="0.0" lower="0.0" upper="0" velocity="0.0"/>
+    <limit effort="1000.0" lower="-1.570795" upper="1.570795" velocity="0.5"/>
     <axis xyz="0 0 1"/>
   </joint>
 
@@ -250,7 +250,7 @@
     <origin xyz="0.21  0.0  0.0" rpy="0.0 1.5707 0.0"/>
     <parent link="ra_link1"/>
     <child link="ra_link2"/>
-    <limit effort="0.0" lower="0.0" upper="0" velocity="0.0"/>
+    <limit effort="1000.0" lower="-1.570795" upper="1.570795" velocity="0.5"/>
     <axis xyz="0 0 1"/>
   </joint>
 
@@ -258,7 +258,7 @@
     <origin xyz="0.0 0.0 0.06" rpy="-1.5707 -1.5707 0.0"/>
     <parent link="ra_link2"/>
     <child link="ra_link3"/>
-    <limit effort="0.0" lower="0.0" upper="0" velocity="0.0"/>
+    <limit effort="1000.0" lower="-1.570795" upper="1.570795" velocity="0.5"/>
     <axis xyz="0 0 1"/>
   </joint>
 
@@ -266,7 +266,7 @@
     <origin xyz="0.18 0.0 0.0" rpy="1.5707 0.0 1.5707"/>
     <parent link="ra_link3"/>
     <child link="ra_link4"/>
-    <limit effort="0.0" lower="0.0" upper="0" velocity="0.0"/>
+    <limit effort="1000.0" lower="-1.570795" upper="1.570795" velocity="0.5"/>
     <axis xyz="0 0 1"/>
   </joint>
 
@@ -274,7 +274,7 @@
     <origin xyz="0.0 0.0 0.036" rpy="-1.5707 -1.5707 0.0"/>
     <parent link="ra_link4"/>
     <child link="ra_link5"/>
-    <limit effort="0.0" lower="0.0" upper="0" velocity="0.0"/>
+    <limit effort="1000.0" lower="-1.570795" upper="1.570795" velocity="0.5"/>
     <axis xyz="0 0 1"/>
   </joint>
 
@@ -282,7 +282,7 @@
     <origin xyz="0.095 0.0 0.0" rpy="1.5707 0.0 1.5707"/>
     <parent link="ra_link5"/>
     <child link="ra_link6"/>
-    <limit effort="0.0" lower="0.0" upper="0" velocity="0.0"/>
+    <limit effort="1000.0" lower="-1.570795" upper="1.570795" velocity="0.5"/>
     <axis xyz="0 0 1"/>
   </joint>
 
@@ -290,7 +290,7 @@
     <origin xyz="0.0 0.045 0.0155" rpy="3.141593 -1.570796 3.141592"/>
     <parent link="ra_link6"/>
     <child link="ra_link7"/>
-    <limit effort="0.0" lower="0.0" upper="0" velocity="0.0"/>
+    <limit effort="1000.0" lower="-1.570795" upper="1.570795" velocity="0.5"/>
     <axis xyz="0 0 1"/>
   </joint>
 
@@ -298,7 +298,7 @@
     <origin xyz="0.0 -0.045 0.0155" rpy="1.5707 0.0 1.5707"/>
     <parent link="ra_link6"/>
     <child link="ra_link8"/>
-    <limit effort="0.0" lower="0.0" upper="0" velocity="0.0"/>
+    <limit effort="1000.0" lower="-1.570795" upper="1.570795" velocity="0.5"/>
     <axis xyz="0 0 1"/>
   </joint>
 
@@ -450,7 +450,7 @@
   </link>
 
   <!--
-      ########  Right arm joint description   ###########    
+      ########  Left arm joint description   ###########    
   -->
 
   <joint name="la_base_joint" type="fixed">
@@ -463,7 +463,7 @@
     <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
     <parent link="base_la_arm"/>
     <child link="la_link0"/>
-    <limit effort="0.0" lower="0.0" upper="0" velocity="0.0"/>
+    <limit effort="1000.0" lower="-1.570795" upper="1.570795" velocity="0.5"/>
     <axis xyz="0 0 1"/>
   </joint>
 
@@ -471,7 +471,7 @@
     <origin xyz="0.064 0.0 0.0" rpy="1.5707 0.0 0.0"/>
     <parent link="la_link0"/>
     <child link="la_link1"/>
-    <limit effort="0.0" lower="0.0" upper="0" velocity="0.0"/>
+    <limit effort="1000.0" lower="-1.570795" upper="1.570795" velocity="0.5"/>
     <axis xyz="0 0 1"/>
   </joint>
 
@@ -479,7 +479,7 @@
     <origin xyz="0.21  0.0  0.0" rpy="0.0 1.5707 0.0"/>
     <parent link="la_link1"/>
     <child link="la_link2"/>
-    <limit effort="0.0" lower="0.0" upper="0" velocity="0.0"/>
+    <limit effort="1000.0" lower="-1.570795" upper="1.570795" velocity="0.5"/>
     <axis xyz="0 0 1"/>
   </joint>
 
@@ -487,7 +487,7 @@
     <origin xyz="0.0 0.0 0.06" rpy="-1.5707 -1.5707 0.0"/>
     <parent link="la_link2"/>
     <child link="la_link3"/>
-    <limit effort="0.0" lower="0.0" upper="0" velocity="0.0"/>
+    <limit effort="1000.0" lower="-1.570795" upper="1.570795" velocity="0.5"/>
     <axis xyz="0 0 1"/>
   </joint>
 
@@ -495,7 +495,7 @@
     <origin xyz="0.18 0.0 0.0" rpy="1.5707 0.0 1.5707"/>
     <parent link="la_link3"/>
     <child link="la_link4"/>
-    <limit effort="0.0" lower="0.0" upper="0" velocity="0.0"/>
+    <limit effort="1000.0" lower="-1.570795" upper="1.570795" velocity="0.5"/>
     <axis xyz="0 0 1"/>
   </joint>
 
@@ -503,7 +503,7 @@
     <origin xyz="0.0 0.0 0.036" rpy="-1.5707 -1.5707 0.0"/>
     <parent link="la_link4"/>
     <child link="la_link5"/>
-    <limit effort="0.0" lower="0.0" upper="0" velocity="0.0"/>
+    <limit effort="1000.0" lower="-1.570795" upper="1.570795" velocity="0.5"/>
     <axis xyz="0 0 1"/>
   </joint>
 
@@ -511,7 +511,7 @@
     <origin xyz="0.095 0.0 0.0" rpy="1.5707 0.0 1.5707"/>
     <parent link="la_link5"/>
     <child link="la_link6"/>
-    <limit effort="0.0" lower="0.0" upper="0" velocity="0.0"/>
+    <limit effort="1000.0" lower="-1.570795" upper="1.570795" velocity="0.5"/>
     <axis xyz="0 0 1"/>
   </joint>
 
@@ -519,7 +519,7 @@
     <origin xyz="0.0 0.045 0.0155" rpy="3.141593 -1.570796 3.141592"/>
     <parent link="la_link6"/>
     <child link="la_link7"/>
-    <limit effort="0.0" lower="0.0" upper="0" velocity="0.0"/>
+    <limit effort="1000.0" lower="-1.570795" upper="1.570795" velocity="0.5"/>
     <axis xyz="0 0 1"/>
   </joint>
 
@@ -527,7 +527,7 @@
     <origin xyz="0.0 -0.045 0.0155" rpy="1.5707 0.0 1.5707"/>
     <parent link="la_link6"/>
     <child link="la_link8"/>
-    <limit effort="0.0" lower="0.0" upper="0" velocity="0.0"/>
+    <limit effort="1000.0" lower="-1.570795" upper="1.570795" velocity="0.5"/>
     <axis xyz="0 0 1"/>
   </joint>
 

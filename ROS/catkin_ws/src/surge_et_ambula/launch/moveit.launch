@@ -1,6 +1,6 @@
 <launch> 
   <group ns="control">
-    <rosparam command="load" file="$(find knowledge)/j_config3/config/kinematics.yaml"/>
+    <rosparam command="load" file="$(find rightArm_config)/config/kinematics.yaml"/>
     <node name="ik_moveit" pkg="ik_moveit" type="ik_moveit_node" output="screen"/>
   </group>
 </launch>

@@ -120,8 +120,8 @@ int main(int argc, char** argv)
 
     
 
-    cltDKinematicsLA = n.serviceClient<manip_msgs::DirectKinematicsFloatArray>("/control/ik_moveit/la_direct_kinematics");
-    cltDKinematicsRA = n.serviceClient<manip_msgs::DirectKinematicsFloatArray>("/control/ik_moveit/ra_direct_kinematics");
+    cltDKinematicsLA = n.serviceClient<manip_msgs::DirectKinematicsFloatArray>("/manipulation/ik_moveit/la_direct_kinematics");
+    cltDKinematicsRA = n.serviceClient<manip_msgs::DirectKinematicsFloatArray>("/manipulation/ik_moveit/ra_direct_kinematics");
 
     marker_pub = n.advertise<visualization_msgs::Marker>("visualization_marker", 10);
 
