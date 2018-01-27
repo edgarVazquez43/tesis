@@ -1,0 +1,10 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: knowledge
+    relative_path: hardware/manipulatorsMoveIt.xml
+  SRDF:
+    relative_path: config/7DOF_manipulator.srdf
+  CONFIG:
+    author_name: Edd-II
+    author_email: edgarvazquez1403@gmail.com
+    generated_timestamp: 1517090234
