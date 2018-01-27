@@ -1,12 +1,12 @@
 <package>
 
-  <name>justina_moveit_config</name>
+  <name>j_config3</name>
   <version>0.3.0</version>
   <description>
      An automatically generated package with all the configuration and launch files for using the 7DOF_manipulator with the MoveIt! Motion Planning Framework
   </description>
-  <author email="edgarvazquez1403@gmail.com">EDD2  PUMAS TEAM</author>
-  <maintainer email="edgarvazquez1403@gmail.com">EDD2  PUMAS TEAM</maintainer>
+  <author email="edgarvazquez1403@gmail.com">Edd-II</author>
+  <maintainer email="edgarvazquez1403@gmail.com">Edd-II</maintainer>
 
   <license>BSD</license>
 

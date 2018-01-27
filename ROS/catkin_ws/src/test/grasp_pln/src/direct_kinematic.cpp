@@ -5,7 +5,6 @@
 #include <visualization_msgs/Marker.h>
 #include "vision_msgs/DetectObjects.h"
 #include "manip_msgs/DirectKinematicsFloatArray.h"
-#include "manip_msgs/InverseKinematicsFloatArray.h"
 
 visualization_msgs::Marker endEffector_marker;
 visualization_msgs::Marker centroid_marker, axis_list_marker;
@@ -157,30 +156,7 @@ int main(int argc, char** argv)
 	    for (int i=0; i < 7; i++)
 	      std::cout << "   " << srv_kd.response.cartesian_pose.data[i] << std::endl;
 
-	    // Transform point respect arm frame ----> robot frame
-	    // try
-	    // { 
-	    //   listener.lookupTransform("/base_ra_arm", "/base_link", ros::Time(0), transform);
-	    // }
-	    // catch (tf::TransformException &ex)
-	    // {
-	    //   ROS_ERROR("%s", ex.what());
-	    //   ros::Duration(1.0).sleep();
-	    // }
-	    
-            // tf::Vector3 v(srv_kd.response.cartesian_pose.data[0],
-	    // 		  srv_kd.response.cartesian_pose.data[1],
-	    // 		  srv_kd.response.cartesian_pose.data[2]);
-            // v = transform * v;
-
-            // std::cout << "respect robot" << std::endl;
-            // std::cout << "    x = " << v.x() << std::endl;
-            // std::cout << "    y = " << v.y() << std::endl;
-            // std::cout << "    z = " << v.z() << std::endl;
-            // endEffector_pose.position.x = v.x();
-            // endEffector_pose.position.y = v.y();
-            // endEffector_pose.position.z = v.z();
-
+	    // Response data is already respect to base_link frame
 	    endEffector_pose.position.x = srv_kd.response.cartesian_pose.data[0];
             endEffector_pose.position.y = srv_kd.response.cartesian_pose.data[1];
             endEffector_pose.position.z = srv_kd.response.cartesian_pose.data[2];

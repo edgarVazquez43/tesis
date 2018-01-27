@@ -1,6 +1,6 @@
 <launch>
   <param name="robot_description" command="cat $(find knowledge)/hardware/manipulator.xml" />
-  <param name="robot_description_semantic" textfile="$(find knowledge)/justina_moveit_config/config/7DOF_manipulator.srdf" />
+  <param name="robot_description_semantic" textfile="$(find knowledge)/j_config3/config/7DOF_manipulator.srdf" />
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher"/>
   
   <node name="obj_angle_calc" pkg="obj_angle_calc" type="obj_angle_calc_node" output="screen"/>

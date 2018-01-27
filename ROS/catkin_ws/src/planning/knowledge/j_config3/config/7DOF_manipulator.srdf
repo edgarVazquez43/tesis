@@ -18,6 +18,7 @@
         <joint name="ra_5_joint" />
         <joint name="ra_6_joint" />
         <joint name="ra_7_joint" />
+        <joint name="ra_grip_center" />
     </group>
     <group name="left_arm">
         <joint name="la_base_joint" />
@@ -28,39 +29,11 @@
         <joint name="la_5_joint" />
         <joint name="la_6_joint" />
         <joint name="la_7_joint" />
+        <joint name="la_grip_center" />
     </group>
-    <group name="right_gripper">
-        <link name="ra_link_grip_center" />
-        <link name="ra_link8" />
-        <link name="ra_link7" />
-    </group>
-    <group name="left_gripper">
-        <link name="la_link_grip_center" />
-        <link name="la_link8" />
-        <link name="la_link7" />
-    </group>
-    <!--GROUP STATES: Purpose: Define a named state for a particular group, in terms of joint values. This is useful to define states like 'folded arms'-->
-    <group_state name="ra_home" group="right_arm">
-        <joint name="ra_1_joint" value="0" />
-        <joint name="ra_2_joint" value="0" />
-        <joint name="ra_3_joint" value="0" />
-        <joint name="ra_4_joint" value="0" />
-        <joint name="ra_5_joint" value="0" />
-        <joint name="ra_6_joint" value="0" />
-        <joint name="ra_7_joint" value="0" />
-    </group_state>
-    <group_state name="la_home" group="left_arm">
-        <joint name="la_1_joint" value="0" />
-        <joint name="la_2_joint" value="0" />
-        <joint name="la_3_joint" value="0" />
-        <joint name="la_4_joint" value="0" />
-        <joint name="la_5_joint" value="0" />
-        <joint name="la_6_joint" value="0" />
-        <joint name="la_7_joint" value="0" />
-    </group_state>
     <!--END EFFECTOR: Purpose: Represent information about an end effector.-->
-    <end_effector name="right_eef" parent_link="ra_link6" group="right_arm" />
-    <end_effector name="left_eef" parent_link="la_link6" group="left_arm" />
+    <end_effector name="right_gripper" parent_link="base_ra_arm" group="right_arm" parent_group="right_arm" />
+    <end_effector name="left_gripper" parent_link="base_la_arm" group="left_arm" parent_group="left_arm" />
     <!--VIRTUAL JOINT: Purpose: this element defines a virtual joint between a robot link and an external frame of reference (considered fixed with respect to the robot)-->
     <virtual_joint name="virtual_joint" type="planar" parent_frame="odom" child_link="base_link" />
     <!--DISABLE COLLISIONS: By default it is assumed that any link of the robot could potentially come into collision with any other link in the robot. This tag disables collision checking between a specified pair of links. -->
@@ -83,11 +56,6 @@
     <disable_collisions link1="base_la_arm" link2="ra_link0" reason="Never" />
     <disable_collisions link1="base_la_arm" link2="ra_link1" reason="Never" />
     <disable_collisions link1="base_la_arm" link2="ra_link2" reason="Never" />
-    <disable_collisions link1="base_la_arm" link2="ra_link3" reason="Never" />
-    <disable_collisions link1="base_la_arm" link2="ra_link5" reason="Never" />
-    <disable_collisions link1="base_la_arm" link2="ra_link6" reason="Never" />
-    <disable_collisions link1="base_la_arm" link2="ra_link7" reason="Never" />
-    <disable_collisions link1="base_la_arm" link2="ra_link8" reason="Never" />
     <disable_collisions link1="base_la_arm" link2="ra_link_grip_center" reason="Never" />
     <disable_collisions link1="base_la_arm" link2="shoulders_link" reason="Never" />
     <disable_collisions link1="base_la_arm" link2="spine_link" reason="Never" />
@@ -127,11 +95,6 @@
     <disable_collisions link1="base_ra_arm" link2="la_link0" reason="Never" />
     <disable_collisions link1="base_ra_arm" link2="la_link1" reason="Never" />
     <disable_collisions link1="base_ra_arm" link2="la_link2" reason="Never" />
-    <disable_collisions link1="base_ra_arm" link2="la_link3" reason="Never" />
-    <disable_collisions link1="base_ra_arm" link2="la_link5" reason="Never" />
-    <disable_collisions link1="base_ra_arm" link2="la_link6" reason="Never" />
-    <disable_collisions link1="base_ra_arm" link2="la_link7" reason="Never" />
-    <disable_collisions link1="base_ra_arm" link2="la_link8" reason="Never" />
     <disable_collisions link1="base_ra_arm" link2="la_link_grip_center" reason="Never" />
     <disable_collisions link1="base_ra_arm" link2="ra_link0" reason="Adjacent" />
     <disable_collisions link1="base_ra_arm" link2="ra_link1" reason="Never" />
@@ -153,19 +116,11 @@
     <disable_collisions link1="camara_link" link2="la_link1" reason="Never" />
     <disable_collisions link1="camara_link" link2="la_link2" reason="Never" />
     <disable_collisions link1="camara_link" link2="la_link3" reason="Never" />
-    <disable_collisions link1="camara_link" link2="la_link5" reason="Never" />
-    <disable_collisions link1="camara_link" link2="la_link6" reason="Never" />
-    <disable_collisions link1="camara_link" link2="la_link7" reason="Never" />
-    <disable_collisions link1="camara_link" link2="la_link8" reason="Never" />
     <disable_collisions link1="camara_link" link2="la_link_grip_center" reason="Never" />
     <disable_collisions link1="camara_link" link2="ra_link0" reason="Never" />
     <disable_collisions link1="camara_link" link2="ra_link1" reason="Never" />
     <disable_collisions link1="camara_link" link2="ra_link2" reason="Never" />
     <disable_collisions link1="camara_link" link2="ra_link3" reason="Never" />
-    <disable_collisions link1="camara_link" link2="ra_link5" reason="Never" />
-    <disable_collisions link1="camara_link" link2="ra_link6" reason="Never" />
-    <disable_collisions link1="camara_link" link2="ra_link7" reason="Never" />
-    <disable_collisions link1="camara_link" link2="ra_link8" reason="Never" />
     <disable_collisions link1="camara_link" link2="ra_link_grip_center" reason="Never" />
     <disable_collisions link1="camara_link" link2="shoulders_link" reason="Never" />
     <disable_collisions link1="camara_link" link2="spine_link" reason="Never" />
@@ -177,19 +132,10 @@
     <disable_collisions link1="careta" link2="la_link1" reason="Never" />
     <disable_collisions link1="careta" link2="la_link2" reason="Never" />
     <disable_collisions link1="careta" link2="la_link3" reason="Never" />
-    <disable_collisions link1="careta" link2="la_link5" reason="Never" />
-    <disable_collisions link1="careta" link2="la_link6" reason="Never" />
-    <disable_collisions link1="careta" link2="la_link7" reason="Never" />
-    <disable_collisions link1="careta" link2="la_link8" reason="Never" />
     <disable_collisions link1="careta" link2="la_link_grip_center" reason="Never" />
     <disable_collisions link1="careta" link2="ra_link0" reason="Never" />
     <disable_collisions link1="careta" link2="ra_link1" reason="Never" />
     <disable_collisions link1="careta" link2="ra_link2" reason="Never" />
-    <disable_collisions link1="careta" link2="ra_link3" reason="Never" />
-    <disable_collisions link1="careta" link2="ra_link5" reason="Never" />
-    <disable_collisions link1="careta" link2="ra_link6" reason="Never" />
-    <disable_collisions link1="careta" link2="ra_link7" reason="Never" />
-    <disable_collisions link1="careta" link2="ra_link8" reason="Never" />
     <disable_collisions link1="careta" link2="ra_link_grip_center" reason="Never" />
     <disable_collisions link1="careta" link2="shoulders_link" reason="Never" />
     <disable_collisions link1="careta" link2="spine_link" reason="Never" />
@@ -200,19 +146,11 @@
     <disable_collisions link1="head_link1" link2="la_link1" reason="Never" />
     <disable_collisions link1="head_link1" link2="la_link2" reason="Never" />
     <disable_collisions link1="head_link1" link2="la_link3" reason="Never" />
-    <disable_collisions link1="head_link1" link2="la_link5" reason="Never" />
-    <disable_collisions link1="head_link1" link2="la_link6" reason="Never" />
-    <disable_collisions link1="head_link1" link2="la_link7" reason="Never" />
-    <disable_collisions link1="head_link1" link2="la_link8" reason="Never" />
     <disable_collisions link1="head_link1" link2="la_link_grip_center" reason="Never" />
     <disable_collisions link1="head_link1" link2="ra_link0" reason="Never" />
     <disable_collisions link1="head_link1" link2="ra_link1" reason="Never" />
     <disable_collisions link1="head_link1" link2="ra_link2" reason="Never" />
     <disable_collisions link1="head_link1" link2="ra_link3" reason="Never" />
-    <disable_collisions link1="head_link1" link2="ra_link5" reason="Never" />
-    <disable_collisions link1="head_link1" link2="ra_link6" reason="Never" />
-    <disable_collisions link1="head_link1" link2="ra_link7" reason="Never" />
-    <disable_collisions link1="head_link1" link2="ra_link8" reason="Never" />
     <disable_collisions link1="head_link1" link2="ra_link_grip_center" reason="Never" />
     <disable_collisions link1="head_link1" link2="shoulders_link" reason="Never" />
     <disable_collisions link1="head_link1" link2="spine_link" reason="Never" />
@@ -223,18 +161,14 @@
     <disable_collisions link1="head_link2" link2="la_link2" reason="Never" />
     <disable_collisions link1="head_link2" link2="la_link3" reason="Never" />
     <disable_collisions link1="head_link2" link2="la_link5" reason="Never" />
-    <disable_collisions link1="head_link2" link2="la_link6" reason="Never" />
     <disable_collisions link1="head_link2" link2="la_link7" reason="Never" />
-    <disable_collisions link1="head_link2" link2="la_link8" reason="Never" />
     <disable_collisions link1="head_link2" link2="la_link_grip_center" reason="Never" />
     <disable_collisions link1="head_link2" link2="ra_link0" reason="Never" />
     <disable_collisions link1="head_link2" link2="ra_link1" reason="Never" />
     <disable_collisions link1="head_link2" link2="ra_link2" reason="Never" />
     <disable_collisions link1="head_link2" link2="ra_link3" reason="Never" />
     <disable_collisions link1="head_link2" link2="ra_link5" reason="Never" />
-    <disable_collisions link1="head_link2" link2="ra_link6" reason="Never" />
     <disable_collisions link1="head_link2" link2="ra_link7" reason="Never" />
-    <disable_collisions link1="head_link2" link2="ra_link8" reason="Never" />
     <disable_collisions link1="head_link2" link2="ra_link_grip_center" reason="Never" />
     <disable_collisions link1="head_link2" link2="shoulders_link" reason="Never" />
     <disable_collisions link1="head_link2" link2="spine_link" reason="Never" />
@@ -245,17 +179,12 @@
     <disable_collisions link1="kinect_link" link2="la_link3" reason="Never" />
     <disable_collisions link1="kinect_link" link2="la_link5" reason="Never" />
     <disable_collisions link1="kinect_link" link2="la_link6" reason="Never" />
-    <disable_collisions link1="kinect_link" link2="la_link7" reason="Never" />
-    <disable_collisions link1="kinect_link" link2="la_link8" reason="Never" />
     <disable_collisions link1="kinect_link" link2="la_link_grip_center" reason="Never" />
     <disable_collisions link1="kinect_link" link2="ra_link0" reason="Never" />
     <disable_collisions link1="kinect_link" link2="ra_link1" reason="Never" />
     <disable_collisions link1="kinect_link" link2="ra_link2" reason="Never" />
     <disable_collisions link1="kinect_link" link2="ra_link3" reason="Never" />
     <disable_collisions link1="kinect_link" link2="ra_link5" reason="Never" />
-    <disable_collisions link1="kinect_link" link2="ra_link6" reason="Never" />
-    <disable_collisions link1="kinect_link" link2="ra_link7" reason="Never" />
-    <disable_collisions link1="kinect_link" link2="ra_link8" reason="Never" />
     <disable_collisions link1="kinect_link" link2="ra_link_grip_center" reason="Never" />
     <disable_collisions link1="kinect_link" link2="shoulders_link" reason="Never" />
     <disable_collisions link1="kinect_link" link2="spine_link" reason="Never" />
@@ -271,13 +200,7 @@
     <disable_collisions link1="la_link0" link2="ra_link0" reason="Never" />
     <disable_collisions link1="la_link0" link2="ra_link1" reason="Never" />
     <disable_collisions link1="la_link0" link2="ra_link2" reason="Never" />
-    <disable_collisions link1="la_link0" link2="ra_link3" reason="Never" />
-    <disable_collisions link1="la_link0" link2="ra_link5" reason="Never" />
-    <disable_collisions link1="la_link0" link2="ra_link6" reason="Never" />
-    <disable_collisions link1="la_link0" link2="ra_link7" reason="Never" />
-    <disable_collisions link1="la_link0" link2="ra_link8" reason="Never" />
     <disable_collisions link1="la_link0" link2="ra_link_grip_center" reason="Never" />
-    <disable_collisions link1="la_link0" link2="shoulders_link" reason="Never" />
     <disable_collisions link1="la_link0" link2="spine_link" reason="Never" />
     <disable_collisions link1="la_link0" link2="torso_link" reason="Never" />
     <disable_collisions link1="la_link1" link2="la_link2" reason="Adjacent" />
@@ -289,15 +212,7 @@
     <disable_collisions link1="la_link1" link2="la_link_grip_center" reason="Never" />
     <disable_collisions link1="la_link1" link2="ra_link0" reason="Never" />
     <disable_collisions link1="la_link1" link2="ra_link1" reason="Never" />
-    <disable_collisions link1="la_link1" link2="ra_link2" reason="Never" />
-    <disable_collisions link1="la_link1" link2="ra_link3" reason="Never" />
-    <disable_collisions link1="la_link1" link2="ra_link5" reason="Never" />
-    <disable_collisions link1="la_link1" link2="ra_link6" reason="Never" />
-    <disable_collisions link1="la_link1" link2="ra_link7" reason="Never" />
-    <disable_collisions link1="la_link1" link2="ra_link8" reason="Never" />
     <disable_collisions link1="la_link1" link2="ra_link_grip_center" reason="Never" />
-    <disable_collisions link1="la_link1" link2="shoulders_link" reason="Never" />
-    <disable_collisions link1="la_link1" link2="spine_link" reason="Never" />
     <disable_collisions link1="la_link1" link2="torso_link" reason="Never" />
     <disable_collisions link1="la_link2" link2="la_link3" reason="Adjacent" />
     <disable_collisions link1="la_link2" link2="la_link5" reason="Never" />
@@ -306,92 +221,28 @@
     <disable_collisions link1="la_link2" link2="la_link8" reason="Never" />
     <disable_collisions link1="la_link2" link2="la_link_grip_center" reason="Never" />
     <disable_collisions link1="la_link2" link2="ra_link0" reason="Never" />
-    <disable_collisions link1="la_link2" link2="ra_link1" reason="Never" />
-    <disable_collisions link1="la_link2" link2="ra_link2" reason="Never" />
-    <disable_collisions link1="la_link2" link2="ra_link3" reason="Never" />
-    <disable_collisions link1="la_link2" link2="ra_link5" reason="Never" />
-    <disable_collisions link1="la_link2" link2="ra_link6" reason="Never" />
-    <disable_collisions link1="la_link2" link2="ra_link7" reason="Never" />
-    <disable_collisions link1="la_link2" link2="ra_link8" reason="Never" />
     <disable_collisions link1="la_link2" link2="ra_link_grip_center" reason="Never" />
     <disable_collisions link1="la_link2" link2="shoulders_link" reason="Never" />
-    <disable_collisions link1="la_link2" link2="spine_link" reason="Never" />
     <disable_collisions link1="la_link2" link2="torso_link" reason="Never" />
     <disable_collisions link1="la_link3" link2="la_link5" reason="Adjacent" />
     <disable_collisions link1="la_link3" link2="la_link6" reason="Never" />
     <disable_collisions link1="la_link3" link2="la_link7" reason="Never" />
     <disable_collisions link1="la_link3" link2="la_link8" reason="Never" />
     <disable_collisions link1="la_link3" link2="la_link_grip_center" reason="Never" />
-    <disable_collisions link1="la_link3" link2="ra_link0" reason="Never" />
-    <disable_collisions link1="la_link3" link2="ra_link1" reason="Never" />
-    <disable_collisions link1="la_link3" link2="ra_link2" reason="Never" />
-    <disable_collisions link1="la_link3" link2="ra_link3" reason="Never" />
-    <disable_collisions link1="la_link3" link2="ra_link5" reason="Never" />
-    <disable_collisions link1="la_link3" link2="ra_link6" reason="Never" />
-    <disable_collisions link1="la_link3" link2="ra_link7" reason="Never" />
-    <disable_collisions link1="la_link3" link2="ra_link8" reason="Never" />
     <disable_collisions link1="la_link3" link2="ra_link_grip_center" reason="Never" />
-    <disable_collisions link1="la_link3" link2="shoulders_link" reason="Never" />
-    <disable_collisions link1="la_link3" link2="spine_link" reason="Never" />
-    <disable_collisions link1="la_link3" link2="torso_link" reason="Never" />
     <disable_collisions link1="la_link5" link2="la_link6" reason="Adjacent" />
     <disable_collisions link1="la_link5" link2="la_link7" reason="Never" />
     <disable_collisions link1="la_link5" link2="la_link8" reason="Never" />
     <disable_collisions link1="la_link5" link2="la_link_grip_center" reason="Never" />
-    <disable_collisions link1="la_link5" link2="ra_link0" reason="Never" />
-    <disable_collisions link1="la_link5" link2="ra_link1" reason="Never" />
-    <disable_collisions link1="la_link5" link2="ra_link2" reason="Never" />
-    <disable_collisions link1="la_link5" link2="ra_link3" reason="Never" />
-    <disable_collisions link1="la_link5" link2="ra_link5" reason="Never" />
-    <disable_collisions link1="la_link5" link2="ra_link6" reason="Never" />
-    <disable_collisions link1="la_link5" link2="ra_link7" reason="Never" />
-    <disable_collisions link1="la_link5" link2="ra_link8" reason="Never" />
     <disable_collisions link1="la_link5" link2="ra_link_grip_center" reason="Never" />
-    <disable_collisions link1="la_link5" link2="shoulders_link" reason="Never" />
-    <disable_collisions link1="la_link5" link2="spine_link" reason="Never" />
-    <disable_collisions link1="la_link5" link2="torso_link" reason="Never" />
     <disable_collisions link1="la_link6" link2="la_link7" reason="Adjacent" />
     <disable_collisions link1="la_link6" link2="la_link8" reason="Adjacent" />
     <disable_collisions link1="la_link6" link2="la_link_grip_center" reason="Adjacent" />
-    <disable_collisions link1="la_link6" link2="ra_link0" reason="Never" />
-    <disable_collisions link1="la_link6" link2="ra_link1" reason="Never" />
-    <disable_collisions link1="la_link6" link2="ra_link2" reason="Never" />
-    <disable_collisions link1="la_link6" link2="ra_link3" reason="Never" />
-    <disable_collisions link1="la_link6" link2="ra_link5" reason="Never" />
-    <disable_collisions link1="la_link6" link2="ra_link6" reason="Never" />
-    <disable_collisions link1="la_link6" link2="ra_link7" reason="Never" />
-    <disable_collisions link1="la_link6" link2="ra_link8" reason="Never" />
     <disable_collisions link1="la_link6" link2="ra_link_grip_center" reason="Never" />
-    <disable_collisions link1="la_link6" link2="shoulders_link" reason="Never" />
-    <disable_collisions link1="la_link6" link2="spine_link" reason="Never" />
-    <disable_collisions link1="la_link6" link2="torso_link" reason="Never" />
-    <disable_collisions link1="la_link7" link2="la_link8" reason="Never" />
     <disable_collisions link1="la_link7" link2="la_link_grip_center" reason="Never" />
-    <disable_collisions link1="la_link7" link2="ra_link0" reason="Never" />
-    <disable_collisions link1="la_link7" link2="ra_link1" reason="Never" />
-    <disable_collisions link1="la_link7" link2="ra_link2" reason="Never" />
-    <disable_collisions link1="la_link7" link2="ra_link3" reason="Never" />
-    <disable_collisions link1="la_link7" link2="ra_link5" reason="Never" />
-    <disable_collisions link1="la_link7" link2="ra_link6" reason="Never" />
-    <disable_collisions link1="la_link7" link2="ra_link7" reason="Never" />
-    <disable_collisions link1="la_link7" link2="ra_link8" reason="Never" />
     <disable_collisions link1="la_link7" link2="ra_link_grip_center" reason="Never" />
-    <disable_collisions link1="la_link7" link2="shoulders_link" reason="Never" />
-    <disable_collisions link1="la_link7" link2="spine_link" reason="Never" />
-    <disable_collisions link1="la_link7" link2="torso_link" reason="Never" />
     <disable_collisions link1="la_link8" link2="la_link_grip_center" reason="Never" />
-    <disable_collisions link1="la_link8" link2="ra_link0" reason="Never" />
-    <disable_collisions link1="la_link8" link2="ra_link1" reason="Never" />
-    <disable_collisions link1="la_link8" link2="ra_link2" reason="Never" />
-    <disable_collisions link1="la_link8" link2="ra_link3" reason="Never" />
-    <disable_collisions link1="la_link8" link2="ra_link5" reason="Never" />
-    <disable_collisions link1="la_link8" link2="ra_link6" reason="Never" />
-    <disable_collisions link1="la_link8" link2="ra_link7" reason="Never" />
-    <disable_collisions link1="la_link8" link2="ra_link8" reason="Never" />
     <disable_collisions link1="la_link8" link2="ra_link_grip_center" reason="Never" />
-    <disable_collisions link1="la_link8" link2="shoulders_link" reason="Never" />
-    <disable_collisions link1="la_link8" link2="spine_link" reason="Never" />
-    <disable_collisions link1="la_link8" link2="torso_link" reason="Never" />
     <disable_collisions link1="la_link_grip_center" link2="ra_link0" reason="Never" />
     <disable_collisions link1="la_link_grip_center" link2="ra_link1" reason="Never" />
     <disable_collisions link1="la_link_grip_center" link2="ra_link2" reason="Never" />
@@ -412,7 +263,6 @@
     <disable_collisions link1="ra_link0" link2="ra_link7" reason="Never" />
     <disable_collisions link1="ra_link0" link2="ra_link8" reason="Never" />
     <disable_collisions link1="ra_link0" link2="ra_link_grip_center" reason="Never" />
-    <disable_collisions link1="ra_link0" link2="shoulders_link" reason="Never" />
     <disable_collisions link1="ra_link0" link2="spine_link" reason="Never" />
     <disable_collisions link1="ra_link0" link2="torso_link" reason="Never" />
     <disable_collisions link1="ra_link1" link2="ra_link2" reason="Adjacent" />
@@ -422,8 +272,6 @@
     <disable_collisions link1="ra_link1" link2="ra_link7" reason="Never" />
     <disable_collisions link1="ra_link1" link2="ra_link8" reason="Never" />
     <disable_collisions link1="ra_link1" link2="ra_link_grip_center" reason="Never" />
-    <disable_collisions link1="ra_link1" link2="shoulders_link" reason="Never" />
-    <disable_collisions link1="ra_link1" link2="spine_link" reason="Never" />
     <disable_collisions link1="ra_link1" link2="torso_link" reason="Never" />
     <disable_collisions link1="ra_link2" link2="ra_link3" reason="Adjacent" />
     <disable_collisions link1="ra_link2" link2="ra_link5" reason="Never" />
@@ -432,38 +280,21 @@
     <disable_collisions link1="ra_link2" link2="ra_link8" reason="Never" />
     <disable_collisions link1="ra_link2" link2="ra_link_grip_center" reason="Never" />
     <disable_collisions link1="ra_link2" link2="shoulders_link" reason="Never" />
-    <disable_collisions link1="ra_link2" link2="spine_link" reason="Never" />
     <disable_collisions link1="ra_link2" link2="torso_link" reason="Never" />
     <disable_collisions link1="ra_link3" link2="ra_link5" reason="Adjacent" />
     <disable_collisions link1="ra_link3" link2="ra_link6" reason="Never" />
     <disable_collisions link1="ra_link3" link2="ra_link7" reason="Never" />
     <disable_collisions link1="ra_link3" link2="ra_link8" reason="Never" />
     <disable_collisions link1="ra_link3" link2="ra_link_grip_center" reason="Never" />
-    <disable_collisions link1="ra_link3" link2="shoulders_link" reason="Never" />
-    <disable_collisions link1="ra_link3" link2="spine_link" reason="Never" />
-    <disable_collisions link1="ra_link3" link2="torso_link" reason="Never" />
     <disable_collisions link1="ra_link5" link2="ra_link6" reason="Adjacent" />
     <disable_collisions link1="ra_link5" link2="ra_link7" reason="Never" />
     <disable_collisions link1="ra_link5" link2="ra_link8" reason="Never" />
     <disable_collisions link1="ra_link5" link2="ra_link_grip_center" reason="Never" />
-    <disable_collisions link1="ra_link5" link2="shoulders_link" reason="Never" />
-    <disable_collisions link1="ra_link5" link2="spine_link" reason="Never" />
-    <disable_collisions link1="ra_link5" link2="torso_link" reason="Never" />
     <disable_collisions link1="ra_link6" link2="ra_link7" reason="Adjacent" />
     <disable_collisions link1="ra_link6" link2="ra_link8" reason="Adjacent" />
     <disable_collisions link1="ra_link6" link2="ra_link_grip_center" reason="Adjacent" />
-    <disable_collisions link1="ra_link6" link2="shoulders_link" reason="Never" />
-    <disable_collisions link1="ra_link6" link2="spine_link" reason="Never" />
-    <disable_collisions link1="ra_link6" link2="torso_link" reason="Never" />
-    <disable_collisions link1="ra_link7" link2="ra_link8" reason="Never" />
     <disable_collisions link1="ra_link7" link2="ra_link_grip_center" reason="Never" />
-    <disable_collisions link1="ra_link7" link2="shoulders_link" reason="Never" />
-    <disable_collisions link1="ra_link7" link2="spine_link" reason="Never" />
-    <disable_collisions link1="ra_link7" link2="torso_link" reason="Never" />
     <disable_collisions link1="ra_link8" link2="ra_link_grip_center" reason="Never" />
-    <disable_collisions link1="ra_link8" link2="shoulders_link" reason="Never" />
-    <disable_collisions link1="ra_link8" link2="spine_link" reason="Never" />
-    <disable_collisions link1="ra_link8" link2="torso_link" reason="Never" />
     <disable_collisions link1="ra_link_grip_center" link2="shoulders_link" reason="Never" />
     <disable_collisions link1="ra_link_grip_center" link2="spine_link" reason="Never" />
     <disable_collisions link1="ra_link_grip_center" link2="torso_link" reason="Never" />

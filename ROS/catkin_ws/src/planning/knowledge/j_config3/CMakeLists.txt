@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(justina_moveit_config)
+project(j_config3)
 
 find_package(catkin REQUIRED)
 

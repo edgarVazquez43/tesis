@@ -5,6 +5,6 @@
 
   <arg name="pipeline" default="ompl" />
 
-  <include file="$(find justina_moveit_config)/launch/$(arg pipeline)_planning_pipeline.launch.xml" />
+  <include file="$(find j_config3)/launch/$(arg pipeline)_planning_pipeline.launch.xml" />
 
 </launch>

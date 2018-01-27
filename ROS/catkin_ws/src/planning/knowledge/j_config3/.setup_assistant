@@ -5,6 +5,6 @@ moveit_setup_assistant_config:
   SRDF:
     relative_path: config/7DOF_manipulator.srdf
   CONFIG:
-    author_name: EDD2  PUMAS TEAM
+    author_name: Edd-II
     author_email: edgarvazquez1403@gmail.com
-    generated_timestamp: 1516244750
+    generated_timestamp: 1516936947
