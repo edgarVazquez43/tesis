@@ -18,7 +18,9 @@ bool callbackRightArmDK(manip_msgs::DirectKinematicsFloatArray::Request &req,
 			manip_msgs::DirectKinematicsFloatArray::Response &resp)
 {
   std::cout << std::endl <<" -------> " << std::endl; 
-  std::cout << " Calling service to calculate Right Arm Direct Kinematic" << std::endl;
+  std::cout << " Calling service to calculate Right Arm Direct Kinematic"
+	    << std::endl << " --- (MoveIt Node)  --- "
+	    << std::endl;
 
 
   if(req.articular_pose.data.size() != 7)
@@ -28,10 +30,8 @@ bool callbackRightArmDK(manip_msgs::DirectKinematicsFloatArray::Request &req,
   pose.resize(7);
 
   for(int i = 0; i < pose.size(); i++)
-  {
     pose[i]=req.articular_pose.data[i];
-    std::cout << pose[i] << " <--  " << req.articular_pose.data[i] << std::endl;
-  }
+   
   
   kinematic_state->setJointGroupPositions(joint_group_rightArm, pose);
   const Eigen::Affine3d &end_effector_state = kinematic_state->getGlobalLinkTransform("ra_link_grip_center");
@@ -40,7 +40,6 @@ bool callbackRightArmDK(manip_msgs::DirectKinematicsFloatArray::Request &req,
   // Respect    base_link
   ROS_INFO_STREAM("->  RIGHT ARM GRIPPER CENTER POSITION  -----------");
   ROS_INFO_STREAM("Translation: " << end_effector_state.translation());
-  ROS_INFO_STREAM("Rotation: " << end_effector_state.rotation());
 
   Eigen::Vector3d euler = end_effector_state.rotation().eulerAngles(0,1,2);
   std::cout << "Euler angles: " << euler[0]<< "  " << euler[1]<< "  " << euler[2] << std::endl;
@@ -65,7 +64,9 @@ bool callbackLeftArmDK(manip_msgs::DirectKinematicsFloatArray::Request &req,
 		       manip_msgs::DirectKinematicsFloatArray::Response &resp)
 {
   std::cout << std::endl <<" -------> " << std::endl;
-  std::cout << "Calling service to calculate Left Arm Direct Kinematic" << std::endl;
+  std::cout << "Calling service to calculate Left Arm Direct Kinematic"
+	    << std::endl << " --- (MoveIt Node)  --- "
+	    << std::endl;
 
 
   if(req.articular_pose.data.size() != 7)
@@ -74,17 +75,13 @@ bool callbackLeftArmDK(manip_msgs::DirectKinematicsFloatArray::Request &req,
   std::vector<double> pose;
   pose.resize(7);
   for(int i = 0; i < pose.size(); i++)
-  {
     pose[i]=req.articular_pose.data[i];
-    std::cout << pose[i] << " <--  " << req.articular_pose.data[i] << std::endl;
-  }
   
   kinematic_state->setJointGroupPositions(joint_group_rightArm, pose);
   const Eigen::Affine3d &end_effector_state = kinematic_state->getGlobalLinkTransform("la_link_grip_center");
    /* Print end-effector pose. Remember that this is in the model frame */
   ROS_INFO_STREAM("->  LEFT ARM GRIPPER CENTER POSITION  -----------");
   ROS_INFO_STREAM("Translation: " << end_effector_state.translation());
-  ROS_INFO_STREAM("Rotation: " << end_effector_state.rotation());
 
   Eigen::Vector3d euler = end_effector_state.rotation().eulerAngles(0,1,2);
   std::cout << "Euler angles: " << euler[0]<< "  " << euler[1]<< "  " << euler[2] << std::endl;

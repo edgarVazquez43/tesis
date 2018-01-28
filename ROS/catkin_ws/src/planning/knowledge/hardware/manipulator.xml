@@ -303,7 +303,7 @@
   </joint>
 
   <joint name="ra_grip_center" type="fixed">
-    <origin xyz="0.0 0.0 0.06" rpy="1.5707 0.0 1.5707"/>
+    <origin xyz="0.0 0.0 0.06" rpy="3.14159265 0.0 0.0"/>
     <parent link="ra_link6"/>
     <child link="ra_link_grip_center"/>
     <limit effort="0.0" lower="0.0" upper="0" velocity="0.0"/>
@@ -532,7 +532,7 @@
   </joint>
 
   <joint name="la_grip_center" type="fixed">
-    <origin xyz="0.0 0.0 0.06" rpy="1.5707 0.0 1.5707"/>
+    <origin xyz="0.0 0.0 0.06" rpy="3.14159265 0.0 0.0"/>
     <parent link="la_link6"/>
     <child link="la_link_grip_center"/>
     <limit effort="0.0" lower="0.0" upper="0" velocity="0.0"/>
