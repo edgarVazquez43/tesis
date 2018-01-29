@@ -247,20 +247,6 @@ target_link_libraries(direct_kinematic_test
 add_dependencies(direct_kinematic_test
   ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
-##### DIRECT_KINEMATIC (MoveIt) TEST  #####
-add_executable(dk_moveit_test
-  src/dk_moveit.cpp
-)
-
-target_link_libraries(dk_moveit_test
-  ${catkin_LIBRARIES}
-)
-
-add_dependencies(dk_moveit_test
-  ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-
-
-
 
 ##### INVERSE_KINEMATIC TEST  #####
 add_executable(inverse_kinematic_test
@@ -285,4 +271,28 @@ target_link_libraries(ik_moveit_test
 )
 
 add_dependencies(ik_moveit_test
+  ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+##### DIRECT_KINEMATIC (MoveIt) TEST  #####
+add_executable(dk_moveit_test
+  src/dk_moveit.cpp
+)
+
+target_link_libraries(dk_moveit_test
+  ${catkin_LIBRARIES}
+)
+
+add_dependencies(dk_moveit_test
+  ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+##### IK_WORKSPACE (MoveIt) TEST  #####
+add_executable(ik_workspace_test
+  src/ik_moveit_wsBuild.cpp
+)
+
+target_link_libraries(ik_workspace_test
+  ${catkin_LIBRARIES}
+)
+
+add_dependencies(ik_workspace_test
   ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
