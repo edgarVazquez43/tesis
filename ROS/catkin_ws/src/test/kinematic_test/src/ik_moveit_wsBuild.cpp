@@ -1,6 +1,8 @@
 #include <iostream>
 #include <fstream>
+#include <ctime>
 #include <boost/thread/thread.hpp>
+
 #include "ros/ros.h"
 #include <geometry_msgs/Vector3.h>
 #include <std_msgs/Float32MultiArray.h>
@@ -46,6 +48,8 @@ int main(int argc, char** argv)
   ros::ServiceClient cltIKinematicsLA;
   ros::ServiceClient cltIKinematicsRA;
 
+  bool srvSucces;
+  
   float x, y , z;
   
   std::vector<float> cartesian;
@@ -59,9 +63,10 @@ int main(int argc, char** argv)
 
   geometry_msgs::Pose endEffector_pose;
 
-  std::ofstream myFile;
+  std::ofstream myFile, timeSucces, timeUnsucces;
   myFile.open("/home/edgar/ws_moveit_points.txt");
-  
+  timeSucces.open("/home/edgar/timeSucces_ik.txt");
+  timeUnsucces.open("/home/edgar/timeUnsucces_ik.txt");
 
   // ROS  Service Client
   cltIKinematicsLA = n.serviceClient<manip_msgs::InverseKinematicsFloatArray>("/manipulation/ik_moveit/la_inverse_kinematics");
@@ -79,7 +84,7 @@ int main(int argc, char** argv)
 
 
   x = 0.000;
-  y = 0.225;
+  y = 0.075;
   z = 0.700;   
 
   // Data request to Inverse Kinematic
@@ -87,7 +92,7 @@ int main(int argc, char** argv)
   cartesian.push_back( y );   // Y-axis respect robot     
   cartesian.push_back( z );     // Z-axis respect robot
   
-  cartesian.push_back(-0.5);      // yaw
+  cartesian.push_back(0.0);      // yaw
   cartesian.push_back(-1.57);      // pitch
   cartesian.push_back(0.0);      // roll
   cartesian.push_back(0.0);
@@ -100,16 +105,28 @@ int main(int argc, char** argv)
 
   markerSetup();  
 
-  ros::Rate loop(10);
+  ros::Rate loop(50);
 
   while(ros::ok())
     {
 
-      if (z > 0.990)
+      if (z > 1.200)
 	{
+	  if(x > 0.45)
+	    {
+	      if(y > 0.45)
+		{
+		  myFile.close();
+		  return 0;
+		}
+	      x = 0.0;
+	      y += 0.01;
+	    }
+	  
 	  z = 0.700;
 	  x += 0.01;
-	} 
+	}
+      
       cartesian[0] = x;
       cartesian[1] = y;
       cartesian[2] = z;
@@ -126,34 +143,46 @@ int main(int argc, char** argv)
 
       std::cout << "Request: [x, y, z]: " << std::endl;
       std::cout << x << "  " << y << "  " << z << std::endl;
+
+       clock_t begin = std::clock();
+       //srvSucces = cltIKinematicsLA.call(srv_ki);
+       boost::this_thread::sleep(boost::posix_time::milliseconds(2000));
+       clock_t end = std::clock();
+       double duration = double(end-begin) / CLOCKS_PER_SEC;
       
-      if(!cltIKinematicsLA.call(srv_ki))
+      
+      if(!srvSucces)
         {
-	  std::cout << std::endl <<
-	    "Justina::Manip can't calling inverse kinematics service" << std::endl << std::endl;
-        }
+      	  std::cout << std::endl <<
+      	    "Justina::Manip can't calling inverse kinematics service" << std::endl << std::endl;
+	  timeUnsucces << " " << duration << "\n";
+	}
       else
         {
-	  std::cout << "InverseKinematics.-> Calculated cartesian...." << std::endl;
-	  std::cout << "[x, y, z, roll, pitch, yaw]" << std::endl;
-	  for (int i=0; i < 7; i++)
+      	  std::cout << "InverseKinematics.-> Calculated cartesian...." << std::endl;
+      	  std::cout << "[x, y, z, roll, pitch, yaw]" << std::endl;
+      	  for (int i=0; i < 7; i++)
 	    {
 	      std::cout << "   " << srv_ki.response.articular_pose.data[i] << std::endl;
 	      ra_gp_msgs.data[i] = srv_ki.response.articular_pose.data[i];
 	    }
 	  
-	  myFile << cartesian[0] << " " << cartesian[1] << " " << cartesian[2] << "\n";
-	  left_arm_goal_pose_pub.publish(ra_gp_msgs);
-	}
-
+	  timeSucces << " " << duration << "\n";
+      	  myFile << cartesian[0] << " " << cartesian[1] << " " << cartesian[2] << "\n";
+      	  left_arm_goal_pose_pub.publish(ra_gp_msgs);
+      	}
+      
       
       std::cout << "---------------------------" << std::endl;
-
+      
       //boost::this_thread::sleep(boost::posix_time::milliseconds(2000));
       z += 0.01;
       loop.sleep();
     }
-
+  
   myFile.close();
+  timeSucces.close();
+  timeUnsucces.close();
+
   return 0;
 }

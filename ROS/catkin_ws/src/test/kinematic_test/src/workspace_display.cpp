@@ -42,7 +42,8 @@ int main(int argc, char** argv)
     
     marker_pub = n.advertise<visualization_msgs::Marker>("visualization_marker", 10);
 
-    std::fstream openFile("/home/edgar/ws_points.txt", std::ios_base::in);
+    //std::fstream openFile("/home/edgar/ws_points.txt", std::ios_base::in);
+    std::fstream openFile("/home/edgar/ws_moveit_points.txt", std::ios_base::in);
     
     float x, y, z;
     int i=0;
@@ -57,9 +58,9 @@ int main(int argc, char** argv)
         std::string line;
         std::getline(openFile, line);   
         std::istringstream in(line);      //make a stream for the line itself
-
         in >> x >> y >> z;                //now read the whitespace-separated floats
-        endEffector_pose.position.x = x;
+
+	endEffector_pose.position.x = x;
         endEffector_pose.position.y = y;
         endEffector_pose.position.z = z;
         endEffector_marker.points.push_back(endEffector_pose.position);

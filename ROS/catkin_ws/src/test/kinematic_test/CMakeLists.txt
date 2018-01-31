@@ -263,3 +263,15 @@ target_link_libraries(ik_workspace_test
 add_dependencies(ik_workspace_test
   ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
+##### IK_WORKSPACE (MoveIt) TEST  #####
+add_executable(workspace_display
+  src/workspace_display.cpp
+)
+
+target_link_libraries(workspace_display
+  ${catkin_LIBRARIES}
+)
+
+add_dependencies(workspace_display
+  ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
