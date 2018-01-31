@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(grasp_pln)
+project(kinematic_test)
+
+## Compile as C++11, supported in ROS Kinetic and newer
+# add_compile_options(-std=c++11)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -95,13 +98,13 @@ find_package(catkin REQUIRED COMPONENTS
 ###################################
 ## The catkin_package macro generates cmake config files for your package
 ## Declare things to be passed to dependent projects
-## INCLUDE_DIRS: uncomment this if you package contains header files
+## INCLUDE_DIRS: uncomment this if your package contains header files
 ## LIBRARIES: libraries you create in this project that dependent projects also need
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES grasp_pln
+#  LIBRARIES kinematic_test
 #  CATKIN_DEPENDS justina_tools roscpp rospy
 #  DEPENDS system_lib
 )
@@ -112,30 +115,38 @@ catkin_package(
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
-# include_directories(include)
 include_directories(
+# include
   ${catkin_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
-# add_library(grasp_pln
-#   src/${PROJECT_NAME}/grasp_pln.cpp
+# add_library(${PROJECT_NAME}
+#   src/${PROJECT_NAME}/kinematic_test.cpp
 # )
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
 ## either from message generation or dynamic reconfigure
-# add_dependencies(grasp_pln ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+# add_dependencies(${PROJECT_NAME} ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Declare a C++ executable
-# add_executable(grasp_pln_node src/grasp_pln_node.cpp)
+## With catkin_make all packages are built within a single CMake context
+## The recommended prefix ensures that target names across packages don't collide
+# add_executable(${PROJECT_NAME}_node src/kinematic_test_node.cpp)
+
+## Rename C++ executable without prefix
+## The above recommended prefix causes long target names, the following renames the
+## target back to the shorter version for ease of user use
+## e.g. "rosrun someones_pkg node" instead of "rosrun someones_pkg someones_pkg_node"
+# set_target_properties(${PROJECT_NAME}_node PROPERTIES OUTPUT_NAME node PREFIX "")
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
-# add_dependencies(grasp_pln_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+# add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(grasp_pln_node
+# target_link_libraries(${PROJECT_NAME}_node
 #   ${catkin_LIBRARIES}
 # )
 
@@ -154,7 +165,7 @@ include_directories(
 # )
 
 ## Mark executables and/or libraries for installation
-# install(TARGETS grasp_pln grasp_pln_node
+# install(TARGETS ${PROJECT_NAME} ${PROJECT_NAME}_node
 #   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
@@ -179,7 +190,7 @@ include_directories(
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_grasp_pln.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_kinematic_test.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
@@ -188,14 +199,67 @@ include_directories(
 # catkin_add_nosetests(test)
 
 
-##### GRASP TEST  #####
-add_executable(grasp_object_test
-  src/grasp_object_test.cpp
+
+##### DIRECT_KINEMATIC TEST  #####
+add_executable(direct_kinematic_test
+  src/direct_kinematic.cpp
 )
 
-target_link_libraries(grasp_object_test
+target_link_libraries(direct_kinematic_test
   ${catkin_LIBRARIES}
 )
 
-add_dependencies(grasp_object_test ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(direct_kinematic_test
+  ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+
+##### INVERSE_KINEMATIC TEST  #####
+add_executable(inverse_kinematic_test
+  src/inverse_kinematic.cpp
+)
+
+target_link_libraries(inverse_kinematic_test
+  ${catkin_LIBRARIES}
+)
+
+add_dependencies(inverse_kinematic_test
+  ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+
+
+##### INVERSE_KINEMATIC (MoveIt)  TEST  #####
+add_executable(ik_moveit_test
+  src/ik_moveit.cpp
+)
+
+target_link_libraries(ik_moveit_test
+  ${catkin_LIBRARIES}
+)
+
+add_dependencies(ik_moveit_test
+  ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+##### DIRECT_KINEMATIC (MoveIt) TEST  #####
+add_executable(dk_moveit_test
+  src/dk_moveit.cpp
+)
+
+target_link_libraries(dk_moveit_test
+  ${catkin_LIBRARIES}
+)
+
+add_dependencies(dk_moveit_test
+  ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+##### IK_WORKSPACE (MoveIt) TEST  #####
+add_executable(ik_workspace_test
+  src/ik_moveit_wsBuild.cpp
+)
+
+target_link_libraries(ik_workspace_test
+  ${catkin_LIBRARIES}
+)
+
+add_dependencies(ik_workspace_test
+  ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
