@@ -5,13 +5,13 @@ float32 confidence                           #value in [0,1] indicating the prob
 sensor_msgs/Image image			     #image in rgb of object
 sensor_msgs/PointCloud2 point_cloud          #Point cloud (probably, colored)
 geometry_msgs/Vector3 	size                 #Size in meters: size in x, y and z
-geometry_msgs/Pose pose                 #Centroid
+geometry_msgs/Pose pose 		     #Centroid
 geometry_msgs/Vector3[] principal_axis	     #Orientation of object
 geometry_msgs/Vector3   colors		     #Percents of color (r, g, b)
 geometry_msgs/Vector3[] bounding_box         #Two vectors indicating the bounding box
 geometry_msgs/Vector3[] bounding_polygon     #N vectors
 int32 x					     #top left x
 int32 y					     #top left y
-int32 width				     #top width
-int32 height				     #top height
+float32 width				     #top width
+float32 height				     #top height
 bool graspable                               #graspable by the arm
