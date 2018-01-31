@@ -107,10 +107,17 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 	// ##### Find best fit model to point cloud
 	// Return plane with Normal = (1, 1, 1) is didn't find plane
 
+	/****
+	     AL READY MEASURE THE TIME
+	 ***/
+	// It already measure time
 	clock_t begin = std::clock();
 	bestPlane = FindPlaneRANSAC(croppedDepth, threshold, attemps );
 	clock_t end = std::clock();
 	double duration = double(end-begin) / CLOCKS_PER_SEC;
+	myFile << " " << duration << " " << bestPlane.inliers << "\n"; 
+
+
 	
 	//std::cout << "--- inliersOn - modelPlane:  " << bestPlane.inliers << std::endl; 
 	//std::cout << "--- Duration process: " << duration << std::endl;
@@ -202,9 +209,9 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 		object_1.colors.push_back( dimensions[4]/255 );
 		object_1.colors.push_back( dimensions[5]/255 );
 
-		myFile << "- " << dimensions[0] << " " << dimensions[1] << " " << dimensions[2] << " "
-		 << object_1.standartDeviations[0] << " " << object_1.standartDeviations[1] << " " << object_1.standartDeviations[2] << " "
-		 << dimensions[3]/255 << " " << dimensions[4]/255 << " " << dimensions[5]/255 << "\n";
+		// myFile << "- " << dimensions[0] << " " << dimensions[1] << " " << dimensions[2] << " "
+		//  << object_1.standartDeviations[0] << " " << object_1.standartDeviations[1] << " " << object_1.standartDeviations[2] << " "
+		//  << dimensions[3]/255 << " " << dimensions[4]/255 << " " << dimensions[5]/255 << "\n";
 		
 		P = normalizingVector(analogVector);
 		std::cout << "Caracteristicas del objeto:    " << std::endl;
@@ -334,8 +341,8 @@ int main(int argc, char** argv)
 	ros::ServiceServer srvPCAobject;
 	ros::Publisher marker_pub;
 
-	myFile.open("/home/edgar/juice_dimensions.txt");
-	srvPCAobject = n.advertiseService("detect_object/PCA_calculator", callbackPCAobject);
+	myFile.open("/home/edgar/timeRANSAC_edgar.txt");
+	srvPCAobject = n.advertiseService("/vision/detect_object/PCA_calculator", callbackPCAobject);
 	cltRgbdRobot = n.serviceClient<point_cloud_manager::GetRgbd>("/hardware/point_cloud_man/get_rgbd_wrt_robot");
 
 
