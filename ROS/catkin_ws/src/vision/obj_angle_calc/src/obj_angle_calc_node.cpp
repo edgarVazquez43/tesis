@@ -16,7 +16,7 @@
 #include "segmentedObject.hpp"
 #include "vision_msgs/DetectObjects.h"
 
-std::ofstream myFile;
+//std::ofstream myFile;
 
 ros::ServiceClient cltRgbdRobot;
 point_cloud_manager::GetRgbd srv;
@@ -30,9 +30,9 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 
 	std::vector<float> centroid_coord;
 	std::vector<float> dimensions;
-	std::vector<float> analogVector;
-	std::vector<int> P;
-	std::vector<int> Tout;
+	// std::vector<float> analogVector;
+	// std::vector<int> P;
+	// std::vector<int> Tout;
 
 	std::vector<cv::Point3f> principal_axis_calculated;
 	std::vector<segmentedObject> objectList;
@@ -115,12 +115,12 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 	bestPlane = FindPlaneRANSAC(croppedDepth, threshold, attemps );
 	clock_t end = std::clock();
 	double duration = double(end-begin) / CLOCKS_PER_SEC;
-	myFile << " " << duration << " " << bestPlane.inliers << "\n"; 
+	// myFile << " " << duration << " " << bestPlane.inliers << "\n"; 
 
-
-	
-	//std::cout << "--- inliersOn - modelPlane:  " << bestPlane.inliers << std::endl; 
-	//std::cout << "--- Duration process: " << duration << std::endl;
+	std::cout << "EDGAR PLANE plane" << std::endl
+		  << "Duration: " << duration << std::endl
+		  << "Inliers: " << bestPlane.inliers << std::endl
+		  << std::endl;
 
 	// /* Code for coloring the plane
 	if(bestPlane.GetNormal() != cv::Point3f(1.0, 1.0, 1.0) )
@@ -143,7 +143,7 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 	}
 	else
 	{
-		std::cout << "I can't found the plane....   :( " << std::endl;
+	        std::cout << "I can't found the plane....   :( " << std::endl;
 		objectsDepth = cv::Mat(50, 50, CV_8UC3);
 	}
 
@@ -159,11 +159,6 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 		resp.recog_objects[0].pose.position.x = object_1.centroid[0];
 		resp.recog_objects[0].pose.position.y = object_1.centroid[1];
 		resp.recog_objects[0].pose.position.z = object_1.centroid[2];
-
-		//std::cout << "   Z_prom:  " << h_table  << std::endl;
-		//std::cout << "   axis[0]:  " << principal_axis_calculated[0] << "  -  norm:  " << cv::norm(principal_axis_calculated[0]) << std::endl;
-		//std::cout << "   axis[1]:  " << principal_axis_calculated[1] << "  -  norm:  " << cv::norm(principal_axis_calculated[1]) << std::endl;
-		//std::cout << "   axis[2]:  " << principal_axis_calculated[2] << "  -  norm:  " << cv::norm(principal_axis_calculated[2]) << std::endl;
 
 
 		geometry_msgs::Vector3 q1;
@@ -190,123 +185,103 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 		resp.recog_objects[0].size.y = dimensions[1];
 		resp.recog_objects[0].size.z = dimensions[2];
 
-		object_1.dimensions.push_back( dimensions[0] );
-		object_1.dimensions.push_back( dimensions[1] );
-		object_1.dimensions.push_back( dimensions[2] );
-
-		analogVector.push_back( dimensions[0] );
-		analogVector.push_back( dimensions[1] );
-		analogVector.push_back( dimensions[2] );
-		analogVector.push_back( dimensions[3]/255 );
-		analogVector.push_back( dimensions[4]/255 );
-		analogVector.push_back( dimensions[5]/255 );
-
 		resp.recog_objects[0].colors.x = dimensions[3]/255;
 		resp.recog_objects[0].colors.y = dimensions[4]/255;
 		resp.recog_objects[0].colors.z = dimensions[5]/255;
 
-		object_1.colors.push_back( dimensions[3]/255 );
-		object_1.colors.push_back( dimensions[4]/255 );
-		object_1.colors.push_back( dimensions[5]/255 );
 
-		// myFile << "- " << dimensions[0] << " " << dimensions[1] << " " << dimensions[2] << " "
-		//  << object_1.standartDeviations[0] << " " << object_1.standartDeviations[1] << " " << object_1.standartDeviations[2] << " "
-		//  << dimensions[3]/255 << " " << dimensions[4]/255 << " " << dimensions[5]/255 << "\n";
+		// P = normalizingVector(analogVector);
+		// std::cout << "Caracteristicas del objeto:    " << std::endl;
+		// std::cout << "	Dimensiones: " << std::endl;
+		// std::cout << "		x:  " << object_1.dimensions[0] << "   " << P[0] << std::endl;
+		// std::cout << "		y:  " << object_1.dimensions[1] << "   " << P[1] << std::endl;
+		// std::cout << "		z:  " << object_1.dimensions[2] << "   " << P[2] << std::endl << std::endl;  
+		// std::cout << "	Color: " << std::endl;
+		// std::cout << "		Red:  "   << object_1.colors[0] << "   " << P[3] << std::endl;
+		// std::cout << "		Green:  " << object_1.colors[1] << "   " << P[4] << std::endl;
+		// std::cout << "		Blue:  "  << object_1.colors[2] << "   " << P[5] << std::endl; 
 		
-		P = normalizingVector(analogVector);
-		std::cout << "Caracteristicas del objeto:    " << std::endl;
-		std::cout << "	Dimensiones: " << std::endl;
-		std::cout << "		x:  " << object_1.dimensions[0] << "   " << P[0] << std::endl;
-		std::cout << "		y:  " << object_1.dimensions[1] << "   " << P[1] << std::endl;
-		std::cout << "		z:  " << object_1.dimensions[2] << "   " << P[2] << std::endl << std::endl;  
-		std::cout << "	Color: " << std::endl;
-		std::cout << "		Red:  "   << object_1.colors[0] << "   " << P[3] << std::endl;
-		std::cout << "		Green:  " << object_1.colors[1] << "   " << P[4] << std::endl;
-		std::cout << "		Blue:  "  << object_1.colors[2] << "   " << P[5] << std::endl; 
-		
-		Tout = nn_calculate(P);
+		// Tout = nn_calculate(P);
 
-		//std::cout << "centroid_segme: " << object_1.centroid[0] << "  " << object_1.centroid[1] << "  " << object_1.centroid[2] << std::endl;
-		//std::cout << "standartDeviation: " << object_1.standartDeviations[0] << "  " << object_1.standartDeviations[1] << "  " << object_1.standartDeviations[2] << std::endl;
 		std::cout << "--------------------------------------" << std::endl;
 
-		if(Tout[0] == 0 && Tout[1] == 0 && Tout[2] == 0)
-		{
-			object_name = "Coca-cola";
-			object_price = "$ 12.00";
-			object_calories = "151 [kcal]";
-			object_grasas = "0.0 [g]";
-			object_carbohidratos = "38.9 [g]";
-		}
-		else if(Tout[0] == 0 && Tout[1] == 1 && Tout[2] == 1)
-		{
-			object_name = "Jugo";
-			object_price = "$ 18.00";
-			object_calories = "58 [kcal]";
-			object_grasas = "0.0 [g]";
-			object_carbohidratos = "15.0 [g]";
-		}
-		else if(Tout[0] == 0 && Tout[1] == 0 && Tout[2] == 1)
-		{
-			object_name = "Milk";
-			object_price = "$ 8.00";
-			object_calories = "139.5 [kcal]";
-			object_grasas = "4.7 [g]";
-			object_carbohidratos = "22.0 [g]";
-		}
-		else if(Tout[0] == 0 && Tout[1] == 1 && Tout[2] == 0)
-		{
-			object_name = "Desodorante 150 ml";
-			object_price = "$ 24.00";
-			object_calories = "Butano";
-			object_grasas = "Alcohol  - fragancia";
-			object_carbohidratos = "Agua";
-		}
+		// if(Tout[0] == 0 && Tout[1] == 0 && Tout[2] == 0)
+		// {
+		// 	object_name = "Coca-cola";
+		// 	object_price = "$ 12.00";
+		// 	object_calories = "151 [kcal]";
+		// 	object_grasas = "0.0 [g]";
+		// 	object_carbohidratos = "38.9 [g]";
+		// }
+		// else if(Tout[0] == 0 && Tout[1] == 1 && Tout[2] == 1)
+		// {
+		// 	object_name = "Jugo";
+		// 	object_price = "$ 18.00";
+		// 	object_calories = "58 [kcal]";
+		// 	object_grasas = "0.0 [g]";
+		// 	object_carbohidratos = "15.0 [g]";
+		// }
+		// else if(Tout[0] == 0 && Tout[1] == 0 && Tout[2] == 1)
+		// {
+		// 	object_name = "Milk";
+		// 	object_price = "$ 8.00";
+		// 	object_calories = "139.5 [kcal]";
+		// 	object_grasas = "4.7 [g]";
+		// 	object_carbohidratos = "22.0 [g]";
+		// }
+		// else if(Tout[0] == 0 && Tout[1] == 1 && Tout[2] == 0)
+		// {
+		// 	object_name = "Desodorante 150 ml";
+		// 	object_price = "$ 24.00";
+		// 	object_calories = "Butano";
+		// 	object_grasas = "Alcohol  - fragancia";
+		// 	object_carbohidratos = "Agua";
+		// }
 
 
 		cv::rectangle(imgBGR, cv::Point(xmin, ymin), cv::Point(xmin+W, ymin+H), cv::Scalar(0, 255, 0));
 		cv::rectangle(imgDepth, cv::Point(xmin, ymin), cv::Point(xmin+W, ymin+H), cv::Scalar(0, 255, 0));
 		cv::rectangle(croppedBRG, object_1.ROI, cv::Scalar(10, 200, 0));
 
-		cv::putText(croppedBRG, object_name, 
-			cv::Point(30,30),
-			cv::FONT_HERSHEY_COMPLEX_SMALL,
-			1.0,
-			cv::Scalar(200, 20, 0),
-			1,
-			CV_AA);
+		// cv::putText(croppedBRG, object_name, 
+		// 	cv::Point(30,30),
+		// 	cv::FONT_HERSHEY_COMPLEX_SMALL,
+		// 	1.0,
+		// 	cv::Scalar(200, 20, 0),
+		// 	1,
+		// 	CV_AA);
 
-		cv::putText(croppedBRG, object_price, 
-			cv::Point(30,60),
-			cv::FONT_HERSHEY_COMPLEX_SMALL,
-			1.0,
-			cv::Scalar(200, 20, 0),
-			1,
-			CV_AA);
+		// cv::putText(croppedBRG, object_price, 
+		// 	cv::Point(30,60),
+		// 	cv::FONT_HERSHEY_COMPLEX_SMALL,
+		// 	1.0,
+		// 	cv::Scalar(200, 20, 0),
+		// 	1,
+		// 	CV_AA);
 		
-		cv::putText(croppedBRG, object_calories, 
-			cv::Point(30,90),
-			cv::FONT_HERSHEY_COMPLEX_SMALL,
-			1.0,
-			cv::Scalar(10, 30, 150),
-			1,
-			CV_AA);
+		// cv::putText(croppedBRG, object_calories, 
+		// 	cv::Point(30,90),
+		// 	cv::FONT_HERSHEY_COMPLEX_SMALL,
+		// 	1.0,
+		// 	cv::Scalar(10, 30, 150),
+		// 	1,
+		// 	CV_AA);
 
-		cv::putText(croppedBRG, object_grasas, 
-			cv::Point(30,120),
-			cv::FONT_HERSHEY_COMPLEX_SMALL,
-			1.0,
-			cv::Scalar(10, 30, 150),
-			1,
-			CV_AA);
+		// cv::putText(croppedBRG, object_grasas, 
+		// 	cv::Point(30,120),
+		// 	cv::FONT_HERSHEY_COMPLEX_SMALL,
+		// 	1.0,
+		// 	cv::Scalar(10, 30, 150),
+		// 	1,
+		// 	CV_AA);
 		
-		cv::putText(croppedBRG, object_carbohidratos, 
-			cv::Point(30,150),
-			cv::FONT_HERSHEY_COMPLEX_SMALL,
-			1.0,
-			cv::Scalar(10, 30, 150),
-			1,
-			CV_AA);
+		// cv::putText(croppedBRG, object_carbohidratos, 
+		// 	cv::Point(30,150),
+		// 	cv::FONT_HERSHEY_COMPLEX_SMALL,
+		// 	1.0,
+		// 	cv::Scalar(10, 30, 150),
+		// 	1,
+		// 	CV_AA);
 
 
 		cv::imshow("Original RGB", imgBGR);
@@ -341,7 +316,7 @@ int main(int argc, char** argv)
 	ros::ServiceServer srvPCAobject;
 	ros::Publisher marker_pub;
 
-	myFile.open("/home/edgar/timeRANSAC_edgar.txt");
+	//myFile.open("/home/edgar/timeRANSAC_edgar.txt");
 	srvPCAobject = n.advertiseService("/vision/detect_object/PCA_calculator", callbackPCAobject);
 	cltRgbdRobot = n.serviceClient<point_cloud_manager::GetRgbd>("/hardware/point_cloud_man/get_rgbd_wrt_robot");
 
@@ -357,7 +332,7 @@ int main(int argc, char** argv)
 		if( cv::waitKey(5) == 'q' )
 			break;
 	}
-	myFile.close();
+	//myFile.close();
 	cv::destroyAllWindows();
 	return 0;
 }

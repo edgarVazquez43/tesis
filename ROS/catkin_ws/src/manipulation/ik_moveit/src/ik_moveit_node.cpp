@@ -1,4 +1,7 @@
 #include "ros/ros.h"
+#include <fstream>
+#include <ctime>
+
 #include <geometry_msgs/Pose.h>
 #include "moveit/robot_model_loader/robot_model_loader.h"
 #include "moveit/robot_model/robot_model.h"
@@ -12,6 +15,9 @@ robot_state::JointModelGroup* joint_group_rightArm;
 robot_state::JointModelGroup* joint_group_leftArm;
 std::vector<std::string> joint_names_rightArm;
 std::vector<std::string> joint_names_leftArm;
+
+std::ofstream myFile, timeSucces, timeUnsucces;
+
 
 
 bool callbackRightArmDK(manip_msgs::DirectKinematicsFloatArray::Request &req,
@@ -199,10 +205,16 @@ bool callbackLeftArmIK(manip_msgs::InverseKinematicsFloatArray::Request &req,
 
   std::cout << "Trying to calculate inverse kinematic.... " << std::endl;
 
+  clock_t begin = std::clock();
   found_ik = kinematic_state->setFromIK(joint_group_leftArm, desired_pose, "la_link_grip_center", 10, 0.5);
+  clock_t end = std::clock();
+  double duration = double(end-begin) / CLOCKS_PER_SEC;
 
+  
   if (found_ik)
   {
+    timeSucces << " " << duration << "\n";
+    myFile << req.cartesian_pose.data[0] << " " << req.cartesian_pose.data[1] << " " << req.cartesian_pose.data[3] << "\n";
     resp.articular_pose.data.resize(7);
     kinematic_state->copyJointGroupPositions(joint_group_leftArm, result);
     for (std::size_t i = 0; i < result.size(); ++i)
@@ -212,7 +224,9 @@ bool callbackLeftArmIK(manip_msgs::InverseKinematicsFloatArray::Request &req,
     }
   }
   else
-  {
+    {
+
+    timeUnsucces << " " << duration << "\n";
     ROS_INFO("Did not find IK solution");
     return false;
   }
@@ -246,6 +260,11 @@ int main(int argc, char** argv)
   joint_group_leftArm = kinematic_model->getJointModelGroup("left_arm");
   joint_names_rightArm = joint_group_rightArm->getVariableNames();
   joint_names_leftArm = joint_group_leftArm->getVariableNames();
+
+  myFile.open("/home/edgar/ws_moveit_points.txt");
+  timeSucces.open("/home/edgar/timeSucces_ik.txt");
+  timeUnsucces.open("/home/edgar/timeUnsucces_ik.txt");
+
   
 
   /*
@@ -291,5 +310,10 @@ int main(int argc, char** argv)
     ros::spinOnce();
     loop.sleep();
   }
+
+  myFile.close();
+  timeSucces.close();
+  timeUnsucces.close();
+
   
 }

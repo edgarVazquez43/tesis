@@ -63,10 +63,10 @@ int main(int argc, char** argv)
 
   geometry_msgs::Pose endEffector_pose;
 
-  std::ofstream myFile, timeSucces, timeUnsucces;
-  myFile.open("/home/edgar/ws_moveit_points.txt");
-  timeSucces.open("/home/edgar/timeSucces_ik.txt");
-  timeUnsucces.open("/home/edgar/timeUnsucces_ik.txt");
+  // std::ofstream myFile, timeSucces, timeUnsucces;
+  // myFile.open("/home/edgar/ws_moveit_points.txt");
+  // timeSucces.open("/home/edgar/timeSucces_ik.txt");
+  // timeUnsucces.open("/home/edgar/timeUnsucces_ik.txt");
 
   // ROS  Service Client
   cltIKinematicsLA = n.serviceClient<manip_msgs::InverseKinematicsFloatArray>("/manipulation/ik_moveit/la_inverse_kinematics");
@@ -110,79 +110,68 @@ int main(int argc, char** argv)
   while(ros::ok())
     {
 
-      if (z > 1.200)
-	{
-	  if(x > 0.45)
+      for(float y = 0.15; y < 0.35; y+=0.02)
+	for(float x = 0.20; x < 0.40; x+=0.02)
+	  for(float z = 0.70; z < 1.10; z+=0.02)
 	    {
-	      if(y > 0.45)
+
+	      cartesian[0] = x;
+	      cartesian[1] = y;
+	      cartesian[2] = z;
+	      srv_ki.request.cartesian_pose.data = cartesian;
+
+	      // Response data is already respect to base_link frame
+	      endEffector_pose.position.x = cartesian[0];
+	      endEffector_pose.position.y = cartesian[1];
+	      endEffector_pose.position.z = cartesian[2];
+
+	      endEffector_marker.pose.position = endEffector_pose.position;
+	      marker_pub.publish(endEffector_marker);
+	      ros::spinOnce();
+
+	      std::cout << "Request: [x, y, z]: " << std::endl;
+	      std::cout << x << "  " << y << "  " << z << std::endl;
+
+	      clock_t begin = std::clock();
+	      srvSucces = cltIKinematicsLA.call(srv_ki);
+	      clock_t end = std::clock();
+	      double duration = double(end-begin) / CLOCKS_PER_SEC;
+      
+      
+	      if(!srvSucces)
 		{
-		  myFile.close();
-		  return 0;
+		  std::cout << std::endl <<
+		    "Justina::Manip can't calling inverse kinematics service" << std::endl << std::endl;
+		  // timeUnsucces << " " << duration << "\n";
 		}
-	      x = 0.0;
-	      y += 0.01;
-	    }
+	      else
+		{
+		  std::cout << "InverseKinematics.-> Calculated cartesian...." << std::endl;
+		  std::cout << "[x, y, z, roll, pitch, yaw]" << std::endl;
+		  for (int i=0; i < 7; i++)
+		    {
+		      std::cout << "   " << srv_ki.response.articular_pose.data[i] << std::endl;
+		      ra_gp_msgs.data[i] = srv_ki.response.articular_pose.data[i];
+		    }
 	  
-	  z = 0.700;
-	  x += 0.01;
-	}
-      
-      cartesian[0] = x;
-      cartesian[1] = y;
-      cartesian[2] = z;
-      srv_ki.request.cartesian_pose.data = cartesian;
+		  // timeSucces << " " << duration << "\n";
+		  // myFile << cartesian[0] << " " << cartesian[1] << " " << cartesian[2] << "\n";
+		  left_arm_goal_pose_pub.publish(ra_gp_msgs);
+		}
 
-      // Response data is already respect to base_link frame
-      endEffector_pose.position.x = cartesian[0];
-      endEffector_pose.position.y = cartesian[1];
-      endEffector_pose.position.z = cartesian[2];
 
-      endEffector_marker.pose.position = endEffector_pose.position;
-      marker_pub.publish(endEffector_marker);
-      ros::spinOnce();
-
-      std::cout << "Request: [x, y, z]: " << std::endl;
-      std::cout << x << "  " << y << "  " << z << std::endl;
-
-       clock_t begin = std::clock();
-       //srvSucces = cltIKinematicsLA.call(srv_ki);
-       boost::this_thread::sleep(boost::posix_time::milliseconds(2000));
-       clock_t end = std::clock();
-       double duration = double(end-begin) / CLOCKS_PER_SEC;
-      
-      
-      if(!srvSucces)
-        {
-      	  std::cout << std::endl <<
-      	    "Justina::Manip can't calling inverse kinematics service" << std::endl << std::endl;
-	  timeUnsucces << " " << duration << "\n";
-	}
-      else
-        {
-      	  std::cout << "InverseKinematics.-> Calculated cartesian...." << std::endl;
-      	  std::cout << "[x, y, z, roll, pitch, yaw]" << std::endl;
-      	  for (int i=0; i < 7; i++)
-	    {
-	      std::cout << "   " << srv_ki.response.articular_pose.data[i] << std::endl;
-	      ra_gp_msgs.data[i] = srv_ki.response.articular_pose.data[i];
-	    }
-	  
-	  timeSucces << " " << duration << "\n";
-      	  myFile << cartesian[0] << " " << cartesian[1] << " " << cartesian[2] << "\n";
-      	  left_arm_goal_pose_pub.publish(ra_gp_msgs);
-      	}
-      
-      
-      std::cout << "---------------------------" << std::endl;
-      
-      //boost::this_thread::sleep(boost::posix_time::milliseconds(2000));
-      z += 0.01;
+	    } 
       loop.sleep();
+      // myFile.close();
+      // timeSucces.close();
+      // timeUnsucces.close();
+
+      return 0;
     }
   
-  myFile.close();
-  timeSucces.close();
-  timeUnsucces.close();
+  // myFile.close();
+  // timeSucces.close();
+  // timeUnsucces.close();
 
   return 0;
 }

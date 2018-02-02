@@ -331,6 +331,7 @@ bool callback_srvDetectObjects(vision_msgs::DetectObjects::Request &req, vision_
         obj.pose.position.x = detObjList[i].centroid.x;
         obj.pose.position.y = detObjList[i].centroid.y;
         obj.pose.position.z = detObjList[i].centroid.z;
+	obj.height = detObjList[i].height;
 
         resp.recog_objects.push_back(obj);
     }
@@ -440,7 +441,8 @@ bool callback_srvDetectAllObjects(vision_msgs::DetectObjects::Request &req, visi
         obj.pose.position.x = detObjList[i].centroid.x;
         obj.pose.position.y = detObjList[i].centroid.y;
         obj.pose.position.z = detObjList[i].centroid.z;
-
+	obj.height = detObjList[i].height;
+	
         resp.recog_objects.push_back(obj);
     }
 
@@ -624,7 +626,14 @@ bool callback_srvFindPlane(vision_msgs::FindPlane::Request &req, vision_msgs::Fi
         return false;
     }
 
-    std::vector< cv::Point3f > points = horizontalPlanes[0].Get_PointsXYZ();
+
+    std::vector< cv::Point2i > points = horizontalPlanes[0].Get_Indexes();
+
+    //Just for Edd-2 Tesis Test
+    std::cout << "Yisus plane" << std::endl
+	      << "Duration: " << duration << std::endl
+	      << "Inliers: " << points.size() << std::endl
+	      << std::endl;
     
     for( int i=0; i<(int)horizontalPlanes.size(); i++)
     {
