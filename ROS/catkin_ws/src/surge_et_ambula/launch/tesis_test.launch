@@ -13,7 +13,7 @@
     
     <!-- <node name="point_cloud_man" pkg="kinect_man" type="kinect_man_node" output="screen" args=" __ defpath $(find knowledge)/hardware/point_clouds/"/> -->
     
-    <node name="kinect_man" pkg="kinect_man" type="kinect_man_node" output="screen" args="--bag /home/edgar/bags_tesis/juice.bag"/>
+    <node name="kinect_man" pkg="kinect_man" type="kinect_man_node" output="screen" args="--bag /home/edgar/bags_tesis/cereal_box.bag"/>
   </group>
 
   

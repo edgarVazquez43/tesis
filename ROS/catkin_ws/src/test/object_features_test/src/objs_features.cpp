@@ -33,7 +33,7 @@ int main(int argc, char** argv)
     cltDetectObjectsEdd = n.serviceClient<vision_msgs::DetectObjects>("/vision/detect_object/PCA_calculator");
     cltDetectObjectsYisus = n.serviceClient<vision_msgs::DetectObjects>("/vision/obj_reco/det_all_objs");
 
-    fileHeight.open("/home/edgar/height_juice.txt");
+    fileHeight.open("/home/edgar/height_cerealBox.txt");
 
     ros::Rate loop(10);
 
