@@ -199,7 +199,7 @@ include_directories(
 # catkin_add_nosetests(test)
 
 
-##### INVERSE_KINEMATIC (MoveIt)  TEST  #####
+##### OBJECTS FEATURES TEST  #####
 add_executable(obj_features_test
   src/objs_features.cpp
 )
@@ -209,4 +209,17 @@ target_link_libraries(obj_features_test
 )
 
 add_dependencies(obj_features_test
+  ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+
+##### OBJECTS FEATURES TEST  #####
+add_executable(variance_calc
+  src/variance_calc.cpp
+)
+
+target_link_libraries(variance_calc
+  ${catkin_LIBRARIES}
+)
+
+add_dependencies(variance_calc
   ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
