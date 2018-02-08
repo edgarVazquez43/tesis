@@ -26,6 +26,9 @@ Se describirá conforme al desarrollo de este estrabajo.
 \end{itemize}
 
 
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%		EXTRACCIÓN DE PLANOS           %%%%%%%%%%%%%%%%%%%%%
 
@@ -220,12 +223,42 @@ Se describirá conforme al desarrollo de este estrabajo.
 	****Insertar figuras de gráficas de la estimación del centroide, comparar la varianza.
 
 	\begin{figure}[H]
-		\includegraphics[width=14.5cm, height=7.0cm]{resultados/cerealAltura.png}	
-		\caption{Gráficas de desviciones estandar para diferentes objetos dispuestas por sus respectivos ejes.}
+		\centering
+		\includegraphics[scale=0.5]{resultados/cerealAltura.png}	
+		\label{fig:mesh1}
+		\caption{Gráficas de estímaciones de alturas para una caja de cereal. La altura real del objeto (amarillo), la altura estímada con el algoritmo previo (rojo) y la estimación actual (azul).}
+	\end{figure}
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale=0.5]{resultados/lecheAltura.png}	
+		\label{fig:mesh1}
+		\caption{Gráficas de estímaciones de alturas para un envase de leche. La altura real del objeto (amarillo), la altura estímada con el algoritmo previo (rojo) y la estimación actual (azul).}
+	\end{figure}
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale=0.5]{resultados/joystickAltura.png}	
+		\label{fig:mesh1}
+		\caption{Gráficas de estímaciones de alturas para un control de videojuegos. La altura real del objeto (amarillo), la altura estímada con el algoritmo previo (rojo) y la estimación actual (azul).}
+	\end{figure}
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale=0.5]{resultados/chocolateAltura.png}	
+		\label{fig:mesh1}
+		\caption{Gráficas de estímaciones de alturas para una barra de chocolate. La altura real del objeto (amarillo), la altura estímada con el algoritmo previo (rojo) y la estimación actual (azul).}
+	\end{figure}
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale=0.5]{resultados/jugoAltura.png}	
+		\label{fig:mesh1}
+		\caption{Gráficas de estímaciones de alturas para un envase de jugo. La altura real del objeto (amarillo), la altura estímada con el algoritmo previo (rojo) y la estimación actual (azul).}
 	\end{figure}
 
 
-	\subsection{Adcición de la información de dimensiones de los objetos}
+	\subsection{Adicición de la información de dimensiones de los objetos}
 
 
 	%%%%%%TEORIA SOBRE DESVIACIONES ESTANDART %%%%%%
@@ -233,10 +266,12 @@ Se describirá conforme al desarrollo de este estrabajo.
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+	\begin{center}
 	\begin{figure}[H]
 		\includegraphics[width=14.5cm, height=7.0cm]{resultados/DesviacionEstandar.jpg}	
 		\caption{Gráficas de desviciones estandar para diferentes objetos dispuestas por sus respectivos ejes.}
 	\end{figure}
+	\end{center}
 
 
 
@@ -268,9 +303,9 @@ Se describirá conforme al desarrollo de este estrabajo.
 
 	Las pruebas se realizaron en 10 eventos para cada uno de los 5 diferentes objetos.\\
 	4 de ellos se realizaron con el objeto a 0 grados respeco al eje y del robot.\\
-	2 ocasiones el objeto se encontraba a 45° respecto al eje y del robot.\\
-	2 ocasiones el objeto se encontraba a -45° respecto al eje y del robot.\\
-	2 ocasiones el objeto se encontraba a 90° respecto al eje y del robot.\\
+	2 ocasiones el objeto se encontraba a 45$^{\circ}$ respecto al eje y del robot.\\
+	2 ocasiones el objeto se encontraba a -45$^{\circ}$ respecto al eje y del robot.\\
+	2 ocasiones el objeto se encontraba a 90$^{\circ}$ respecto al eje y del robot.\\
 
 	Esto para cada uno de los algoritmos con los cuales se cuenta. 
 
@@ -281,9 +316,9 @@ Se describirá conforme al desarrollo de este estrabajo.
 		\subsection{Pruebas de manipulación con información de la orientación.}
 	Las pruebas se realizaron en 10 eventos para cada uno de los 5 diferentes objetos.\\
 	4 de ellos se realizaron con el objeto a 0 grados respeco al eje y del robot.\\
-	2 ocasiones el objeto se encontraba a 45° respecto al eje y del robot.\\
-	2 ocasiones el objeto se encontraba a -45° respecto al eje y del robot.\\
-	2 ocasiones el objeto se encontraba a 90° respecto al eje y del robot.\\
+	2 ocasiones el objeto se encontraba a 45$^{\circ}$ respecto al eje y del robot.\\
+	2 ocasiones el objeto se encontraba a -45$^{\circ}$ respecto al eje y del robot.\\
+	2 ocasiones el objeto se encontraba a 90$^{\circ}$ respecto al eje y del robot.\\
 
 	Esto para cada uno de los algoritmos con los cuales se cuenta. 
 
@@ -294,9 +329,9 @@ Se describirá conforme al desarrollo de este estrabajo.
 	\subsection{Pruebas de manipulación con información de la orientación e información de dimensiones..}
 	Las pruebas se realizaron en 10 eventos para cada uno de los 5 diferentes objetos.\\
 	4 de ellos se realizaron con el objeto a 0 grados respeco al eje y del robot.\\
-	2 ocasiones el objeto se encontraba a 45° respecto al eje y del robot.\\
-	2 ocasiones el objeto se encontraba a -45° respecto al eje y del robot.\\
-	2 ocasiones el objeto se encontraba a 90° respecto al eje y del robot.\\
+	2 ocasiones el objeto se encontraba a 45$^{\circ}$ respecto al eje y del robot.\\
+	2 ocasiones el objeto se encontraba a -45$^{\circ}$ respecto al eje y del robot.\\
+	2 ocasiones el objeto se encontraba a 90$^{\circ}$ respecto al eje y del robot.\\
 
 	Esto para cada uno de los algoritmos con los cuales se cuenta. 
 
