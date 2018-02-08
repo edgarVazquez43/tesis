@@ -3,13 +3,13 @@
 
 \chapter{Resultados y conclusiones}
 
-La descripción de las pruebas y la discusión de resultados se abordará con la siguiente estructura. Se describirán pruebas que permitieron realizar una evaluación del desepeño del algoritmo con respecto al que actualmente está operando en el robot de servicio Justina.\\
+La descripción de las pruebas y la discusión de resultados se abordará con la siguiente estructura. Se describirán pruebas que permitieron realizar una evaluación del desepeño de los algoritmos con respecto a los que actualmente están operando en el robot de servicio Justina.\\
 
 Se describirá conforme al desarrollo de este estrabajo. 
 
 \begin{itemize}
 	\item{Extracción de planos.}
-	\item{Exactitud, rapidez, robuztes.}
+	\item{Exactitud, rapidez.}
 
 	\item{Extracción de objetos y sus características.}
 	\item{Exactitud en la estimación de la posición.}
@@ -26,6 +26,8 @@ Se describirá conforme al desarrollo de este estrabajo.
 \end{itemize}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%		EXTRACCIÓN DE PLANOS           %%%%%%%%%%%%%%%%%%%%%
 
 	\section{Extracción de planos.}
 
@@ -162,9 +164,9 @@ Se describirá conforme al desarrollo de este estrabajo.
 
 
 	\subsection{Comparación exactitud y rapidez}
-	Para este conjunto de pruebas se comparó el algoritmo desarrollado en el presente trabajo contra el implementado acualmente en el robot de servicio Justina. Reportado en el trabajo de tesiis [**REFFF].\\
+	Para este conjunto de pruebas se comparó el algoritmo desarrollado en el presente trabajo contra el implementado acualmente en el robot de servicio Justina. Reportado en el trabajo de tesis Jesus Cruz Navarro. [**REFFF].\\
 
-	Las pruebas se desarrollaron de la siguiente manera. Con la estructura de comunicación que permite ROS ser implementaron dos servicios para encontrar planos: el desarrollado en este trabajo de tesis y el algortimo ya implementado. Se obtuvo la información de profundidad con el sensor RGB-D Kinect está infromación de compartió a traves de un topico al cual ambos servicios se encontraban suscritos. De esta manera nos aseguramos de contar con la misma información en ambos algoritmos para poner a prueba la velocidad de ejecución y la precisión de algortimo.\\
+	Las pruebas se desarrollaron de la siguiente manera. Con la estructura de comunicación que permite ROS se implementaron dos servicios para encontrar planos: el desarrollado en este trabajo de tesis y el algortimo ya implementado. Se obtuvo la información de profundidad con el sensor RGB-D Kinect está infromación de compartió a traves de un tópico al cual ambos servicios se encontraban suscritos. De esta manera nos aseguramos de contar con la misma información en ambos algoritmos para poner a prueba la velocidad de ejecución y la precisión de algortimo.\\
 
 	***Librería en C para medir obtener pulsos de reloj.\\
 
@@ -175,7 +177,7 @@ Se describirá conforme al desarrollo de este estrabajo.
 	Posteriormente calculamos el error relativo entre el modelo ideal y cada uno de los algoritmos. Como se muestran en la gráfica siguiente.\\
 
 
-	La tabla[] resume los resultados obtenidos durante las pruebas.\\
+	La tabla \ref{t_result:1} resume los resultados obtenidos durante las pruebas.\\
 
 	\begin{table}[h!]
 	\centering 
@@ -198,94 +200,38 @@ Se describirá conforme al desarrollo de este estrabajo.
 	\label{t_result:1}
 	\end{table}
 
-	La nueva implementación es más lenta pero con menor error relativo.
+
+	Con la información de que se ha reflejado en la tabla \ref{t_result:1} se puede deducir que la nueva implementación del algoritmo RANSAC con 1000 iteraciones y una distancia miníma al modelo de 0.02[m] es más lenta pero con menor error relativo. La diferencia de 605[ms] puede llegar a ser significativa si se requiere ejecutar el algoritmo iterativamente, sin embargo el común de las pruebas en ambientes del hogar no suelen requerir este tipo de acciones.\\  
 
 
 
-	\section{Extracción de objetos y sus caracteríaticas}
-	Por otro lado, se procedió a caracterizar la extracción de objetos y el cálculo de su centroide. Para ello se realizaron un total de 5 eventos con objetos diferentes, 1 prisma octagonal y 4 objetos comunes con formas regulares: prismas rectangules y cilindros. En cada uno de estos eventos se cálculo el centroide del objeto 130 veces, se tomaron medida de tendencia central (valor esperado del dentroide) y medidas de dispersión (varianza y desviación estándar). A continuación se presentan los resultados obtenidos de las mediciones realizadas.\\
 
-	\begin{figure}[H]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%     CARACTERISTICAS OBJETOS          %%%%%%%%%%%%%%%%%%%%%
+	\section{Extracción de objetos y sus características}
+	En lo que respecta a la extracción de objetos y sus características se procedió a realizar una caracterización de la misma. Para ello se realizaron un total de 100 eventos para cada uno de los 5 objetos diferentes: un control para videojuegos de forma irregular, una caja de cereal, un envase de jugo, un envase de bebida láctea y una barra de chocolate. Como información de interés se compararón las medidas de altura de los objetos. Puesto que el algoritmo previo tambien hacía una estímación de la altura de los objetos se compararon los resultados de ambos algoritmos. Como elementos de medida signiticativos se tomaron medida de tendencia central (valor esperado del dentroide) y como medida de dispersión se tomó la varianza. A continuación se presentan los resultados obtenidos de las mediciones realizadas.\\
 
-		\begin{subfigure}[h]{.5\textwidth}
-		\includegraphics[width=14.5cm, height=6.0cm]{resultados/x_pRojo.jpg}	
-		\end{subfigure}\\
-		\begin{subfigure}[h]{.5\textwidth}
-		\includegraphics[width=14.5cm, height=6.0cm]{resultados/y_pRojo.jpg}
-		\end{subfigure}\\
-		\begin{subfigure}[h]{.5\textwidth}
-		\includegraphics[width=14.5cm, height=6.0cm]{resultados/z_pRojo.jpg}
-		\end{subfigure}
-	
-	\caption{Gráficas de coordenadas en centroide de un prisma rojo.}
+	****Imagenes de los objetos
 
-	\end{figure}
+
+
+
+	\subsection{Estímación de alturas}
+	****Insertar figuras de gráficas de la estimación del centroide, comparar la varianza.
 
 	\begin{figure}[H]
-
-		\begin{subfigure}[h]{.5\textwidth}
-		\includegraphics[width=14.5cm, height=6.0cm]{resultados/x_chocolate.jpg}	
-		\end{subfigure}\\
-		\begin{subfigure}[h]{.5\textwidth}
-		\includegraphics[width=14.5cm, height=6.0cm]{resultados/y_chocolate.jpg}
-		\end{subfigure}\\
-		\begin{subfigure}[h]{.5\textwidth}
-		\includegraphics[width=14.5cm, height=6.0cm]{resultados/z_chocolate.jpg}
-		\end{subfigure}
-	
-	\caption{Gráficas de coordenadas en centroide de una barra de chocolate.}
-
+		\includegraphics[width=14.5cm, height=7.0cm]{resultados/cerealAltura.png}	
+		\caption{Gráficas de desviciones estandar para diferentes objetos dispuestas por sus respectivos ejes.}
 	\end{figure}
 
-	\begin{figure}[H]
 
-		\begin{subfigure}[h]{.5\textwidth}
-		\includegraphics[width=14.5cm, height=6.0cm]{resultados/x_jugo.jpg}	
-		\end{subfigure}\\
-		\begin{subfigure}[h]{.5\textwidth}
-		\includegraphics[width=14.5cm, height=6.0cm]{resultados/y_jugo.jpg}
-		\end{subfigure}\\
-		\begin{subfigure}[h]{.5\textwidth}
-		\includegraphics[width=14.5cm, height=6.0cm]{resultados/z_jugo.jpg}
-		\end{subfigure}
-	
-	\caption{Gráficas de coordenadas en centroide de cartón de jugo.}
+	\subsection{Adcición de la información de dimensiones de los objetos}
 
-	\end{figure}
 
-	\begin{figure}[H]
-
-		\begin{subfigure}[h]{.5\textwidth}
-		\includegraphics[width=14.5cm, height=6.0cm]{resultados/x_milk.jpg}	
-		\end{subfigure}\\
-		\begin{subfigure}[h]{.5\textwidth}
-		\includegraphics[width=14.5cm, height=6.0cm]{resultados/y_milk.jpg}
-		\end{subfigure}\\
-		\begin{subfigure}[h]{.5\textwidth}
-		\includegraphics[width=14.5cm, height=6.0cm]{resultados/z_milk.jpg}
-		\end{subfigure}
-	
-	\caption{Gráficas de coordenadas en centroide de un envase de leche.}
-
-	\end{figure}
-
-	\begin{figure}[H]
-
-		\begin{subfigure}[h]{.5\textwidth}
-		\includegraphics[width=14.5cm, height=6.0cm]{resultados/x_pringles.jpg}	
-		\end{subfigure}\\
-		\begin{subfigure}[h]{.5\textwidth}
-		\includegraphics[width=14.5cm, height=6.0cm]{resultados/y_pringles.jpg}
-		\end{subfigure}\\
-		\begin{subfigure}[h]{.5\textwidth}
-		\includegraphics[width=14.5cm, height=6.0cm]{resultados/z_pringles.jpg}
-		\end{subfigure}
-	
-	\caption{Gráficas de coordenadas en centroide de un contenedor de frituras (pringles).}
-
-	\end{figure}
-
-	La desviación estándar puede ser interpretada como una medida de incertidumbre. La desviación estándar de un grupo repetido de medidas nos da la precisión de éstas. Cuando se va a determinar si un grupo de medidas está de acuerdo con el modelo teórico, la desviación estándar de esas medidas es de vital importancia: si la media de las medidas está demasiado alejada de la predicción (con la distancia medida en desviaciones estándar), entonces consideramos que las medidas contradicen la teoría. Esto es coherente, ya que las mediciones caen fuera del rango de valores en el cual sería razonable esperar que ocurrieran si el modelo teórico fuera correcto. La desviación estándar es uno de tres parámetros de ubicación central; muestra la agrupación de los datos alrededor de un valor central (la media o promedio).\\
+	%%%%%%TEORIA SOBRE DESVIACIONES ESTANDART %%%%%%
+	Dado que la desviación estándar puede ser interpretada como una medida de incertidumbre cuando cálculamos el valor de esta en un grupo repetido de medidas nos da la precisión de éstas. Cuando se va a determinar si un grupo de medidas está de acuerdo con el modelo teórico, la desviación estándar de esas medidas es de vital importancia: si la media de las medidas está demasiado alejada de la predicción (con la distancia medida en desviaciones estándar), entonces consideramos que las medidas contradicen la teoría. Esto es coherente, ya que las mediciones caen fuera del rango de valores en el cual sería razonable esperar que ocurrieran si el modelo teórico fuera correcto. La desviación estándar es uno de tres parámetros de ubicación central; muestra la agrupación de los datos alrededor de un valor central (la media o promedio).\\
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 	\begin{figure}[H]
 		\includegraphics[width=14.5cm, height=7.0cm]{resultados/DesviacionEstandar.jpg}	
@@ -293,22 +239,74 @@ Se describirá conforme al desarrollo de este estrabajo.
 	\end{figure}
 
 
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%% Cálculo de las orientaciones  %%%%%%%%%%%%%%%%%%%%
 	\section{Cálculo de la orientación del objeto.}
 		\subsection{Prueba de exactitud}
 		\subsection{Comparación en tiempo de ejecución de la tarea de manipulación.}
 
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%% PRUEBAS DE GRASPEO CON INFROMACIÖN DEL ÁREA DE TRABAJO  %%%%%%%%%%%%
 	\section{Estimación de las dimensiones del área de trabajo.}
 		\subsection{Comparación en tiempo de ejecución de la tarea de manipulación.}
 
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%% PRUEBAS GRASPEO CON DIFERENTES INFORMACIONES %%%%%%%%%%%%
+	\section{Pruebas de manipulación con el robot real}
+		\subsection{Pruebas de manipulación actual.}
+
+	Las pruebas se realizaron en 10 eventos para cada uno de los 5 diferentes objetos.\\
+	4 de ellos se realizaron con el objeto a 0 grados respeco al eje y del robot.\\
+	2 ocasiones el objeto se encontraba a 45° respecto al eje y del robot.\\
+	2 ocasiones el objeto se encontraba a -45° respecto al eje y del robot.\\
+	2 ocasiones el objeto se encontraba a 90° respecto al eje y del robot.\\
+
+	Esto para cada uno de los algoritmos con los cuales se cuenta. 
+
+	****Gráficas de eventos, reslatando exitos-fracacsos
+
+
+
+		\subsection{Pruebas de manipulación con información de la orientación.}
+	Las pruebas se realizaron en 10 eventos para cada uno de los 5 diferentes objetos.\\
+	4 de ellos se realizaron con el objeto a 0 grados respeco al eje y del robot.\\
+	2 ocasiones el objeto se encontraba a 45° respecto al eje y del robot.\\
+	2 ocasiones el objeto se encontraba a -45° respecto al eje y del robot.\\
+	2 ocasiones el objeto se encontraba a 90° respecto al eje y del robot.\\
+
+	Esto para cada uno de los algoritmos con los cuales se cuenta. 
+
+	****Gráficas de eventos, reslatando exitos-fracacsos
+
+
+
+	\subsection{Pruebas de manipulación con información de la orientación e información de dimensiones..}
+	Las pruebas se realizaron en 10 eventos para cada uno de los 5 diferentes objetos.\\
+	4 de ellos se realizaron con el objeto a 0 grados respeco al eje y del robot.\\
+	2 ocasiones el objeto se encontraba a 45° respecto al eje y del robot.\\
+	2 ocasiones el objeto se encontraba a -45° respecto al eje y del robot.\\
+	2 ocasiones el objeto se encontraba a 90° respecto al eje y del robot.\\
+
+	Esto para cada uno de los algoritmos con los cuales se cuenta. 
+
+	****Gráficas de eventos, reslatando exitos-fracacsos
+
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%		Conclusiones           %%%%%%%%%%%%%%%%%%%%%
-%% \chapter{Conclusiones} 
-	Partiendo de la información obtenida de los resultados podemos concluir que un algoritmo RANSAC con un umbral de 0.5 [cm] y un número de iteraciones entre 24 y 30 nos ayudará a encontrar la ecuación de un plano así como una lista de puntos pertenecientes al mismo. Esta primera parte del desarrollo permitió desarrollar un algoritmo que no presentara un tiempo excesivo de ejecución de manera innecesaria. \\
-
-	Una vez que se estuvo seguros que el algoritmo RANSAC funcionaba de manera aceptable se continuó a probar la extracción de objetos sobre el plano.\\
-
-	Para ello se tomaron 5 muestras de objetos diferentes. Se calculó la media de las coordenadas \textit{x, y, z} y la desviación estándar de las mismas. En la Figura 4.15 podemos observar que el objeto que presentá una desviación estándar de mayor magnitud es el objeto \textit{pringles}, y de los tres ejes presenta una mayor desviación estándar en el eje $"z"$. El orden de magnitud de la mayor desviación estándar es de 0.3 milésimas. Entonces, por el concepto de la desviación estándar podemos decir que el cálculo de la media de los centroides del objetos tiene un alto grado de cercanía a la predicción (media) del mismo. Por tanto el cálculo de la media en cualquier instante es confiable.\\ 
+\chapter{Conclusiones} 
+	Partiendo de la información obtenida de los resultados podemos concluir que un algoritmo RANSAC con un umbral de 0.02 [m] y un número de 1000 iteraciones nos ayudará a encontrar la ecuación de un plano así como una lista de puntos pertenecientes al mismo. Esta impletenación tomará 8 veces más tiempo que la implementación actual pero reducirá el error relativo respecto al modelo real de un 39.9\% al 8.83\%.\\
 
