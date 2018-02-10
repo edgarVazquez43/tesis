@@ -1,0 +1,99 @@
+
+¿Qué es ROS?
+
+ROS (Robot Operating System) es un meta sistema operativo de código abierto mantenido por la Open Source Robotics Foundation (OSRF). Proporciona los servicios que caben esperar de un sistema operativo incluyendo las abstracciones de hardware, control de dispositivos a bajo nivel, implementación de utilidades comunes, paso de mensajes entre procesos y gestión de paquetes. También proporciona herramientas y librerías para obtener, compilar, escribir y ejecutar código a través de múltiples ordenadores. ROS se compone de un número de nodos independientes, cada nodo se comunica con el resto de nodos utilizando el modelo publicador/subscriptor.
+¿Porqué ROS?
+
+ROS es el SDK definitivo para el desarrollo de aplicaciones de robots. Proporciona una arquitectura distribuida y contiene algoritmos implementados del estado del arte, mantenidos por expertos en el campo. Todo con una licencia permisiva que en unos pocos años cambiará el panorama de la robótica y es ampliamente adoptado por la investigación, centros educativos y la industria.
+
+Los nodos de ROS no tienen que estar en el mismo sistema ni incluso ser de la misma arquitectura!. Se puede tener un Erle-Brain 3  publicando mensajes y un ordenador portátil suscribiéndose a ellos. Al ser un sistema operativo de código abierto mantenido, utilizado y desarrollado por numerosos usuarios y entidades, se trata de una infraestructura muy flexible y adaptable a diversas necesidades.
+Un poco de historia
+ROS fue originalmente desarrollado en 2007 por el Laboratorio de Inteligencia Artificial de Stanford (SAIL) con el soporte del proyecto Standfor AI Robot. En 2008 se continuó el desarrollo en Willow Garage, incubadora de empresas y un laboratorio de investigación robótica dedicada a la creación de software de código abierto para las aplicaciones para robots personales con más de 20 instituciones colaborando en el desarrollo. En febrero de 2013, ROS se transfirió a la Open Source Robotics Foundation.
+
+ROS está liberada bajo los términos de la licencia BSD (Berkeley Software Distribution) y un software open source, gratuito para el uso comercial y de investigación.
+
+ROS promueve la reutilización de código, así los desarrolladores y científicos no tienen que reinventar la rueda todo el tiempo, pudiendo coger el código de los repositorios, mejorarlo y compartirlo de nuevo.
+ROS: Conceptos
+
+    Master: El ROS Master proporciona el registro de nombre y consulta el resto del grafo de computación. Sin el maestro, los nodos no serían capaces de encontrar al resto de nodos, intercambiar mensajes o invocar servicios.
+
+    Nodos: Los nodos son procesos que realizan la computación. ROS está diseñado para ser modular en una escala de grano fino; un sistema de control de robots comprende por lo general muchos nodos. Por ejemplo, un nodo controla un láser, un nodo controla los motores de las ruedas, un nodo lleva a cabo la localización, un nodo realiza planificación de trayectoria, un nodo proporciona una vista gráfica del sistema, y así sucesivamente. Un nodo de ROS se escribe con el uso de las librerías cliente de ROS, roscpp y rospy.
+
+    Servidor de parámetros: El servidor de parámetros permite almacenar datos mediante un clave en una localiación central, actualmente es parte de Master.
+
+    Mensajes: Los nodos se comunican mediante el paso de mensajes. Un mensaje es una estructura de datos compuestos. Un mensaje comprende una combinación de tipos primitivos y mensajes. Los tipos primitivos de datos (integer, floating point, boolean, etc.) están soportados, como los arrays de tipo primitivo. Los mensajes pueden incluir estructuras y arrays (como las estructuras de C).
+
+    Tópicos:Los mensajes son enrutados por un sistema de transporte que utiliza semántica publicador/subscriptor. Un nodo envía mensajes publicando en un tópico. El tópico es un nombre que se usa para identificar el contenido del mensajes. Un nodo que esta interesado en cierto tipo de datos se subscribirá al tópico apropiado. Pueden existir muchos publicadores concurrentemente para un solo tópico y un nodo puede publicar y/o subscribirse a múltiples tópicos. En general, los publicadores y subscriptores no son conscientes de la existencia de los otros. La idea es desacoplar la producción de información de su consumición. Lógicamente, uno puede pensar que un tópico es mensaje fuertemente tipado en un bus. Ese bus tiene un nombre y nadie se puede conectar al bus para enviar o recibir mensajes si no están correctamente tipados.
+
+    Servicios: El modelo de publicar/subscriptor es un paradigma de comunicación muy flexible, pero en muchos casos el transporte en un único sentido no es suficiente para las interacciones de petición y respuesta que a menudo se requieren en un sistema distribuido. La petición y respuesta se realiza a través de los servicios, que se definen a partir de una estructura de mensajes: una para la petición y otra para la respuesta. Un nodo proporciona un servicio con un nombre y un cliente utiliza dicho servicio mediante el envío del mensaje de petición y espera a la respuesta. La librería cliente de ROS generalmente presenta esta interacción como si fuera una llamada a procedimiento remoto.
+
+    Bolsas: Las bolsas es un formato para guardar y reproducir de nuevo mensajes de ROS. Las bolsas son un mecanismo importante para el almacenamiento de datos, como lecturas de sensores, que pueden ser difícilmente adquiridas pero son necesarias para el desarrollo y testeo de algoritmos.
+
+ 
+NODOS
+Los nodos son ejecutables que se comunican con otros procesos usando tópicos, servicios y servidores de parámetros. El uso de nodos en ROS proporciona tolerancia a fallos y separa el código y funcionalidades del sistema haciendolo más simple.
+
+Un nodo tiene un nombre único en el sistema. El nombre es usado para permitir al nodo conectarse con el resto de nodos usando nombres sin ambigüedad. Un nodo puede ser escrito usando diferentes librerías como: roscpp y rospy; roscpp es para C++ y rospy es para Python.
+
+ROS tiene herramientas para manejar los nodos y darles información sobre ellos como rosnode. La herramienta rosnode es una herramienta de línea de comando para mostrar información sobre los nodos:
+
+    rosnode info node: Muestra información sobre el nodo
+    rosnode kill node: Mata el nodo o envía una señal para matarlo
+    rosnode list: Muestra una lista con los nodos activos
+    rosnode machine hostname: Lista los nodos ejecutando en una máquina en concreto
+    rosnode ping node: Muestra la conectividad con el nodo
+    rosnode cleanup: Limpia la información de registro para nodos inalcanzables
+
+Tópicos
+
+Los tópicos son canales de comunicación para transmitir datos. Los tópicos pueden ser transmitidos sin una comunicación directa entre nodos, significa que la producción y consumición de datos esta desacoplada. Un tópico puede tener varios subscriptores.
+
+Cada tópico esta fuertemente tipado por un tipo de mensaje de ROS que se publica, los nodos pueden recibir mensajes de un tipo determinado. Un nodo puede subscribirse a un tópico solo si tiene el mismo tipo de mensaje.
+
+El tópico en ROS puede transmitirse usando TCP/IP o UDP. El transporte basado en TCP/IP es conocido como TCPROS y utiliza TCP/IP para la conexión. Este es el tipo de transporte utilizado en ROS.
+
+El transporte basado en UDP es conocido como UDP ROS y es de baja latencia y bajas perdidas. Por lo tanto, se ajusta mejor a tareas como la teleoperación.
+
+ROS tiene una herramienta para trabajar con tópicos llamada rostopic. Es una herramienta de línea de comandos que proporciona información sobre el tópico o publica datos directamente sobre la red:
+
+    rostopic bw /topic: Muestra el ancho de banda utilizado por un tópico
+    rostopic echo /topic: Muestra el mensaje por la salida estandar.
+    rostopic find message_type: Busca tópicos que usen el tipo de mensaje especificado.
+    rostopic hz /topic: Publica la tasa de publicación del tópico.
+    rostopic info /topic: Muestra información sobre el tópico, el tópico publicado, los que están subscritos y los servicios.
+    rostopic list: Muestra información sobre los tópicos activos.
+    rostopic pub /topic type args: Publica datos al tópico. Permite crear y publicar datos en cualquier tópico directamente desde la línea de comandos.
+    rostopic type /topic:Muestra el tipo de tópico, es decir, el tipo de mensaje que publica.
+
+Servicios
+Cuando necesitas comunicarte con nodos y recibir una respuesta, no se puede realizar con tópicos, se utilizan los servicios.
+
+El servicio es desarrollado por el usuario, los servicios standars no existen en los nodos. Los archivos con el código fuente de los mensajes son almacenados en la carpeta svr
+
+con rosservice, se pueden listar y enviar peticiones. Los comandos soportados son los siguientes:
+
+    rosservice call /service args: Llama al servicio con los argumentos apropiados
+    rosservice find msg-type: Busca los serivcios por el tipo de servicio
+    rosservice info /service:Muestra información sobre el servicio
+    rosservice list: Lista los servicios activos
+    rosservice type /service:Muestra el tipo de servicio
+    rosservice uri /service: Muestra el servicio ROSRPC URI
+
+
+
+
+
+
+
+
+
+
+Sistema Operativo Robótico
+
+Sistema Operativo Robótico (en inglés Robot Operating System, ROS) es un framework para el desarrollo de software para robots que provee la funcionalidad de un sistema operativo en un clúster heterogéneo. ROS se desarrolló originalmente en 2007 bajo el nombre de switchyard por el Laboratorio de Inteligencia Artificial de Stanford para dar soporte al proyecto del Robot con Inteligencia Artificial de Stanford (STAIR2​). Desde 2008, el desarrollo continua primordialmente en Willow Garage, un instituto de investigación robótico con más de veinte instituciones colaborando en un modelo de desarrollo federado.3​4​
+
+ROS provee los servicios estándar de un sistema operativo tales como abstracción del hardware, control de dispositivos de bajo nivel, implementación de funcionalidad de uso común, paso de mensajes entre procesos y mantenimiento de paquetes. Está basado en una arquitectura de grafos donde el procesamiento toma lugar en los nodos que pueden recibir, mandar y multiplexar mensajes de sensores, control, estados, planificaciones y actuadores, entre otros. La librería está orientada para un sistema UNIX (Ubuntu (Linux)) aunque también se está adaptando a otros sistemas operativos como Fedora, Mac OS X, Arch, Gentoo, OpenSUSE, Slackware, Debian o Microsoft Windows, considerados como 'experimentales'.
+
+ROS tiene dos partes básicas: la parte del sistema operativo, ros, como se ha descrito anteriormente y ros-pkg, una suite de paquetes aportados por la contribución de usuarios (organizados en conjuntos llamados pilas o en inglés stacks) que implementan la funcionalidades tales como localización y mapeo simultáneo, planificación, percepción, simulación, etc.
+
+ROS es software libre bajo términos de licencia BSD. Esta licencia permite libertad para uso comercial e investigador. Las contribuciones de los paquetes en ros-pkg están bajo una gran variedad de licencias diferentes.
