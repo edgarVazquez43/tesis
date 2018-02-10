@@ -2,7 +2,50 @@
 
 \chapter{Integración}
 	\section{ROS}
+	ROS es un meta-sistema operativo de software libre para robótica que ofrece las utilidades que se esperarían en cualquier sistema operativo: abstracción de hardware, control de dispositivos de bajo nivel, implementación de funcionalidades comunes, intercambio de mensajes entre procesos y mantenimiento de paquetes. Su objetivo principal es dar soporte a la reutilización de código en la investigación y desarrollo de robótica [21].\\
+
+	Una de las principales ventajas que ofrece es la de comunicar distintos procesos dependientes o independientes entre sí de manera muy sencilla. El funcionamiento de un robot se piensa de manera modular, donde cada módulo realiza una tarea específica y ROS se encarga del transporte de la información entre ellos. Además, su creciente comunidad aporta mucho al desarrollo de nuevo software que otros usuarios pueden utilizar de acuerdo a sus necesidades.\\
+
+	\subsection{NODOS}
+	Nodo es el nombre que recibe en ROS los pequeños módulos que conforman la red de trabajo; se encargan de realizar un proceso en particular. Por ejemplo, un nodo mueve los motores, otro nodo es responsable de la interfaz con el usuario, otro planea las trayectorias, mientras que un último nodo controla los sensores. La comunicación entre nodos se realiza por medio de mensajes usando tópicos o servicios.\\
+
+	\subsection{PAQUETES}
+	El software en ROS se organiza por medio de paquetes. Un paquete puede entenderse como una carpeta con estructura definida y puede contener el código de un nodo, la definición de mensajes, archivos de configuración, software ajeno a ROS, etc. Se pretende que un paquete ofrezca una utilidad por sí mismo, pero no debe ser tan complejo como para ser difícil de entender por otros usuarios. Cuando se comparten desarrollos en la comunidad de ROS, los paquetes son la unidad más pequeña de construir y publicar. Es decir, si se crea un nodo con una funcionalidad única y éste se quiere compartir con el mundo, lo que se debe compartir en realidad es el paquete que contiene al nodo.\\
+
+	\subsection{TÓPICOS}
+	Uno de los paradigmas para comunicar nodos entre sí es por medio de tópicos. Un nodo publica cierto tipo de información en un tópico específico y todos los nodos que requieran de esa información deberán suscribirse a ese tópico para obtenerla. En cuanto los datos sean publicados, los nodos suscritos la recibirán. El nodo publicador no sabes quién o quiénes leerán lo que publique, únicamente sabe a dónde mandar la información. Lo mismo sucede del otro lado, los nodos suscritos no saben quién publica la información, sólo saben de dónde la deben esperar. Cada tópico comunica únicamente un tipo de mensaje definido.\\
+
+	\subsection{SERVICIOS}
+	El otro paradigma para comunicar nodos son los servicios utilizando un sistema petición-respuesta. Si algún proceso o cálculo se requiere hacer sólo en ciertas situaciones es conveniente programarlo como un servicio. Si un nodo requiere utilizar un servicio, manda un mensaje de petición con la información necesaria al nodo que ofrece dicho servicio, el procesamiento se lleva a cabo y se regresa al nodo solicitante un mensaje de respuesta con el resultado del servicio. Al igual que los tópicos, cada servicio tiene el tipo de mensaje específico con el que se comunicará; hay un tipo de mensaje para las peticiones y otro para las respuestas.\\
+
+
 	***Esquemas de comunicación Topicos y Servicios.\\
 
+	
+
+
+	%%%%
+	%%%%   Desarrollo de pruebas
+	%%%%
 	\section{Máquinas de estados}
+
+	\subsection{Descripción de pruebas de toma de objetos.}
+
+	\subsection{Pruebas de toma de objetos estado actual.}
+
+	\subsection{Pruebas de toma de objetos con información de orientación.}
+
+	\subsection{Pruebas de toma de objetos con información de orientación y dimensiones del objeto.}
+
+
+
+
+
+
+
+	%%%
+	%%%	Descripción general del software Justina
+	%%%
 	\section{Constitución del robot de servicio Justina}
+
+	\subsection{Estructura de software del robot Justina.}

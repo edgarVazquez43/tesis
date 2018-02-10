@@ -344,7 +344,9 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
 	\subsection{Teoría trasformaciones y medidas del brazo robotico}
 	Se partió del sistema mecánico previamente construido del brazo robótico del robot de servicio Justina. Para ello se realizaron mediciones de distancias entre los respectivos ejes de acción de cada uno de los actuadores a fin describir los desplazamientos de los sistemas de refencia en el brazo robótico.\\
 
-	***Foto brazo real con medidas\\
+	% #####################################################
+	% #####################################################
+	% ########   Foto brazo real con medidas\\
 
 
 	Es importante mencionar que para la descripcion de las transformaciones en sistema ROS, podemos contruir la matriz de rotación de tal manera que incluyamos las rotaciones y desplazamientos en los tres ejes coordenados. Esta caracteristica nos proporciona una ventaja sobre los técnicas de descripción de cinematica directa convencionales, tal es el caso del Método Denavith-Hartemberg donde el sistema de transformaciónes debe ser descrito utilizando, unicamente, dos rotaciones y dos translaciones según sus convenciones.\\
@@ -806,6 +808,11 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
 
 
 
+%%%    ########################################   %%%%%%%%
+%%% OBTENCIÓN DEL WS DEL BRAZO ROBOTICO DEL ALGORITMO
+%%%    ########################################   %%%%%%%%
+
+
 \newpage
 	\section{Cinemática inversa Método Geometrico}
 	El problame de la cinemática inversa consiste en dada una posición deseada $p(x, y, z, roll, pitch, yaw)$ encontar el valor de cada una una de las juntas cinemáticas que lleven al brazo a la posoción desea. Este problema suele ser uno de los más interesantes y complejos, dentro del estudio de la robótica. Es preciso mencionar que para llevar el efector final a cualquier posición y orientación deseada se requiere por lo menos un brazo robótico de 6DOF. En el desarrolo de este trabajo se plantea la resolución de la cinemática para un brazo robótico de 7DOF, lo cual suele aumentar el grado de complejidad en la resolución del problema.\\
@@ -909,4 +916,4 @@ o^0_c = o - d_6 R \hat{x}
 
 
 \newpage
-	\section{Cinemática inversa}
+	\section{Cinemática inversa paquetería MoveIt}
