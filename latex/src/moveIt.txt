@@ -1,0 +1,163 @@
+Trabajo en tierra
+¡Muévelo! es una evolución del arm_ nav-
+software de igación en ROS. El arm_navi-
+paquetes de gación fueron diseñados para
+Identificador de objeto digital 10.1109 / MRA.2011.2181749
+Fecha de publicación: 26 de marzo de 2012
+18
+•
+REVISTA IEEE ROBOTICS & AUTOMATION
+•
+planificación del movimiento, generación de trayectoria,
+y monitoreo del medio ambiente para el
+brazos de robot del robot PR2. Sensor
+datos del láser y sensores estéreo
+en el robot PR2 se fusionó para generar
+un modelo consistente del medio ambiente.
+El modelo de entorno puede manejar
+oclusiones de partes del robot
+cuerpo y también el ruido significativo en
+Datos del sensor 3-D. El ambiente era
+representado como una mezcla de dos formatos:
+1) una red vóxel que representaba la mayor parte de
+los obstáculos en el medio ambiente y
+2) primitivas geométricas y mods de malla
+els para representar objetos que habían sido
+reconocido y registrado en el medio ambiente
+ambiente mediante rutinas de detección de objetos.
+El modelo del entorno se construyó sobre
+el paquete Octomap [1], un octree-
+representación probabilística basada,
+permitiendo una representación eficiente de
+grandes escenas abarrotadas. El entorno
+modelo sirvió como la entrada principal a
+planificadores de movimiento rápido que podrían rápidamente
+generar planes de movimiento sin colisiones en
+ambientes bastante desordenados. Un genérico
+Interfaz ROS para planificación geométrica
+permitió múltiples planificadores de movimiento para ser
+integrado, incluido el plan aleatorizado
+de la planificación de movimiento abierto
+Biblioteca (OMPL) [2], plan basado en búsquedas-
+de la planificación basada en búsquedas
+Biblioteca (SBPL) [3], y trayectoria óptima
+bibliotecas de mios incluyendo CHOMP
+[4] y trayectoria estocástica optimiza-
+ción para la planificación del movimiento (STOMP) [5].
+Algunos de los planificadores de movimiento fueron capaces de
+de lidiar con los conflictos geométricos
+straints, por ejemplo, una restricción de orientación
+especificando que un vaso de agua debería
+mantente en pie Path smoothers y trazadoc-
+tory generadores se utilizaron para parametrizar
+ize los caminos planificados para que
+las trayectorias podrían ejecutarse en
+MARZO 2012
+robot. Una cinemática analítica personalizada
+solucionador para el PR2 permitió inversa rápida
+soluciones cinemáticas. Una ejecución conjunta
+ponent llamado move_arm formó el
+interfaz primaria a este conjunto de capacidades
+itias, exponiendo una interfaz que permitía
+usuarios para especificar el espacio cartesiano y conjunto
+metas que el robot necesitaba alcanzar. UN
+componente de seguimiento de trayectoria mantenido
+un ojo en el movimiento del robot,
+Servoar activamente los sensores si es necesario,
+para rastrear el movimiento del brazo, y
+responder a los cambios en el medio ambiente.
+El software arm_navigation fue una clave
+componente de la tubería de agarre (sub-
+objeto de una columna anterior de "ROS Topics"),
+permitiendo la generación de colisiones sin
+trayectorias para ejecutar, recoger y colocar
+acciones, obedeciendo el con-
+las restricciones impuestas por la tarea.
+Evolución
+La evolución de arm_navigation
+software para MoveIt! es el resultado de un
+esfuerzo para empaquetar el núcleo algorítmico
+capacidades en el arm_navigation
+software por separado del medio
+ware (ROS), lo que permite un código más fácil
+reutilizar. Engranajes ROS ligeros y
+envolturas permitirán a los usuarios de ROS
+configurar e interactuar fácilmente con el
+componentes de MoveIt !. Avanzado
+los usuarios y desarrolladores de aplicaciones
+ser capaz de incorporar directamente el núcleo
+capacidades en MoveIt! a través de libra-
+sin tener que depender de un
+gran parte de ROS. ¡Muévelo! se basa en
+nuevas características en ROS, incluido el
+capacidad de utilizar el mensaje ROS generado
+infraestructura de ación como independiente
+capacidad. ¡Muévelo! también integra el
+Fast Collision Library (FCL) [6],
+que proporciona control de distancia
+capacidades que deberían permitir el
+
+generación de movimiento de mejor calidad
+planes. ¡Muévelo! también se espera que con-
+tributo en otras áreas de aplicación,
+incluida la automatización de la calibración
+proceso para armas robóticas con 3-D y
+otros sensores visuales. El arm_naviga-
+la pila de software de la tarjeta retendrá su función
+tradicional, pero su implementación
+consisten principalmente en con-
+¡figuraciones para el MoveIt! software.
+Portabilidad
+El software arm_navigation era
+diseñado principalmente para el robot PR2
+pero se ha usado en varios otros
+sistemas robóticos. En MoveIt !, hacemos
+un esfuerzo adicional para extraer todo el
+información necesaria en el existente
+URDF (la descripción estándar del robot)
+formato en ROS) y recientemente definido
+Formato de descripción del robot semántico
+(SRDF) para evitar dependencias en
+robots cific. Además, nuevas herramientas
+como el Asistente de navegación de brazo,
+específicamente diseñado para permitir
+uration de arm_navigation soft-
+ware para otros manipuladores robóticos
+y sistemas, están siendo portados a
+¡Muévelo!. El asistente de navegación de brazo
+usa una combinación de URDF y
+SRDF para autoconfigurar arm_navi-
+software de gación para un robot. Un
+interfaz gráfica de usuario interactiva
+permite a los usuarios especificar el plan de movimiento
+solicitudes de sus nuevos robots, con
+una cantidad mínima de interfaz
+implementación requerida de la
+usuario en el lado del robot. Esto permite
+expertos en planificación sin movimiento para fácilmente
+configurar la planificación del movimiento y
+componentes asociados en ROS para
+sus propios robots.
+
+
+El futuro
+¡Esperamos MoveIt !, en concierto con
+las capacidades de planificación de movimiento en
+OMPL y otros paquetes, para formar
+la base para aplicaciones nuevas y emocionantes
+con robots. Como MoveIt! evoluciona
+y encuentra más usos en la comunidad
+comunidad, nuevas funciones y capacidades
+encontrarán su camino hacia el sistema,
+por ejemplo, detección activa, evento anómalo
+detección y respuesta, y el
+generación de aspecto más natural
+caminos. También buscamos desarrollar un conjunto de
+pruebas de benchmarking alrededor de MoveIt!
+permitiendo la comparación de
+planificadores de procesos y otros componentes
+para tareas en situaciones del mundo real.
+¡Muévelo! será crucial en nuestro objetivo de
+habilitando robots más seguros y capaces
+que puede funcionar efectivamente en humanos
+ambientes.
