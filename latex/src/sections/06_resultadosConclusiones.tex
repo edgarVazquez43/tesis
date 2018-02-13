@@ -140,25 +140,20 @@ Se describirá conforme al desarrollo de este estrabajo.
 	\end{figure}
 
 	\begin{figure}[H]
-
 		\begin{subfigure}[h]{.5\textwidth}
 		\includegraphics[width=8.5cm, height=5.0cm]{resultados/20_errRel.jpg}	
 		\end{subfigure}%
 		\begin{subfigure}[h]{.5\textwidth}
 		\includegraphics[width=8.5cm, height=5.0cm]{resultados/20_timeExec.jpg}
 		\end{subfigure}
-	
 	\caption{Gráficas correspondientes al error relativo y tiempo de ejecución para el algoritmo RANSAC con 20 iteraciones.}
-
 	\end{figure}
 
 	Una vez que se obtuvo la información parcial de cada uno de estos eventos se realizó una tabla extra que agrupa la información del tiempo de ejecución promedio y el error relativo promedio contra el número de iteraciones del algoritmo. Se obtuvo la siguiente gráfica.\\
 
 	\begin{figure}[H]
-
 		\includegraphics[width=14.5cm, height=8.0cm]{resultados/timeExec_errRel.jpg}
 		\caption{Gráfica error relativo versus tiempo de ejecución para diferentes numeros de iteraciones.}
-
 	\end{figure}
 
 
@@ -214,48 +209,72 @@ Se describirá conforme al desarrollo de este estrabajo.
 	\section{Extracción de objetos y sus características}
 	En lo que respecta a la extracción de objetos y sus características se procedió a realizar una caracterización de la misma. Para ello se realizaron un total de 100 eventos para cada uno de los 5 objetos diferentes: un control para videojuegos de forma irregular, una caja de cereal, un envase de jugo, un envase de bebida láctea y una barra de chocolate. Como información de interés se compararón las medidas de altura de los objetos. Puesto que el algoritmo previo tambien hacía una estímación de la altura de los objetos se compararon los resultados de ambos algoritmos. Como elementos de medida signiticativos se tomaron medida de tendencia central (valor esperado del dentroide) y como medida de dispersión se tomó la varianza. A continuación se presentan los resultados obtenidos de las mediciones realizadas.\\
 
-	****Imagenes de los objetos
-
-
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale=0.06]{objs_real/objects_2.jpg}	
+		\caption{Fotografia de los objetos utilizados en las pruebas de cálculo de alturas y de manipulación de objetos.}
+		\label{fig:objectsComplete}
+	\end{figure}
 
 
 	\subsection{Estímación de alturas}
 	****Insertar figuras de gráficas de la estimación del centroide, comparar la varianza.
 
 	\begin{figure}[H]
-		\centering
-		\includegraphics[scale=0.5]{resultados/cerealAltura.png}	
-		\label{fig:mesh1}
+		\begin{subfigure}[h]{.5\textwidth}
+		\includegraphics[scale=0.06]{objs_real/cerealBoxHeight.jpg}	
+		\end{subfigure}%
+		\begin{subfigure}[h]{.5\textwidth}
+		\includegraphics[scale=0.35]{resultados/cerealAltura.png}	
+		\end{subfigure}
 		\caption{Gráficas de estímaciones de alturas para una caja de cereal. La altura real del objeto (amarillo), la altura estímada con el algoritmo previo (rojo) y la estimación actual (azul).}
+		\label{fig:mesh1}
 	\end{figure}
 
 	\begin{figure}[H]
-		\centering
-		\includegraphics[scale=0.5]{resultados/lecheAltura.png}	
-		\label{fig:mesh1}
+		\begin{subfigure}[h]{.5\textwidth}
+		\includegraphics[scale=0.08]{objs_real/milkHeight.jpg}	
+		\end{subfigure}%
+		\begin{subfigure}[h]{.5\textwidth}
+		\includegraphics[scale=0.20]{resultados/lecheAltura.png}	
+		\end{subfigure}
 		\caption{Gráficas de estímaciones de alturas para un envase de leche. La altura real del objeto (amarillo), la altura estímada con el algoritmo previo (rojo) y la estimación actual (azul).}
+		\label{fig:mesh1}
 	\end{figure}
 
 	\begin{figure}[H]
-		\centering
-		\includegraphics[scale=0.5]{resultados/joystickAltura.png}	
-		\label{fig:mesh1}
+		\begin{subfigure}[h]{.5\textwidth}
+		\includegraphics[scale=0.06]{objs_real/joystickHeight2.jpg}	
+		\end{subfigure}%
+		\begin{subfigure}[h]{.5\textwidth}
+		\includegraphics[scale=0.20]{resultados/joystickAltura.png}	
+		\end{subfigure}
 		\caption{Gráficas de estímaciones de alturas para un control de videojuegos. La altura real del objeto (amarillo), la altura estímada con el algoritmo previo (rojo) y la estimación actual (azul).}
+		\label{fig:mesh1}
 	\end{figure}
 
 	\begin{figure}[H]
-		\centering
-		\includegraphics[scale=0.5]{resultados/chocolateAltura.png}	
-		\label{fig:mesh1}
+		\begin{subfigure}[h]{.5\textwidth}
+		\includegraphics[scale=0.06]{objs_real/chocolateHeight2.jpg}	
+		\end{subfigure}%
+		\begin{subfigure}[h]{.5\textwidth}
+		\includegraphics[scale=0.20]{resultados/chocolateAltura.png}	
+		\end{subfigure}
 		\caption{Gráficas de estímaciones de alturas para una barra de chocolate. La altura real del objeto (amarillo), la altura estímada con el algoritmo previo (rojo) y la estimación actual (azul).}
+		\label{fig:mesh1}
 	\end{figure}
 
 	\begin{figure}[H]
-		\centering
-		\includegraphics[scale=0.5]{resultados/jugoAltura.png}	
-		\label{fig:mesh1}
+		\begin{subfigure}[h]{.5\textwidth}
+		\includegraphics[scale=0.06]{objs_real/jugoHeight.jpg}	
+		\end{subfigure}%
+		\begin{subfigure}[h]{.5\textwidth}
+		\includegraphics[scale=0.20]{resultados/jugoAltura.png}	
+		\end{subfigure}
 		\caption{Gráficas de estímaciones de alturas para un envase de jugo. La altura real del objeto (amarillo), la altura estímada con el algoritmo previo (rojo) y la estimación actual (azul).}
+		\label{fig:mesh1}
 	\end{figure}
+
 
 
 	\subsection{Adicición de la información de dimensiones de los objetos}
@@ -285,14 +304,13 @@ Se describirá conforme al desarrollo de este estrabajo.
 %%%%%%%%% Cálculo de las orientaciones  %%%%%%%%%%%%%%%%%%%%
 	\section{Cálculo de la orientación del objeto.}
 		\subsection{Prueba de exactitud}
-		\subsection{Comparación en tiempo de ejecución de la tarea de manipulación.}
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%% PRUEBAS DE GRASPEO CON INFROMACIÖN DEL ÁREA DE TRABAJO  %%%%%%%%%%%%
+%%%%%%%%%% PRUEBAS DE GRASPEO CON INFORMACIÖN DEL ÁREA DE TRABAJO  %%%%%%%%%%%%
 	\section{Estimación de las dimensiones del área de trabajo.}
-		\subsection{Comparación en tiempo de ejecución de la tarea de manipulación.}
+		\subsection{Comparación en tiempo de ejecución de la tarea de manipulación con información del área de trabajo.}
 
 
 

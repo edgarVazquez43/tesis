@@ -266,43 +266,101 @@ Eigen::SelfAdjointEigenSolver<Eigen::MatrixXf> eig(cov_matrix);
 
 	Por tal motivo basta con conocer los cosenos directores de cada uno de los eigenvetores con el eje coordinado del robot, comparalos en mágnitud y determinar los ángulos roll, pitch y yaw del objeto con respecto del robot.\\
 
-	**** Eigenvectores\\
+	%**** Eigenvectores\\
 
 	\subsubsection{Componentes y cosenos directores de un vetor.}
 
 	Se llama componentes de un vector $\vec{A}$ respecto del sistema de coordenadas con oriegen O y ejes \textit{x, y} a las proyecciones de $\vec{A}$ sobre los ejes, sea dicho de otro modo, los números:\\
 
-	$a_1 = x_2 - x_1$
-	$a_2 = y_2 - y_1$
+	\begin{equation}
+	\begin{split}
+		a_1 = x_2 - x_1 \cr 
+		a_2 = y_2 - y_1
+	\end{split}
+	\end{equation}
+
 
 	Transaladando esta idea al espacio se continua establece que las componentes de un vector en el espacio están determinados por la forma:\\
 
-	$a_1 = x_2 - x_1$
-	$a_2 = y_2 - y_1$
-	$a_3 = z_2 - z_1$
+	\begin{equation}
+	\begin{split}
+		a_1 = x_2 - x_1 \cr
+		a_2 = y_2 - y_1 \cr
+		a_3 = z_2 - z_1 \cr
+	\end{split}
+	\end{equation}
 
-	**** imagen componentes de un vector en el plano --- en el espacio.\\
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=8.5cm, height=6.0cm]{objs/vector1.png}	
+		\caption{Componentes de un vector en el espacio.}
+		\label{fig:vector_espacio}
+	\end{figure}
 
 	En general, se tiene $\vec{A} = (a_1, a_2, a_3,)$ para indicar que $a_1, a_2, a_3$ son las componentes del vector $\vec{A}$. Esas componentes son números que pueden ser positivos o negativos.\\
 
-	Por lo tanto:
+	Por lo tanto:\\
 
-	$|\vec{A}| = \surd{a_1^2 + a_2^2 + a_3^2}$
+	\begin{equation}
+	\begin{split}
+		|\vec{A}| = \sqrt{a_1^2 + a_2^2 + a_3^2}
+	\end{split}
+	\end{equation}
+
 
 	Expresión que siempre es positiva y da el módulo del vector en función de sus componentes.\\
 
 	Se llaman \textit{cosenos directores} de un vector, respecto de un sistema de coordenadas ortogonales con origen O y ejes \textit{x, y, z}, a los cosenos de los ángulos que el mismo forma con el sentido positivo de los ejes coordenados.\\
+
 	Los ángulos deben ser tomados entre 0 y $\pi$, de manera que los cosenos directores pueden ser positivos o negativos. Si los ángulos del vector $\vec{A}(a_1, a_2, a_3)$ con los respectivos ejes coordinados los representamos por $\alpha$, $\beta$ y $\gamma$, los cosenos directores se deducen de las fórmulas:\\
 
-	$a_1 = |\vec{A}| cos \alpha$
-	$a_2 = |\vec{A}| cos \beta$
-	$a_3 = |\vec{A}| cos \gamma$
+
+	\begin{equation}
+	\begin{split}
+		a_1 = |\vec{A}| * cos \alpha
+	\end{split}
+	\end{equation}
+
+
+	\begin{equation}
+	\begin{split}
+		a_2 = |\vec{A}| * cos \beta
+	\end{split}
+	\end{equation}
+
+	\begin{equation}
+	\begin{split}
+		a_3 = |\vec{A}| * cos \gamma
+	\end{split}
+	\end{equation}
+
 
 De las realciones anteriores se deduce támbien:\\
 
-	$ cos \alpha = a_1 / \surd{a_1^2 + a_2^2 + a_3^2}$
-	$ cos \beta  = a_1 / \surd{a_1^2 + a_2^2 + a_3^2}$
-	$ cos \gamma = a_1 / \surd{a_1^2 + a_2^2 + a_3^2}$
+	\begin{equation}
+	\begin{split}
+		cos \alpha = \frac{a_1}{\sqrt{a_1^2 + a_2^2 + a_3^2} }
+	\end{split}
+	\end{equation}
 
+	\begin{equation}
+	\begin{split}
+		cos \beta  = \frac{a_2}{\sqrt{a_1^2 + a_2^2 + a_3^2} }
+	\end{split}
+	\end{equation}
 
-**** imagen cosenos directores en el espacio\\
+	\begin{equation}
+	\begin{split}
+		cos \gamma = \frac{a_3}{ \sqrt{a_1^2 + a_2^2 + a_3^2} }
+	\end{split}
+	\end{equation}
+
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=10.5cm, height=8.0cm]{objs/cosenosDirectores.png}	
+		\caption{Cosenos directores en el espacio.}
+		\label{fig:cosenos_directores}
+	\end{figure}
+%**** imagen cosenos directores en el espacio\\

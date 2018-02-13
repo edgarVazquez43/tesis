@@ -7,7 +7,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
            %%%%%%  DESCRPCIÓN SERVOMOTORES   %%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	\section{Descrpción hardware}
+	\section{Descripción hardware}
 		Los servomotores Dynamixel son un sistema de actuador inteligente desarrollados con el propósito de funcionar como uniones de conexión en un robot o estructura mecánica. Los servomotores Dynamixel están diseñados para ser modulares y soportar la conexión en cadena en cualquier robot o diseño mecánico. Este tipo de servomotores es popular por los beneficios que ofrece: movimientos robóticos potentes y flexibles.\\
 
 		El conjunto de servomotores Dynamixel son un grupo de actuadores de alto rendimiento con reductor, controlador y un protocolo de comunicación completamente integrados. El estado del actuador se puede leer y monitorear a través de un flujo de paquetes de datos. \cite{dynamixelEpage}\\
@@ -643,7 +643,7 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-              %%%%%%  CINEMATICA INVERSA   %%%%%%%%
+  %%%%%%%%%%%%%    DETERMINACIÓN DEL WORKSPACE    %%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 	\section{Determinación del área de trabajo}
@@ -814,8 +814,8 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
 
 
 \newpage
-	\section{Cinemática inversa Método Geometrico}
-	El problame de la cinemática inversa consiste en dada una posición deseada $p(x, y, z, roll, pitch, yaw)$ encontar el valor de cada una una de las juntas cinemáticas que lleven al brazo a la posoción desea. Este problema suele ser uno de los más interesantes y complejos, dentro del estudio de la robótica. Es preciso mencionar que para llevar el efector final a cualquier posición y orientación deseada se requiere por lo menos un brazo robótico de 6DOF. En el desarrolo de este trabajo se plantea la resolución de la cinemática para un brazo robótico de 7DOF, lo cual suele aumentar el grado de complejidad en la resolución del problema.\\
+	\section{Cinemática inversa Método Geométrico}
+	El problema de la cinemática inversa consiste en dada una posición deseada $p(x, y, z, roll, pitch, yaw)$ encontrar el valor de cada una una de las juntas cinemáticas que lleven al brazo a la posición desea. Este problema suele ser uno de los más interesantes y complejos, dentro del estudio de la robótica. Es preciso mencionar que para llevar el efector final a cualquier posición y orientación deseada se requiere por lo menos un brazo robótico de 6DOF. En el desarrollo de este trabajo se plantea la resolución de la cinemática para un brazo robótico de 7DOF, lo cual suele aumentar el grado de complejidad en la resolución del problema.\\
 
 \begin{equation}
 \begin{split}
@@ -843,7 +843,7 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
 	Para abordar la resolución de dicho problema se hizo uso del concepto de \textit{desacople cinemático}. Utilizando este concepto se puede simplificar el problema del cálculo completo de la cinemática inversa. Por medio del desacople cinemático se pueden considerar de manera independiente el cálculo de la orientación inversa y el cálculo de la posición inversa.\\
 
 	\subsection{Desacople cinemático}
-	Como se ha mencionado con anterioridad el problema de la cinemática inversa puede resolverse por separado en la resolución de la orientación inversa y la posición inversa, para manipuladores de 6 DOF o más. Es impornate mencionar que para utilizar esta metodología de resolución el manipulador debe poseer la configuración de \textit{muñeca esférica}. Es necesario partir de esta premisa puesto que la configuración de muñeca esférica implica que los tres ultimos ejes de acción de intersectan en un punto llamado $O_c$. Además estos tres últimos ejes de acción pueden determinar la orientación del efector final sin que dependan del valor de las juntas cinemáticas anteriores.\\
+	Como se ha mencionado con anterioridad el problema de la cinemática inversa puede resolverse por separado en la resolución de la orientación inversa y la posición inversa, para manipuladores de 6 DOF o más. Es importate mencionar que para utilizar esta metodología de resolución el manipulador debe poseer la configuración de \textit{muñeca esférica}. Es necesario partir de esta premisa puesto que la configuración de muñeca esférica implica que los tres últimos ejes de acción de intersectan en un punto llamado $O_c$. Además estos tres últimos ejes de acción pueden determinar la orientación del efector final sin que dependan del valor de las juntas cinemáticas anteriores.\\
 
 \begin{equation}
 	R^0_7(q_1,.....  ,q_7) = R 
@@ -917,3 +917,107 @@ o^0_c = o - d_6 R \hat{x}
 
 \newpage
 	\section{Cinemática inversa paquetería MoveIt}
+
+	La paquetería de software \textit{moveIt} consiste en una serie de librerías enfocadas a las tareas de manipulación de objetos en la robótica. Los paquetes \textit{arm\_navigation} fueron diseñados con el objetivo especifico de ayudar en tareas de planeación de movimientos, generación de trayectorias y monitoreo del ambiente particularmente para los manipuladores del robot PR2.\cite{chitta2012moveit} La idea original al desarrollar la librería moveIt era generar planes de manipulación y trayectorias basándose información de un modelo del entorno. Dichos modelos del entorno se crean, comúnmente, utilizando la fusión de datos del sensor láser y de sensores estéreo colocados en los robots.\\
+
+
+	El ambiente era representado como una mezcla de dos formatos:\\
+
+	\begin{enumerate}
+		\item{ Una red vóxelizada que representaba la mayor parte de los obstáculos en el medio ambiente. }
+
+		\item{ Primitivas geométricas y modelos de mallas para representar objetos que habían sido reconocidos y registrado en el medio ambiente ambiente mediante rutinas de detección de objetos. }
+	\end{enumerate}
+
+	De esta manera la información del modelo del entorno sirve de entrada principal a los planificadores que constituyen la paquetería \textit{moveIt}.\\
+
+
+	\textit{MoveIt!} incorpora herramientas para planeación de movimientos, cinemática, percepción 3D, control y navegación. Además provee una plataforma de uso fácil para desarrollo de aplicaciones robóticas avanzadas, permitiendo la evaluación de nuevos diseños de robots y la construcción de productos robóticos para su uso industrial, comercial y de investigación, entre otros. \textit{MoveIt!} Es el software de código abierto más usado para manipulación de robots.
+
+
+	En la actualidad \textit{moveIt} proveé una interfaz genérica para la planeación de movimiento de manipuladores que puede ser integrada muy fácilmente en ROS. Esta interfaz permite la integración de diferentes tipos de planeadores de movimientos, por ejemplo:\\
+
+	\begin{enumerate}
+		\item{Planeadores aleatorizados. Open Motion Planning Library (OMPL).}
+
+		\item{Planeadores basados en búsquedas. (SBPL)}
+
+		\item{Librerías de optimización de trayectorias. (CHOMP)}
+
+		\item{Librerías de optimización estocastica para la planeación de movimientos. (STOMP)}
+	\end{enumerate} 
+
+	La paquetería \textit{moveIt} permite personalizar el solucionador de cinemáticas para realizar cálculos más rápidos de la cinemática inversa. Utilizando para ello métodos numéricos. Una característica importante de la paquetería \textit{moveIt} es que para solucionar la cinemática inversa extrae de la información necesaria desde un archivo URDF (archivo estándar para descripción de robots en el formato aceptado por ROS).\\ 
+
+	De esta manera se utilizó el archivo URDF que contiene la información con la descripción de las transformaciones entre los elementos del robot Justina. Para ello se creó un archivo extra que contiene unicamente la información de translaciones entre los elementos que constituyen los brazos del robot Justina. Como se muestra en la figura \ref{fig:desciption_arms1}.\\
+
+	\begin{figure}[H]
+	\centering
+	\begin{subfigure}[t]{.55\textwidth}
+		\centering
+		\includegraphics[width=3.50cm, height=7.0cm]{manipulator/DH_manipulators1.png}
+		\caption{URDF descripción del robot Justina.}
+	\end{subfigure}%
+	\begin{subfigure}[t]{.55\textwidth}
+		\centering
+		\includegraphics[width=3.50cm, height=6.0cm]{manipulator/moveIt_manipulators2.png}
+		\caption{URDF descripción de las tranformaciones de los brazos del robot Justina.}
+	\end{subfigure}
+	\caption{Vista trimétrica del despliegue del robot Justina y sus respectivos manipuladores en el visualizador gráfico Rviz.}
+	\label{fig:desciption_arms1}
+	\end{figure}
+
+
+	\begin{figure}[H]
+	\begin{subfigure}[t]{.55\textwidth}
+		\centering
+		\includegraphics[width=3.50cm, height=7.0cm]{manipulator/DH_manipulators2.png}
+		\caption{URDF descripción del robot Justina.}
+	\end{subfigure}%
+	\begin{subfigure}[t]{.55\textwidth}
+		\centering
+		\includegraphics[width=3.50cm, height=6.0cm]{manipulator/moveIt_manipulators1.png}
+		\caption{URDF descripción de las tranformaciones de los brazos del robot Justina.}
+	\end{subfigure}
+	\caption{Imagen de la comparación entre descripciones de los brazos del robot Justina.}
+	\label{fig:desciption_arms2}
+	\end{figure}
+
+	Con la información del archivo URDF se creó un nuevo archivo que contiene la información de las relaciones entre los elementos que constituyen al robot Justina, tal documento es conocido como SURDF, por ser una descripción semántica del robot.\\
+
+	Una vez que se generaron tales archivos se procedió a crear un modelo cinemático de los brazos del robot Justina. Tal modelo cinemático de los brazos nos da acceso a funciones para obtener la cinemática inversa, utilizando el solucionador de cinemática KLD integrado en la paquetería \textit{moveIt!}.\\
+
+	Esta sección en particular tiene como objetivo comparar los ambos métodos de solución de la cinemática inversa del robot de servicio Justina. Por tanto en el presente trabajo se analiza y compara el tiempo de ejecución de ambos algoritmos. Y como característica extra se plantea una función de utilidad para evaluar la \textit{conveniencia} de utilizar un algoritmo u otro.\\
+
+	**** Imagen de la estructura de la paquetería \textit{moveIt!}.\\
+
+	\section{Planteamiento de la función de costo para el cálculo de la cinemática inversa.}
+
+	Sabemos que al resolver el problema de la cinemática inversa podemos obtener múltiples soluciones para una misma información de entrada $x, y, z, roll, pitch, yaw$. Por ello es importante determinar en que casos es conveniente tomar la información obtenida mediante un método geométrico o mediante un método iterativo. Por tal razón en el presente trabajo de tesis se plantea una función de costo que nos permita comparar y cuantificar ambos algoritmos de solución de cinemáticas.\\
+
+	Para el planteamiento de la función de costo se tomaron en cuenta los siguientes aspectos:\\
+
+	\begin{itemize}
+		\item{Los valores de ángulos más alejados de cero implican un mayor gasto energético de los motores.}
+		\item{Los ángulos de los motores 0 y 5, deben ser negativos para obtener un configuración de codo abajo y conservar una estructura antropomórfica de los brazos.}
+	\end{itemize}
+
+	\begin{equation}
+	\begin{split}
+		\epsilon = f(\theta_0, \theta_1, \theta_2, \theta_3, \theta_4, \theta_5, \theta_6) \cr
+		\epsilon =  \sum_{i=0}^n |\theta_i| * \alpha
+	\end{split}
+	\end{equation}
+
+	Donde $\alpha$ representa una ganancia que establecimos con un valor de 0.5. Para corregir el problema con la morfología de la toma de objetos se optó por restringir los valores de ángulos dentro del archivo que contiene la descripción del robot. De esta manera se realizaron los las pruebas llamando dos servicios para el cálculo de la cinemática inversa y evaluando la función de costo con la respuesta obtenida.\\
+
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=11.00cm, height=5.5cm]{ros/cinematicaServices1.png}
+		\caption{Imagen representativa de la comunicación entre módulos para evaluar la función de costo propuesta para el cálculo de la cinemática inversa.}
+		\label{fig:cinematica_services}
+	\end{figure}
+
+
+

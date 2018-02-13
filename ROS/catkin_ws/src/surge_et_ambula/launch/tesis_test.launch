@@ -1,5 +1,6 @@
 <launch>
   <param name="robot_description" command="cat $(find knowledge)/hardware/manipulator.xml" />
+  <!-- <param name="robot_description" command="cat $(find knowledge)/hardware/manipulatorsMoveIt.xml" / -->>
   <param name="robot_description_semantic" textfile="$(find arms_config)/config/7DOF_manipulator.srdf" />
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher"/>
 
@@ -13,7 +14,7 @@
     
     <!-- <node name="point_cloud_man" pkg="kinect_man" type="kinect_man_node" output="screen" args=" __ defpath $(find knowledge)/hardware/point_clouds/"/> -->
     
-    <node name="kinect_man" pkg="kinect_man" type="kinect_man_node" output="screen" args="--bag /home/edgar/bags_tesis/cereal_box.bag"/>
+    <!-- <node name="kinect_man" pkg="kinect_man" type="kinect_man_node" output="screen" args="__bag /home/edgar/bags_tesis/cereal_box.bag"/> -->
   </group>
 
   

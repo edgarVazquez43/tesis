@@ -2,34 +2,26 @@ Trabajo en tierra
 ¡Muévelo! es una evolución del arm_ nav-
 software de igación en ROS. El arm_navi-
 paquetes de gación fueron diseñados para
-Identificador de objeto digital 10.1109 / MRA.2011.2181749
-Fecha de publicación: 26 de marzo de 2012
-18
-•
-REVISTA IEEE ROBOTICS & AUTOMATION
-•
 planificación del movimiento, generación de trayectoria,
 y monitoreo del medio ambiente para el
-brazos de robot del robot PR2. Sensor
-datos del láser y sensores estéreo
-en el robot PR2 se fusionó para generar
-un modelo consistente del medio ambiente.
-El modelo de entorno puede manejar
-oclusiones de partes del robot
-cuerpo y también el ruido significativo en
-Datos del sensor 3-D. El ambiente era
-representado como una mezcla de dos formatos:
-1) una red vóxel que representaba la mayor parte de
-los obstáculos en el medio ambiente y
-2) primitivas geométricas y mods de malla
-els para representar objetos que habían sido
-reconocido y registrado en el medio ambiente
-ambiente mediante rutinas de detección de objetos.
-El modelo del entorno se construyó sobre
-el paquete Octomap [1], un octree-
+brazos de robot del robot PR2. 
+
+
+Sensor datos del láser y sensores estéreo en el robot PR2 se fusionó para generar un modelo consistente del medio ambiente.
+El modelo de entorno puede manejar oclusiones de partes del robot cuerpo y también el ruido significativo en Datos del sensor 3-D. 
+
+El ambiente era representado como una mezcla de dos formatos:
+
+1) una red vóxel que representaba la mayor parte de los obstáculos en el medio ambiente y
+2) primitivas geométricas y mods de malla els para representar objetos que habían sido reconocido y registrado en el medio ambiente ambiente mediante rutinas de detección de objetos.
+
+El modelo del entorno se construyó sobre el paquete Octomap [1], un octree-
 representación probabilística basada,
 permitiendo una representación eficiente de
-grandes escenas abarrotadas. El entorno
+grandes escenas abarrotadas.
+
+
+El entorno
 modelo sirvió como la entrada principal a
 planificadores de movimiento rápido que podrían rápidamente
 generar planes de movimiento sin colisiones en
@@ -44,6 +36,8 @@ Biblioteca (SBPL) [3], y trayectoria óptima
 bibliotecas de mios incluyendo CHOMP
 [4] y trayectoria estocástica optimiza-
 ción para la planificación del movimiento (STOMP) [5].
+
+
 Algunos de los planificadores de movimiento fueron capaces de
 de lidiar con los conflictos geométricos
 straints, por ejemplo, una restricción de orientación
@@ -60,8 +54,10 @@ ponent llamado move_arm formó el
 interfaz primaria a este conjunto de capacidades
 itias, exponiendo una interfaz que permitía
 usuarios para especificar el espacio cartesiano y conjunto
-metas que el robot necesitaba alcanzar. UN
-componente de seguimiento de trayectoria mantenido
+metas que el robot necesitaba alcanzar.
+
+
+UN componente de seguimiento de trayectoria mantenido
 un ojo en el movimiento del robot,
 Servoar activamente los sensores si es necesario,
 para rastrear el movimiento del brazo, y
@@ -73,6 +69,7 @@ permitiendo la generación de colisiones sin
 trayectorias para ejecutar, recoger y colocar
 acciones, obedeciendo el con-
 las restricciones impuestas por la tarea.
+
 Evolución
 La evolución de arm_navigation
 software para MoveIt! es el resultado de un
