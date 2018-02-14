@@ -1,87 +1,115 @@
 #include <iostream>
 #include <cmath>
+#include <fstream>
 #include "ros/ros.h"
+#include <geometry_msgs/Pose.h>
 #include <geometry_msgs/Vector3.h>
 #include <tf/transform_listener.h>
 #include <visualization_msgs/Marker.h>
 #include "vision_msgs/DetectObjects.h"
 
-visualization_msgs::Marker centroid_marker, axis_list_marker;
+visualization_msgs::Marker centroid_marker, pca1, pca2, pca3;
 
 bool markerSetup()
 {
-
     centroid_marker.header.frame_id = "base_link";
-    axis_list_marker.header.frame_id = "base_link";
+    pca1.header.frame_id = "base_link";
+    pca2.header.frame_id = "base_link";
+    pca3.header.frame_id = "base_link";
     
     centroid_marker.header.stamp = ros::Time::now();
-    axis_list_marker.header.stamp = ros::Time::now();
+    pca1.header.stamp = ros::Time::now();
+    pca2.header.stamp = ros::Time::now();
+    pca3.header.stamp = ros::Time::now();
 
     centroid_marker.ns = "centroid";
-    axis_list_marker.ns = "principal axis";
+    pca1.ns = "principal axis1";
+    pca2.ns = "principal axis2";
+    pca3.ns = "principal axis3";
     
     centroid_marker.pose.orientation.w = 1.0;
-    axis_list_marker.pose.orientation.w = 1.0;
+    pca1.pose.orientation.w = 1.0;
+    pca2.pose.orientation.w = 1.0;
+    pca3.pose.orientation.w = 1.0;
 
     centroid_marker.id = 0;
-    axis_list_marker.id = 1;
+    pca1.id = 1;
+    pca2.id = 2;
+    pca3.id = 3;
 
     centroid_marker.type = visualization_msgs::Marker::SPHERE;
-    axis_list_marker.type = visualization_msgs::Marker::LINE_LIST;
+    pca1.type = visualization_msgs::Marker::ARROW;
+    pca2.type = visualization_msgs::Marker::ARROW;
+    pca3.type = visualization_msgs::Marker::ARROW;
 
     // POINTS markers use x and y scale for width/height respectively
     centroid_marker.scale.x = 0.035;
     centroid_marker.scale.y = 0.035;
     centroid_marker.scale.z = 0.035;
 
-
-    axis_list_marker.scale.x = 0.03;
-    axis_list_marker.scale.y = 0.03;
-    axis_list_marker.scale.z = 0.03;
-
-    centroid_marker.color.g = 1.0f;
+    centroid_marker.color.r = 0.9f;
+    centroid_marker.color.g = 0.9f;
+    centroid_marker.color.b = 0.2f;
     centroid_marker.color.a = 1.0;
+    
+    pca1.scale.x = 0.015;     // Shaft diameter 
+    pca1.scale.y = 0.035;    // Head diameter
+    pca1.scale.z = 0.03;     // Head lenght
+    pca1.color.b = 1.0f;
+    pca1.color.a = 1.0; 
 
+    pca2.scale.x = 0.015;
+    pca2.scale.y = 0.035;
+    pca2.scale.z = 0.03;
+    pca2.color.g = 1.0f;
+    pca2.color.a = 1.0;
 
-    axis_list_marker.color.r = 1.0f;
-    axis_list_marker.color.a = 1.0;
+    pca3.scale.x = 0.015;
+    pca3.scale.y = 0.035;
+    pca3.scale.z = 0.03;
+    pca3.color.r = 1.0f;
+    pca3.color.a = 1.0;
 
     return true;
 }
 
-visualization_msgs::Marker buildMarkerAxis(geometry_msgs::Vector3 PCA_axis_0,
-					   geometry_msgs::Vector3 PCA_axis_1,
-					   geometry_msgs::Vector3 PCA_axis_2,
-					   geometry_msgs::Pose centroid_pose)
+bool buildMarkerAxis(geometry_msgs::Vector3 PCA_axis_0,
+		     geometry_msgs::Vector3 PCA_axis_1,
+		     geometry_msgs::Vector3 PCA_axis_2,
+		     geometry_msgs::Pose centroid_pose)
 {
-    axis_list_marker.points.clear();
-    geometry_msgs::Point px_centroid;
-    geometry_msgs::Point p_0, p_1, p_2;
-
-    px_centroid = centroid_pose.position;
-
-    p_0.x = px_centroid.x + PCA_axis_0.x;
-    p_0.y = px_centroid.y + PCA_axis_0.y;
-    p_0.z = px_centroid.z + PCA_axis_0.z;
-
-    p_1.x = px_centroid.x + PCA_axis_1.x;
-    p_1.y = px_centroid.y + PCA_axis_1.y;
-    p_1.z = px_centroid.z + PCA_axis_1.z;
-
-    p_2.x = px_centroid.x + PCA_axis_2.x;
-    p_2.y = px_centroid.y + PCA_axis_2.y;
-    p_2.z = px_centroid.z + PCA_axis_2.z;
-
-    axis_list_marker.points.push_back(px_centroid);
-    axis_list_marker.points.push_back(p_0);
-
-    axis_list_marker.points.push_back(px_centroid);
-    axis_list_marker.points.push_back(p_1);
-
-    axis_list_marker.points.push_back(px_centroid);
-    axis_list_marker.points.push_back(p_2);
-
-    return axis_list_marker;
+  float alpha = 2.5;
+  pca1.points.clear();
+  pca2.points.clear();
+  pca3.points.clear();
+    
+  geometry_msgs::Point px_centroid;
+  geometry_msgs::Point p_0, p_1, p_2;
+    
+  px_centroid = centroid_pose.position;
+  
+  p_0.x = px_centroid.x + PCA_axis_0.x;
+  p_0.y = px_centroid.y + PCA_axis_0.y;
+  p_0.z = px_centroid.z + PCA_axis_0.z;
+    
+  p_1.x = px_centroid.x + PCA_axis_1.x;
+  p_1.y = px_centroid.y + PCA_axis_1.y;
+  p_1.z = px_centroid.z + PCA_axis_1.z;
+    
+  p_2.x = px_centroid.x + PCA_axis_2.x * alpha;
+  p_2.y = px_centroid.y + PCA_axis_2.y * alpha;
+  p_2.z = px_centroid.z + PCA_axis_2.z * alpha;
+  
+  pca1.points.push_back( px_centroid );
+  pca1.points.push_back( p_0 );
+    
+  pca2.points.push_back( px_centroid );
+  pca2.points.push_back( p_1 );
+  
+  pca3.points.push_back( px_centroid );
+  pca3.points.push_back(p_2 );
+  
+  return true;
 }
 
 
@@ -117,12 +145,11 @@ int main(int argc, char** argv)
     gamma.resize(3);
     mag_axis.resize(3);
 
-
+    
     markerSetup();
 
-    
     ros::Rate loop(10);
-
+    
     while(ros::ok())
     {
       
@@ -164,40 +191,50 @@ int main(int argc, char** argv)
 	gamma[2] = acos(axis_resp_2.z/mag_axis[2]);
 	
 
-        std::cout << "Centroid: " << centroid.position << std::endl;
-        std::cout << std::endl;
-
-        std::cout << "Principal_axis: " << std::endl
-		  << axis_resp_0 << std::endl
-		  << axis_resp_1 << std::endl
-		  << axis_resp_2 << std::endl << std::endl;
-
+        std::cout << "Centroid: " << std::endl
+		  << centroid.position << std::endl;
+	
 	std::cout << "Axis magnitude: " << std::endl
 		  << mag_axis[0] << std::endl
 		  << mag_axis[1] << std::endl
 		  << mag_axis[2] << std::endl << std::endl;
 	
-	std::cout << "Directions cosines : " << std::endl
-		  << "Axis[0]: alpha = " << alpha[0]
-		  << "  beta = " << beta[0]
-		  << "  gamma = " << gamma[0] << std::endl
-		  << "Axis[1]: alpha = " << alpha[1]
-		  << "  beta = " << beta[1]
-		  << "  gamma = " << gamma[1] << std::endl
-		  << "Axis[2]: alpha = " << alpha[2]
-		  << "  beta = " << beta[2]
-		  << "  gamma = " << gamma[2] << std::endl << std::endl;
-	  
+	// std::cout << "Directions cosines : " << std::endl
+	// 	  << "Axis[0]: alpha = " << alpha[0]
+	// 	  << "  beta = " << beta[0]
+	// 	  << "  gamma = " << gamma[0] << std::endl
+	// 	  << "Axis[1]: alpha = " << alpha[1]
+	// 	  << "  beta = " << beta[1]
+	// 	  << "  gamma = " << gamma[1] << std::endl
+	// 	  << "Axis[2]: alpha = " << alpha[2]
+	// 	  << "  beta = " << beta[2]
+	// 	  << "  gamma = " << gamma[2] << std::endl << std::endl;
+
+	std::cout << "Directions cosines [ANGLES]: " << std::endl
+		  << "Axis[0]: alpha = " << alpha[0]*180/3.141592
+		  << "  beta = " << beta[0]*180/3.141592
+		  << "  gamma = " << gamma[0]*180/3.141592 << std::endl
+		  << "Axis[1]: alpha = " << alpha[1]*180/3.141592
+		  << "  beta = " << beta[1]*180/3.141592
+		  << "  gamma = " << gamma[1]*180/3.141592 << std::endl
+		  << "Axis[2]: alpha = " << alpha[2]*180/3.141592
+		  << "  beta = " << beta[2]*180/3.141592
+		  << "  gamma = " << gamma[2]*180/3.141592 << std::endl << std::endl;
+
+	std::cout << "  roll  = " << gamma[0]*180/3.141592
+		  << "  pitch = " << beta[1]*180/3.141592
+		  << "  yaw   = " << alpha[2]*180/3.141592 << std::endl << std::endl;
 
         centroid_marker.pose.position = centroid.position;
-        marker_pub.publish(centroid_marker);
-        axis_list_marker = buildMarkerAxis(axis_resp_0,
-					   axis_resp_1,
-					   axis_resp_2,
-					   centroid);
-        marker_pub.publish(axis_list_marker);
+        buildMarkerAxis(axis_resp_0, axis_resp_1,
+			axis_resp_2, centroid);
+	
+	marker_pub.publish(centroid_marker);
+        marker_pub.publish(pca1);
+	marker_pub.publish(pca2);
+	marker_pub.publish(pca3);
 
-        std::cout << "---------------------------" << std::endl;
+        std::cout << std::endl << "---------------------------" << std::endl;
         ros::spinOnce();
         loop.sleep();
     }
