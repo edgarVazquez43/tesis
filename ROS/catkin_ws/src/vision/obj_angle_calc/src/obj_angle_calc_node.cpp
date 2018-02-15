@@ -8,7 +8,6 @@
 #include "justina_tools/JustinaTools.h"
 #include "ros/ros.h"
 
-
 #include "nn.hpp"
 #include "plane3D.hpp"
 #include "objExtract.hpp"
@@ -285,22 +284,20 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 
 
 		cv::imshow("Original RGB", imgBGR);
-		cv::imshow("OBJECT RECONIZING", croppedBRG);
-		cv::imshow("objects", objectsBGR);
-		cv::imshow("Objects Point Cloud", objectsDepth);
+		// cv::imshow("OBJECT RECONIZING", croppedBRG);
+		// cv::imshow("objects", objectsBGR);
+		// cv::imshow("Objects Point Cloud", objectsDepth);
 
 
 	}
 	else
 		std::cout << "    I can't find a object on the table..... :(" << std::endl;
-
-	/*
+	
 	//######  Code for video recorder  ######
-	plane_video.write(planeBGR);
-	depth_video.write(objectsDepth*255.0);
-	object_video.write(objectsBGR);
-	*/
-
+	// plane_video.write(planeBGR);
+	// depth_video.write(objectsDepth*255.0);
+	// object_video.write(objectsBGR);
+       
 	return true;
 }
 
