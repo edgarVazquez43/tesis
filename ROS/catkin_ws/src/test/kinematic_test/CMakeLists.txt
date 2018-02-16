@@ -263,7 +263,7 @@ target_link_libraries(ik_workspace_test
 add_dependencies(ik_workspace_test
   ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
-##### IK_WORKSPACE (MoveIt) TEST  #####
+##### IK_WORKSPACE DISPLAY (MoveIt) TEST  #####
 add_executable(workspace_display
   src/workspace_display.cpp
 )
@@ -273,5 +273,18 @@ target_link_libraries(workspace_display
 )
 
 add_dependencies(workspace_display
+  ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+
+##### IK_WORKSPACE DISPLAY (MoveIt) TEST  #####
+add_executable(cost_function_test
+  src/cost_function_test.cpp
+)
+
+target_link_libraries(cost_function_test
+  ${catkin_LIBRARIES}
+)
+
+add_dependencies(cost_function_test
   ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
