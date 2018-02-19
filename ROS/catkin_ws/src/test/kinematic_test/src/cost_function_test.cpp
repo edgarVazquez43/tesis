@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include "ros/ros.h"
 #include <boost/chrono.hpp>
 #include <boost/thread/thread.hpp> 
@@ -21,9 +22,9 @@ bool markerSetup()
   endEffector_marker.type = visualization_msgs::Marker::POINTS;
     
   // POINTS markers use x and y scale for width/height respectively
-  endEffector_marker.scale.x = 0.040;
-  endEffector_marker.scale.y = 0.040;
-  endEffector_marker.scale.z = 0.040;
+  endEffector_marker.scale.x = 0.020;
+  endEffector_marker.scale.y = 0.020;
+  endEffector_marker.scale.z = 0.020;
 
   endEffector_marker.color.g = 1.0f;
   endEffector_marker.color.a = 1.0;
@@ -86,14 +87,18 @@ int main(int argc, char** argv)
   ros::ServiceClient cltIKinematicsRA;
   ros::ServiceClient cltIKinematicsMark;
 
+  int no_calculate_moveIt;
+  int no_calculate_mark;
   std::vector<float> p;
+  std::vector<float> init_values_moveIt;
+  std::vector<float> init_values_mark;
   std::vector<float> cost_function;
   std::vector<float> cartGP_mark;
   std::vector<float> cartGP_moveIt;
   std_msgs::Float32MultiArray ra_gp_msgs;
   std_msgs::Float32MultiArray la_gp_msgs;
 
-
+  std::ofstream cost_function_file;
 
   manip_msgs::InverseKinematicsFloatArray srv_ki_moveIt;
   manip_msgs::InverseKinematicsFloatArray srv_ki_mark;
@@ -114,30 +119,38 @@ int main(int argc, char** argv)
   left_arm_goal_pose_pub = n.advertise<std_msgs::Float32MultiArray>("/hardware/left_arm/goal_pose", 10);
 
 
+  cost_function_file.open("/home/edgar/cost_function.txt");
+  
+
   // Assing the goal pose
   // Resize msgs data
   ra_gp_msgs.data.resize(7);
   la_gp_msgs.data.resize(7);
   cost_function.resize(2);
-  p.resize(3);
+  p.resize(6);
 
-  p[0] = 0.15;
-  p[1] = -0.225;
-  p[2] = 0.90;
+  p[0] = 0.20;
+  p[1] = -0.325;
+  p[2] = 0.85;
+
+  p[3] = 0.0;   // Roll
+  p[4] = -1.5707;   // Pitch
+  p[5] = 0.0;   // Yaw
 
   // Data request to Inverse Kinematic MOVE-IT
   cartGP_moveIt.push_back( p[0] );   // X-axis respect robot
   cartGP_moveIt.push_back( p[1] );  // Y-axis respect robot     
   cartGP_moveIt.push_back( p[2] );   // Z-axis respect robot
   
-  cartGP_moveIt.push_back(0.0);              // yaw
-  cartGP_moveIt.push_back(-1.57);            // pitch
-  cartGP_moveIt.push_back(0.0);     // roll
+  cartGP_moveIt.push_back( p[3] );              // yaw
+  cartGP_moveIt.push_back( p[4] );            // pitch
+  cartGP_moveIt.push_back( p[5] );     // roll
   cartGP_moveIt.push_back(0.0);
   
   srv_ki_moveIt.request.cartesian_pose.data = cartGP_moveIt;
-
-  p[0] -= 0.05;
+  init_values_moveIt = p;
+  
+  p[0] -= 0.032;
   transformPoint(p[0], p[1], p[2]);
   
    // Data request to Inverse Kinematic MARK
@@ -145,19 +158,21 @@ int main(int argc, char** argv)
   cartGP_mark.push_back( p[1] );  // Y-axis respect robot     
   cartGP_mark.push_back( p[2] );   // Z-axis respect robot
   
-  cartGP_mark.push_back(0.0);              // yaw
-  cartGP_mark.push_back(0.0);            // pitch
-  cartGP_mark.push_back(1.5707);     // roll
+  cartGP_mark.push_back(p[3]);              // yaw
+  cartGP_mark.push_back(p[4]+1.5707);            // pitch
+  cartGP_mark.push_back(p[5]+1.5707);     // roll
   cartGP_mark.push_back(0.0);
   
   srv_ki_mark.request.cartesian_pose.data = cartGP_mark;
-
+  init_values_mark = p;
   
   // Response data is already respect to base_link frame
   endEffector_pose.position.x = cartGP_moveIt[0];
   endEffector_pose.position.y = cartGP_moveIt[1];
   endEffector_pose.position.z = cartGP_moveIt[2];
 
+  no_calculate_mark = 0;
+  no_calculate_moveIt = 0;
 
   markerSetup();
   ros::Rate loop(10);
@@ -166,67 +181,112 @@ int main(int argc, char** argv)
   
   while(ros::ok())
     {
-      cost_function[0] = 0.0;
-      cost_function[1] = 0.0;
-      endEffector_marker.points( endEffector_pose.position );
-      marker_pub.publish(endEffector_marker);
-      
-      ros::spinOnce();
-      
-      if(!cltIKinematicsRA.call(srv_ki_moveIt))
-        {
-	  std::cout << std::endl <<
-	    "Move-It::: can't calling inverse kinematics service" << std::endl << std::endl;
-        }
-      else
-        {
-	  std::cout << std::endl <<
-	    "Move-It::: Success service" << std::endl << std::endl;
-	  for (int i=0; i < 7; i++)
-	    {
-	      // std::cout << "   " << srv_ki.response.articular_pose.data[i] << std::endl;
-	      ra_gp_msgs.data[i] = srv_ki_moveIt.response.articular_pose.data[i];
-	      cost_function[0] += fabs(ra_gp_msgs.data[i]);
-	    } 
-	  right_arm_goal_pose_pub.publish(ra_gp_msgs);
-	}
+      for(int k = 0; k < 6; k++)
+	{
 
-      loop.sleep();
-      boost::this_thread::sleep_for(boost::chrono::milliseconds(4000));
-      
-      if(!cltIKinematicsMark.call(srv_ki_mark))
-        {
-	  std::cout << std::endl <<
-	    "Sr. Mark::: can't calling inverse kinematics service" << std::endl << std::endl;
-        }
-      else
-        {
-	    std::cout << std::endl <<
-	    "Sr. Mark::: Success service" << std::endl << std::endl;
-	  for (int i=0; i < 7; i++)
+	  for(int j = 0; j < 4; j++)
 	    {
-	      // std::cout << "   " << srv_ki_mark.response.articular_pose.data[i] << std::endl;
-	      ra_gp_msgs.data[i] = srv_ki_mark.response.articular_pose.data[i];
-	      cost_function[1] += fabs(ra_gp_msgs.data[i]);
+
+	      for(int i = 0; i < 6; i++)
+		{
+		  if(!ros::ok())
+		    return 0;
+	      
+		  cost_function[0] = 0.0;
+		  cost_function[1] = 0.0;
+		  endEffector_marker.points.push_back( endEffector_pose.position );
+		  marker_pub.publish(endEffector_marker);
+      
+		  ros::spinOnce();
+      
+		  if(!cltIKinematicsRA.call(srv_ki_moveIt))
+		    {
+		      std::cout << std::endl <<
+			"Move-It::: can't calling inverse kinematics service" << std::endl << std::endl;
+		      no_calculate_moveIt++;
+		    }
+		  else
+		    {
+		      std::cout << std::endl <<
+			"Move-It::: Success service" << std::endl << std::endl;
+		      for (int i=0; i < 7; i++)
+			{
+			  // std::cout << "   " << srv_ki.response.articular_pose.data[i] << std::endl;
+			  ra_gp_msgs.data[i] = srv_ki_moveIt.response.articular_pose.data[i];
+			  cost_function[0] += fabs(ra_gp_msgs.data[i]);
+			} 
+		      right_arm_goal_pose_pub.publish(ra_gp_msgs);
+		    }
+
+		  // loop.sleep();
+		  // boost::this_thread::sleep_for(boost::chrono::milliseconds(4000));
+      
+		  if(!cltIKinematicsMark.call(srv_ki_mark))
+		    {
+		      std::cout << std::endl <<
+		  	"Sr. Mark::: can't calling inverse kinematics service" << std::endl << std::endl;
+		      no_calculate_mark++;
+		    }
+		  else
+		    {
+		      std::cout << std::endl <<
+		  	"Sr. Mark::: Success service" << std::endl << std::endl;
+		      for (int i=0; i < 7; i++)
+		  	{
+		  	  // std::cout << "   " << srv_ki_mark.response.articular_pose.data[i] << std::endl;
+		  	  ra_gp_msgs.data[i] = srv_ki_mark.response.articular_pose.data[i];
+		  	  cost_function[1] += fabs(ra_gp_msgs.data[i]);
+		  	}
+
+		      right_arm_goal_pose_pub.publish(ra_gp_msgs);
+		    }
+
+		  std::cout << std::endl << "Cost function:  " << std::endl
+			    << "moveIt:  " << cost_function[0] << std::endl
+			    << "mark:    " << cost_function[1] << std::endl;
+
+		  std::cout << "marker   ----  point" << std::endl
+			    << endEffector_pose.position << std::endl << std::endl
+			    << srv_ki_moveIt.request.cartesian_pose.data[0] << std::endl
+			    << srv_ki_moveIt.request.cartesian_pose.data[1] << std::endl
+			    << srv_ki_moveIt.request.cartesian_pose.data[2] << std::endl;
+
+		  cost_function_file << cost_function[0] << " " << cost_function[1] <<  "\n";
+
+      
+		  std::cout << "---------------------------" << std::endl;
+
+      
+		  srv_ki_moveIt.request.cartesian_pose.data[0] += 0.06;
+		  srv_ki_mark.request.cartesian_pose.data[1] += 0.06;
+		  endEffector_pose.position.x += 0.06;
+      
+		  // loop.sleep();
+		  // boost::this_thread::sleep_for(boost::chrono::milliseconds(4000));
+
+		}
+	      srv_ki_moveIt.request.cartesian_pose.data[0] = init_values_moveIt[0];
+	      srv_ki_mark.request.cartesian_pose.data[1] = init_values_mark[1];
+	      endEffector_pose.position.x = init_values_moveIt[0];
+	      
+	      srv_ki_moveIt.request.cartesian_pose.data[1] += 0.06;
+	      srv_ki_mark.request.cartesian_pose.data[2] -= 0.06;
+	      endEffector_pose.position.y += 0.06;
+	      
 	    }
-
-	  right_arm_goal_pose_pub.publish(ra_gp_msgs);
+	  srv_ki_moveIt.request.cartesian_pose.data[1] = init_values_moveIt[1];
+	  srv_ki_mark.request.cartesian_pose.data[2] = init_values_mark[2];
+	  endEffector_pose.position.y = init_values_moveIt[1];
+	  
+	  srv_ki_moveIt.request.cartesian_pose.data[2] += 0.06;
+	  srv_ki_mark.request.cartesian_pose.data[0] -= 0.06;
+	  endEffector_pose.position.z += 0.06;
 	}
-
-      std::cout << std::endl << "Cost function:  "
-		<< "moveIt:  " << cost_function[0] << std::endl
-		<< "mark:    " << cost_function[1] << std::endl;
-
+      std::cout << "No calculate move It:  " << no_calculate_moveIt << std::endl;
+      std::cout << "No calculate mark:  " << no_calculate_mark << std::endl;
+      cost_function_file.close();
+      return 0;
       
-      std::cout << "---------------------------" << std::endl;
-
-      
-      srv_ki_moveIt.request.cartesian_pose.data[0] += 0.04;
-      srv_ki_mark.request.cartesian_pose.data[1] += 0.04;
-      endEffector_pose.position.x += 0.04;
-      
-      loop.sleep();
-      boost::this_thread::sleep_for(boost::chrono::milliseconds(4000));
     }
   return 0;
 }

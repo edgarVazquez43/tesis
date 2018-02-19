@@ -10,6 +10,235 @@
 visualization_msgs::Marker endEffector_marker;
 visualization_msgs::Marker centroid_marker, axis_list_marker;
 
+ros::Publisher marker_pub;
+ros::Publisher right_arm_goal_pose_pub;
+ros::Publisher left_arm_goal_pose_pub;
+
+ros::ServiceClient cltIKinematicsLA;
+ros::ServiceClient cltIKinematicsRA;
+ros::ServiceClient cltIKinematicsMark;
+ros::ServiceClient cltDetectObjectsPCA;
+
+
+bool transformPoint(float &x, float &y, float &z)
+{
+  bool succes = true;
+  tf::TransformListener listener;
+  tf::StampedTransform transform;
+  tf::Vector3 v(x, y, z);
+
+  while(ros::ok())
+    {
+      succes = true;
+      try
+	{ 
+	  listener.lookupTransform("/base_ra_arm", "/base_link", ros::Time(0), transform);
+	}
+      catch (tf::TransformException &ex)
+	{
+	  ROS_ERROR("%s",ex.what());
+	  ros::Duration(1.0).sleep();
+	  succes = false;
+	}
+
+      std::cout << succes << std::endl;
+      if(succes)
+	break;
+    }
+
+  if(succes)
+    {  
+      v = transform * v;
+      x = v.x();
+      y = v.y();
+      z = v.z();
+    }
+  
+  return true;
+}
+
+
+
+bool detectObjet(std::vector<float>& pose,
+		 geometry_msgs::Vector3& axis_resp_0,
+		 geometry_msgs::Vector3& axis_resp_1,
+		 geometry_msgs::Vector3& axis_resp_2)
+{  
+  vision_msgs::DetectObjects srv_detectObj;
+
+  pose.resize(6);
+  
+  if(!cltDetectObjectsPCA.call(srv_detectObj))
+    {
+      std::cout << std::endl << "Justina::Service detect object fail.... :(" << std::endl << std::endl;
+      std::cout << std::endl << "Justina::Vision can't detect anything" << std::endl;
+      return false;
+    }
+  
+  pose[0] = srv_detectObj.response.recog_objects[0].pose.position.x;
+  pose[1] = srv_detectObj.response.recog_objects[0].pose.position.y;
+  pose[2] = srv_detectObj.response.recog_objects[0].pose.position.z;
+
+  axis_resp_0 = srv_detectObj.response.recog_objects[0].principal_axis[0];
+  axis_resp_1 = srv_detectObj.response.recog_objects[0].principal_axis[1];
+  axis_resp_2 = srv_detectObj.response.recog_objects[0].principal_axis[2];
+
+  std::cout << "Centroid: " << pose[0] << "  " << pose[1] << "  " << pose[2] << std::endl << std::endl;
+  
+  std::cout << "Principal_axis: " << std::endl
+	    << axis_resp_0 << std::endl;
+  std::cout << axis_resp_1 << std::endl;
+  std::cout << axis_resp_2 << std::endl;
+
+
+  // Calcular angulos aqui
+
+  //Roll Angle
+  pose[3] = 0.0;
+
+   //Pitch Angle
+  pose[4] = 0.0;
+
+   //Yaw Angle
+  pose[5] = 0.0;
+  
+
+  return true;
+}
+
+
+
+bool la_ikCalculate(std::vector<float>& articular, std::vector<float> cartesian)
+{
+  std_msgs::Float32MultiArray la_gp_msgs;
+  manip_msgs::InverseKinematicsFloatArray srv_ki_moveIt;
+
+  if(cartesian.size() == 3)
+    {
+      cartesian.push_back(0.0);
+      cartesian.push_back(0.0);
+      cartesian.push_back(0.0);
+    }
+  
+  srv_ki_moveIt.request.cartesian_pose.data = cartesian;
+
+  articular.resize(6);
+  la_gp_msgs.data.resize(7);
+  
+  if(!cltIKinematicsLA.call(srv_ki_moveIt))
+    {
+      std::cout << std::endl << "Justina::Manip can't calling inverse kinematics service" << std::endl << std::endl;
+      return false;
+    }
+
+  std::cout << std::endl <<
+    "Move-It::: Success service" << std::endl << std::endl;
+
+  for (int i=0; i < 7; i++)
+    {
+  
+      la_gp_msgs.data[i] = srv_ki_moveIt.response.articular_pose.data[i];
+    } 
+
+  left_arm_goal_pose_pub.publish(la_gp_msgs);
+
+  return true;
+}
+
+
+bool ra_ikCalculate(std::vector<float>& articular, std::vector<float> cartesian)
+{
+  std_msgs::Float32MultiArray ra_gp_msgs;
+  manip_msgs::InverseKinematicsFloatArray srv_ki_moveIt;
+  
+  srv_ki_moveIt.request.cartesian_pose.data = cartesian;
+
+  articular.resize(6);
+  ra_gp_msgs.data.resize(7);
+  
+  if(!cltIKinematicsRA.call(srv_ki_moveIt))
+    {
+      std::cout << std::endl << "Justina::Manip can't calling inverse kinematics service" << std::endl << std::endl;
+      return false;
+    }
+
+  std::cout << std::endl <<
+    "Move-It::: Success service" << std::endl << std::endl;
+
+  for (int i=0; i < 7; i++)
+    {
+  
+      ra_gp_msgs.data[i] = srv_ki_moveIt.response.articular_pose.data[i];
+    } 
+
+  right_arm_goal_pose_pub.publish(ra_gp_msgs);
+  
+  return true;
+}
+
+
+bool ra_mark_ikCalculate(std::vector<float>& articular, std::vector<float> cartesian)
+{
+  std_msgs::Float32MultiArray ra_gp_msgs;
+  manip_msgs::InverseKinematicsFloatArray srv_ki;
+
+  transformPoint(cartesian[0], cartesian[1], cartesian[2]);
+  srv_ki.request.cartesian_pose.data = cartesian;
+
+  ra_gp_msgs.data.resize(7);
+  
+  if(!cltIKinematicsMark.call(srv_ki))
+    {
+      std::cout << std::endl << "Justina::Manip can't calling inverse kinematics service" << std::endl << std::endl;
+      return false;
+    }
+
+
+  std::cout << std::endl
+	    << "Inverse Kinematic Mark::: Success service" << std::endl << std::endl;
+
+  for (int i=0; i < 7; i++)
+      ra_gp_msgs.data[i] = srv_ki.response.articular_pose.data[i];
+
+
+  std::cout << std::endl
+	    << "Moving right arm....   :)" << std::endl << std::endl;
+  right_arm_goal_pose_pub.publish(ra_gp_msgs);
+  
+  return true;
+}
+
+
+bool moveLeftArm(std::vector<float> articular)
+{
+    if (articular.size() != 7)
+  {
+    std::cout << "Left arm must be a seven values... " << std::endl;
+    return false;
+  }
+    
+  left_arm_goal_pose_pub.publish(articular); 
+  return true;
+}
+
+
+bool moveRightArm(std::vector<float> articular)
+{
+  if (articular.size() != 7)
+  {
+    std::cout << "Right arm must be a seven values... " << std::endl;
+    return false;
+  }
+    
+  right_arm_goal_pose_pub.publish(articular);
+  return true;
+}
+
+
+
+
+
+
 bool markerSetup()
 {
 
@@ -106,136 +335,54 @@ int main(int argc, char** argv)
     ros::init(argc, argv, "grasp_pln");
     ros::NodeHandle n;
 
-    std::vector<float> cartesian;
-    std::vector<float> articular;
-
-    vision_msgs::DetectObjects srv_detectObj;
-    manip_msgs::InverseKinematicsFloatArray srv_ki;
-    manip_msgs::DirectKinematics srv_kd;
-
-    tf::TransformListener listener;
-    tf::StampedTransform transform;
-
+    std::vector<float> object_pose;
+    std::vector<float> articular_arm;
 
     geometry_msgs::Pose centroid, endEffector_pose;
-    geometry_msgs::Vector3 axis_resp_0, axis_resp_1, axis_resp_2;
+    geometry_msgs::Vector3 axis_resp_0, axis_resp_1, axis_resp_2; 
 
-    ros::ServiceClient cltDetectObjectsPCA;
-    ros::ServiceClient cltInverseKinematics;
-    ros::ServiceClient cltDirectKinematics;
+    
+    // ROS  Service Client
+    cltIKinematicsLA = n.serviceClient<manip_msgs::InverseKinematicsFloatArray>("/manipulation/ik_moveit/la_inverse_kinematics");
+    cltIKinematicsRA = n.serviceClient<manip_msgs::InverseKinematicsFloatArray>("/manipulation/ik_moveit/ra_inverse_kinematics");
+    cltIKinematicsMark = n.serviceClient<manip_msgs::InverseKinematicsFloatArray>("/manipulation/ik_geometric/ik_float_array");
+    cltDetectObjectsPCA = n.serviceClient<vision_msgs::DetectObjects>("/vision/detect_object/PCA_calculator");
 
-    ros::Publisher marker_pub;
-
-    cltInverseKinematics = n.serviceClient<manip_msgs::InverseKinematicsFloatArray>("/manipulation/ik_geometric/ik_float_array");
-    cltDirectKinematics = n.serviceClient<manip_msgs::DirectKinematics>("/manipulation/ik_geometric/direct_kinematics");
-    cltDetectObjectsPCA = n.serviceClient<vision_msgs::DetectObjects>("/detect_object/PCA_calculator");
-
+    // ROS Topic Publisher 
     marker_pub = n.advertise<visualization_msgs::Marker>("visualization_marker", 10);
+    
+    right_arm_goal_pose_pub = n.advertise<std_msgs::Float32MultiArray>("/hardware/right_arm/goal_pose", 10);
+    left_arm_goal_pose_pub = n.advertise<std_msgs::Float32MultiArray>("/hardware/left_arm/goal_pose", 10);
 
 
-    // Data request in format [x, y, z, roll, pitch, yaw, elbow]
-    cartesian.push_back(0.0);
-    cartesian.push_back(0.0);
-    cartesian.push_back(0.0);
-    cartesian.push_back(0.0);
-
-    cartesian.push_back(0.2);
-    cartesian.push_back(0.2);
-    cartesian.push_back(0.2);
-    srv_ki.request.cartesian_pose.data  = cartesian;
-
-    // Data request to direct kinematic
-    articular.push_back(0.5);
-    articular.push_back(0.8);          //Inverse sense
-    articular.push_back(0.5);
-    articular.push_back(0.5);
-    articular.push_back(0.5);
-    articular.push_back(0.7);
-    articular.push_back(0.6);
-    srv_kd.request.articular_pose.data = articular;
-
+ 
     markerSetup();
 
     ros::Rate loop(10);
 
     while(ros::ok())
     {
+
+      detectObjet(object_pose, axis_resp_0, axis_resp_1, axis_resp_2);
+      ra_ikCalculate(articular_arm, object_pose);
+
       
-        if(!cltDetectObjectsPCA.call(srv_detectObj))
-        {
-            std::cout << std::endl << "Justina::Vision can't detect anything" << std::endl << std::endl;
-            return false;
-        }
+      endEffector_marker.pose.position = endEffector_pose.position;
+      centroid_marker.pose.position = centroid.position;
+      
+      marker_pub.publish(endEffector_marker);
+      marker_pub.publish(centroid_marker);
+      axis_list_marker = buildMarkerAxis(axis_resp_0,
+					 axis_resp_1,
+					 axis_resp_2,
+					 centroid);
+      marker_pub.publish(axis_list_marker);
 
-        /*
-        if(!cltInverseKinematics.call(srv_ki))
-        {
-            std::cout << std::endl << "Justina::Manip can't calling inverse kinematics service" << std::endl << std::endl;
-            return false;
-        }
-        */
-
-
-        /*
-        if(!cltDirectKinematics.call(srv_kd))
-        {
-            std::cout << std::endl << "Justina::Manip can't calling inverse kinematics service" << std::endl << std::endl;
-            return false;
-        }
-        else
-        {
-            std::cout << "DirectKinematics.-> Calculated cartesian...." << std::endl;
-	        std::cout << "[x, y, z, roll, pitch, yaw]" << std::endl;
-	        for (int i=0; i < 7; i++) std::cout << "   " << srv_kd.response.cartesian_pose.data[i] << std::endl;
-
-            listener.lookupTransform("/base_link", "/base_ra_arm", ros::Time(0), transform);
-
-            tf::Vector3 v(srv_kd.response.cartesian_pose.data[0], srv_kd.response.cartesian_pose.data[1],
-                             srv_kd.response.cartesian_pose.data[2]);
-            v = transform * v;
-
-            /*
-            std::cout << "respect robot" << std::endl;
-            std::cout << "    x = " << v.x() << std::endl;
-            std::cout << "    y = " << v.y() << std::endl;
-            std::cout << "    z = " << v.z() << std::endl;
-            endEffector_pose.position.x = v.x();
-            endEffector_pose.position.y = v.y();
-            endEffector_pose.position.z = v.z();
-            
-        }
-        */
-
-
-
-        centroid = srv_detectObj.response.recog_objects[0].pose;
-        axis_resp_0 = srv_detectObj.response.recog_objects[0].principal_axis[0];
-        axis_resp_1 = srv_detectObj.response.recog_objects[0].principal_axis[1];
-        axis_resp_2 = srv_detectObj.response.recog_objects[0].principal_axis[2];
-
-        std::cout << "Centroid: " << centroid.position << std::endl;
-        std::cout << std::endl;
-
-        //std::cout << "Principal_axis: " << std::endl <<srv.response.recog_objects[0].principal_axis[0] << std::endl;
-        //std::cout << srv.response.recog_objects[0].principal_axis[1] << std::endl;
-        //std::cout << srv.response.recog_objects[0].principal_axis[2] << std::endl;
-
-    	endEffector_marker.pose.position = endEffector_pose.position;
-        centroid_marker.pose.position = centroid.position;
-        //centroid_marker.pose.position.x = v.x();
-        //centroid_marker.pose.position.y = v.y();
-        //centroid_marker.pose.position.z = v.z();
-        marker_pub.publish(endEffector_marker);
-        marker_pub.publish(centroid_marker);
-        axis_list_marker = buildMarkerAxis(axis_resp_0,
-					   axis_resp_1,
-					   axis_resp_2,
-					   centroid);
-        marker_pub.publish(axis_list_marker);
-
-        std::cout << "---------------------------" << std::endl;
-        ros::spinOnce();
-        loop.sleep();
+      std::cout << "---------------------------" << std::endl;
+      ros::spinOnce();
+      loop.sleep();
     }
+
+    
     return 0;
 }
