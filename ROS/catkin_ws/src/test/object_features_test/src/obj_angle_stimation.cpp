@@ -170,9 +170,7 @@ int main(int argc, char** argv)
     cltDetectObjectsPCA = n.serviceClient<vision_msgs::DetectObjects>("vision/detect_object/PCA_calculator");
     marker_pub = n.advertise<visualization_msgs::Marker>("visualization_marker", 10);
 
-    fileAngleObjs.open("/home/edgar/angle_milk_90.txt");
-
-
+    fileAngleObjs.open("/home/edgar/angle_cereal_90.txt");
     
     alpha.resize(3);
     beta.resize(3);
@@ -292,7 +290,7 @@ int main(int argc, char** argv)
 	std::cout << "object yaw:  " << objectYaw1 << std::endl << std::endl;
 
 
-	fileAngleObjs << " " << objectYaw1 << "90.0" <<"\n";
+	fileAngleObjs << " " << objectYaw1 << " 90.0" <<"\n";
   
         centroid_marker.pose.position = centroid.position;
         buildMarkerAxis(axis_resp_0, axis_resp_1,
