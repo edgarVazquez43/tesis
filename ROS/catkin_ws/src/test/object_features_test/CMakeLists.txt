@@ -223,3 +223,16 @@ target_link_libraries(variance_calc
 
 add_dependencies(variance_calc
   ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+
+##### OBJECTS FEATURES TEST  #####
+add_executable(angle_stimation
+  src/obj_angle_stimation.cpp
+)
+
+target_link_libraries(angle_stimation
+  ${catkin_LIBRARIES}
+)
+
+add_dependencies(angle_stimation
+  ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
