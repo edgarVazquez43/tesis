@@ -7,20 +7,71 @@
 #include "manip_msgs/DirectKinematics.h"
 #include "manip_msgs/InverseKinematicsFloatArray.h"
 
+class JustinaGrasp
+{
+private:
+  static ros::Publisher right_arm_goal_pose_pub;
+  static ros::Publisher left_arm_goal_pose_pub;
+  
+  static ros::ServiceClient cltIKinematicsLA;
+  static ros::ServiceClient cltIKinematicsRA;
+  static ros::ServiceClient cltIKinematicsMark;
+  static ros::ServiceClient cltDetectObjectsPCA;
+ 
+
+public:
+  static bool setNodeHandle(ros::NodeHandle* nh);
+  
+  static bool transformPoint(float &x, float &y, float &z);
+  static bool detectObjet(std::vector<float>& pose,
+			  geometry_msgs::Vector3& axis_resp_0,
+			  geometry_msgs::Vector3& axis_resp_1,
+			  geometry_msgs::Vector3& axis_resp_2);
+  static bool la_ikCalculate(std::vector<float>& articular, std::vector<float> cartesian);
+  static bool ra_ikCalculate(std::vector<float>& articular, std::vector<float> cartesian);
+  static bool ra_mark_ikCalculate(std::vector<float>& articular, std::vector<float> cartesian);
+  static bool moveLeftArm(std::vector<float> articular);
+  static bool moveRightArm(std::vector<float> articular);
+  
+};
+  
+
 visualization_msgs::Marker endEffector_marker;
 visualization_msgs::Marker centroid_marker, axis_list_marker;
 
 ros::Publisher marker_pub;
-ros::Publisher right_arm_goal_pose_pub;
-ros::Publisher left_arm_goal_pose_pub;
+ros::Publisher JustinaGrasp::right_arm_goal_pose_pub;
+ros::Publisher JustinaGrasp::left_arm_goal_pose_pub;
 
-ros::ServiceClient cltIKinematicsLA;
-ros::ServiceClient cltIKinematicsRA;
-ros::ServiceClient cltIKinematicsMark;
-ros::ServiceClient cltDetectObjectsPCA;
+ros::ServiceClient JustinaGrasp::cltIKinematicsLA;
+ros::ServiceClient JustinaGrasp::cltIKinematicsRA;
+ros::ServiceClient JustinaGrasp::cltIKinematicsMark;
+ros::ServiceClient JustinaGrasp::cltDetectObjectsPCA;
 
 
-bool transformPoint(float &x, float &y, float &z)
+
+
+
+bool JustinaGrasp::setNodeHandle(ros::NodeHandle* nh)
+{
+  std::cout << "JustinaHardware.->Setting ros node..." << std::endl;
+
+  // ROS  Service Client
+  cltIKinematicsLA = nh->serviceClient<manip_msgs::InverseKinematicsFloatArray>("/manipulation/ik_moveit/la_inverse_kinematics");
+  cltIKinematicsRA = nh->serviceClient<manip_msgs::InverseKinematicsFloatArray>("/manipulation/ik_moveit/ra_inverse_kinematics");
+  cltIKinematicsMark = nh->serviceClient<manip_msgs::InverseKinematicsFloatArray>("/manipulation/ik_geometric/ik_float_array");
+  cltDetectObjectsPCA = nh->serviceClient<vision_msgs::DetectObjects>("/vision/detect_object/PCA_calculator");
+
+  // ROS Topic Publisher 
+  marker_pub = nh->advertise<visualization_msgs::Marker>("visualization_marker", 10);
+    
+  right_arm_goal_pose_pub = nh->advertise<std_msgs::Float32MultiArray>("/hardware/right_arm/goal_pose", 10);
+  left_arm_goal_pose_pub = nh->advertise<std_msgs::Float32MultiArray>("/hardware/left_arm/goal_pose", 10);
+
+  return true;
+}
+
+bool JustinaGrasp::transformPoint(float &x, float &y, float &z)
 {
   bool succes = true;
   tf::TransformListener listener;
@@ -59,7 +110,7 @@ bool transformPoint(float &x, float &y, float &z)
 
 
 
-bool detectObjet(std::vector<float>& pose,
+bool JustinaGrasp::detectObjet(std::vector<float>& pose,
 		 geometry_msgs::Vector3& axis_resp_0,
 		 geometry_msgs::Vector3& axis_resp_1,
 		 geometry_msgs::Vector3& axis_resp_2)
@@ -108,7 +159,7 @@ bool detectObjet(std::vector<float>& pose,
 
 
 
-bool la_ikCalculate(std::vector<float>& articular, std::vector<float> cartesian)
+bool JustinaGrasp::la_ikCalculate(std::vector<float>& articular, std::vector<float> cartesian)
 {
   std_msgs::Float32MultiArray la_gp_msgs;
   manip_msgs::InverseKinematicsFloatArray srv_ki_moveIt;
@@ -146,7 +197,7 @@ bool la_ikCalculate(std::vector<float>& articular, std::vector<float> cartesian)
 }
 
 
-bool ra_ikCalculate(std::vector<float>& articular, std::vector<float> cartesian)
+bool JustinaGrasp::ra_ikCalculate(std::vector<float>& articular, std::vector<float> cartesian)
 {
   std_msgs::Float32MultiArray ra_gp_msgs;
   manip_msgs::InverseKinematicsFloatArray srv_ki_moveIt;
@@ -177,12 +228,12 @@ bool ra_ikCalculate(std::vector<float>& articular, std::vector<float> cartesian)
 }
 
 
-bool ra_mark_ikCalculate(std::vector<float>& articular, std::vector<float> cartesian)
+bool JustinaGrasp::ra_mark_ikCalculate(std::vector<float>& articular, std::vector<float> cartesian)
 {
   std_msgs::Float32MultiArray ra_gp_msgs;
   manip_msgs::InverseKinematicsFloatArray srv_ki;
 
-  transformPoint(cartesian[0], cartesian[1], cartesian[2]);
+  JustinaGrasp::transformPoint(cartesian[0], cartesian[1], cartesian[2]);
   srv_ki.request.cartesian_pose.data = cartesian;
 
   ra_gp_msgs.data.resize(7);
@@ -209,32 +260,38 @@ bool ra_mark_ikCalculate(std::vector<float>& articular, std::vector<float> carte
 }
 
 
-bool moveLeftArm(std::vector<float> articular)
+bool JustinaGrasp::moveLeftArm(std::vector<float> articular)
 {
-    if (articular.size() != 7)
+  std_msgs::Float32MultiArray msg;
+  if (articular.size() != 7)
   {
     std::cout << "Left arm must be a seven values... " << std::endl;
     return false;
   }
+  
+  msg.data.resize(7);
+  msg.data = articular;
     
-  left_arm_goal_pose_pub.publish(articular); 
+  left_arm_goal_pose_pub.publish(msg); 
   return true;
 }
 
 
-bool moveRightArm(std::vector<float> articular)
+bool JustinaGrasp::moveRightArm(std::vector<float> articular)
 {
+  std_msgs::Float32MultiArray msg;
   if (articular.size() != 7)
   {
     std::cout << "Right arm must be a seven values... " << std::endl;
     return false;
   }
+  
+  msg.data.resize(7);
+  msg.data = articular;
     
-  right_arm_goal_pose_pub.publish(articular);
+  right_arm_goal_pose_pub.publish(msg);
   return true;
 }
-
-
 
 
 
@@ -334,6 +391,7 @@ int main(int argc, char** argv)
     std::cout << "INITIALIZING A TEST FOR GRASP OBJECT BY EDGAR-II..." << std::endl;
     ros::init(argc, argv, "grasp_pln");
     ros::NodeHandle n;
+    JustinaGrasp::setNodeHandle(&n);
 
     std::vector<float> object_pose;
     std::vector<float> articular_arm;
@@ -341,20 +399,8 @@ int main(int argc, char** argv)
     geometry_msgs::Pose centroid, endEffector_pose;
     geometry_msgs::Vector3 axis_resp_0, axis_resp_1, axis_resp_2; 
 
+
     
-    // ROS  Service Client
-    cltIKinematicsLA = n.serviceClient<manip_msgs::InverseKinematicsFloatArray>("/manipulation/ik_moveit/la_inverse_kinematics");
-    cltIKinematicsRA = n.serviceClient<manip_msgs::InverseKinematicsFloatArray>("/manipulation/ik_moveit/ra_inverse_kinematics");
-    cltIKinematicsMark = n.serviceClient<manip_msgs::InverseKinematicsFloatArray>("/manipulation/ik_geometric/ik_float_array");
-    cltDetectObjectsPCA = n.serviceClient<vision_msgs::DetectObjects>("/vision/detect_object/PCA_calculator");
-
-    // ROS Topic Publisher 
-    marker_pub = n.advertise<visualization_msgs::Marker>("visualization_marker", 10);
-    
-    right_arm_goal_pose_pub = n.advertise<std_msgs::Float32MultiArray>("/hardware/right_arm/goal_pose", 10);
-    left_arm_goal_pose_pub = n.advertise<std_msgs::Float32MultiArray>("/hardware/left_arm/goal_pose", 10);
-
-
  
     markerSetup();
 
@@ -363,8 +409,8 @@ int main(int argc, char** argv)
     while(ros::ok())
     {
 
-      detectObjet(object_pose, axis_resp_0, axis_resp_1, axis_resp_2);
-      ra_ikCalculate(articular_arm, object_pose);
+      JustinaGrasp::detectObjet(object_pose, axis_resp_0, axis_resp_1, axis_resp_2);
+      JustinaGrasp::ra_ikCalculate(articular_arm, object_pose);
 
       
       endEffector_marker.pose.position = endEffector_pose.position;
