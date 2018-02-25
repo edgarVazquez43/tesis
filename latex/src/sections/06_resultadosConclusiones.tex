@@ -7,23 +7,25 @@ La descripción de las pruebas y la discusión de resultados se abordará con la
 
 Se describirá conforme al desarrollo de este estrabajo. 
 
-\begin{itemize}
+\begin{enumerate}
 	\item{Extracción de planos.}
-	\item{Exactitud, rapidez.}
+	\begin{itemize}
+		\item{Exactitud, rapidez.}
+	\end{itemize}
 
 	\item{Extracción de objetos y sus características.}
-	\item{Exactitud en la estimación de la posición.}
-	\item{Comparación en caracteristica de altura.}
-	\item{Puesta a prueba tarea de manipulación con adición de la información de dimensiones.}
+	\begin{itemize}
+		\item{Exactitud en la estimación de la posición.}
+		\item{Comparación en caracteristica de altura.}
+		\item{Estimación de la orientación de objetos.}
+		\item{Exactitud en el cálculo de la orientación. Comparación orientación estimada y real.}
+	\end{itemize}
 
-	\item{Estimación de la orientación de objetos.}
-	\item{Exactitud en el cálculo de la orientación. Comparación orientación estimada y real.}
+
+	\item{Espacio de trabajo del algoritmo númerico.}
+	\item{Prueba de tarea de manipulación con adición de la información de dimensiones.}
 	\item{Comparación tarea de manipulación utilizando información de orientación de los objetos.}
-
-	\item{Espacio de trabajo}
-	\item{Comparación de tiempo de ejecución en tarea de manipulación incorporando información del espacio de trabajo de los manipuladores.}
-
-\end{itemize}
+\end{enumerate}
 
 
 
@@ -218,7 +220,6 @@ Se describirá conforme al desarrollo de este estrabajo.
 
 
 	\subsection{Estímación de alturas}
-	****Insertar figuras de gráficas de la estimación del centroide, comparar la varianza.
 
 	\begin{figure}[H]
 		\begin{subfigure}[h]{.5\textwidth}
@@ -275,29 +276,7 @@ Se describirá conforme al desarrollo de este estrabajo.
 		\label{fig:mesh1}
 	\end{figure}
 
-
-
 	\subsection{Adicición de la información de dimensiones de los objetos}
-
-
-	%%%%%%TEORIA SOBRE DESVIACIONES ESTANDART %%%%%%
-	Dado que la desviación estándar puede ser interpretada como una medida de incertidumbre cuando cálculamos el valor de esta en un grupo repetido de medidas nos da la precisión de éstas. Cuando se va a determinar si un grupo de medidas está de acuerdo con el modelo teórico, la desviación estándar de esas medidas es de vital importancia: si la media de las medidas está demasiado alejada de la predicción (con la distancia medida en desviaciones estándar), entonces consideramos que las medidas contradicen la teoría. Esto es coherente, ya que las mediciones caen fuera del rango de valores en el cual sería razonable esperar que ocurrieran si el modelo teórico fuera correcto. La desviación estándar es uno de tres parámetros de ubicación central; muestra la agrupación de los datos alrededor de un valor central (la media o promedio).\\
-	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-	\begin{center}
-	\begin{figure}[H]
-		\includegraphics[width=14.5cm, height=7.0cm]{resultados/DesviacionEstandar.jpg}	
-		\caption{Gráficas de desviciones estandar para diferentes objetos dispuestas por sus respectivos ejes.}
-	\end{figure}
-	\end{center}
-
-
-
-
-
-
-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
