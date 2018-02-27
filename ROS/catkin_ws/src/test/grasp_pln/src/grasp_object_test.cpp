@@ -170,7 +170,10 @@ bool JustinaGrasp::detectObjet(std::vector<float>& pose,
     aux = axis_resp_0;
 
   std::cout << "Axis on plane: " << std::endl
-	    << aux << std::endl; 
+	    << aux << std::endl;
+
+  objectYaw_rads = -atan(aux.y/aux.x);
+  objectYaw = objectYaw_rads * 180/3.141592;
 	
 
   //Calculate magnitude principal axis
@@ -190,61 +193,33 @@ bool JustinaGrasp::detectObjet(std::vector<float>& pose,
 		     aux.y*aux.y +
 		     aux.z*aux.z);
 
-  //Calculate directions cosines
-  alpha[0] = acos(axis_resp_0.x/mag_axis[0]);
-  beta[0]  = acos(axis_resp_0.y/mag_axis[0]);
-  gamma[0] = acos(axis_resp_0.z/mag_axis[0]);
-
-  alpha[1] = acos(axis_resp_1.x/mag_axis[1]);
-  beta[1]  = acos(axis_resp_1.y/mag_axis[1]);
-  gamma[1] = acos(axis_resp_1.z/mag_axis[1]);
-
-  alpha[2] = acos(axis_resp_2.x/mag_axis[2]);
-  beta[2]  = acos(axis_resp_2.y/mag_axis[2]);
-  gamma[2] = acos(axis_resp_2.z/mag_axis[2]);
-
-  objectYaw_rads = atan2(aux.y, aux.x);
-  objectYaw = objectYaw_rads * 180/3.141592;
-
-  if(objectYaw > 90.0 || aux.y > 0.0)
-    objectYaw -= 90.0;
-
-  if(aux.y < 0.0)
-    objectYaw += 90.0;
-
   objectYaw *= -1;
   std::cout << "Axis magnitude: " << std::endl
 	    << mag_axis[0] << std::endl
 	    << mag_axis[1] << std::endl
 	    << mag_axis[2] << std::endl << std::endl;
 
-  // std::cout << "Directions cosines [ANGLES]: " << std::endl
-  // 	    << "Axis[0]: alpha = " << alpha[0]*180/3.141592
-  // 	    << "  beta = " << beta[0]*180/3.141592
-  // 	    << "  gamma = " << gamma[0]*180/3.141592 << std::endl
-  // 	    << "Axis[1]: alpha = " << alpha[1]*180/3.141592
-  // 	    << "  beta = " << beta[1]*180/3.141592
-  // 	    << "  gamma = " << gamma[1]*180/3.141592 << std::endl
-  // 	    << "Axis[2]: alpha = " << alpha[2]*180/3.141592
-  // 	    << "  beta = " << beta[2]*180/3.141592
-  // 	    << "  gamma = " << gamma[2]*180/3.141592 << std::endl << std::endl;
-
-  // std::cout << "  roll  = " << gamma[0]*180/3.141592
-  // 	    << "  pitch = " << beta[1]*180/3.141592
-  // 	    << "  yaw   = " << alpha[2]*180/3.141592 << std::endl << std::endl;
 
   std::cout << "object yaw:  " << objectYaw << std::endl << std::endl;
   std::cout << "object yaw_rads:  " << objectYaw_rads << std::endl << std::endl;
- 
+
+  // Verify principal axis is in Z-Axis
+  if(axis_resp_0.z > axis_resp_0.y &&
+     axis_resp_0.z > axis_resp_0.x)
+  {
+    
+    pose[3] = 0.0;               // Roll Angle
+    pose[4] = objectYaw_rads;    // Pitch Angle
+    pose[5] =  1.5707;    // Yaw Angle
+  }
+  else
+  {
+    pose[3] = -objectYaw_rads;               // Roll Angle
+    pose[4] = 0.0;    // Pitch Angle
+    pose[5] = 0.0;               // Yaw Angle
+  }
   
-  //Roll Angle
-  pose[3] = 0.0;
-
-   //Pitch Angle
-  pose[4] = 1.5707 - objectYaw_rads;
-
-   //Yaw Angle
-  pose[5] = 0.0;
+ 
   
 
   return true;
@@ -543,18 +518,22 @@ int main(int argc, char** argv)
 
       JustinaGrasp::detectObjet(object_pose, axis_resp_0, axis_resp_1, axis_resp_2);
 
+      object_pose[0] =  0.15;
+      object_pose[1] = -0.22;
+      object_pose[2] =  0.90;
+      
       if(use_angle_information == 0)
       {
         // // Calculate ik geometric with object-pose information
 	object_pose[3] =  0.0;
 	object_pose[4] =  0.0;
-	object_pose[5] =  1.5707;
+	object_pose[5] =  0.0;
 	JustinaGrasp::ra_mark_ikCalculate(articular_arm, object_pose);
 	boost::this_thread::sleep( boost::posix_time::milliseconds(4000) );
       }
       else if (use_angle_information == 1)
       {
-	object_pose[5] =  1.5707;
+	
 	JustinaGrasp::ra_mark_ikCalculate(articular_arm, object_pose);
 	boost::this_thread::sleep( boost::posix_time::milliseconds(4000) );
       }
