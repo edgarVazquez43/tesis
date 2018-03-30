@@ -14,7 +14,7 @@ global gripperTorqueActive
 global armTorqueActive
 global gripperTorqueLimit
 
-zero_arm =[2056, 1600, 1800, 2100, 2000, 1800, 1030]
+zero_arm =[2056, 1600, 1800, 2100, 2000, 1800, 1050]
 zero_gripper=[2440, 2680]
 
 gripperTorqueActive = False
@@ -250,11 +250,12 @@ def main(portName1, portBaud1):
     dynMan1.SetTorqueEnable(8, 1)
 
     # Set initial pos for each servo
-    for i in range(7):
-        dynMan1.SetGoalPosition(i, zero_arm[i])
+    #for i in range(6):
+    #    dynMan1.SetGoalPosition(i, zero_arm[i])
 
-    dynMan1.SetGoalPosition(7, zero_gripper[0])
-    dynMan1.SetGoalPosition(8, zero_gripper[1])
+    #dynMan1.SetGoalPosition(6, 2130)
+    #dynMan1.SetGoalPosition(7, zero_gripper[0])
+    #dynMan1.SetGoalPosition(8, zero_gripper[1])
 
     loop = rospy.Rate(30)
 
@@ -269,6 +270,7 @@ def main(portName1, portBaud1):
                 dynMan1.SetTorqueEnable(i, True)
                 dynMan1.SetMovingSpeed(i, speedsGoal[i])
                 dynMan1.SetGoalPosition(i, goalPos[i])
+                rospy.sleep(0.05)
 
         #### Refresh gripper_pos ####
         if attemps < 50:
@@ -295,6 +297,7 @@ def main(portName1, portBaud1):
                 dynMan1.SetGoalPosition(7, gripperGoal_1)
                 dynMan1.SetGoalPosition(8, gripperGoal_2)
                 objOnHand = False
+            ## This counter is reseated in the callback
             attemps += 1
 
         #### Refresh arms_position's readings #####
@@ -392,4 +395,4 @@ if __name__ == '__main__':
         else:
             main(portName1, portBaud1)
     except rospy.ROSInterruptException:
-pass
+        pass

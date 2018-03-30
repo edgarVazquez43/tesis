@@ -1,0 +1,65 @@
+<launch>
+  <param name="robot_description" command="cat $(find knowledge)/hardware/manipulator.xml" />
+  <!-- <param name="robot_description" command="cat $(find knowledge)/hardware/manipulatorsMoveIt.xml" / -->>
+  <param name="robot_description_semantic" textfile="$(find arms_config)/config/7DOF_manipulator.srdf" />
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher"/>
+
+  
+  <group ns="hardware">
+    
+    <node name="right_arm" pkg="arms" type="right_arm_real_simul_node" output="screen" respawn="true">
+      <param name="port" value="/dev/justinaRightArm"/>
+      <param name="baud" value="200000"/>
+      <param name="bulk_enable" value="true"/>
+      <param name="write_sync_enable" value="true"/>
+      <param name="simul" value="$(arg simul)"/>
+    </node>
+
+    <node name="left_arm" pkg="arms" type="left_arm_real_simul_node" output="screen" respawn="true">
+      <param name="port" value="/dev/justinaLeftArm"/>
+      <param name="baud" value="1000000"/>
+      <param name="bulk_enable" value="true"/>
+      <param name="write_sync_enable" value="true"/>
+      <param name="simul" value="$(arg simul)"/>
+    </node>
+
+    <node name="head" pkg="head" type="head_real_simul_node.py" output="screen" args="--port /dev/justinaHead --baud 10\
+										      00000">
+      <param name="port" value="/dev/justinaHead"/>
+      <param name="baud" value="1000000"/>
+      <param name="simul" value="$(arg simul)"/>
+    </node>
+
+    <node name="torso" pkg="torso" type="torso_real_simul.py" output="screen">
+      <param name="simul" value="$(arg simul)"/>
+      <param name="port" value="/dev/justinaTorso"/>
+    </node>
+			      
+    <node name="point_cloud_man" pkg="kinect_man" type="kinect_man_node" output="screen" args=" -- defpath $(find knowledge)/hardware/point_clouds/"/>
+    
+    <!-- <node name="kinect_man" pkg="kinect_man" type="kinect_man_node" output="screen" args=" __ bag /home/edgar/bags_tesis/cereal_box.bag"/> -->
+  </group>
+
+  
+  <group ns="hri">
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find knowledge)/hri/rviz_config.rviz"/>
+  </group>
+
+  
+   <group ns="vision">
+    <node name="obj_angle_calc" pkg="obj_angle_calc" type="obj_angle_calc_node" output="screen"/>
+    <node name="obj_reco" pkg="obj_reco" type="obj_reco_node" output="screen"/>
+   </group>
+
+  
+
+  <group ns="manipulation">
+    <node name="ik_geometric" pkg="ik_geometric" type="ik_geometric_node" output="screen"/>
+    <node name="manip_pln" pkg="manip_pln" type="manip_pln_node" output="screen" args="-f $(find knowledge)/manipulation/predef_poses/"/>
+    
+    <rosparam command="load" file="$(find arms_config)/config/kinematics.yaml"/>
+    <node name="ik_moveit" pkg="ik_moveit" type="ik_moveit_node" output="screen"/>
+  </group>
+
+  
+</launch>
