@@ -29,18 +29,48 @@
 	%%%%
 	\section{Máquinas de estados}
 
+	Una máquina de estados finita es un modelo matemático computacional, el cuál puede tener uno o un número finito de estados en un momento dado. Dicho modelo matemático se cumple la función de mostrar las transiciones entre diversos estados de un objeto o proceso. Las máquinas de estados proporcionan información muy importante de un proceso, dicha información se presenta en dos medios dediferente naturaleza. En primer lugar intenta describir un proceso en una cantidad finita de estados, los cuales deben ser suficientes para describir el proceso de manera suficiente. En segundo lugar determina los criterios de transición entre diferentes estados de objeto o proceso.\\
+
+	En este sentido, como parte de este trabajo, se plantean las máquinas de estados como la metodología de solución ante ciertas problematicas como lo son: \textit{describir el proceso de la toma de objetos, describir el proceso de llevar el brazo hasta el punto óptimo de sujeción, describir el proceso de evalución de la función de costo para el brazo manipulador del robot Justina, entre otras.}\\
+
+
 	\subsection{Descripción de pruebas de toma de objetos.}
+
+	La toma de objetos es la parte crucial de este trabajo, la importancia de este evento radica en que este evento se incluye la totalidad de tareas desarroladas en este trabajo para realizar una prueba de mayor complejidad. A grandes rasgos, la prueba de la toma de objetos se compone de subtareas, algunas de las cuales se describen a continuación.\\
+
+	La primer subtarea es la segmentación del objeto y el cálculo del respectivo centroide del objeto en cuestión. Como entrada de la tarea se tiene una nube de puntos obtenida por la cámara RGB-D Kinect y lo esperado a la salida es una posición \textit{x, y, z} en el espació así mismo la orientación del objeto \textit{roll, pith, yaw}. La primer subtarea a realizar, partiendo con la nube de puntos como entrada al sistema, es es la segmentación de un plano (en caso de existir), porteriormente se eliminan los puntos pertenecientes al plano y por debajo de este, se eliminan los puntos más lejados 0,5[m] en el eje x respecto al robot. Se parte de las siguintes premisas: que el conjunto de puntos restante corresponde al conjunto de puntos que conforman al objeto, que solo se encuentra un objeto en la mesa en cada evento de toma de objetos. Con tal información, podemos proceder a calcular el centroide del objeto así como el rectivo ángulo del mismo.\\
+
+	***Esquemas de proceso de segmentación del objeto.\\
+
+	Para realizar el cálculo del centroide del objeto en cuestión se utiliza la ecuación [], la aplicación de dicha formula es practicamente directa, no así el cálculo de los ángulos representativos de la orientación del objeto. Para ello se calculan en un principio, los componentes principales del conjunto formado por los puntos del objeto, con la información de los eigenvectores de la matriz de covarianzas podemos obtener la dirección en la cuál ocurre la mayor distribución de los puntos, y por tanto podemos obtener los cosenos directores de cada uno de los respectivos eigenvectores obteniendo así los ángulos de rotación \textit{roll, pitch, yaw}.\\
+
+	***Esquemas de cálculo de la cinemática inversa.\\
+
+	Una vez conociendo esta información nos es posible avanzar a la etapa de manipulación para la cual es necesario conocer la información de la información del objeto en el espacio \textit{x, y, z} y con ayuda del proceso anteriormente descrito podemos obtener los ángulos requeridos para el efector final del manipulador. En esta parte y como parte de los resultados del análisis comparativo entre las soluciones encontradas mediante la paquetería \textit{MoveIt!} y el método geométrico, se optó por utilizar el método geométrico ya implementado en el robot de servicio Justina.\\
+
+
+	***Esquemas de proceso toma de objetos.\\	
+
+	Con el resultado del cálculo de la cinemática inversa, se obtinenen los ángulos requeridos para cada uno de los actuadores para que el efector final llegue al punto en el espacio deseado. Para ello se utiliza un \textit{tópico} implementado en ROS, que comunica los ángulos deseados del manipulador con un nodo encargado de operar el hardware en este caso los motores Dynamixel.\\ 
+
 
 	\subsection{Pruebas de toma de objetos estado actual.}
 
-	\subsection{Pruebas de toma de objetos con información de orientación.}
+	En lo que respecta al proceso de la toma de objetos actual, en el robot de servicio Justina, unicamente se utiliza la información de posición del objeto sin considerar la información de orientación. Este proceso es suceptible a fallas cuando se trata de objetos de grandes dimensiones, entiendase objetos con dimensiones mayores a la longitud total del efector final del manipulador en su mayor apertura. Por otro lado, puede presentar fallas con objetos de alturas reducidas, estos son objetos con alturas menores a la mitad de la longitud \textit{d} del manipulador pues ello índica una posible colisión con la superficie que soporta dicho objeto.\\
 
+	***Esquemas de ejemplificación de dimensiones exedidas y reducidas para objetos.\\	
+
+	
 	\subsection{Pruebas de toma de objetos con información de orientación y dimensiones del objeto.}
 
+	Como parte de los desarrollos obtenidos de este trabajo, se adiciona la información de la orientación de los objetos, con la cuál se realizaron pruebas que nos lleven a verificiar si la adicción de esta información mejora significativamente la tarea de toma de objetos en el robot de servicio Justina.\\
+
+	Para ello, una vez realizada la segmentación del objeto en cuestión se procede a calcular el centroide del objeto, posteriormente se calcula la matriz de covarianzas de y se obtienen los vectores y valores característicos de la matriz, con lo cuál obtenemos los ejes que representan una aproximación a la orientación del objeto.\\ 
 
 
+	***Imagen de cálculo de la orientación con componentes principales.\\
 
-
+	***Esquema de llamada a servicios, ROS.\\
 
 
 	%%%
@@ -48,4 +78,9 @@
 	%%%
 	\section{Constitución del robot de servicio Justina}
 
+	***Imagenes de Justina virtual y real.\\
+	 
+
 	\subsection{Estructura de software del robot Justina.}
+
+	***Imagenes de Justina virtual y real.\\

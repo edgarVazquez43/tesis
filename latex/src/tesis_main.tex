@@ -20,9 +20,13 @@
 \usepackage[none]{hyphenat}
 \usepackage{setspace} 
 \usepackage{epstopdf} %converting to PDF 
+\setboolean{@twoside}{false}  %For add pdf page
+\usepackage[final]{pdfpages}  %For add pdf page
+
+
 \graphicspath{ {../imgs/} {../../imgs/} }
 \sloppy
-\spacing{1.5} 
+\spacing{1.25} 
 
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
@@ -52,51 +56,52 @@
 
 \begin{document}
 
+\includepdf[pages=-]{../pdf/portada.pdf}
 
-\begin{titlepage}
+% \begin{titlepage}
 
-	\begin{center}
-		\vspace*{-1in}
-		\begin{figure}[htb]
-			\begin{center}
-			\includegraphics[width=3.5cm, height=4cm]{/unam.png}
-			\end{center}
-		\end{figure}
-		\vspace*{0.35in}
+% 	\begin{center}
+% 		\vspace*{-1in}
+% 		\begin{figure}[htb]
+% 			\begin{center}
+% 			\includegraphics[width=3.5cm, height=4cm]{/unam.png}
+% 			\end{center}
+% 		\end{figure}
+% 		\vspace*{0.35in}
 
-		\begin{large}
-			\rule{130mm}{0.1mm}\\
-			UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO
-		\end{large}
-		\vspace*{0.55in}
+% 		\begin{large}
+% 			\rule{130mm}{0.1mm}\\
+% 			UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO
+% 		\end{large}
+% 		\vspace*{0.55in}
 
-		FACULTAD DE INGENIERÍA \\
-		\vspace*{0.25in}
-		DEPARTAMENTO DE INGENIERÍA MECÁNICA E INDUSTRIAL\\
-		\vspace*{0.6in}
-		\begin{large}
-			TESIS:\\
-		\end{large}
-		\vspace*{0.2in}
+% 		FACULTAD DE INGENIERÍA \\
+% 		\vspace*{0.25in}
+% 		DEPARTAMENTO DE INGENIERÍA MECÁNICA E INDUSTRIAL\\
+% 		\vspace*{0.6in}
+% 		\begin{large}
+% 			TESIS:\\
+% 		\end{large}
+% 		\vspace*{0.2in}
 
-		\begin{Large}
-			\textbf{ Desarrollo de un sistema de detección y manipulación de objetos para un robot de Servicio} \\
-		\end{Large}
-		\vspace*{0.65in}
+% 		\begin{Large}
+% 			\textbf{ Desarrollo de un sistema de detección y manipulación de objetos para un robot de Servicio} \\
+% 		\end{Large}
+% 		\vspace*{0.65in}
 
-		\rule{110mm}{0.1mm}
+% 		\rule{110mm}{0.1mm}
 
-		\vspace*{0.35in}
-		\begin{large}
-			Edgar de Jesús Vázquez Silva \\
-			\vspace*{0.55in}
-			\today
-		\end{large}
+% 		\vspace*{0.35in}
+% 		\begin{large}
+% 			Edgar de Jesús Vázquez Silva \\
+% 			\vspace*{0.55in}
+% 			\today
+% 		\end{large}
 
 
-	\end{center}
+% 	\end{center}
 
-\end{titlepage}
+% \end{titlepage}
 
 
 
