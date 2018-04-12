@@ -76,11 +76,26 @@
 	%%%
 	%%%	Descripción general del software Justina
 	%%%
-	\section{Constitución del robot de servicio Justina}
+	\section{Constitución y estructura de software del robot de servicio Justina}
+
+	Justina es un robot de servicio desarrollado en el laboratorio de Biorobótica de la Facultad de Ingeniería de la Universidad Nacional Autónoma de México. Entre el conjunto de tareas que debe desempeñar el robot Justina se encuentra la detección y el reconocimiento de rostros, la detección y el reconocimiento de objetos, la manipulación de objetos, la navegación autónoma en un ambiente cerrado similar al de un hogar u oficina, todo esto de manera autónoma.\\
+
+	Para realizar tales tareas el robot de servicio Justina cuenta con un base omnidireccional compuesta de 4 motores, la cual le permite realizar desplazamientos laterales. Dentro de la descripción de hardware, cuenta con dos manipuladores en cadena abierta de 7 grados de libertad cada uno, los manipuadores se componen por motores Dynamixel cuyas características se detallan en el apartado 4.1.\\
+
+	En la parte superior de la escructura que forma al robot se encuentra una arreglo de dos servomotores que realizan la función de una cabeza sobre la cual se encuentra montado el sensor RGB-D de la compañia Microsoft cuyas características se mencionan en el apartado 2.3 de este documento.\\
+
+	Es importante mencionar que todos estos componentes se encuentran montados sobre una estructura compuesta por perfil estructural de aluminio, en su mayoría.\\ 
 
 	***Imagenes de Justina virtual y real.\\
-	 
 
-	\subsection{Estructura de software del robot Justina.}
+	En cuanto a la estructura de software, Justina se encuentra, actualmente, desarrollada en ROS; por tanto existen nodos encargados de la comunicación directa con el hardware. En el caso de este trabajo los nodos más relevantes a nivel de hardware son: el nodo encargado de la comunicación con los motores Dynamixel y el nodo encargado de operar al sensor Kinect. La camunicación con estos dos dispositivos de hardware se realiza mediante topicos.\\
 
-	***Imagenes de Justina virtual y real.\\
+	El nodo encargado de operar los motores está publicando en todo momento la posición actual de cada uno de los servomotores; por otro lado está a la escucha permanente que llegue un mensaje con la información de una posición objetivo.\\
+
+	El nodo del sensor kinect, se encarga de obtener los datos del sensor y publicar dos mensajes con informaciones similares. Uno de estos mensajes contine la información del sensor kinect (imagen de color e información de profundidad) obtenida tal cual del hardware, el otro mensaje proviene de la transformación de la información de profundidad del sensor con respecto de la base del robot.\\
+
+	Las relaciones mecánicas del robot se encuentran definifdas mediante la nomenclatura correspondiente a un archivo URDF con el cual ROS crea un árbol de transformaciones dinámico. Con tal información podemos obtener las tranformaciones entre diferentes sistemas de referencia dentro del robot o con reespecto a algpun sistema de referencia en partícular.\\
+
+	Como parte de este trabajo se creó y programó un nodo en ROS en cuál, con la información de las respectivas transformaciones y la información de profundidad obtenida del sensor kinect, se cálcula la información del objeto y sus carecteristicas de ubicación espacial, dimensiones y orientación. El nodo se promgramó en el lenguaje de programción orientada a objetos c++, por su parte se comunica a travez de ROS por medio de la recepción de información mediante la llegada de tópicos; por otro lado responde en un servicio con la infromación de los objetos ubicación espacial y orientaciones.\\
+
+	***Imagen de estructura de software visión y manipulación.\\

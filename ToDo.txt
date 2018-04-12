@@ -1,3 +1,6 @@
 <<<< Install R studio
 <<<< Figuras en MATLAB
 <<<< Export images eps
+
+<<<< Anovas medidas repetidas.
+
