@@ -16,10 +16,20 @@
 	Uno de los paradigmas para comunicar nodos entre sí es por medio de tópicos. Un nodo publica cierto tipo de información en un tópico específico y todos los nodos que requieran de esa información deberán suscribirse a ese tópico para obtenerla. En cuanto los datos sean publicados, los nodos suscritos la recibirán. El nodo publicador no sabes quién o quiénes leerán lo que publique, únicamente sabe a dónde mandar la información. Lo mismo sucede del otro lado, los nodos suscritos no saben quién publica la información, sólo saben de dónde la deben esperar. Cada tópico comunica únicamente un tipo de mensaje definido.\\
 
 	\subsection{Servicios}
-	El otro paradigma para comunicar nodos son los servicios utilizando un sistema petición-respuesta. Si algún proceso o cálculo se requiere hacer sólo en ciertas situaciones es conveniente programarlo como un servicio. Si un nodo requiere utilizar un servicio, manda un mensaje de petición con la información necesaria al nodo que ofrece dicho servicio, el procesamiento se lleva a cabo y se regresa al nodo solicitante un mensaje de respuesta con el resultado del servicio. Al igual que los tópicos, cada servicio tiene el tipo de mensaje específico con el que se comunicará; hay un tipo de mensaje para las peticiones y otro para las respuestas.\\
+	El otro paradigma para comunicar nodos son los servicios utilizando un sistema petición-respuesta. Si algún proceso o cálculo se requiere hacer sólo en ciertas situaciones es conveniente programarlo como un servicio. Si un nodo requiere utilizar un servicio, manda un mensaje de petición con la información necesaria al nodo que ofrece dicho servicio, el procesamiento se lleva a cabo y se regresa al nodo solicitante un mensaje de respuesta con el resultado del servicio. Al igual que los tópicos, cada servicio tiene el tipo de mensaje específico con el que se comunicará; hay un tipo de mensaje para las peticiones y otro para las respuestas.\\	
+
+	\begin{figure}[H]
+		\begin{minipage}{18cm}	
+		\hspace*{-0.35in}
+		\includegraphics[scale=0.28]{ros/topics_services_ros.png}	
+		\end{minipage}
+		
+		\begin{center}
+		\caption{Esquemas de comunicación Topicos y Servicios.}
+		\end{center}
+	\end{figure}
 
 
-	***Esquemas de comunicación Topicos y Servicios.\\
 
 	
 
@@ -40,16 +50,55 @@
 
 	La primer subtarea es la segmentación del objeto y el cálculo del respectivo centroide del objeto en cuestión. Como entrada de la tarea se tiene una nube de puntos obtenida por la cámara RGB-D Kinect y lo esperado a la salida es una posición \textit{x, y, z} en el espació así mismo la orientación del objeto \textit{roll, pith, yaw}. La primer subtarea a realizar, partiendo con la nube de puntos como entrada al sistema, es es la segmentación de un plano (en caso de existir), porteriormente se eliminan los puntos pertenecientes al plano y por debajo de este, se eliminan los puntos más lejados 0,5[m] en el eje x respecto al robot. Se parte de las siguintes premisas: que el conjunto de puntos restante corresponde al conjunto de puntos que conforman al objeto, que solo se encuentra un objeto en la mesa en cada evento de toma de objetos. Con tal información, podemos proceder a calcular el centroide del objeto así como el rectivo ángulo del mismo.\\
 
-	***Esquemas de proceso de segmentación del objeto.\\
+	\begin{figure}[H]
+	\hspace*{-0.5in}
+	\centering
+	\begin{subfigure}[t]{.55\textwidth}
+		\centering
+		\includegraphics[scale=0.25]{objs/plane_model.png}
+		\caption{URDF descripción del robot Justina.}
+	\end{subfigure}%
+	\begin{subfigure}[t]{.55\textwidth}
+		\centering
+		\includegraphics[scale=0.45]{objs/plane_points.png}
+		\caption{URDF descripción de las tranformaciones de los brazos del robot Justina.}
+	\end{subfigure}
+
+	\hspace*{-0.5in}
+	\begin{subfigure}[t]{.55\textwidth}
+		\centering
+		\includegraphics[scale=0.25]{objs/object_boundingBox.png}
+		\caption{URDF descripción de las tranformaciones de los brazos del robot Justina.}
+	\end{subfigure}%
+	\begin{subfigure}[t]{.55\textwidth}
+		\centering
+		\includegraphics[scale=0.45]{objs/object_points.png}
+		\caption{URDF descripción de las tranformaciones de los brazos del robot Justina.}
+	\end{subfigure}
+	\caption{Esquemas de proceso de segmentación del objeto.}
+	\label{fig:desciption_arms1}
+	\end{figure}
+
 
 	Para realizar el cálculo del centroide del objeto en cuestión se utiliza la ecuación [], la aplicación de dicha formula es practicamente directa, no así el cálculo de los ángulos representativos de la orientación del objeto. Para ello se calculan en un principio, los componentes principales del conjunto formado por los puntos del objeto, con la información de los eigenvectores de la matriz de covarianzas podemos obtener la dirección en la cuál ocurre la mayor distribución de los puntos, y por tanto podemos obtener los cosenos directores de cada uno de los respectivos eigenvectores obteniendo así los ángulos de rotación \textit{roll, pitch, yaw}.\\
 
-	***Esquemas de cálculo de la cinemática inversa.\\
 
 	Una vez conociendo esta información nos es posible avanzar a la etapa de manipulación para la cual es necesario conocer la información de la información del objeto en el espacio \textit{x, y, z} y con ayuda del proceso anteriormente descrito podemos obtener los ángulos requeridos para el efector final del manipulador. En esta parte y como parte de los resultados del análisis comparativo entre las soluciones encontradas mediante la paquetería \textit{MoveIt!} y el método geométrico, se optó por utilizar el método geométrico ya implementado en el robot de servicio Justina.\\
 
 
-	***Esquemas de proceso toma de objetos.\\	
+
+	\begin{figure}[H]
+		\begin{minipage}{18cm}	
+		\hspace*{-0.2in}
+		\includegraphics[scale=0.35]{ros/tarea_manipulacion2.png}	
+		\end{minipage}
+		
+		\begin{center}
+		\caption{Esquemas de proceso toma de objetos.}
+		\end{center}
+	\end{figure}
+
+
 
 	Con el resultado del cálculo de la cinemática inversa, se obtinenen los ángulos requeridos para cada uno de los actuadores para que el efector final llegue al punto en el espacio deseado. Para ello se utiliza un \textit{tópico} implementado en ROS, que comunica los ángulos deseados del manipulador con un nodo encargado de operar el hardware en este caso los motores Dynamixel.\\ 
 
@@ -58,7 +107,7 @@
 
 	En lo que respecta al proceso de la toma de objetos actual, en el robot de servicio Justina, unicamente se utiliza la información de posición del objeto sin considerar la información de orientación. Este proceso es suceptible a fallas cuando se trata de objetos de grandes dimensiones, entiendase objetos con dimensiones mayores a la longitud total del efector final del manipulador en su mayor apertura. Por otro lado, puede presentar fallas con objetos de alturas reducidas, estos son objetos con alturas menores a la mitad de la longitud \textit{d} del manipulador pues ello índica una posible colisión con la superficie que soporta dicho objeto.\\
 
-	***Esquemas de ejemplificación de dimensiones exedidas y reducidas para objetos.\\	
+	***Fotografías de ejemplificación de dimensiones exedidas y reducidas para objetos.\\	
 
 	
 	\subsection{Pruebas de toma de objetos con información de orientación y dimensiones del objeto.}
@@ -68,9 +117,35 @@
 	Para ello, una vez realizada la segmentación del objeto en cuestión se procede a calcular el centroide del objeto, posteriormente se calcula la matriz de covarianzas de y se obtienen los vectores y valores característicos de la matriz, con lo cuál obtenemos los ejes que representan una aproximación a la orientación del objeto.\\ 
 
 
-	***Imagen de cálculo de la orientación con componentes principales.\\
+	\begin{figure}[H]
+	\hspace*{-0.5in}
+	\centering
+	\begin{subfigure}[t]{.55\textwidth}
+		\centering
+		\includegraphics[scale=0.35]{objs/principalAxis_cereal.png}	
+		\caption{URDF descripción del robot Justina.}
+	\end{subfigure}%
+	\begin{subfigure}[t]{.55\textwidth}
+		\centering
+	\includegraphics[scale=0.45]{objs/principalAxis_chocolate.png}
+		\caption{URDF descripción de las tranformaciones de los brazos del robot Justina.}
+	\end{subfigure}
 
-	***Esquema de llamada a servicios, ROS.\\
+	\hspace*{-0.5in}
+	\begin{subfigure}[t]{.55\textwidth}
+		\centering
+		\includegraphics[scale=0.35]{objs/principalAxis_joystick.png}
+		\caption{URDF descripción de las tranformaciones de los brazos del robot Justina.}
+	\end{subfigure}%
+	\begin{subfigure}[t]{.55\textwidth}
+		\centering
+		\includegraphics[scale=0.35]{objs/principalAxis_juice2.png}
+		\caption{URDF descripción de las tranformaciones de los brazos del robot Justina.}
+	\end{subfigure}
+	\caption{Imagen de cálculo de la orientación con componentes principales.}
+	\label{fig:desciption_arms1}
+	\end{figure}
+
 
 
 	%%%
@@ -86,7 +161,26 @@
 
 	Es importante mencionar que todos estos componentes se encuentran montados sobre una estructura compuesta por perfil estructural de aluminio, en su mayoría.\\ 
 
-	***Imagenes de Justina virtual y real.\\
+
+	\begin{figure}[H]
+	\hspace*{-0.5in}
+	\centering
+	\begin{subfigure}[t]{.55\textwidth}
+		\centering
+		\includegraphics[scale=0.35]{manipulator/DH_manipulators1.png}
+		\caption{URDF descripción del robot Justina.}
+	\end{subfigure}%
+	\begin{subfigure}[t]{.55\textwidth}
+		\centering
+	\includegraphics[scale=0.45]{objs/principalAxis_chocolate.png}
+		\caption{URDF descripción de las tranformaciones de los brazos del robot Justina.}
+	\end{subfigure}
+	\caption{Imagen de Justina virtual y fotografia real.}
+	\label{fig:desciption_arms1}
+	\end{figure}
+
+
+
 
 	En cuanto a la estructura de software, Justina se encuentra, actualmente, desarrollada en ROS; por tanto existen nodos encargados de la comunicación directa con el hardware. En el caso de este trabajo los nodos más relevantes a nivel de hardware son: el nodo encargado de la comunicación con los motores Dynamixel y el nodo encargado de operar al sensor Kinect. La camunicación con estos dos dispositivos de hardware se realiza mediante topicos.\\
 
@@ -96,6 +190,5 @@
 
 	Las relaciones mecánicas del robot se encuentran definifdas mediante la nomenclatura correspondiente a un archivo URDF con el cual ROS crea un árbol de transformaciones dinámico. Con tal información podemos obtener las tranformaciones entre diferentes sistemas de referencia dentro del robot o con reespecto a algpun sistema de referencia en partícular.\\
 
-	Como parte de este trabajo se creó y programó un nodo en ROS en cuál, con la información de las respectivas transformaciones y la información de profundidad obtenida del sensor kinect, se cálcula la información del objeto y sus carecteristicas de ubicación espacial, dimensiones y orientación. El nodo se promgramó en el lenguaje de programción orientada a objetos c++, por su parte se comunica a travez de ROS por medio de la recepción de información mediante la llegada de tópicos; por otro lado responde en un servicio con la infromación de los objetos ubicación espacial y orientaciones.\\
+	Como parte de este trabajo se creó y programó un nodo en ROS en cuál, con la información de las respectivas transformaciones y la información de profundidad obtenida del sensor kinect, se cálcula la información del objeto y sus carecteristicas de ubicación espacial, dimensiones y orientación. El nodo se promgramó en el lenguaje de programción orientada a objetos c++, por su parte se comunica a travez de ROS por medio de la recepción de información mediante la llegada de tópicos; por otro lado responde en un servicio con la información de los objetos ubicación espacial y orientaciones.\\
 
-	***Imagen de estructura de software visión y manipulación.\\

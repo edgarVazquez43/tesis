@@ -256,15 +256,197 @@ Se describirá conforme al desarrollo de este estrabajo.
 %%%%%%%%% Cálculo de las orientaciones  %%%%%%%%%%%%%%%%%%%%
 	\section{Cálculo de la orientación del objeto.}
 
-		\subsection{Prueba de exactitud}
+	En esta sección del trabajo se reportan los resultados obtenidos al realizar las preubas de estimación de orientación de los objetos sobre un plano, para ser más exactos objetos sobre una mesa. En esta prueba se realizaron 50 tomas de datos para cada uno de los obetos con direferentes orientaciones.\\
+
+	El proceso para poner a prueba la estimación de ángulos de los objetos con respecto del eje Y del robot se describe a continuación. Una vez obtenidos los vectores propios de la matriz de covarianzas, se obtien un conjunto de vectores ortogonales que nos indican los ejes en los cuales sucede la mayor distribución de puntos de un objeto. Con este conjunto de vectores se realizaron dos procesos:\\
+
+	\begin{itemize}
+		\item{Un ordemaniento por magnitud.}
+		\item{Una ordenamiento por magnitudes en las respectivas componentes $x, y, z$}
+	\end{itemize}  
+
+		Con la información de los vectores ordenados se puede comparar si el mayor eje de distribución ocurre en el eje $z$ del robot o si ocurre en alguno de los vectores paralelos al conjunto de vectores que definirían el plano sobre el cual se encuentran los objetos.\\
+
+		El algoritmo para calcular el ángulo del objeto con respecto del eje $y$ del robot, se explica de la siguiente manera: se toma el vector paralelo al plano con mayor magnitud, puesto que sabemos del ordenamiento cual es el vector en el mayo eje z descartamos este del proceso, con los dos vectores restantes obtenemos el de mayor magnitud.\\
+
+		Este vector apuntaría en la direccción $y$ o $-y$ para un caso ideal en que el ángulo del objeto fuera de cero grados con respecto del eje $y$ del robot. en este punto se realiza un acotamiento para que dicho vector apunte hacia el eje $y$ del robot, posteriormente se calcula el ángulo de rotación por medio del producto punto que existe entre el ángulo del vector estimado para el objeto y el vector que apunta en la dirección del vector unitario $y$ del robot.\\
+
+
+		\subsection{Pruebas para objetos a 0 grados}
+
+		Los resultados que se obtuvieron de la prueba antes mencionada, se muestran en las gráficas posteriores en este documento. 
+
+		\begin{figure}[H]
+			\centering
+			\includegraphics[scale=0.45]{resultados/angulos_cereal.png}
+			\caption{Gráficas de estímaciones de ángulos para una caja de cereal con orientación de 0 grados respecto al eje $y$ del robot.}
+			\label{fig:mesh1}
+		\end{figure}
+
+		\begin{figure}[H]
+			\centering
+			\includegraphics[scale=0.45]{resultados/angulos_jugo.png}
+			\caption{Gráficas de estímaciones de ángulos para una caja de jugo con orientación de 0 grados respecto al eje $y$ del robot.}
+			\label{fig:mesh1}
+		\end{figure}
+
+		\begin{figure}[H]
+			\centering
+			\includegraphics[scale=0.45]{resultados/angulos_milk.png}
+			\caption{Gráficas de estímaciones de ángulos para una caja de leche con orientación de 0 grados respecto al eje $y$ del robot.}
+			\label{fig:mesh1}
+		\end{figure}
+
+		\begin{figure}[H]
+			\centering
+			\includegraphics[scale=0.45]{resultados/angulos_joystick.png}
+			\caption{Gráficas de estímaciones de ángulos para un control de videojuegos con orientación de 0 grados respecto al eje $y$ del robot.}
+			\label{fig:mesh1}
+		\end{figure}
+
+		\begin{figure}[H]
+			\centering
+			\includegraphics[scale=0.45]{resultados/angulos_chocolate.png}
+			\caption{Gráficas de estímaciones de ángulos para una barra de chocolate con orientación de 0 grados respecto al eje $y$ del robot.}
+			\label{fig:mesh1}
+		\end{figure}
+
+
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		% PRUEBAS A 45 GRADOS %
+
+		\subsection{Pruebas para objetos a 45 grados}
+
+		\begin{figure}[H]
+			\centering
+			\includegraphics[scale=0.45]{resultados/angulos_cereal_45.png}
+			\caption{Gráficas de estímaciones de ángulos para una caja de cereal con orientación de 45 grados respecto al eje $y$ del robot.}
+			\label{fig:mesh1}
+		\end{figure}
+
+		\begin{figure}[H]
+			\centering
+			\includegraphics[scale=0.45]{resultados/angulos_jugo_45.png}
+			\caption{Gráficas de estímaciones de ángulos para una caja de jugo con orientación de 45 grados respecto al eje $y$ del robot.}
+			\label{fig:mesh1}
+		\end{figure}
+
+		\begin{figure}[H]
+			\centering
+			\includegraphics[scale=0.45]{resultados/angulos_milk_45.png}
+			\caption{Gráficas de estímaciones de ángulos para una caja de leche con orientación de 45 grados respecto al eje $y$ del robot.}
+			\label{fig:mesh1}
+		\end{figure}
+
+		\begin{figure}[H]
+			\centering
+			\includegraphics[scale=0.45]{resultados/angulos_joystick_45.png}
+			\caption{Gráficas de estímaciones de ángulos para un control de videojuegos con orientación de 45 grados respecto al eje $y$ del robot.}
+			\label{fig:mesh1}
+		\end{figure}
+
+		\begin{figure}[H]
+			\centering
+			\includegraphics[scale=0.45]{resultados/angulos_chocolate_45.png}
+			\caption{Gráficas de estímaciones de ángulos para una barra de chocolate con orientación de 45 grados respecto al eje $y$ del robot.}
+			\label{fig:mesh1}
+		\end{figure}
+
+
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%         PRUEBAS A 90 GRADOS       %%%%%%%%%%%%%%%
+
+		\subsection{Pruebas para objetos a 90 grados}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[scale=0.45]{resultados/angulos_cereal_90.png}
+			\caption{Gráficas de estímaciones de ángulos para una caja de cereal con orientación de 90 grados respecto al eje $y$ del robot.}
+			\label{fig:mesh1}
+		\end{figure}
+
+		\begin{figure}[H]
+			\centering
+			\includegraphics[scale=0.45]{resultados/angulos_jugo_90.png}
+			\caption{Gráficas de estímaciones de ángulos para una caja de jugo con orientación de 90 grados respecto al eje $y$ del robot.}
+			\label{fig:mesh1}
+		\end{figure}
+
+		\begin{figure}[H]
+			\centering
+			\includegraphics[scale=0.45]{resultados/angulos_milk_90.png}
+			\caption{Gráficas de estímaciones de ángulos para una caja de leche con orientación de 90 grados respecto al eje $y$ del robot.}
+			\label{fig:mesh1}
+		\end{figure}
+
+		\begin{figure}[H]
+			\centering
+			\includegraphics[scale=0.45]{resultados/angulos_joystick_90.png}
+			\caption{Gráficas de estímaciones de ángulos para un control de videojuegos con orientación de 90 grados respecto al eje $y$ del robot.}
+			\label{fig:mesh1}
+		\end{figure}
+
+		\begin{figure}[H]
+			\centering
+			\includegraphics[scale=0.45]{resultados/angulos_chocolate_90.png}
+			\caption{Gráficas de estímaciones de ángulos para una barra de chocolate con orientación de 90 grados respecto al eje $y$ del robot.}
+			\label{fig:mesh1}
+		\end{figure}
+
+	A continuación se muestran las tablas con los datos de las varianzas de los datos y los errores medios cuadráticos de los datos obtenidos con respecto de los valores esperados.\\
+
+
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%% PRUEBAS DE GRASPEO CON INFORMACIÖN DEL ÁREA DE TRABAJO  %%%%%%%%%%%%
-	\section{Estimación de las dimensiones del área de trabajo.}
-		\subsection{Comparación en tiempo de ejecución de la tarea de manipulación con información del área de trabajo.}
+%%%%%%%%%% PRUEBAS DE GRASPEO CON INFORMACIÓN DEL ÁREA DE TRABAJO  %%%%%%%%%%%%
+	\section{Tiempo de ejecución para diferentes algoritmos de cinemática inversa.}
+	Como parte de este trabajo se propone evaluar y comparar el desempeño de dos algoritmos empleados para el cálculo de la cinemática inversa de un manipulador de 7 grados de libertad. Para ello se puso a prueba un método geométrico desarrollado previamente, con motivo de este trabajo se implementó una instacia de solución con la paquetería moveIt!. La paquetería moveIt! ofrece una solución numerica de cinemáticas para manipualdores. En este caso se puso a prueba el solucionador OMPL.\\
 
+	El trabajo de esta tesis, en este apartado, fue crear un modelo matemático del manipulador de 7 grados de libertad, para posteriormente poner a prueba su rapidez de solución y su robuztes para calcular la cinemática inversa.\\ 
+
+	A continuación se reportan los resultados obtenidos. Se muestran gráficas de rapidez de ejecución, cantidad de puntos para los cuales ambos métodos encontraron solución y el valor de una función de costo represantiva de una función de energía requeida para mover el manipulador.\\ 
+
+	\subsection{Tiempo de ejecución para diferentes algoritmos de cinemática inversa.}
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale=0.45]{resultados/success_IKcalculate.png}
+		\caption{Gráfica de tiempo de ejecución para el cálculo de la cinemática inversa por metodo geométrico(rojo) y por método númerico (azul). Caso de solución encontrada.}
+		\label{fig:mesh1}
+	\end{figure}
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale=0.45]{resultados/unsuccess_IKcalculate.png}
+		\caption{Gráfica de tiempo de ejecución para el cálculo de la cinemática inversa por metodo geométrico(rojo) y por método númerico (azul). Caso de solución no encontrada.}
+		\label{fig:mesh1}
+	\end{figure}
+
+	
+
+	\subsection{Prueba de robustez y evalución del valor de la funcion de costo.}
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale=0.45]{resultados/hist_valor_costFunction.png}
+		\caption{Gráficas de estímaciones de ángulos para una barra de chocolate con orientación de 90 grados respecto al eje $y$ del robot.}
+		\label{fig:mesh1}
+	\end{figure}
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale=0.45]{resultados/valor_costFunction.png}
+		\caption{Gráficas de estímaciones de ángulos para una barra de chocolate con orientación de 90 grados respecto al eje $y$ del robot.}
+		\label{fig:mesh1}
+	\end{figure}
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale=0.45]{resultados/histograma_success.png}
+		\caption{Gráficas de estímaciones de ángulos para una barra de chocolate con orientación de 90 grados respecto al eje $y$ del robot.}
+		\label{fig:mesh1}
+	\end{figure}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -272,41 +454,30 @@ Se describirá conforme al desarrollo de este estrabajo.
 	\section{Pruebas de manipulación con el robot real}
 		\subsection{Pruebas de manipulación actual.}
 
-	Las pruebas se realizaron en 10 eventos para cada uno de los 5 diferentes objetos.\\
-	4 de ellos se realizaron con el objeto a 0 grados respeco al eje y del robot.\\
-	2 ocasiones el objeto se encontraba a 45$^{\circ}$ respecto al eje y del robot.\\
-	2 ocasiones el objeto se encontraba a -45$^{\circ}$ respecto al eje y del robot.\\
-	2 ocasiones el objeto se encontraba a 90$^{\circ}$ respecto al eje y del robot.\\
+	Las pruebas se realizaron en 20 eventos para cada uno de los 5 diferentes objetos.\\
+	5 de ellos se realizaron con el objeto a 0 grados respeco al eje y del robot.\\
+	5 ocasiones el objeto se encontraba a 30$^{\circ}$ respecto al eje y del robot.\\
+	5 ocasiones el objeto se encontraba a 60$^{\circ}$ respecto al eje y del robot.\\
+	5 ocasiones el objeto se encontraba a 90$^{\circ}$ respecto al eje y del robot.\\	
+
 
 	Esto para cada uno de los algoritmos con los cuales se cuenta. 
 
 	****Gráficas de eventos, reslatando exitos-fracacsos
-
 
 
 		\subsection{Pruebas de manipulación con información de la orientación.}
-	Las pruebas se realizaron en 10 eventos para cada uno de los 5 diferentes objetos.\\
-	4 de ellos se realizaron con el objeto a 0 grados respeco al eje y del robot.\\
-	2 ocasiones el objeto se encontraba a 45$^{\circ}$ respecto al eje y del robot.\\
-	2 ocasiones el objeto se encontraba a -45$^{\circ}$ respecto al eje y del robot.\\
-	2 ocasiones el objeto se encontraba a 90$^{\circ}$ respecto al eje y del robot.\\
+	Las pruebas se realizaron en 20 eventos para cada uno de los 5 diferentes objetos.\\
+	5 de ellos se realizaron con el objeto a 0 grados respeco al eje y del robot.\\
+	5 ocasiones el objeto se encontraba a 30$^{\circ}$ respecto al eje y del robot.\\
+	5 ocasiones el objeto se encontraba a 60$^{\circ}$ respecto al eje y del robot.\\
+	5 ocasiones el objeto se encontraba a 90$^{\circ}$ respecto al eje y del robot.\\
 
 	Esto para cada uno de los algoritmos con los cuales se cuenta. 
 
 	****Gráficas de eventos, reslatando exitos-fracacsos
 
 
-
-	\subsection{Pruebas de manipulación con información de la orientación e información de dimensiones.}
-	Las pruebas se realizaron en 10 eventos para cada uno de los 5 diferentes objetos.\\
-	4 de ellos se realizaron con el objeto a 0 grados respeco al eje y del robot.\\
-	2 ocasiones el objeto se encontraba a 45$^{\circ}$ respecto al eje y del robot.\\
-	2 ocasiones el objeto se encontraba a -45$^{\circ}$ respecto al eje y del robot.\\
-	2 ocasiones el objeto se encontraba a 90$^{\circ}$ respecto al eje y del robot.\\
-
-	Esto para cada uno de los algoritmos con los cuales se cuenta. 
-
-	****Gráficas de eventos, reslatando exitos-fracacsos
 
 
 
