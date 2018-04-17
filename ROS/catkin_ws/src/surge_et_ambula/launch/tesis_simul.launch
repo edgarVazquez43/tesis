@@ -12,9 +12,9 @@
     <node name="head" pkg="head" type="head_simul_node.py" output="screen"/>
     <node name="torso" pkg="torso" type="torso_node.py" output="screen" args="--simul"/>
     
-    <node name="point_cloud_man" pkg="kinect_man" type="kinect_man_node" output="screen" args=" -- defpath $(find knowledge)/hardware/point_clouds/"/>
+    <!-- <node name="point_cloud_man" pkg="kinect_man" type="kinect_man_node" output="screen" args=" -\- defpath $(find knowledge)/hardware/point_clouds/"/> -->
     
-    <!-- <node name="kinect_man" pkg="kinect_man" type="kinect_man_node" output="screen" args=" __ bag /home/edgar/bags_tesis/cereal_box.bag"/> -->
+    <node name="kinect_man" pkg="kinect_man" type="kinect_man_node" output="screen" args=" --bag /home/edgar/bags_tesis/chocolate.bag"/>
   </group>
 
   

@@ -29,9 +29,9 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 
 	std::vector<float> centroid_coord;
 	std::vector<float> dimensions;
-	// std::vector<float> analogVector;
-	// std::vector<int> P;
-	// std::vector<int> Tout;
+	std::vector<float> analogVector;
+	std::vector<int> P;
+	std::vector<int> Tout;
 
 	std::vector<cv::Point3f> principal_axis_calculated;
 	std::vector<segmentedObject> objectList;
@@ -127,11 +127,15 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 		for(int j = 0; j < planeBGR.rows; j++)
 			for (int i = 0; i < planeBGR.cols; i++)
 			{
-			  // Calculamos la distancia de cada uno de los puntos al plan
+			  // Calculamos la distancia de cada uno de los puntos al plano
 			  px = croppedDepth.at<cv::Point3f>(j, i);
 			  // Camparamos si la distancia está dentro de la tolerancia
 			  if (bestPlane.DistanceToPoint(px, false) < threshold)
 			    planeBGR.at<cv::Vec3b>(j, i) = cv::Vec3b(0, 255, 0);
+
+			  // Camparamos si la distancia está dentro de la tolerancia
+			  // if (bestPlane.DistanceToPoint(px, false) > threshold)
+			  //   planeBGR.at<cv::Vec3b>(j, i) = cv::Vec3b(0, 0, 0);
 			}
 
 		// ##### Return the point cloud of objects cropped
@@ -188,21 +192,30 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 		resp.recog_objects[0].colors.y = dimensions[4]/255;
 		resp.recog_objects[0].colors.z = dimensions[5]/255;
 
+		// **************************//
+		//   CODE FOR ARTIFICAL-NN   //
+		
+	        // analogVector.push_back(dimensions[0]);
+		// analogVector.push_back(dimensions[1]);
+		// analogVector.push_back(dimensions[2]);
+	        // analogVector.push_back(dimensions[3]/255);
+	        // analogVector.push_back(dimensions[4]/255);
+	        // analogVector.push_back(dimensions[5]/255);
 
 		// P = normalizingVector(analogVector);
-		// std::cout << "Caracteristicas del objeto:    " << std::endl;
-		// std::cout << "	Dimensiones: " << std::endl;
-		// std::cout << "		x:  " << object_1.dimensions[0] << "   " << P[0] << std::endl;
-		// std::cout << "		y:  " << object_1.dimensions[1] << "   " << P[1] << std::endl;
-		// std::cout << "		z:  " << object_1.dimensions[2] << "   " << P[2] << std::endl << std::endl;  
-		// std::cout << "	Color: " << std::endl;
-		// std::cout << "		Red:  "   << object_1.colors[0] << "   " << P[3] << std::endl;
-		// std::cout << "		Green:  " << object_1.colors[1] << "   " << P[4] << std::endl;
-		// std::cout << "		Blue:  "  << object_1.colors[2] << "   " << P[5] << std::endl; 
+		// // std::cout << "Caracteristicas del objeto:    " << std::endl;
+		// // std::cout << "	Dimensiones: " << std::endl;
+		// // std::cout << "		x:  " << object_1.dimensions[0] << "   " << P[0] << std::endl;
+		// // std::cout << "		y:  " << object_1.dimensions[1] << "   " << P[1] << std::endl;
+		// // std::cout << "		z:  " << object_1.dimensions[2] << "   " << P[2] << std::endl << std::endl;  
+		// // std::cout << "	Color: " << std::endl;
+		// // std::cout << "		Red:  "   << object_1.colors[0] << "   " << P[3] << std::endl;
+		// // std::cout << "		Green:  " << object_1.colors[1] << "   " << P[4] << std::endl;
+		// // std::cout << "		Blue:  "  << object_1.colors[2] << "   " << P[5] << std::endl; 
 		
 		// Tout = nn_calculate(P);
 
-		std::cout << "--------------------------------------" << std::endl;
+		// std::cout << "--------------------------------------" << std::endl;
 
 		// if(Tout[0] == 0 && Tout[1] == 0 && Tout[2] == 0)
 		// {
@@ -285,6 +298,7 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 
 		cv::imshow("Original RGB", imgBGR);
 		// cv::imshow("OBJECT RECONIZING", croppedBRG);
+		// cv::imshow("plane", planeBGR);
 		// cv::imshow("objects", objectsBGR);
 		// cv::imshow("Objects Point Cloud", objectsDepth);
 

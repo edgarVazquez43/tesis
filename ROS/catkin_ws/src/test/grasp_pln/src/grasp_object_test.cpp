@@ -1,5 +1,7 @@
 #include <iostream>
 #include "ros/ros.h"
+#include "std_msgs/Float32.h"
+#include "std_msgs/Float32MultiArray.h"
 #include <geometry_msgs/Vector3.h>
 #include <tf/transform_listener.h>
 #include <boost/thread/thread.hpp>
@@ -12,7 +14,11 @@ class JustinaGrasp
 {
 private:
   static ros::Publisher right_arm_goal_pose_pub;
+  static ros::Publisher right_arm_goal_gripper_open_pub;
+  static ros::Publisher right_arm_goal_gripper_close_pub;
+  
   static ros::Publisher left_arm_goal_pose_pub;
+
   
   static ros::ServiceClient cltIKinematicsLA;
   static ros::ServiceClient cltIKinematicsRA;
@@ -27,13 +33,15 @@ public:
   static bool detectObjet(std::vector<float>& pose,
 			  geometry_msgs::Vector3& axis_resp_0,
 			  geometry_msgs::Vector3& axis_resp_1,
-			  geometry_msgs::Vector3& axis_resp_2);
+			  geometry_msgs::Vector3& axis_resp_2,
+			  bool& isAxisZ_principal);
   static bool la_ikCalculate(std::vector<float>& articular, std::vector<float> cartesian);
   static bool ra_ikCalculate(std::vector<float>& articular, std::vector<float> cartesian);
   static bool ra_mark_ikCalculate(std::vector<float>& articular, std::vector<float> cartesian);
   static bool moveLeftArm(std::vector<float> articular);
   static bool moveRightArm(std::vector<float> articular);
-  
+  static bool openGripperRightArm(float pos);
+  static bool closeGripperRightArm(float torque);
 };
 
 // #################################################
@@ -50,6 +58,8 @@ visualization_msgs::Marker pca1, pca2, pca3, vectPlane;
 
 ros::Publisher marker_pub;
 ros::Publisher JustinaGrasp::right_arm_goal_pose_pub;
+ros::Publisher JustinaGrasp::right_arm_goal_gripper_open_pub;
+ros::Publisher JustinaGrasp::right_arm_goal_gripper_close_pub;
 ros::Publisher JustinaGrasp::left_arm_goal_pose_pub;
 
 ros::ServiceClient JustinaGrasp::cltIKinematicsLA;
@@ -76,6 +86,9 @@ bool JustinaGrasp::setNodeHandle(ros::NodeHandle* nh)
     
   right_arm_goal_pose_pub = nh->advertise<std_msgs::Float32MultiArray>("/hardware/right_arm/goal_pose", 10);
   left_arm_goal_pose_pub = nh->advertise<std_msgs::Float32MultiArray>("/hardware/left_arm/goal_pose", 10);
+
+  right_arm_goal_gripper_open_pub = nh->advertise<std_msgs::Float32>("/hardware/right_arm/goal_gripper", 10);
+  right_arm_goal_gripper_close_pub = nh->advertise<std_msgs::Float32MultiArray>("/hardware/right_arm/goal_torque", 10);
 
   return true;
 }
@@ -120,9 +133,10 @@ bool JustinaGrasp::transformPoint(float &x, float &y, float &z)
 
 
 bool JustinaGrasp::detectObjet(std::vector<float>& pose,
-		 geometry_msgs::Vector3& axis_resp_0,
-		 geometry_msgs::Vector3& axis_resp_1,
-		 geometry_msgs::Vector3& axis_resp_2)
+		   geometry_msgs::Vector3& axis_resp_0,
+		   geometry_msgs::Vector3& axis_resp_1,
+		   geometry_msgs::Vector3& axis_resp_2,
+		   bool& isAxisZ_principal)
 {  
   vision_msgs::DetectObjects srv_detectObj;
   geometry_msgs::Vector3 aux;
@@ -206,22 +220,20 @@ bool JustinaGrasp::detectObjet(std::vector<float>& pose,
   // Verify principal axis is in Z-Axis
   if(axis_resp_0.z > axis_resp_0.y &&
      axis_resp_0.z > axis_resp_0.x)
-  {
-    
+  {    
     pose[3] = 0.0;               // Roll Angle
     pose[4] = objectYaw_rads;    // Pitch Angle
-    pose[5] =  1.5707;    // Yaw Angle
+    pose[5] =  1.5707;           // Yaw Angle
+    isAxisZ_principal = true;
   }
   else
   {
-    pose[3] = -objectYaw_rads;               // Roll Angle
-    pose[4] = 0.0;    // Pitch Angle
-    pose[5] = 0.0;               // Yaw Angle
+    pose[3] = -objectYaw_rads;  // Roll Angle
+    pose[4] = 0.0;              // Pitch Angle
+    pose[5] = 0.0;              // Yaw Angle
+    isAxisZ_principal = false;
   }
   
- 
-  
-
   return true;
 }
 
@@ -303,6 +315,7 @@ bool JustinaGrasp::ra_mark_ikCalculate(std::vector<float>& articular, std::vecto
 
   cartesian.resize(7);
   JustinaGrasp::transformPoint(cartesian[0], cartesian[1], cartesian[2]);
+    
   srv_ki.request.cartesian_pose.data = cartesian;
 
   articular.resize(7);
@@ -484,6 +497,25 @@ bool buildMarkerAxis(geometry_msgs::Vector3 PCA_axis_0,
   return true;
 }
 
+bool JustinaGrasp::openGripperRightArm(float pos)
+{
+  std_msgs::Float32 pos_msg;
+  pos_msg.data = pos;
+  
+  right_arm_goal_gripper_open_pub.publish(pos_msg);
+
+  return true;
+}
+
+bool JustinaGrasp::closeGripperRightArm(float torque)
+{
+  std_msgs::Float32MultiArray torque_msg;
+  torque_msg.data.push_back(torque);
+  
+  right_arm_goal_gripper_close_pub.publish(torque_msg);
+    
+  return true;
+}
 
 
 
@@ -499,64 +531,128 @@ int main(int argc, char** argv)
     if(argc == 2)
       use_angle_information = atoi(argv[1]);
 
+    bool isAxisZ_biggest;
     
     std::vector<float> object_pose;
     std::vector<float> articular_arm;
+    std::vector<float> articular_navigation;
 
     geometry_msgs::Pose centroid, endEffector_pose;
     geometry_msgs::Vector3 axis_resp_0, axis_resp_1, axis_resp_2;
     
     articular_arm.resize(7);
+    
+    articular_navigation.resize(7);
+    articular_navigation[0] = -1.2;
+    articular_navigation[1] = 0.0;
+    articular_navigation[2] = 0.0;
+    articular_navigation[3] = 1.6;
+    articular_navigation[4] = 0.0;
+    articular_navigation[5] = 0.8;
+    articular_navigation[6] = 0.0;
 
     markerSetup();
     ros::Rate loop(10);
 
-    while(ros::ok())
-    {
-      std::cout << "Mode angle information: " << use_angle_information << std::endl;
-      /// Detect object
+    // while(ros::ok())
+    // {
+    
+    std::cout << "Mode angle information: " << use_angle_information << std::endl;
 
-      JustinaGrasp::detectObjet(object_pose, axis_resp_0, axis_resp_1, axis_resp_2);
+    
+    // MOVE RIGHT ARM TO HOME
+    JustinaGrasp::moveRightArm(articular_navigation);
+    ros::spinOnce();
+    loop.sleep();
+    boost::this_thread::sleep( boost::posix_time::milliseconds(4000) );
 
-      object_pose[0] =  0.15;
-      object_pose[1] = -0.22;
-      object_pose[2] =  0.90;
+    
+    // DETECT OBJECT AND CALCULATE GRASPING ANGLES
+    JustinaGrasp::detectObjet(object_pose, axis_resp_0, axis_resp_1, axis_resp_2, isAxisZ_biggest);
+
+    object_pose[0] = 0.45;
+    object_pose[1] = -0.22;
+    object_pose[2] = 0.80;
+
+    centroid.position.x = object_pose[0];
+    centroid.position.y = object_pose[1];
+    centroid.position.z = object_pose[2];
       
-      if(use_angle_information == 0)
+    centroid_marker.pose = centroid;
+    buildMarkerAxis(axis_resp_0, axis_resp_1,
+		    axis_resp_2, centroid);
+	
+    marker_pub.publish(centroid_marker);
+    marker_pub.publish(pca1);
+    marker_pub.publish(pca2);
+    marker_pub.publish(pca3);
+    // marker_pub.publish(vectPlane);
+    ros::spinOnce();
+    loop.sleep();
+    boost::this_thread::sleep( boost::posix_time::milliseconds(4000) );
+
+
+    // OPEN GRIPPER
+    JustinaGrasp::openGripperRightArm(1.0);
+
+
+    // MOVE ACTUATOR TO GRASP
+    if(use_angle_information == 0)
       {
         // // Calculate ik geometric with object-pose information
 	object_pose[3] =  0.0;
 	object_pose[4] =  0.0;
-	object_pose[5] =  0.0;
+	object_pose[5] =  1.5707;
 	JustinaGrasp::ra_mark_ikCalculate(articular_arm, object_pose);
 	boost::this_thread::sleep( boost::posix_time::milliseconds(4000) );
       }
-      else if (use_angle_information == 1)
+    else if (use_angle_information == 1)
       {
-	
+	if(isAxisZ_biggest)
+	  object_pose[1] -= 0.12;
+	else
+	  object_pose[2] += 0.18;
 	JustinaGrasp::ra_mark_ikCalculate(articular_arm, object_pose);
 	boost::this_thread::sleep( boost::posix_time::milliseconds(4000) );
-      }
-      
 
-      centroid.position.x = object_pose[0];
-      centroid.position.y = object_pose[1];
-      centroid.position.z = object_pose[2];
-      
-      centroid_marker.pose = centroid;
-      buildMarkerAxis(axis_resp_0, axis_resp_1,
-		      axis_resp_2, centroid);
 	
-      marker_pub.publish(centroid_marker);
-      marker_pub.publish(pca1);
-      marker_pub.publish(pca2);
-      marker_pub.publish(pca3);
-      marker_pub.publish(vectPlane);
+	
+	if(isAxisZ_biggest)
+	  object_pose[1] += 0.06;
+	else
+	  object_pose[2] -= 0.10;
+	JustinaGrasp::ra_mark_ikCalculate(articular_arm, object_pose);
+	boost::this_thread::sleep( boost::posix_time::milliseconds(2000) );
+	
+      }
+
+    
+    // CLOSE GRIPPER
+    JustinaGrasp::openGripperRightArm(0.0);
+    //JustinaGrasp::closeGripperRightArm(0.0);
+    ros::spinOnce();
+    loop.sleep();
+    boost::this_thread::sleep( boost::posix_time::milliseconds(4000) );
+    
+
+    // Go-Up Object
+    object_pose[2] += 0.08; 
+    JustinaGrasp::ra_mark_ikCalculate(articular_arm, object_pose);
+    ros::spinOnce();
+    loop.sleep();
+    boost::this_thread::sleep( boost::posix_time::milliseconds(4000) );
+
+
+    // RIGHT ARM GO TO HOME
+    JustinaGrasp::moveRightArm(articular_navigation);
+
+    
       
-      std::cout << "---------------------------" << std::endl;
-      ros::spinOnce();
-      loop.sleep();
-    }
+    std::cout << "---------------------------" << std::endl;
+    ros::spinOnce();
+    loop.sleep();
+
+    // }
 
     
     return 0;

@@ -71,11 +71,11 @@ int main(int argc, char** argv)
 
 
   // Data request to Inverse Kinematic
-  cartesian.push_back( 0.15);   // X-axis respect robot
-  cartesian.push_back( 0.225);   // Y-axis respect robot     
+  cartesian.push_back( 0.25);   // X-axis respect robot
+  cartesian.push_back(-0.15);   // Y-axis respect robot     
   cartesian.push_back( 0.90);     // Z-axis respect robot
   
-  cartesian.push_back(0.5);      // yaw
+  cartesian.push_back(0.0);      // yaw
   cartesian.push_back(-1.57);      // pitch
   cartesian.push_back(0.0);      // roll
   cartesian.push_back(0.0);
@@ -99,7 +99,7 @@ int main(int argc, char** argv)
       marker_pub.publish(endEffector_marker);
       ros::spinOnce();
       
-      if(!cltIKinematicsLA.call(srv_ki))
+      if(!cltIKinematicsRA.call(srv_ki))
         {
 	  std::cout << std::endl <<
 	    "Justina::Manip can't calling inverse kinematics service" << std::endl << std::endl;
@@ -114,7 +114,8 @@ int main(int argc, char** argv)
 	      ra_gp_msgs.data[i] = srv_ki.response.articular_pose.data[i];
 	    }
 
-	  left_arm_goal_pose_pub.publish(ra_gp_msgs);
+	  // left_arm_goal_pose_pub.publish(ra_gp_msgs);
+	  right_arm_goal_pose_pub.publish(ra_gp_msgs);
 	}
 
       

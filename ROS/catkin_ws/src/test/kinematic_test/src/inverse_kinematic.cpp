@@ -113,11 +113,11 @@ int main(int argc, char** argv)
     
     // Data request in format [x, y, z, roll, pitch, yaw, elbow]
     cartesian.push_back( 0.25);
-    cartesian.push_back(-0.26);
-    cartesian.push_back( 0.95);
+    cartesian.push_back(-0.15);
+    cartesian.push_back( 0.90);
     // Angles rotation
     cartesian.push_back(0.0);
-    cartesian.push_back(1.5707);
+    cartesian.push_back(0.0);
     cartesian.push_back(1.5707);
     // Elbow angle
     cartesian.push_back(0.0);
@@ -184,7 +184,7 @@ int main(int argc, char** argv)
 	
 	raGoalPose_pub.publish(raGP_msg);
 	marker_pub.publish(vertix_marker);
-	marker_pub.publish(wristCenter);
+	// marker_pub.publish(wristCenter);
 	loop.sleep();
       }
     
