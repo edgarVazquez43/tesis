@@ -570,9 +570,9 @@ int main(int argc, char** argv)
     // DETECT OBJECT AND CALCULATE GRASPING ANGLES
     JustinaGrasp::detectObjet(object_pose, axis_resp_0, axis_resp_1, axis_resp_2, isAxisZ_biggest);
 
-    object_pose[0] = 0.45;
+    object_pose[0] = 0.25;
     object_pose[1] = -0.22;
-    object_pose[2] = 0.80;
+    object_pose[2] = 0.95;
 
     centroid.position.x = object_pose[0];
     centroid.position.y = object_pose[1];

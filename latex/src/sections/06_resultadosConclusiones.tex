@@ -201,7 +201,7 @@ Se describirá conforme al desarrollo de este estrabajo.
 		\includegraphics[scale=0.05]{objs_real/cerealBoxHeight.jpg}	
 		\end{subfigure}%
 		\begin{subfigure}[h]{.5\textwidth}
-		\includegraphics[scale=0.45]{resultados/cerealAltura.png}	
+		\includegraphics[scale=0.45]{resultados/cerealAltura_media.png}	
 		\end{subfigure}
 		\caption{Gráficas de estímaciones de alturas para una caja de cereal. La altura real del objeto (amarillo), la altura estímada con el algoritmo previo (rojo) y la estimación actual (azul).}
 		\label{fig:mesh1}
@@ -212,7 +212,7 @@ Se describirá conforme al desarrollo de este estrabajo.
 		\includegraphics[scale=0.05]{objs_real/jugoHeight.jpg}	
 		\end{subfigure}%
 		\begin{subfigure}[h]{.5\textwidth}
-		\includegraphics[scale=0.45]{resultados/jugoAltura.png}	
+		\includegraphics[scale=0.45]{resultados/jugoAltura_media.png}	
 		\end{subfigure}
 		\caption{Gráficas de estímaciones de alturas para un envase de jugo. La altura real del objeto (amarillo), la altura estímada con el algoritmo previo (rojo) y la estimación actual (azul).}
 		\label{fig:mesh1}
@@ -223,7 +223,7 @@ Se describirá conforme al desarrollo de este estrabajo.
 		\includegraphics[scale=0.06]{objs_real/milkHeight.jpg}	
 		\end{subfigure}%
 		\begin{subfigure}[h]{.5\textwidth}
-		\includegraphics[scale=0.45]{resultados/lecheAltura.png}	
+		\includegraphics[scale=0.45]{resultados/lecheAltura_media.png}	
 		\end{subfigure}
 		\caption{Gráficas de estímaciones de alturas para un envase de leche. La altura real del objeto (amarillo), la altura estímada con el algoritmo previo (rojo) y la estimación actual (azul).}
 		\label{fig:mesh1}
@@ -234,7 +234,7 @@ Se describirá conforme al desarrollo de este estrabajo.
 		\includegraphics[scale=0.04]{objs_real/joystickHeight2.jpg}	
 		\end{subfigure}%
 		\begin{subfigure}[h]{.5\textwidth}
-		\includegraphics[scale=0.45]{resultados/joystickAltura.png}	
+		\includegraphics[scale=0.45]{resultados/joystickAltura_media.png}	
 		\end{subfigure}
 		\caption{Gráficas de estímaciones de alturas para un control de videojuegos. La altura real del objeto (amarillo), la altura estímada con el algoritmo previo (rojo) y la estimación actual (azul).}
 		\label{fig:mesh1}
@@ -245,11 +245,39 @@ Se describirá conforme al desarrollo de este estrabajo.
 		\includegraphics[scale=0.04]{objs_real/chocolateHeight2.jpg}	
 		\end{subfigure}%
 		\begin{subfigure}[h]{.5\textwidth}
-		\includegraphics[scale=0.45]{resultados/chocolateAltura.png}	
+		\includegraphics[scale=0.45]{resultados/chocolateAltura_media.png}	
 		\end{subfigure}
 		\caption{Gráficas de estímaciones de alturas para una barra de chocolate. La altura real del objeto (amarillo), la altura estímada con el algoritmo previo (rojo) y la estimación actual (azul).}
 		\label{fig:mesh1}
 	\end{figure}
+
+	Posteriormente, se realizó una prueba T para muestras pareadas (prueba t de mediciones repetidas) con la cual podemos obtener información sobre las diferencias de medias, pero sobre todo podemos saber si son significativamente difereentes. En el caso de este trabajo es necesario saber si las medias de las muestras tomadas realmente representan una mejor estimación de alturas.\\
+
+	A continuación se reportan los valores de medias, con el valor T obtenido para cada conjunto de pruebas (altura estimada por algoritmo previo contra altura estimada por algoritmo actual).
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{ |p{2.0cm}|p{2.2cm}|p{2.2cm}|p{2.2cm}|p{2.2cm}|p{2.2cm}|  }
+	 \hline
+	 & \multicolumn{2}{|c|}{\textbf{Algoritmo previo} } & \multicolumn{2}{|c|}{\textbf{Algoritmo actual}} &\\
+	 \hline
+	 \textbf{Objeto} &\textbf{Altura media [m]}  &\textbf{Varianza}&\textbf{Altura media [m]}  &\textbf{Varianza} &\\
+	 \hline
+	  Cereal    &	 0.2568  &     & 0.2324  & &$p_{value} < 2.2e^{-16}$  \\
+	 \hline
+	  Jugo      &    0.1407  &     & 0.1305 & &$p_{value} < 2.1e^{-16}$  \\
+	 \hline
+	  Leche     &    0.0901  &     & 0.0889 & &$p_{value} < 2.1e^{-16}$  \\
+	 \hline 
+	  Control de videojuegos &  0.0485  &   &0.0411 & & $p_{value} = 0.0175$ \\
+	 \hline
+	  Barra de chocolate   &    0.0215  &   &0.0213 & & $p_{value} = 0.1335$ \\
+	 \hline
+	\end{tabular}
+	\caption{Tabla de resultados de la prueba T a medidas repetidas.}
+	\label{t_test:1}
+\end{table}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
