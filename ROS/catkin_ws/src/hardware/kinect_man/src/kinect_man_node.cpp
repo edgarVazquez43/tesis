@@ -55,7 +55,7 @@ void cvmat_2_rosmsg(cv::Mat& depth, cv::Mat& bgr, sensor_msgs::PointCloud2& msg)
         memcpy(&msg.data[i*16], &depth.data[12*i], 12);
         memcpy(&msg.data[i*16 + 12], &bgr.data[3*i], 3);
         msg.data[16*i + 15] = 255;
-    float* y = (float*)&msg.data[16*i + 4];
+	float* y = (float*)&msg.data[16*i + 4];
         *y *= -1;
     }
 }
@@ -65,6 +65,13 @@ void downsample_by_3(sensor_msgs::PointCloud2& src, sensor_msgs::PointCloud2& ds
     for(int i=0; i < dst.width; i++)
         for(int j=0; j < dst.height; j++)
             memcpy(&dst.data[16*(j*dst.width + i)], &src.data[48*(j*src.width + i)], 16);
+}
+
+void downsample_pcl(sensor_msgs::PointCloud2& src, sensor_msgs::PointCloud2& dst, int downsample_by)
+{
+    for(int i=0; i < dst.width; i++)
+        for(int j=0; j < dst.height; j++)
+            memcpy(&dst.data[16*(j*dst.width + i)], &src.data[16 * downsample_by *(j*src.width + i)], 16);
 }
 
 bool kinectRgbd_callback(point_cloud_manager::GetRgbd::Request &req, point_cloud_manager::GetRgbd::Response &resp)
@@ -91,7 +98,7 @@ bool robotRgbd_callback(point_cloud_manager::GetRgbd::Request &req, point_cloud_
         initialize_rosmsg(resp.point_cloud, 640, 480, "kinect_link");
         cvmat_2_rosmsg(depthMap, bgrImage, resp.point_cloud);
         pcl_ros::transformPointCloud("base_link", resp.point_cloud, resp.point_cloud, *tf_listener);
-    resp.point_cloud.header.frame_id = "base_link";
+	resp.point_cloud.header.frame_id = "base_link";
         return true;
     }
     else
@@ -109,6 +116,7 @@ int main(int argc, char** argv)
     std::string file_name = "";
     use_oni = false;
     use_bag = false;
+    int downsample_by = 1;
     for(int i=0; i < argc; i++)
     {
         std::string strParam(argv[i]);
@@ -121,6 +129,10 @@ int main(int argc, char** argv)
         {
             use_bag = true;
             file_name = argv[++i];
+        }
+        if(strParam.compare("--downsample_by") == 0)
+        {
+            downsample_by = atoi(argv[++i]); 
         }
     }
     
@@ -143,7 +155,9 @@ int main(int argc, char** argv)
     ros::Rate loop(30);
     tf_listener->waitForTransform("base_link", "kinect_link", ros::Time(0), ros::Duration(10.0));
     initialize_rosmsg(msgCloudKinect, 640, 480, "kinect_link");
-    initialize_rosmsg(msgDownsampled, 213, 160, "base_link");
+    int widthDownSample = (int) (640 / downsample_by);
+    int heightDownSample = (int) (480 / downsample_by);
+    initialize_rosmsg(msgDownsampled, widthDownSample, heightDownSample, "base_link");
 
     if(!use_bag)
     {
@@ -182,7 +196,7 @@ int main(int argc, char** argv)
                 pubRobotFrame.publish(msgCloudRobot);
             if(pubDownsampled.getNumSubscribers() > 0)
             {
-                downsample_by_3(msgCloudRobot, msgDownsampled);
+                downsample_pcl(msgCloudRobot, msgDownsampled, downsample_by);
                 pubDownsampled.publish(msgDownsampled);
             }
             
@@ -218,7 +232,7 @@ int main(int argc, char** argv)
                     pubRobotFrame.publish(msgCloudRobot);
                 if(pubDownsampled.getNumSubscribers() > 0)
                 {
-                    downsample_by_3(msgCloudRobot, msgDownsampled);
+                    downsample_pcl(msgCloudRobot, msgDownsampled, downsample_by);
                     pubDownsampled.publish(msgDownsampled);
                 }
                 ros::spinOnce();
