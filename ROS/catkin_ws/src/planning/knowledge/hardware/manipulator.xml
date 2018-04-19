@@ -225,8 +225,8 @@
   -->
   
   <joint name="ra_base_joint" type="fixed">
-    <origin xyz="0.0 -0.225 0.40" rpy="1.5707 1.5707 0.0"/>
-    <parent link="torso_link"/>
+    <origin xyz="0.0 -0.225 0.32" rpy="1.5707 1.5707 0.0"/>
+    <parent link="spine_link"/>
     <child link="base_ra_arm"/>
   </joint>
   
@@ -454,8 +454,8 @@
   -->
 
   <joint name="la_base_joint" type="fixed">
-    <origin xyz="0.0 0.225 0.40" rpy="1.5707 1.5707 0.0"/>
-    <parent link="torso_link"/>
+    <origin xyz="0.0 0.225 0.32" rpy="1.5707 1.5707 0.0"/>
+    <parent link="spine_link"/>
     <child link="base_la_arm"/>
   </joint>
   
