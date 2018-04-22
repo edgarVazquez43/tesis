@@ -257,21 +257,21 @@ Se describirá conforme al desarrollo de este estrabajo.
 
 \begin{table}[H]
 	\centering
-	\begin{tabular}{ |p{2.0cm}|p{2.2cm}|p{2.2cm}|p{2.2cm}|p{2.2cm}|p{2.2cm}|  }
+	\begin{tabular}{ |p{2.0cm}|p{2.0cm}|p{2.0cm}|p{2.0cm}|p{2.0cm}|p{2.0cm}|  }
 	 \hline
 	 & \multicolumn{2}{|c|}{\textbf{Algoritmo previo} } & \multicolumn{2}{|c|}{\textbf{Algoritmo actual}} &\\
 	 \hline
-	 \textbf{Objeto} &\textbf{Altura media [m]}  &\textbf{Varianza}&\textbf{Altura media [m]}  &\textbf{Varianza} &\\
+	 \textbf{Objeto} &\textbf{Altura media [m]}  &\textbf{Varianza}&\textbf{Altura media [m]}  &\textbf{Varianza} & \textbf{$P_{value}$}\\
 	 \hline
-	  Cereal    &	 0.2568  &     & 0.2324  & &$p_{value} < 2.2e^{-16}$  \\
+	  Cereal    &	 0.2568  & $1.79e^{-6}$ & 0.2324 & $4.22e^{-6}$ & $p_{value} < 2.2e^{-16}$  \\
 	 \hline
-	  Jugo      &    0.1407  &     & 0.1305 & &$p_{value} < 2.1e^{-16}$  \\
+	  Jugo      &    0.1407  & $3.28e^{-6}$ & 0.1305 & $1.67e^{-6}$ & $p_{value} < 2.1e^{-16}$  \\
 	 \hline
-	  Leche     &    0.0901  &     & 0.0889 & &$p_{value} < 2.1e^{-16}$  \\
+	  Leche     &    0.0901  & $7.33e^{-6}$ & 0.0889 & $5.54e^{-6}$ &$p_{value} < 2.1e^{-16}$  \\
 	 \hline 
-	  Control de videojuegos &  0.0485  &   &0.0411 & & $p_{value} = 0.0175$ \\
+	  Control de videojuegos &  0.0485  & $6.28e^{-6}$ &0.0411 & $7.01e^{-6}$ & $p_{value} = 0.0175$ \\
 	 \hline
-	  Barra de chocolate   &    0.0215  &   &0.0213 & & $p_{value} = 0.1335$ \\
+	  Barra de chocolate   &    0.0215  & $3.3e^{-6}$  &0.0213 & $4.4e^{-6}$ & $p_{value} = 0.1335$ \\
 	 \hline
 	\end{tabular}
 	\caption{Tabla de resultados de la prueba T a medidas repetidas.}
@@ -480,28 +480,89 @@ Se describirá conforme al desarrollo de este estrabajo.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%% PRUEBAS GRASPEO CON DIFERENTES INFORMACIONES %%%%%%%%%%%%
 	\section{Pruebas de manipulación con el robot real}
+
+	Como reporte último de las pruebas, se realizaron pruebas fisicas con el robot de servicio Justina. Para tener una prueba estadistica que pueda servir de compración se realizaron un total de 35 eventos, divididos en 5 repeticiones para 5 objetos. Los objetos con los cuales se realizaon las pruebas fueron: una caja de cereal, un envase de jugo, un envase de bebida lactea, un control de videojuegos, una barra de chocolate, un libro y una bolsa de cartón.\\
+
+	Las orientaciones de los objetos en cada uno de los eventos fueron posicione aleatorias. Esto con el fin de poner a prueba las caracteristicas de presición en la orientación de los objetos para este algoritmo.\\
+	
+
+	En la primer parte de la prueba se realizó la toma de objetos sin considerar la información de la orientación. Y en la segunda fase se realizaon las respectivas pruebas considerando la información de la orientación.\\
+
+
+	****Imagenes objetos.\\
+
+	Los resultados se muestran en una tabla de éxitos contra fracasos para cada una de las implemetaciones.\\
+
+
+
 		\subsection{Pruebas de manipulación actual.}
 
-	Las pruebas se realizaron en 20 eventos para cada uno de los 5 diferentes objetos.\\
-	5 de ellos se realizaron con el objeto a 0 grados respeco al eje y del robot.\\
-	5 ocasiones el objeto se encontraba a 30$^{\circ}$ respecto al eje y del robot.\\
-	5 ocasiones el objeto se encontraba a 60$^{\circ}$ respecto al eje y del robot.\\
-	5 ocasiones el objeto se encontraba a 90$^{\circ}$ respecto al eje y del robot.\\	
+	***Imagenes representativas de los resultados.\\
+		
 
 
-	Esto para cada uno de los algoritmos con los cuales se cuenta. 
+	Esto para cada uno de los algoritmos con los cuales se cuenta.
+
+	\begin{table}[H]
+		\centering
+		\begin{tabular}{ |p{2.8cm}|p{1.2cm}|p{1.2cm}|p{1.2cm}|p{1.2cm}|p{1.2cm}|  }
+		 \hline
+		 & \multicolumn{5}{|c|}{\textbf{Eventos} }\\
+		 \hline
+		  Cereal & $\bigtriangleup$ & $\times$ & $\times$ & $\times$ & $\times$ \\
+		 \hline
+		  Jugo   & $\times$ & $\bigtriangleup$ & $\times$ & $\bigtriangleup$ & $\times$ \\
+		 \hline
+		  Leche  & $\bigtriangleup$ & $\bigtriangleup$ & $\bigtriangleup$ & $\times$ & $\times$\\
+		 \hline 
+		  Control de videojuegos & $\times$ & $\times$ & $\times$ & $\times$ & $\times$\\
+		 \hline
+		  Barra de chocolate     & $\times$ & $\times$ & $\times$ & $\times$ & $\times$\\
+		 \hline
+		  Libro   & $\times$ & $\times$ & $\times$ & $\times$ & $\times$\\
+		 \hline
+		 Bolsa de cartón  & $\bigtriangleup$ & $\times$ & $\times$ & $\bigtriangleup$ & $\times$\\
+		 \hline
+		\end{tabular}
+		\caption{Tabla de resultados de la prueba T a medidas repetidas.}
+		\label{t_test:1}
+	\end{table}
+
+
 
 	****Gráficas de eventos, reslatando exitos-fracacsos
 
 
 		\subsection{Pruebas de manipulación con información de la orientación.}
-	Las pruebas se realizaron en 20 eventos para cada uno de los 5 diferentes objetos.\\
-	5 de ellos se realizaron con el objeto a 0 grados respeco al eje y del robot.\\
-	5 ocasiones el objeto se encontraba a 30$^{\circ}$ respecto al eje y del robot.\\
-	5 ocasiones el objeto se encontraba a 60$^{\circ}$ respecto al eje y del robot.\\
-	5 ocasiones el objeto se encontraba a 90$^{\circ}$ respecto al eje y del robot.\\
 
-	Esto para cada uno de los algoritmos con los cuales se cuenta. 
+	\begin{table}[H]
+		\centering
+		\begin{tabular}{ |p{2.8cm}|p{1.2cm}|p{1.2cm}|p{1.2cm}|p{1.2cm}|p{1.2cm}|  }
+		 \hline
+		 & \multicolumn{5}{|c|}{\textbf{Eventos} }\\
+		 \hline
+		  Cereal & $\bigtriangleup$ & $\times$ & $\times$ & $\times$ & $\times$ \\
+		 \hline
+		  Jugo   & $\times$ & $\bigtriangleup$ & $\times$ & $\bigtriangleup$ & $\times$ \\
+		 \hline
+		  Leche  & $\bigtriangleup$ & $\bigtriangleup$ & $\bigtriangleup$ & $\times$ & $\times$\\
+		 \hline 
+		  Control de videojuegos & $\times$ & $\times$ & $\times$ & $\times$ & $\times$\\
+		 \hline
+		  Barra de chocolate     & $\times$ & $\times$ & $\times$ & $\times$ & $\times$\\
+		 \hline
+		  Libro   & $\times$ & $\times$ & $\times$ & $\times$ & $\times$\\
+		 \hline
+		 Bolsa de cartón  & $\bigtriangleup$ & $\times$ & $\times$ & $\bigtriangleup$ & $\times$\\
+		 \hline
+		\end{tabular}
+		\caption{Tabla de resultados de la prueba T a medidas repetidas.}
+		\label{t_test:1}
+	\end{table}
+
+
+	***Imagenes representativas de los resultados.\\
+
 
 	****Gráficas de eventos, reslatando exitos-fracacsos
 
