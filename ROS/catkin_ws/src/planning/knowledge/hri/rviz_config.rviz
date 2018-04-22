@@ -28,7 +28,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: ""
+    SyncSource: PointCloud2
 Visualization Manager:
   Class: ""
   Displays:
@@ -234,6 +234,8 @@ Visualization Manager:
           Value: false
         careta:
           Value: false
+        head_link1:
+          Value: true
         head_link2:
           Value: false
         kinect_link:
@@ -292,35 +294,42 @@ Visualization Manager:
       Tree:
         base_link:
           torso_link:
-            base_la_arm:
-              la_link0:
-                la_link1:
-                  la_link2:
-                    la_link3:
-                      la_link4:
-                        la_link5:
-                          la_link6:
-                            la_link7:
-                              {}
-                            la_link8:
-                              {}
-                            la_link_grip_center:
-                              {}
-            base_ra_arm:
-              ra_link0:
-                ra_link1:
-                  ra_link2:
-                    ra_link3:
-                      ra_link4:
-                        ra_link5:
-                          ra_link6:
-                            ra_link7:
-                              {}
-                            ra_link8:
-                              {}
-                            ra_link_grip_center:
-                              {}
             spine_link:
+              base_la_arm:
+                la_link0:
+                  la_link1:
+                    la_link2:
+                      la_link3:
+                        la_link4:
+                          la_link5:
+                            la_link6:
+                              la_link7:
+                                {}
+                              la_link8:
+                                {}
+                              la_link_grip_center:
+                                {}
+              base_ra_arm:
+                ra_link0:
+                  ra_link1:
+                    ra_link2:
+                      ra_link3:
+                        ra_link4:
+                          ra_link5:
+                            ra_link6:
+                              ra_link7:
+                                {}
+                              ra_link8:
+                                {}
+                              ra_link_grip_center:
+                                {}
+              head_link1:
+                head_link2:
+                  kinect_link:
+                    camara_link:
+                      {}
+                    careta:
+                      {}
               shoulders_link:
                 {}
       Update Interval: 0
@@ -411,25 +420,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/ThirdPersonFollower
-      Distance: 4.57348299
+      Distance: 3.37684536
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -0.0398230553
-        Y: -0.00115206838
+        X: 0.507291317
+        Y: 0.0877370536
         Z: -7.4505806e-07
       Focal Shape Fixed Size: false
       Focal Shape Size: 0.0500000007
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Pitch: 0.315395772
+      Pitch: 0.655395567
       Target Frame: <Fixed Frame>
       Value: ThirdPersonFollower (rviz)
-      Yaw: 4.41494417
+      Yaw: 4.0149436
     Saved: ~
 Window Geometry:
   Displays:
