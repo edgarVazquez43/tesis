@@ -207,19 +207,20 @@ bool JustinaGrasp::detectObjet(std::vector<float>& pose,
 		     aux.y*aux.y +
 		     aux.z*aux.z);
 
-  objectYaw *= -1;
   std::cout << "Axis magnitude: " << std::endl
 	    << mag_axis[0] << std::endl
 	    << mag_axis[1] << std::endl
 	    << mag_axis[2] << std::endl << std::endl;
 
-
+  objectYaw *= -1;
+  objectYaw_rads *= -1;
+  
   std::cout << "object yaw:  " << objectYaw << std::endl << std::endl;
   std::cout << "object yaw_rads:  " << objectYaw_rads << std::endl << std::endl;
 
   // Verify principal axis is in Z-Axis
-  if(axis_resp_0.z > axis_resp_0.y &&
-     axis_resp_0.z > axis_resp_0.x)
+  if( fabs(axis_resp_0.z) > fabs(axis_resp_0.y) &&
+      fabs(axis_resp_0.z) > fabs(axis_resp_0.x) )
   {    
     pose[3] = 0.0;               // Roll Angle
     pose[4] = objectYaw_rads;    // Pitch Angle
@@ -330,12 +331,15 @@ bool JustinaGrasp::ra_mark_ikCalculate(std::vector<float>& articular, std::vecto
 
   std::cout << std::endl
 	    << "Inverse Kinematic Mark::: Success service" << std::endl << std::endl;
-
+  
+  
   for (int i=0; i < 7; i++)
   {
     ra_gp_msgs.data[i] = srv_ki.response.articular_pose.data[i];
     articular[i] = srv_ki.response.articular_pose.data[i];
   }
+
+  // ra_gp_msgs.data[6] = fabs(ra_gp_msgs.data[6]);
 
   std::cout << std::endl
   	    << "Moving right arm....   :)" << std::endl << std::endl;
@@ -534,6 +538,7 @@ int main(int argc, char** argv)
     bool isAxisZ_biggest;
     
     std::vector<float> object_pose;
+    std::vector<float> object_pose_grasp;
     std::vector<float> articular_arm;
     std::vector<float> articular_navigation;
 
@@ -552,27 +557,33 @@ int main(int argc, char** argv)
     articular_navigation[6] = 0.0;
 
     markerSetup();
-    ros::Rate loop(10);
+    ros::Rate loop(30);
 
     // while(ros::ok())
     // {
     
     std::cout << "Mode angle information: " << use_angle_information << std::endl;
 
+    ros::spinOnce();
+    loop.sleep();
+    ros::Duration(4.0).sleep();
     
     // MOVE RIGHT ARM TO HOME
     JustinaGrasp::moveRightArm(articular_navigation);
     ros::spinOnce();
     loop.sleep();
+    std::cout << ">>>> Moving right arm: " << use_angle_information << std::endl;
     boost::this_thread::sleep( boost::posix_time::milliseconds(4000) );
 
     
     // DETECT OBJECT AND CALCULATE GRASPING ANGLES
     JustinaGrasp::detectObjet(object_pose, axis_resp_0, axis_resp_1, axis_resp_2, isAxisZ_biggest);
 
-    object_pose[0] = 0.25;
-    object_pose[1] = -0.22;
-    object_pose[2] = 0.95;
+    // object_pose[0] = 0.45;
+    // object_pose[1] = -0.22;
+    // object_pose[2] = 0.85;
+
+    object_pose_grasp = object_pose;
 
     centroid.position.x = object_pose[0];
     centroid.position.y = object_pose[1];
@@ -592,58 +603,190 @@ int main(int argc, char** argv)
     boost::this_thread::sleep( boost::posix_time::milliseconds(4000) );
 
 
-    // OPEN GRIPPER
-    JustinaGrasp::openGripperRightArm(1.0);
-
 
     // MOVE ACTUATOR TO GRASP
     if(use_angle_information == 0)
       {
+	// OPEN GRIPPER
+	JustinaGrasp::openGripperRightArm(1.0);
+	
         // // Calculate ik geometric with object-pose information
-	object_pose[3] =  0.0;
-	object_pose[4] =  0.0;
-	object_pose[5] =  1.5707;
-	JustinaGrasp::ra_mark_ikCalculate(articular_arm, object_pose);
+	object_pose_grasp[3] =  0.0;
+	object_pose_grasp[4] =  0.0;
+	object_pose_grasp[5] =  1.5707;
+
+	object_pose_grasp[0] = object_pose[0] - 0.18;
+	JustinaGrasp::ra_mark_ikCalculate(articular_arm, object_pose_grasp);
 	boost::this_thread::sleep( boost::posix_time::milliseconds(4000) );
+
+	object_pose_grasp[0] = object_pose[0] - 0.10;
+	JustinaGrasp::ra_mark_ikCalculate(articular_arm, object_pose_grasp);
+	boost::this_thread::sleep( boost::posix_time::milliseconds(4000) );
+
+	object_pose_grasp[0] = object_pose[0] - 0.05;
+	JustinaGrasp::ra_mark_ikCalculate(articular_arm, object_pose_grasp);
+	boost::this_thread::sleep( boost::posix_time::milliseconds(4000) );
+
+	// CLOSE GRIPPER
+	JustinaGrasp::openGripperRightArm(0.0);
+	//JustinaGrasp::closeGripperRightArm(0.5);
+	ros::spinOnce();
+	loop.sleep();
+	boost::this_thread::sleep( boost::posix_time::milliseconds(4000) );
+    
+
+	// Go-Up Object
+	object_pose_grasp[2] = object_pose[2] + 0.08; 
+	JustinaGrasp::ra_mark_ikCalculate(articular_arm, object_pose_grasp);
+	ros::spinOnce();
+	loop.sleep();
+	boost::this_thread::sleep( boost::posix_time::milliseconds(4000) );
+	
       }
     else if (use_angle_information == 1)
       {
+	
 	if(isAxisZ_biggest)
-	  object_pose[1] -= 0.12;
-	else
-	  object_pose[2] += 0.18;
-	JustinaGrasp::ra_mark_ikCalculate(articular_arm, object_pose);
-	boost::this_thread::sleep( boost::posix_time::milliseconds(4000) );
+	{
+	  articular_arm[0] = -0.2;
+	  articular_arm[1] = 0.0;
+	  articular_arm[2] = 0.0;
+	  articular_arm[3] = 2.0;
+	  articular_arm[4] = 0.0;
+	  articular_arm[5] = 0.8;
+	  articular_arm[6] = 0.0;
+	  
+	  // // RIGHT ARM GO TO HOME
+	  JustinaGrasp::moveRightArm(articular_arm);
+	   boost::this_thread::sleep( boost::posix_time::milliseconds(3000) );
+	  
+	  object_pose_grasp[0] = object_pose[0] - ( 0.28*cos(object_pose[4]) );
+	  object_pose_grasp[1] = object_pose[1] - ( 0.28*sin(object_pose[4]) );
+	  JustinaGrasp::ra_mark_ikCalculate(articular_arm, object_pose_grasp);
+	  boost::this_thread::sleep( boost::posix_time::milliseconds(4000) );
 
-	
-	
-	if(isAxisZ_biggest)
-	  object_pose[1] += 0.06;
+	  // OPEN GRIPPER
+	  JustinaGrasp::openGripperRightArm(1.0);
+	  
+	  object_pose_grasp[0] = object_pose[0] - ( 0.18*cos(object_pose[4]) );
+	  object_pose_grasp[1] = object_pose[1] - ( 0.18*sin(object_pose[4]) );
+	  JustinaGrasp::ra_mark_ikCalculate(articular_arm, object_pose_grasp);
+	  boost::this_thread::sleep( boost::posix_time::milliseconds(4000) );
+	  
+	  object_pose_grasp[0] = object_pose[0] - ( 0.12*cos(object_pose[4]) );
+	  object_pose_grasp[1] = object_pose[1] - ( 0.12*sin(object_pose[4]) );
+	  JustinaGrasp::ra_mark_ikCalculate(articular_arm, object_pose_grasp);
+	  boost::this_thread::sleep( boost::posix_time::milliseconds(4000) );
+
+	  object_pose_grasp[0] = object_pose[0] - ( 0.08*cos(object_pose[4]) );
+	  object_pose_grasp[1] = object_pose[1] - ( 0.08*sin(object_pose[4]) );
+	  JustinaGrasp::ra_mark_ikCalculate(articular_arm, object_pose_grasp);
+	  boost::this_thread::sleep( boost::posix_time::milliseconds(2000) );
+
+	  object_pose_grasp[0] = object_pose[0] - ( 0.06*cos(object_pose[4]) );
+	  object_pose_grasp[1] = object_pose[1] - ( 0.06*sin(object_pose[4]) );
+	  JustinaGrasp::ra_mark_ikCalculate(articular_arm, object_pose_grasp);
+	  boost::this_thread::sleep( boost::posix_time::milliseconds(2000) );
+
+	  // CLOSE GRIPPER
+	  JustinaGrasp::openGripperRightArm(0.0);
+	  // JustinaGrasp::closeGripperRightArm(0.5);
+	  ros::spinOnce();
+	  loop.sleep();
+	  boost::this_thread::sleep( boost::posix_time::milliseconds(4000) );
+
+	  
+	}
 	else
-	  object_pose[2] -= 0.10;
-	JustinaGrasp::ra_mark_ikCalculate(articular_arm, object_pose);
-	boost::this_thread::sleep( boost::posix_time::milliseconds(2000) );
-	
+	{
+	  articular_arm.resize(7);
+	  articular_arm[0] = -0.8;
+	  articular_arm[1] = 0.0;
+	  articular_arm[2] = 0.0;
+	  articular_arm[3] = 2.0;
+	  articular_arm[4] = 0.0;
+	  articular_arm[5] = 0.8;
+	  articular_arm[6] = 0.0;
+	  
+	  // // RIGHT ARM GO TO HOME
+	  JustinaGrasp::moveRightArm(articular_arm);
+	  boost::this_thread::sleep( boost::posix_time::milliseconds(6000) );
+
+	  articular_arm[0] = -0.2;
+	  articular_arm[1] = 0.0;
+	  articular_arm[2] = 0.0;
+	  articular_arm[3] = 2.0;
+	  articular_arm[4] = 0.0;
+	  articular_arm[5] = 0.8;
+	  articular_arm[6] = 0.0;
+	  
+	  // // RIGHT ARM GO TO HOME
+	  JustinaGrasp::moveRightArm(articular_arm);
+	   boost::this_thread::sleep( boost::posix_time::milliseconds(4000) );
+	  
+	  object_pose_grasp[2] = object_pose[0] - 0.15;
+	  object_pose_grasp[2] = object_pose[2] + 0.22;
+	  object_pose_grasp[3] =  0.0;
+	  object_pose_grasp[4] =  0.0;
+	  object_pose_grasp[5] =  1.5707;
+	  JustinaGrasp::ra_mark_ikCalculate(articular_arm, object_pose_grasp);
+	  boost::this_thread::sleep( boost::posix_time::milliseconds(6000) );
+
+	  // OPEN GRIPPER
+	  JustinaGrasp::openGripperRightArm(1.0);
+	  boost::this_thread::sleep( boost::posix_time::milliseconds(4000) );
+
+	  object_pose_grasp = object_pose;
+	  object_pose_grasp[2] = object_pose[2] + 0.25;
+	  JustinaGrasp::ra_mark_ikCalculate(articular_arm, object_pose_grasp);
+	  boost::this_thread::sleep( boost::posix_time::milliseconds(2000) );
+
+
+	  object_pose_grasp = object_pose;
+	  object_pose_grasp[2] = object_pose[2] + 0.14;
+	  JustinaGrasp::ra_mark_ikCalculate(articular_arm, object_pose_grasp);
+	  boost::this_thread::sleep( boost::posix_time::milliseconds(4000) );
+
+	  // CLOSE GRIPPER
+	  JustinaGrasp::openGripperRightArm(0.0);
+	  // JustinaGrasp::closeGripperRightArm(0.5);
+	  ros::spinOnce();
+	  loop.sleep();
+	  boost::this_thread::sleep( boost::posix_time::milliseconds(6000) );
+
+	  object_pose_grasp[2] = object_pose[0] - 0.15;
+	  object_pose_grasp[2] = object_pose[2] + 0.22;
+	  object_pose_grasp[3] =  0.0;
+	  object_pose_grasp[4] =  0.0;
+	  object_pose_grasp[5] =  1.5707;
+	  JustinaGrasp::ra_mark_ikCalculate(articular_arm, object_pose_grasp);
+	  boost::this_thread::sleep( boost::posix_time::milliseconds(4000) );
+	}
+
+	// // CLOSE GRIPPER
+	// JustinaGrasp::openGripperRightArm(0.0);
+	// // JustinaGrasp::closeGripperRightArm(0.5);
+	// ros::spinOnce();
+	// loop.sleep();
+	// boost::this_thread::sleep( boost::posix_time::milliseconds(10000) );
+    
+
+	// // Go-Up Object
+	// object_pose_grasp[2] = object_pose[2] + 0.08; 
+
+	// object_pose_grasp[3] =  0.0;
+	// object_pose_grasp[4] =  0.0;
+	// object_pose_grasp[5] =  1.5707;
+
+	// JustinaGrasp::ra_mark_ikCalculate(articular_arm, object_pose_grasp);
+	// ros::spinOnce();
+	// loop.sleep();
+	// boost::this_thread::sleep( boost::posix_time::milliseconds(4000) );
+
       }
 
-    
-    // CLOSE GRIPPER
-    JustinaGrasp::openGripperRightArm(0.0);
-    //JustinaGrasp::closeGripperRightArm(0.0);
-    ros::spinOnce();
-    loop.sleep();
-    boost::this_thread::sleep( boost::posix_time::milliseconds(4000) );
-    
 
-    // Go-Up Object
-    object_pose[2] += 0.08; 
-    JustinaGrasp::ra_mark_ikCalculate(articular_arm, object_pose);
-    ros::spinOnce();
-    loop.sleep();
-    boost::this_thread::sleep( boost::posix_time::milliseconds(4000) );
-
-
-    // RIGHT ARM GO TO HOME
+    // // RIGHT ARM GO TO HOME
     JustinaGrasp::moveRightArm(articular_navigation);
 
     

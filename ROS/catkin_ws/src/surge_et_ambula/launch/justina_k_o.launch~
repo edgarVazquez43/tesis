@@ -30,7 +30,7 @@
       <param name="simul" value="false"/>
     </node>
     <node name="torso" pkg="torso" type="torso_real_simul.py" output="screen">
-      <param name="simul" value="false"/>
+      <param name="simul" value="true"/>
       <param name="port" value="/dev/justinaTorso"/>
     </node>
 			      
