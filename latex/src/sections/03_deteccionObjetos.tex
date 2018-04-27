@@ -36,7 +36,7 @@ En este capítulo se trata el desarrollo de los algoritmos propuestos en la meto
 
 		Cada elemento de la matriz contiene información de un punto $p = (x, y, z)$ donde el haz infrarojo fue reflejado, esto nos permite conocer la distancia a la cual se encuentra un objeto, o su superficie. La información que nos entrega el sensor en forma de matriz es de dimensiones $640 x 480$ por tanto consta de 307,200 elementos en total.  Dentro de este conjunto de datos procura encontrar las superficies planas.\\
 
-		Se programó el algoritmo RANSAC para extraer planos en C++, el código se puede consultar en la página. \ref{githubTesis}\\
+		Se programó el algoritmo RANSAC para extraer planos en C++, el código se puede consultar en la página. \cite{githubTesis}\\
 
 		Para la correcta implementación del algoritmo fue necesario tomar algunas consideraciones, por ejemplo: descartar del procesamiento todos aquellos píxeles que no proporcionen información relevante de profundidad, la construcción de una clase para generar planos.\\
 

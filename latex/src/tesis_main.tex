@@ -1,5 +1,7 @@
 \documentclass[a4paper, openright, 12pt]{report}
 \usepackage[spanish,es-tabla]{babel}
+\spanishdecimal{.}
+\selectlanguage{spanish}
 \usepackage[spanish]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage[final]{graphicx}
@@ -23,11 +25,43 @@
 \usepackage{epstopdf} %converting to PDF 
 \setboolean{@twoside}{false}  %For add pdf page
 \usepackage[final]{pdfpages}  %For add pdf page
+%For margin options
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
 
+\usepackage{fancyhdr}
+% aqui definimos el encabezado de las paginas pares e impares.
+\lhead[x1]{x2}
+\chead[y1]{y2}
+\rhead[z1]{z2}
+\renewcommand{\headrulewidth}{0.5pt}
+
+% aqui definimos el pie de pagina de las paginas pares e impares.
+\lfoot[a1]{b2}
+\cfoot[c1]{d2}
+\rfoot[e1]{f2}
+\renewcommand{\footrulewidth}{0.5pt}
+
+% aqui definimos el encabezado y pie de pagina de la pagina inicial de un capitulo.
+\fancypagestyle{plain}{
+\fancyhead[L]{K1}
+\fancyhead[C]{K2}
+\fancyhead[R]{K3}
+\fancyfoot[L]{L1}
+\fancyfoot[C]{L2}
+\fancyfoot[R]{L3}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0.5pt}
+}
+
+\pagestyle{fancy} 
+
+
+
+\pagenumbering{roman}
 
 \graphicspath{ {../imgs/} {../../imgs/} }
 \sloppy
-\spacing{1.25} 
+%\spacing{1.25} 
 
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
@@ -54,6 +88,29 @@
 }
  
 \lstset{style=mystyle}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \begin{document}
 
@@ -109,6 +166,7 @@
 
 \newpage{}
 
+\lhead[\thepage]{CAPÍTULO \thechapter. \rightmark}
 \subfile{sections/01_introduccion}
 
 \subfile{sections/02_marcoTeorico}
