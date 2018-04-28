@@ -33,13 +33,13 @@
 
 	%¿Cual es la problematica?
 	\section{Planteamiento del problema}
-		Los robots enfrentan problemáticas a la que cualquier humano está sometido día a día: ambientes dinámicos, características de entornos no estandarizados, incertidumbre ante escenarios desconocidos. Dada la naturaleza de esta disciplina científica han surgido diversas líneas de investigación que abarcan estas problemáticas. La mecánica, la electrónica, la informática, la inteligencia artificial y la ingeniería de control, son algunas de las disciplinas involucradas. La robótica se ayuda de este estas disciplinas para resolver problemas particulares, por ejemplo un robot de servicios debe ser capaz: de reconocer y manipular objetos en diferentes ubicaciones y desde diferentes alturas, de tener locomoción en diferentes tipos de superficies, de interactuar con un humano, de distinguir diferentes personas. Por último, pero no menos importante, el funcionamiento seguro de estos sistemas en ambientes dinámicos es un requisito fundamental para su futura aceptación y aplicabilidad.\\
+		Los robots enfrentan problemáticas a las que cualquier humano está sometido día a día: ambientes dinámicos, características de entornos no estandarizados, incertidumbre ante escenarios desconocidos. Dada la naturaleza de esta disciplina científica han surgido diversas líneas de investigación que abarcan estas problemáticas. La mecánica, la electrónica, la informática, la inteligencia artificial y la ingeniería de control, son algunas de las disciplinas involucradas. La robótica se ayuda de estas disciplinas para resolver problemas particulares, por ejemplo un robot de servicios debe ser capaz: de reconocer y manipular objetos en diferentes ubicaciones y desde diferentes alturas, de tener locomoción en diferentes tipos de superficies, de interactuar con un humano, de distinguir diferentes personas. Por último, pero no menos importante, el funcionamiento seguro de estos sistemas en ambientes dinámicos es un requisito fundamental para su futura aceptación y aplicabilidad.\\
 		%\vspace{0.2in}
 
 		%Problemática robots de servicio.
-		La creación de estos sistemas autónomos requiere la integración de un gran conjunto de capacidades y tecnologías. Los ejemplos de capacidades incluyen la interacción humano-robot (habla, identificación de personas, seguimiento de personas, entre otros), navegación, planificación de acciones, control de comportamientos, detección y reconocimiento de objetos, manipulación de objetos o seguimiento de objetos. Con respecto a las tecnologías se requerido la aplicación de sensores RGB-D, cámaras estereoscópicas, sensores láser, entre otros.\\ 
+		La creación de estos sistemas autónomos requiere la integración de un gran conjunto de capacidades y tecnologías. Los ejemplos de capacidades incluyen la interacción humano-robot (habla, identificación de personas, seguimiento de personas, entre otros), navegación, planificación de acciones, control de comportamientos, detección y reconocimiento de objetos, manipulación de objetos o seguimiento de objetos. Con respecto a las tecnologías es requerida la aplicación de sensores RGB-D, cámaras estereoscópicas, sensores láser, entre otros.\\ 
 
-		Con respecto a la inteligencia, los sistemas deben contener métodos de planificación de acciones y comportamientos adaptables. Los procedimientos apropiados deben, por ejemplo, permitir al operador del robot enseñar nuevos comportamientos y entornos vía comandos de voz o gestos. Los futuros hogares probablemente contendrán dispositivos electrónicos más inteligentes capaces de comunicarse entre si incluyendo el uso de internet como base común de conocimientos, de modo que los robots desempeñarán un papel más importante.\\
+		Con respecto a la inteligencia, los sistemas deben contener métodos de planificación de acciones y comportamientos adaptables. Los procedimientos apropiados deben, por ejemplo, permitir al operador enseñar al robot nuevos comportamientos y entornos vía comandos de voz o gestos. Los futuros hogares probablemente contendrán dispositivos electrónicos más inteligentes capaces de comunicarse entre si incluyendo el uso de internet como base común de conocimientos, de modo que los robots desempeñarán un papel más importante.\\
 		%\vspace{0.2in}
 
 		%Problemática de la manipulación
@@ -48,7 +48,7 @@
 
 
 		%¿Cómo se solucionaria el problema?
-		Dadas las características antes descritas, es preciso estimar la probabilidad de que un robot pueda manipular correctamente los objetos. Para ello es necesario dividir la tarea en operaciones: la primera de ellas consiste en estimar la posición del objeto, tener un indicador que nos ayude a determinar cuál es la mejor forma de tomar un objeto y conocer la probabilidad de que el robot haya reconocido un objeto exitosamente. Otra de las operaciones necesarias es llevar el actuador final del brazo robótico a una posición (x, y, z) deseada. Por último es necesario contar con un planeador de acciones para coordinar cada uno de los eventos dentro de la tarea.\\
+		Dadas las características antes descritas, es preciso estimar la probabilidad que un robot pueda manipular correctamente los objetos. Para ello es necesario dividir la tarea en operaciones: la primera de ellas consiste en estimar la posición del objeto, tener un indicador que nos ayude a determinar cuál es la mejor forma de tomar un objeto y conocer la probabilidad de que el robot haya reconocido un objeto exitosamente. Otra de las operaciones necesarias es llevar el actuador final del brazo robótico a una posición (x, y, z) deseada. Por último es necesario contar con un planeador de acciones para coordinar cada uno de los eventos dentro de la tarea.\\
 		%\vspace{0.2in}
 
 
@@ -73,16 +73,16 @@
 
 				\item Implementar un algoritmo de visión computacional para determinar la posición de un objeto.
 
-				\item Implementar un algoritmo de análisis de componentes principales para identificar la orientación de los objetos.
+				\item Implementar un algoritmo de análisis de componentes principales para calcular la orientación de los objetos.
 
-				\item Calcular la cinemática inversa de un brazo robótico de 7DOF para llevarlo a una posición deseada (x, y, z, roll, pitch, yaw).
+				\item Caracterizar el espacio de trabajo del manipualdor de 7DOF ubicado en el robot de servicio Justina.
 
-				\item Caracterizar el sistema de manipulación de objetos usando un modelo bayesiano.
+				\item Poner a prueba dos diferentes algoritmos para el cálculo de la cinemática inversa de un brazo robótico de 7DOF, un algoritmo geometrico y un algoritmo númerico.
 
 			\end{itemize}
 
 	% \newpage{}
 
 	%¿Qué encontraremos en el documento?
-	En el capítulo 3 de este documento se aborda la manera en que se desarrollaron los algoritmos de visión computacional para realizar la extracción de un plano, identificar la posición de un objeto, implementar un algoritmo de Análisis de Componentes Principales para obtener cual será la mejor orientación para tomar un objeto a partir de su forma. En el capítulo 4 se describe el sistema de manipulación utilizado. Se comienza por conocer las características de los actuadores utilizados, se obtienen las ecuaciones correspondientes a la cinemática de los brazos para llevarlo hasta una posición (x, y, z, roll, pitch, yaw) deseada. En el capítulo 5 se realiza la integración de las tareas antes mencionadas, la plataforma sobre la cual se desarrolló el sistema y se describe el desarrollo del modelo probabilístico utilizado para mejorar la manipulación de objetos en un robot de servicios.\\
+	En el capítulo 3 de este documento se aborda la manera en que se desarrollaron los algoritmos de visión computacional para realizar la extracción de un plano, identificar la posición de un objeto, implementar un algoritmo de Análisis de Componentes Principales (PCA por sus siglas en inglés) para obtener cual será la mejor orientación para tomar un objeto a partir de su forma. En el capítulo 4 se describe el sistema de manipulación utilizado. Se comienza por conocer las características de los actuadores utilizados, se obtienen las ecuaciones correspondientes a la cinemática de los brazos para llevarlo hasta una posición (x, y, z, roll, pitch, yaw) deseada. Posteriormente se realiza un analisis En el capítulo 5 se realiza la integración de las tareas antes mencionadas, la plataforma sobre la cual se desarrolló el sistema y se describe el desarrollo del modelo probabilístico utilizado para mejorar la manipulación de objetos en un robot de servicios. En el capítulo 6 se reportan los resultados y conclusiones obtenidas de este trabajo.\\
 
