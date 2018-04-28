@@ -3,19 +3,17 @@
 
 
 \chapter{Detección de objetos}
-En este capítulo se trata el desarrollo de los algoritmos propuestos en la metodología de este trabajo. Se comenzará con los desarrollos realizados en el ámbito de la visión computacional:\\
+En este capítulo se aborda el desarrollo de los algoritmos para la detección y extracción de características de objetos propuestos en los objetivos de este trabajo. La metodología de desarrollo de este capítulo se divide en las tareas descritas a continuación:\\
 
 	\begin{itemize}
 		\item{Segmentación de planos}
 		\item{Extracción de planos}
 		\item{Segmentación de objetos}
 		\item{Cálculo del centroide de un objeto}
-		\item{Aproximación a la orientación de un objeto}
+		\item{Estimación a la orientación de un objeto}
 	\end{itemize}
 
-	Posteriormente se abordarán los temas respectivos la cinemática de un brazo robótico de 7DOF. En este apartado abordaremos la cinemática directa del mismo y como trabajo futuro queda la cinemática inversa del mismo.\\
-
-	Es importante mencionar que los desarrollos reportados en este trabajo fueron realizados en el framework para el desarrollo de software para robots, ROS por sus siglas en inglés. Alojado en el sistema operativo Ubuntu.\\
+	Es importante mencionar que los desarrollos reportados en este trabajo fueron realizados en el framework para el desarrollo de software para robots ROS (Robot Operative System por sus siglas en inglés), alojado en el sistema operativo Ubuntu 16.04.\\
 
 	%**Acondicionamiento de Nube de puntos(???) Transformaciones(???)
 
@@ -27,7 +25,7 @@ En este capítulo se trata el desarrollo de los algoritmos propuestos en la meto
 
 		\begin{figure}[h!]
 			\begin{center}
-			\includegraphics[width=10.5cm, height=4.5cm]{vision/pointCloud1.png}	
+			\includegraphics[width=12.0cm, height=4.5cm]{vision/pointCloud1.png}	
 			\caption{Imagen típica de la información otorgada por el sensor Kinect.}
 			\end{center}
 		\end{figure}
@@ -44,16 +42,16 @@ En este capítulo se trata el desarrollo de los algoritmos propuestos en la meto
 
 		Para la construcción de planos se tomaron tres puntos aleatorios y se construyeron dos vectores a partir de los puntos y se realizó el producto cruz entre estos.\\ 
 
-		\begin{center}
-			$p_1 = rnd(datos)$\\
-			$p_2 = rnd(datos)$\\
-			$p_3 = rnd(datos)$\\
-
-			$\vec{v_1} = p_1 - p_2$\\
-			$\vec{v_2} = p_1 - p_3$\\
-
-			$\vec{N} = \vec{v_1} \times \vec{v_2}$
-		\end{center}
+		\begin{equation}
+		\begin{split}
+			p_1 = rnd (datos) \cr
+			p_2 = rnd (datos) \cr
+			p_3 = rnd (datos) \cr
+			\vec{v_1} = p_1 - p_2 \cr
+			\vec{v_2} = p_1 - p_3 \cr
+			\vec{N} = \vec{v_1} \times \vec{v_2} \cr
+		\end{split}
+		\end{equation}
 
 		Conocemos la ecuación general del plano:\\
 
@@ -77,20 +75,19 @@ En este capítulo se trata el desarrollo de los algoritmos propuestos en la meto
 
 		Posteriormente se comparó el resto de la información con ese modelo propuesto aleatoriamente y verificamos que tan buen modelo es. Para ello calculamos la distancia euclidiana de cada punto al plano propuesto, si la distancia es menor que cierto umbral lo consideramos como parte del modelo e incrementamos el numero de puntos que empatan con el modelo \"inliers\".\\
 
-		Del mismo modo se buscaba que el numero de inliers que empataran con el modelo fuera al menos el 60\% del total de datos. En los resultados se trata este tema con mayor profundidad.\\
-
-		Observamos que el algoritmo opera bien con un numero máximo de iteraciones = 70, y con un umbral de error de 2 cm.\\
+		Del mismo modo se buscaba que el numero de inliers que empataran con el modelo fuera al menos el 60\% del total de datos. De otro modo la implementación a nivel de algoritmo devolvía un modelo vacío. En los resultados se trata este tema con mayor profundidad.\\
 
 
 		\begin{figure}[h!]
-
 			\begin{subfigure}[t]{.5\textwidth}
-			\includegraphics[width=5.5cm, height=3.0cm]{planes/plane.png}	
+			\centering
+			\includegraphics[width=5.5cm, height=3.5cm]{planes/plane.png}	
 			\caption{Grafico de un plano en tercera dimensión.}
 			\end{subfigure}%
 			\begin{subfigure}[t]{.5\textwidth}
-			\includegraphics[width=6.5cm, height=3.0cm]{planes/planeSegmentation5.png}
-			\caption{Segmentación de un plano utilizando el sensor kinect.}
+			\centering
+			\includegraphics[width=6.5cm, height=3.5cm]{planes/planeSegmentation5.png}
+			\caption{Segmentación de un plano utilizando el algoritmo RANSAC con un número de iteraciones igual a 70 y un humbral de 2 cm.}
 			\end{subfigure}
 
 			\caption{Planos y su representación en 3D.}
@@ -113,9 +110,9 @@ En este capítulo se trata el desarrollo de los algoritmos propuestos en la meto
 		De otro modo esto sería igual a:\\
 
 		\begin{itemize}
-			\item{Extracción de los puntos pertenecientes al plano.}
-			\item{Extracción de los puntos por debajo del plano.}
-			\item{Extracción de los puntos más allá de 40 respecto al punto más cercano en x.}
+			\item{Supresión de los puntos pertenecientes al plano.}
+			\item{Supresión de los puntos por debajo del plano.}
+			\item{Supresión de los puntos más allá de 40 respecto al punto más cercano en x.}
 		\end{itemize}
 
 		\begin{figure}
@@ -148,7 +145,7 @@ En este capítulo se trata el desarrollo de los algoritmos propuestos en la meto
 				\item{La distancia al objeto  proyectada sobre el eje $z$}
 			\end{itemize} 
 
-			Por lo tanto, de una nube de puntos como la mostrada en la figura () podemos extraer medidas de dispersión, y medidas de tendencia central. Se partió con el cálculo de la media de los datos. $\bar{X}, \bar{Y}, \bar{Z}.$ El punto $P(\bar{X}, \bar{Y}, \bar{X})$ representa el centroide del objeto. Conociendo este punto podemos conocer la ubicación espacial del objeto respecto del robot y determinar si es manipulable (si se encuentra dentro del área de trabajo) y conocer las coordenadas a donde deberíamos llevar el efector final de nuestro manipulador para manipularlo.\\
+			Por lo tanto, de una nube de puntos como la mostrada en la figura \cite{} podemos extraer medidas de dispersión, y medidas de tendencia central. Se partió con el cálculo de la media de los datos. $\bar{X}, \bar{Y}, \bar{Z}.$ El punto $P(\bar{X}, \bar{Y}, \bar{X})$ representa el centroide del objeto. Conociendo este punto podemos conocer la ubicación espacial del objeto respecto del robot y determinar si es manipulable (si se encuentra dentro del área de trabajo) y conocer las coordenadas a donde deberíamos llevar el efector final de nuestro manipulador para manipularlo.\\
 
 			Para realizar el cálculo de la media se cuantifico el número de puntos pertenecientes al objeto, $(n)$. Posteriormente, para todos los puntos pertenecientes al conjunto $n$ se sumaron sus valores en $\bar{X}, \bar{Y}, \bar{Z}$, respectivamente. Y posteriormente se dividieron entre $n$.\\
 
@@ -175,16 +172,15 @@ En este capítulo se trata el desarrollo de los algoritmos propuestos en la meto
 
 			%%Ïmagen centroides Rviz.
 			\begin{figure}[h!]
-
 				\begin{subfigure}[h]{.5\textwidth}
+				\centering
 				\includegraphics[width=3.5cm, height=5.0cm]{objs/centroid3.png}	
 				\end{subfigure}%
 				\begin{subfigure}[h]{.5\textwidth}
+				\centering
 				\includegraphics[width=6.0cm, height=3.5cm]{objs/centroid5.png}
 				\end{subfigure}
-			
 			\caption{Segmentación de un objeto y su correspondiente centroide (punto verde).}
-
 			\end{figure}
 			
 
@@ -243,10 +239,9 @@ cov_matrix << var_x,  cov_xy, cov_xz,
 			Posteriormente se propuso a encontrar los valores de los vectores propios asociados a la matriz de covarianzas. En la literatura existen múltiples métodos numéricos para la solución de esta problemática, como la puesta a prueba de dichos algoritmos no es el propósito de este trabajo se optó por utilizar la librería \textbf{eigen}. Por tanto, una vez construida la matriz de covarianzas M, se utiliza la instrucción:\\
 
 			\begin{lstlisting}[language=c++, caption=Cálculo de varianzas y covarianzas]
-Eigen::SelfAdjointEigenSolver<Eigen::MatrixXf> eig(cov_matrix);
-			\end{lstlisting}
+Eigen::SelfAdjointEigenSolver<Eigen::MatrixXf> eig(cov_matrix); \end{lstlisting}
 
-			La instrucción \textit{Eigen::SelfAdjointEigenSolver<Eigen::MatrixXf>} nos devuelve un objeto \textit{eig} cuyos atributos son \textit{eigenvalues()} y \textit{eigenvectors()}. Con ayuda de esta librería podemos obtener fácilmente los eigenvectores de la matriz M. Es importante mencionar que el atributo \textit{eigenvectors()} del objeto \textit{eig} se encuentra normalizado; por lo tanto es conveniente darle un escalamiento relacionado con la dispersión de los datos. De este modo se optó por multiplicar cada uno de los eigenvectores por su correspondiente valor de desviación estándar.\\
+			La instrucción \textit{Eigen::SelfAdjointEigenSolver$<$Eigen::MatrixXf$>$} nos devuelve un objeto \textit{eig} cuyos atributos son \textit{eigenvalues()} y \textit{eigenvectors()}. Con ayuda de esta librería podemos obtener fácilmente los vectores propios de la matriz M. Es importante mencionar que el atributo \textit{eigenvectors()} del objeto \textit{eig} se encuentra normalizado; por lo tanto es conveniente darle un escalamiento relacionado con la dispersión de los datos. De este modo se optó por multiplicar cada uno de los vectores propios por su correspondiente valor de desviación estándar.\\
 
 			\begin{figure}[ht!]
 
@@ -277,7 +272,7 @@ Eigen::SelfAdjointEigenSolver<Eigen::MatrixXf> eig(cov_matrix);
 	\begin{equation}
 	\begin{split}
 		a_1 = x_2 - x_1 \cr 
-		a_2 = y_2 - y_1
+		a_2 = y_2 - y_1 \cr
 	\end{split}
 	\end{equation}
 
@@ -320,20 +315,9 @@ Eigen::SelfAdjointEigenSolver<Eigen::MatrixXf> eig(cov_matrix);
 
 	\begin{equation}
 	\begin{split}
-		a_1 = |\vec{A}| * cos \alpha
-	\end{split}
-	\end{equation}
-
-
-	\begin{equation}
-	\begin{split}
-		a_2 = |\vec{A}| * cos \beta
-	\end{split}
-	\end{equation}
-
-	\begin{equation}
-	\begin{split}
-		a_3 = |\vec{A}| * cos \gamma
+		a_1 = |\vec{A}| * cos \alpha  \cr
+		a_2 = |\vec{A}| * cos \beta   \cr
+		a_3 = |\vec{A}| * cos \gamma  \cr
 	\end{split}
 	\end{equation}
 
@@ -342,19 +326,9 @@ De las realciones anteriores se deduce támbien:\\
 
 	\begin{equation}
 	\begin{split}
-		cos \alpha = \frac{a_1}{\sqrt{a_1^2 + a_2^2 + a_3^2} }
-	\end{split}
-	\end{equation}
-
-	\begin{equation}
-	\begin{split}
-		cos \beta  = \frac{a_2}{\sqrt{a_1^2 + a_2^2 + a_3^2} }
-	\end{split}
-	\end{equation}
-
-	\begin{equation}
-	\begin{split}
-		cos \gamma = \frac{a_3}{ \sqrt{a_1^2 + a_2^2 + a_3^2} }
+		cos \alpha = \frac{a_1}{\sqrt{a_1^2 + a_2^2 + a_3^2} } \cr
+		cos \beta  = \frac{a_2}{\sqrt{a_1^2 + a_2^2 + a_3^2} } \cr
+		cos \gamma = \frac{a_3}{\sqrt{a_1^2 + a_2^2 + a_3^2} } \cr
 	\end{split}
 	\end{equation}
 
