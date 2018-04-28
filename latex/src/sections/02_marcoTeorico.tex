@@ -5,6 +5,8 @@
 %	Describir constitución del robot
 %
 
+\thispagestyle{empty}
+
 \chapter{Marco teórico}
 	\section{Robots de servicio}
 		%Conceptos
@@ -47,13 +49,13 @@
 		Estos desarrollos han sido posibles gracias a herramientas de código abierto como lo es Ubuntu, ya que ha servido como base para el desarrollo de software especializado para robots, por ejemplo ROS \cite{rosEpage}. Este conjunto de librerías especializadas para robots pueden llegar a ser muy particulares y estar enfocados a una sola área de investigación de las antes mencionadas, por ejemplo: Carmen \cite{carnegieMellon}, un conjunto de librerías y algoritmos de control para navegación de robots, desarrollados por la universidad Carnegie Mellon\cite{cMellonEpage}.\\
 		%\vspace{0.2in}
 
-		En la parte de simulación se cuenta con ejemplos como el USARSim \cite{balakirsky2006}, rviz \cite{rVizEpage} o Gazebo \cite{gazeboEpage}. Por lo que respecta a los algoritmos de visión computacional existen bibliotecas de código abierto por ejemplo OpenCV \cite{openCV} el cual tiene un gran campo de aplicaciones\cite{bradski2000}. Por lo que corresponde a los kits estándar de hardware, podemos mencionar la construcción de robots de plataforma estándar por ejemplo VolksBot \cite{wisspeintner2007} y las plataformas bases por ejemplo ActivRobots \cite{ActivRobots}, Pepper \cite{pepperEpage}, Asimo \cite{asimoEpage} ha hecho posible desarrollar software de manera más rápida y eficiente.\\
+		En la parte de simulación se cuenta con ejemplos como el USARSim \cite{balakirsky2006}, rviz \cite{rVizEpage} o Gazebo \cite{gazeboEpage}. Por lo que respecta a los algoritmos de visión computacional existen bibliotecas de código abierto por ejemplo OpenCV \cite{openCV} el cual tiene un gran campo de aplicaciones\cite{bradski2000}. Por lo que corresponde a los kits estándar de hardware, podemos mencionar la construcción de robots de plataforma estándar por ejemplo VolksBot \cite{wisspeintner2007} y las plataformas bases por ejemplo ActivRobots \cite{ActivRobots}, Pepper \cite{pepperEpage}, Toyota HSR \cite{hsrEpage} ha hecho posible desarrollar software de manera más rápida y eficiente.\\
 		%\vspace{0.2in}
 
 		\begin{figure}[htb]
 			\begin{center}
-			\includegraphics[width=3.5cm, height=5cm]{estadoArte/asimo.jpg}
-			\caption{Robot asimo desarrollado por la compañía Honda.}
+			\includegraphics[width=3.5cm, height=5cm]{estadoArte/HSRB_1.png}
+			\caption{Robot robot de asistencia humana desarrollado por la compañía Toyota.\cite{hsrEpage}}
 			\end{center}
 		\end{figure}
 
@@ -144,7 +146,7 @@ Los principales parámetros que caracterizan a los robots industriales son:
 		\subsection{Cinemática directa}
 			El problema de la cinemática directa consiste en determinar la posición del efector final en el espacio dado el valor de cada una de las articulaciones. El valor de los ángulos de las articulaciones se determinan con ayuda de sistemas de referencia ubicados en cada una de las articulaciones del robot.\\
 
-			Un robot manipulador está compuesto de un conjunto de enlaces conectados por varias juntas. Las articulaciones pueden ser muy simples, tales como una articulación de revolución o una articulación prismática. Una articulación de revolución es como una bisagra y permite una rotación relativa alrededor de un solo eje coordenado; una junta prismática permite un movimiento lineal a lo largo de un solo eje. En ambos casos podemos observar el que la articulación tiene un solo grado de libertad de movimiento: el ángulo de rotación en el caso de una articulación de revolución, y la cantidad de desplazamiento lineal en el caso de una articulación prismática.\\
+			Un robot manipulador está compuesto de un conjunto de enlaces conectados por varias juntas. Las articulaciones pueden ser muy simples, tales como una articulación de revolución o una articulación prismática. Una articulación de revolución es como una bisagra y permite una rotación relativa alrededor de un solo eje coordenado; una junta prismática permite un movimiento lineal a lo largo de un solo eje. En ambos casos podemos observar que la articulación tiene un solo grado de libertad de movimiento: el ángulo de rotación en el caso de una articulación de revolución, y la cantidad de desplazamiento lineal en el caso de una articulación prismática.\\
 
 			Con el supuesto de que cada articulación tiene un solo grado de libertad, la acción de cada una de las articulaciones se puede describir por un solo número real: el ángulo de rotación en el caso de una articulación de revolución o el desplazamiento en el caso de una junta prismática. El objetivo del análisis de la cinemática directa es determinar el efecto acumulativo de todo el conjunto de variables de la articulación y observarlo en el efector final.\cite{spong2008robot}\\
 
@@ -160,7 +162,7 @@ Los principales parámetros que caracterizan a los robots industriales son:
 %%  Imagenes RGD y Points Clouds
 %%  ----------------------------------------------
 	\section{Imágenes RGB-D}
-		En la robótica de servicios resulta imprescindible contar con robots que sean capaces de percibir su entorno, los elementos que los rodean y determinar características de los mismos. Los humanos, dadas estas necesidades, hemos desarrollado el sentido de la vista que nos permite determinar características del entorno y de los objetos que lo componen tales como el color, la forma, las dimensiones ó su ubicación en el espacio.\\
+		En la robótica de servicios resulta imprescindible contar con robots que sean capaces de percibir su entorno, los elementos que los rodean y determinar características de los mismos. Los humanos, dadas estas necesidades, hemos desarrollado el sentido de la vista que nos permite determinar características del entorno y de los elementos que lo componen: objetos, personas, acciones, entre otros. Dentro de las características de relevancia se encuentran el color, la forma, la textura, las dimensiones ó su ubicación en el espacio.\\
 
 		Para optimizar los movimientos de un robot, no sólo se debe identificar cada objeto que se encuentra en el entorno de trabajo, sino también la posición que estos guardan respecto al robot. Normalmente, la segmentación de objetos de una imagen se logra mediante la segmentación de color, esta segmentación se logra a partir del análisis cromático de los componentes RGB de la imagen obtenida del objeto; sin embargo, este método es poco eficiente debido a que es sumamente suceptible a los cambios en la iluminación. \cite{objectDetectingKinect}\\ 
 
@@ -168,7 +170,7 @@ Los principales parámetros que caracterizan a los robots industriales son:
 
 		La rápida evolución de esta reciente tecnología ha resultado en el aumento de la calidad de las imágenes, la mejora en la sincronización del color con la profundidad y la disminución del tiempo de muestreo entre cada imagen. En particular, la profundidad de la imagen se obtiene en una matriz resultado de la proyección de rayos infrarrojos sobre los objetos. El sensor cuenta con una cámara infrarroja que obtiene la lectura de los haces infrarrojos reflejados sobre los objetos.\\
 
-		El sensor Kinect incorpora un sensor de profundidad, un cámara de color y un arreglo de cuatro micrófonos que, en conjunto, proporcionan una captura de movimiento de cuerpo completo en 3D. La figura 2.5 muestra la disposición del proyector de infrarrojos (IR), la cámara de color y la cámara IR. El sensor de profundidad consta de un proyector IR combinado con una cámara IR, la cual es un sensor semiconductor de metal-óxido monocromático. El sensor de profundidad es desarrollado por la compañía israelí PrimeSense.\\
+		El sensor Kinect incorpora un sensor de profundidad, un cámara de color y un arreglo de cuatro micrófonos que, en conjunto, proporcionan una captura de movimiento de cuerpo completo en 3D. La figura \ref{fig:kinect} muestra la disposición del proyector de infrarrojos (IR), la cámara de color y la cámara IR. El sensor de profundidad consta de un proyector IR combinado con una cámara IR, la cual es un sensor semiconductor de metal-óxido monocromático. El sensor de profundidad es desarrollado por la compañía israelí PrimeSense.\\
 
 		Aunque la tecnología exacta es cerrada, se basa en el principio de la estructura de la luz y su difracción. El proyector IR es un láser IR que pasa a través de una rejilla de difracción y se esparce como una nube de puntos. Dada la geometría de construcción entre el proyector IR y la cámara IR se puede reconstruir un modelo 3D si se observa un punto en el proyector y posteriormente se ubica su correspondiente reflexión en la cámara, esto se puede lograr utilizando triangulación.\\
 
@@ -188,7 +190,7 @@ Los principales parámetros que caracterizan a los robots industriales son:
 			\end{subfigure}
 
 			\caption{Sensor kinect elaborado por Microsoft.}
-
+			\label{fig:kinect}
 		\end{figure}
 
 		%%\subsection{Características de las imágenes RGB-D}
@@ -261,28 +263,24 @@ Los principales parámetros que caracterizan a los robots industriales son:
 
 
 		\subsection{Modelo matemático de un plano}
-		En matemáticas, un plano es una superficie plana, bidimensional que se extiende infinitamente lejos. Un plano es el análogo bidimensional de un punto (dimensiones cero), una línea (una dimensión) y un espacio tridimensional. Los planos pueden surgir como subespacios de algún espacio de dimensión superior, como si las paredes de una habitación estuviesen extendidas infinitamente, o pudieran disfrutar de una existencia independiente por derecho propio, como en el caso de la geometría euclidiana.\\
-
-		Cuando se trabaja exclusivamente en el espacio euclidiano bidimensional, se utiliza el artículo definido, por lo que el plano se refiere a todo el espacio. Muchas tareas fundamentales en matemáticas, geometría, trigonometría, teoría de gráficas y representación gráfica se realizan en un espacio bidimensional, o, en otras palabras, en el plano.\\
-
+		En matemáticas, un plano es una superficie plana, bidimensional que se extiende infinitamente. Un plano es el análogo bidimensional de un punto (dimensiones cero), una línea (una dimensión), el \textbf{plano} (dimensión dos) y un espacio tridimensional (volumenes).\\
 		
-		En un espacio euclidiano de cualquier número de dimensiones, un plano está determinado únicamente por cualquiera de los siguientes:\\
+		En un espacio euclidiano de cualquier número de dimensiones, un plano está determinado únicamente por cualquiera de los siguientes enuncinados:\\
 
 		\begin{itemize}
 	    	\item{Tres puntos no colineales (puntos no en una sola línea).}
-    		\item{Una línea y un punto no en esa línea.}
+    		\item{Una línea y un punto no perteneciente a esa línea.}
     		\item{Dos líneas distintas, pero que se cruzan.}
-    		\item{Dos líneas paralelas.}
+    		\item{Dos líneas paralelas no sobre puestas.}
     	\end{itemize}
 
 
-		Las siguientes afirmaciones se mantienen en el espacio euclidiano tridimensional, pero no en las dimensiones superiores, aunque tienen análogos de mayor dimensión:\\
+		Las siguientes afirmaciones se mantienen en el espacio euclidiano tridimensional, pero no en las dimensiones superiores:\\
 
 		\begin{itemize}
 			\item{Dos planos distintos son paralelos o se intersecan en una línea.}
 	    	\item{Una línea es paralela a un plano, lo cruza en un solo punto, o está contenida en el plano.}
 	    	\item{Dos líneas distintas perpendiculares al mismo plano deben ser paralelas entre sí.}
-	    	\item{Dos planos distintos perpendiculares a la misma línea deben ser paralelos entre sí.}
 	    \end{itemize}
 
 		\section{Forma punto-normal y forma general de la ecuación de un plano}
@@ -293,7 +291,7 @@ Los principales parámetros que caracterizan a los robots industriales son:
 
 		\begin{equation}
 		\begin{split}
-		    n.(r-r_0) = 0
+		    n \bullet (r-r_0) = 0
 	    \end{split}
 	    \end{equation}
 

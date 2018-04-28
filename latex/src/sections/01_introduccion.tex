@@ -1,40 +1,6 @@
 \documentclass[../tesis_main.tex]{subfiles}
 
 \newpage{}
-
-\begin{flushright}
-
-\section*{Agradecimientos}
-
-\vspace{0.7in}
-
-A mi familia,\\
-\vspace{0.3in}
-al laboratorio de Biorobótica,\\
-\vspace{0.3in}
-al Dr. Jesús Savage Carmona,\\
-\vspace{0.3in}
-al Mtro. Marco Antonio Negrete Villanueva,\\
-\vspace{0.3in}
-por su paciencia y apoyo en todo momento.\\
-
-
-\vspace{1.0in}
-
-\textit{Se agradece al CONACYT, a través del proyecto 245491, "Laboratorio de Movilidad e Infraestructura Verde para la Eficiencia Energética en Ciudades", por el apoyo recibido en la realización de este documento.}
-
-\end{flushright}
-
-\newpage{}
-
-
-\section*{Abstract}
-	El reconocimiento de objetos y la adecuada manipulación de los mismos es una problemática común en el área de la robótica de servicios. El presente documento aborda el diseño de un sistema de manipulación de objetos formado por un brazo robótico de 7DOF, el desarrollo de un algoritmo de visión computacional para reconocer la posición y orientación de los objetos, el desarrollo de la cinemática inversa del brazo robótico y finalmente la planeación de acciones entre la detección de un objeto y su correcta manipulación.\\
-
-	Los algoritmos desarrollados en el presente documento puden ser utilizados en la segmetación de objetos de manera general, y podrán ser implementados para realizar un seguimiento de peatones o usuarios de bicicletas en un sistema de monitoreo para bicicletas ecologicas como parte del proyecto "Laboratorio de Movilidad e Infraestructura Verde para la Eficiencia Energética en Ciudades".\\
-
-
-\newpage{}
 \pagenumbering{arabic}
 
 \chapter{Introducción}
@@ -115,7 +81,7 @@ por su paciencia y apoyo en todo momento.\\
 
 			\end{itemize}
 
-	\newpage{}
+	% \newpage{}
 
 	%¿Qué encontraremos en el documento?
 	En el capítulo 3 de este documento se aborda la manera en que se desarrollaron los algoritmos de visión computacional para realizar la extracción de un plano, identificar la posición de un objeto, implementar un algoritmo de Análisis de Componentes Principales para obtener cual será la mejor orientación para tomar un objeto a partir de su forma. En el capítulo 4 se describe el sistema de manipulación utilizado. Se comienza por conocer las características de los actuadores utilizados, se obtienen las ecuaciones correspondientes a la cinemática de los brazos para llevarlo hasta una posición (x, y, z, roll, pitch, yaw) deseada. En el capítulo 5 se realiza la integración de las tareas antes mencionadas, la plataforma sobre la cual se desarrolló el sistema y se describe el desarrollo del modelo probabilístico utilizado para mejorar la manipulación de objetos en un robot de servicios.\\

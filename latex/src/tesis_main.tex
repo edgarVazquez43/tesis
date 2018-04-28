@@ -1,4 +1,4 @@
-\documentclass[a4paper, openright, 12pt]{report}
+\documentclass[a4paper, openright, 12pt, twoside]{report}
 \usepackage[spanish,es-tabla]{babel}
 \spanishdecimal{.}
 \selectlanguage{spanish}
@@ -29,34 +29,35 @@
 \usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
 
 \usepackage{fancyhdr}
+\usepackage{emptypage}
+
+
 % aqui definimos el encabezado de las paginas pares e impares.
-\lhead[x1]{x2}
-\chead[y1]{y2}
-\rhead[z1]{z2}
-\renewcommand{\headrulewidth}{0.5pt}
+\lhead[]{}
+\chead[]{}
+\rhead[]{}
+\renewcommand{\headrulewidth}{0.0pt}
 
 % aqui definimos el pie de pagina de las paginas pares e impares.
-\lfoot[a1]{b2}
-\cfoot[c1]{d2}
-\rfoot[e1]{f2}
-\renewcommand{\footrulewidth}{0.5pt}
+\lfoot[\thepage]{\textit{Edgar de Jesús Vázquez Silva}}
+\cfoot[]{}
+\rfoot[\textit{Edgar de Jesús Vázquez Silva}]{\thepage}
+\renewcommand{\footrulewidth}{0.0pt}
 
 % aqui definimos el encabezado y pie de pagina de la pagina inicial de un capitulo.
 \fancypagestyle{plain}{
-\fancyhead[L]{K1}
-\fancyhead[C]{K2}
-\fancyhead[R]{K3}
-\fancyfoot[L]{L1}
-\fancyfoot[C]{L2}
-\fancyfoot[R]{L3}
-\renewcommand{\headrulewidth}{0.5pt}
-\renewcommand{\footrulewidth}{0.5pt}
+\fancyhead[L]{}
+\fancyhead[C]{}
+\fancyhead[R]{}
+
+\fancyfoot[L]{}
+\fancyfoot[C]{\thepage}
+\fancyfoot[R]{}
+\renewcommand{\headrulewidth}{0.0pt}
+\renewcommand{\footrulewidth}{0.0pt}
 }
 
 \pagestyle{fancy} 
-
-
-
 \pagenumbering{roman}
 
 \graphicspath{ {../imgs/} {../../imgs/} }
@@ -88,28 +89,6 @@
 }
  
 \lstset{style=mystyle}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 \begin{document}
@@ -159,14 +138,22 @@
 % 	\end{center}
 % \end{titlepage}
 
-
-
-\tableofcontents{}
-
+\subfile{sections/00_agradecimientos}
 
 \newpage{}
 
-\lhead[\thepage]{CAPÍTULO \thechapter. \rightmark}
+
+
+\tableofcontents{}
+\newpage{}
+
+
+
+% aqui definimos el encabezado de las paginas pares e impares.
+\lhead[\leftmark]{}
+\chead[]{}
+\rhead[]{\rightmark}
+\renewcommand{\headrulewidth}{0.1pt}
 \subfile{sections/01_introduccion}
 
 \subfile{sections/02_marcoTeorico}
