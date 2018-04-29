@@ -107,7 +107,22 @@
 
 	En lo que respecta al proceso de la toma de objetos actual, en el robot de servicio Justina, unicamente se utiliza la información de posición del objeto sin considerar la información de orientación. Este proceso es suceptible a fallas cuando se trata de objetos de grandes dimensiones, entiendase objetos con dimensiones mayores a la longitud total del efector final del manipulador en su mayor apertura. Por otro lado, puede presentar fallas con objetos de alturas reducidas, estos son objetos con alturas menores a la mitad de la longitud \textit{d} del manipulador pues ello índica una posible colisión con la superficie que soporta dicho objeto.\\
 
-	***Fotografías de ejemplificación de dimensiones exedidas y reducidas para objetos.\\	
+	\begin{figure}[H]
+	\hspace*{-0.5in}
+	\centering
+	\begin{subfigure}[t]{.55\textwidth}
+		\centering
+		\includegraphics[scale=0.20]{objs_real/bag_unsuccess.png}
+		\caption{Sin considerar información de orientación.}
+	\end{subfigure}%
+	\begin{subfigure}[t]{.55\textwidth}
+		\centering
+		\includegraphics[scale=0.20]{objs_real/bag_success.png}
+		\caption{Tomando en cuenta la información de orientación.}
+	\end{subfigure}
+	\caption{Fotografía de la tarea de manipualación para una bolsa de papel.}
+	\label{fig:grasp_task}
+	\end{figure}	
 
 	
 	\subsection{Pruebas de toma de objetos con información de orientación y dimensiones del objeto.}
@@ -115,6 +130,81 @@
 	Como parte de los desarrollos obtenidos de este trabajo, se adiciona la información de la orientación de los objetos, con la cuál se realizaron pruebas que nos lleven a verificiar si la adicción de esta información mejora significativamente la tarea de toma de objetos en el robot de servicio Justina.\\
 
 	Para ello, una vez realizada la segmentación del objeto en cuestión se procede a calcular el centroide del objeto, posteriormente se calcula la matriz de covarianzas de y se obtienen los vectores y valores característicos de la matriz, con lo cuál obtenemos los ejes que representan una aproximación a la orientación del objeto.\\ 
+
+	Con fines de obtener en conjunto de ángulos a en los cuales debe posicionarse el efector final del manipulador fue preciso realizar dos ordenamientos. El primer ordenamiento se realizó considerando la magnitud de los vectores característicos de la matriz de covarianzas. Posteriormente para cada uno de esos vectores se etiquetó en cual de los ejes coordenados del sistema de la base del robot sus proyeccciones eran mayores.\\
+
+	\IncMargin{1em}
+	\begin{algorithm}[H]
+		\SetKwData{Left}{left}\SetKwData{This}{this}\SetKwData{Up}{up}
+		\SetKwFunction{Union}{Union}\SetKwFunction{FindCompress}{FindCompress}
+		\SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
+		
+		\Input{Vectores principales del objeto}
+		\Output{Ángulos del efector final $roll (\phi), pitch(\theta), yaw(\psi) $}
+		\BlankLine
+	
+		$Inicializaci\acute{o}n$ de $variables$\;
+		$\phi   = 0$\;
+		$\theta = 0$\;
+		$\psi   = 0$\;
+		\BlankLine
+		\BlankLine
+
+		\SetAlgoLined
+		\SetKwProg{Def}{def}{:}{} 
+		\Def{ordenamiento vectores($\vec{v_1}, \vec{v_2},\vec{v_3}$)}
+		{
+			\textbf{return} $ list(\vec{v}_{mayor}, \vec{v}_{medio},\vec{v}_{menor}) $\;
+		}
+		\BlankLine
+		\BlankLine
+		\BlankLine
+
+		\SetAlgoLined
+		\SetKwProg{Def}{def}{:}{} 
+		\Def{etiquetado($\vec{v}$)}
+		{
+			\textbf{return} $\vec{v} \leftarrow x  \|  y  \|  z $\;
+		}
+		\BlankLine
+		\BlankLine
+		\BlankLine
+
+
+		\SetAlgoLined
+		\SetKwProg{Def}{def}{:}{} 
+		\Def{main($\vec{v_1}, \vec{v_2},\vec{v_3}$)}
+		{
+			$\vec{v} \leftarrow $ variable local\;
+			$\vec{v}_{mayor}, \vec{v}_{medio},\vec{v}_{menor} \leftarrow $ ordenamientoVectores($\vec{v_1}, \vec{v_2},\vec{v_3}$)\;
+			etiquetado($\vec{v}$)\;
+			\BlankLine
+
+			\eIf{$\vec{v}_{mayor} == "z"$}
+			{
+				roll  $\phi =$ 0\;
+				pitch $\theta =$ -90\;
+				yaw   $\psi = \arctan{ \dfrac{\vec{v}_{menor}.y }{ \vec{v}_{menor}.x} }$\;
+			}
+			{
+				roll  $\phi = \arctan{ \dfrac{\vec{v}_{menor}.y }{ \vec{v}_{menor}.x} }$\;
+				pitch $\theta =$ 0\;
+				yaw   $\psi =  $ 0\;
+		 	}
+
+			\textbf{return} $\phi, \theta, \psi$\;
+		}
+
+		\BlankLine
+		\BlankLine
+		\BlankLine
+
+		\caption{Cálculo de ángulos del efector final de un brazo manipulador con muñeca esférica}
+		\label{alg:angles}
+	\end{algorithm}\DecMargin{1em}
+
+
+	De esta manera la abstracción de la información que tenemos se basa en que sabemos cual es el mayor eje, su magnitud y la dirección a la cual apunta. De esta manera realizamos el siguiente criterio para determinar los ángulos de rotación del efector final.\\
 
 
 	\begin{figure}[H]

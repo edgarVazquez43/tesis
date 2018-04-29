@@ -193,73 +193,7 @@ Los principales parámetros que caracterizan a los robots industriales son:
 		%%\subsection{Características de las imágenes RGB-D}
 
 
-
-	\section{Algoritmo RANSAC}
-		\subsection{Algoritmo}
-		El algoritmo RANSAC (RANdom Sample And Consensus) fue introducido por primera vez por Fischler y Bolles en 1981, como un método para estimar los parámetros de un determinado modelo a partir de un conjunto de datos contaminados por grandes cantidades de outliers. Un dato es considerado un outlier si no encaja en el modelo propuesto, dentro de un umbral de error que define el valor máximo desviación atribuible al efecto del ruido.\\
-
-		RANSAC selecciona uniformemente al azar un subconjunto de muestras de datos y lo utiliza para crear un modelo de estimación de parámetros. Luego determina si las muestras que están dentro de una tolerancia de error del  modelo antes propuesto. Si estas muestras se consideran como parte del modelo generado se agrupan en un conjunto llamado \textit{consenso}. De manera análoga se llama \textit{outliers} al conjunto de tos que superan el umbral de error con respecto al modelo. Si el recuento de los datos agrupados en el consenso es suficientemente alto con respecto de los outliers, se considera que el modelo se ajusta al conjunto de datos, siendo el modelo propuesto un modelo que se aproxima al conjunto total de datos.\\
-
-		A continuación se muestra el seudocódigo básico para el algoritmo RANSAC.\\
-
-		
-		\noindent\fbox{
-		\begin{minipage}{1.0\textwidth}\scriptsize
-		\begin{algorithmic}
-			
-			\State{Parámetros:}
-			    \State{datos – conjunto de datos observados}
-			    \State{modelo – una propuesta de modelo que puede ajustar al conjunto de datos}
-			    \State{n – el número mínimo de datos con los cuales se considera un buen modelo}
-			    \State{k – el número máximo de iteraciones para algoritmo}
-			    \State{t – el valor del umbral que determinará si un punto se justa al modelo}\\
-
-			\State{Salidas:}
-			    \State{mejorAjuste – modelo encontrado con los parámetros o una variable vacía si no se encontró ningún modelo que justara.}\\
-
-			\State{Inicialización de variables:}
-			\State{iteraciones = 0}
-			\State{mejorModelo = vacío}
-			\State{mejorError = Algo realmente grande}\\
-			
-
-		
-			\While{ $iteraciones < k$}
-				\State{Generación del modelo a partir de datos aleatoriamente seleccionados.}
-			    \State{$modeloPropuesto = f(datos)$}
-			    \State{inliers = 0}
-
-			    \For{ cada punto \textbf{in} datos \textbf{ and not} en inliers }
-			    	\State{calcular error}
-			        \If{ punto ajusta en modeloPropuesto \textbf{with an} error $<$ \textbf{than} t}
-			            \State{añadir punto a inliers}
-			            \State{errorModelo = errorModelo + error }
-			        \EndIf{}
-			    \EndFor{}\\
-
-			    \If{ número de elementos \textbf{in} inliers $is > n$} 
-			        \State{\textit{esto significa que tenemos un buen modelo} }
-
-			        \State{\textit{Verificamos si el modelo calculado supera al mejor modelo calculado con anterioridad.} }
-			        \If{ errorModelo $<$ mejorError}
-			            \State{mejorAjuste = mejorModelo}
-			            \State{mejorError = errorModelo}
-			        \EndIf{}
-			    \EndIf{}
-			    
-			    \State{incrementamos iteraciones}
-			\EndWhile{}
-
-			\State{\textit{Llegamos al numero de iteraciones k y devolvemos el mejor modelo obtenido.}}\\
-
-			\State{\textbf{return} mejorAjuste}
-		\end{algorithmic}
-		
-		\end{minipage}
-		}
-
-
-		\subsection{Modelo matemático de un plano}
+	\subsection{Modelo matemático de un plano}
 		En matemáticas, un plano es una superficie plana, bidimensional que se extiende infinitamente. Un plano es el análogo bidimensional de un punto (dimensiones cero), una línea (una dimensión), el \textbf{plano} (dimensión dos) y un espacio tridimensional (volumenes).\\
 		
 		En un espacio euclidiano de cualquier número de dimensiones, un plano está determinado únicamente por cualquiera de los siguientes enuncinados:\\
@@ -359,6 +293,83 @@ Los principales parámetros que caracterizan a los robots industriales son:
 			D = | ax_1 + by_1 + cz_1 + d |
 			\end{split}
 		\end{equation}
+
+
+
+	\section{Algoritmo RANSAC}
+		\subsection{Algoritmo}
+		El algoritmo RANSAC (RANdom Sample And Consensus) fue introducido por primera vez por Fischler y Bolles en 1981, como un método para estimar los parámetros de un determinado modelo a partir de un conjunto de datos contaminados por grandes cantidades de outliers. Un dato es considerado un outlier si no encaja en el modelo propuesto, dentro de un umbral de error que define el valor máximo desviación atribuible al efecto del ruido.\\
+
+		RANSAC selecciona uniformemente al azar un subconjunto de muestras de datos y lo utiliza para crear un modelo de estimación de parámetros. Luego determina si las muestras que están dentro de una tolerancia de error del  modelo antes propuesto. Si estas muestras se consideran como parte del modelo generado se agrupan en un conjunto llamado \textit{consenso}. De manera análoga se llama \textit{outliers} al conjunto de tos que superan el umbral de error con respecto al modelo. Si el recuento de los datos agrupados en el consenso es suficientemente alto con respecto de los outliers, se considera que el modelo se ajusta al conjunto de datos, siendo el modelo propuesto un modelo que se aproxima al conjunto total de datos.\\
+
+		A continuación se muestra el seudocódigo básico para el algoritmo RANSAC.\\
+
+		\IncMargin{1em}
+		\begin{algorithm}[H]
+		\SetKwData{Left}{left}\SetKwData{This}{this}\SetKwData{Up}{up}
+		\SetKwFunction{Union}{Union}\SetKwFunction{FindCompress}{FindCompress}
+		\SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
+		
+		\Input{Nude de puntos organizada}
+		\Output{Modelo del plano}
+		\BlankLine
+		
+		\textbf{Condiciones iniciales}\;
+		$n \leftarrow$ numero mínimo de puntos para considerar un modelo aceptable\;
+		$t \leftarrow$ distancia máxima aceptable para considera un punto dentro del modelo\;
+		$errorModelo \leftarrow$ error acumulado de cada uno de los puntos al modelo propuesto\;
+		\BlankLine
+		$Inicializaci\acute{o}n$ de $variables$\;
+		$iteraciones = 0$\;
+		$mejorModelo = vacio$\;
+		$errorModelo =$ Algo realmente grande\;
+		
+		\BlankLine
+		\BlankLine
+		
+		\While{ $iteraciones < k$}{
+			Generación del modelo a partir de datos aleatoriamente seleccionados\;
+		    $modeloPropuesto = f(datos)$\;
+		    $modeloPropuesto = rand(datos)$\;
+		    modeloPropuesto $\leftarrow$ $f(p_1, p_2, p_3)$\;
+		    
+
+		    $inliers = 0$\;
+		    $n = 800$\;
+
+		    \For{ cada punto \textbf{in} datos \textbf{ and not} en inliers }
+		    {
+		    	calcular error - Con la distancia de un punto al plano\;
+		    	error $= \dfrac{| ax_1 + by_1 + cz_1 + d |}{\sqrt{a^2 + b^2 + c^2}}$\;
+		        \If{ punto ajusta en modeloPropuesto \textbf{with an} error $<$ \textbf{than} t}
+		        {
+		            $inliers \leftarrow punto$\;
+		            $errorModelo = errorModelo + error$\;
+		        }
+		    }
+		    \If{ número de elementos \textbf{in} inliers $is > n$} 
+		    {
+		        \textit{esto significa que tenemos un buen modelo} \;
+
+		        \textit{Verificamos si el modelo calculado supera al mejor modelo calculado con anterioridad.}\;
+		        \If{ errorModelo $<$ menorError}
+		        {
+		            mejorAjuste = mejorModelo\;
+		            menorError = errorModelo\;
+		        }
+		    }
+		    incrementamos iteraciones\;
+		}
+		\BlankLine
+		\BlankLine
+
+		\emph{Llegamos al numero de iteraciones k y devolvemos el mejor modelo obtenido}\;
+		\textbf{return} mejorAjuste\;
+		\caption{RANSAC para obtener modelo del plano}\label{ransacPlane}
+		\end{algorithm}\DecMargin{1em}
+
+		
+		
 
 
 	\section{Algoritmo PCA}

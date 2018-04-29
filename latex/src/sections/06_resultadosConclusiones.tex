@@ -121,11 +121,9 @@ Se describirá conforme al desarrollo de este estrabajo.
 
 
 	\subsection{Comparación exactitud y rapidez}
-	Para este conjunto de pruebas se comparó el algoritmo desarrollado en el presente trabajo contra el implementado acualmente en el robot de servicio Justina. Reportado en el trabajo de tesis Jesus Cruz Navarro. [**REFFF].\\
+	Para este conjunto de pruebas se comparó el algoritmo desarrollado en el presente trabajo contra el implementado acualmente en el robot de servicio Justina. Reportado en el trabajo de tesis Jesus Cruz Navarro.\cite{cruz2016detection}\\
 
 	Las pruebas se desarrollaron de la siguiente manera. Con la estructura de comunicación que permite ROS se implementaron dos servicios para encontrar planos: el desarrollado en este trabajo de tesis y el algortimo ya implementado. Se obtuvo la información de profundidad con el sensor RGB-D Kinect está infromación de compartió a traves de un tópico al cual ambos servicios se encontraban suscritos. De esta manera nos aseguramos de contar con la misma información en ambos algoritmos para poner a prueba la velocidad de ejecución y la precisión de algortimo.\\
-
-	***Librería en C para medir obtener pulsos de reloj.\\
 
 
 	En cuanto a la medidad de precisión del algoritmo continuamos suponiendo un plano horizontal del cual conocemos su altura; por tanto podemos conocer la ecuación del plano horizontal a esa altura. Probamos el algortimo para ese modelo y observamos la cantidad de puntos que entran en ese modelo, tomando este resultado como el ideal. Posteriormente se pusieron en funcionamiento ambos algoritmos midiendo la cantidad de puntos en los modelos obtenidos y comparadolos con el número de puntos ideal. Este evento se iteró una cantidad aproximada de 80 veces.\\
@@ -286,42 +284,42 @@ Se describirá conforme al desarrollo de este estrabajo.
 		Este vector apuntaría en la direccción $y$ o $-y$ para un caso ideal en que el ángulo del objeto fuera de cero grados con respecto del eje $y$ del robot. en este punto se realiza un acotamiento para que dicho vector apunte hacia el eje $y$ del robot, posteriormente se calcula el ángulo de rotación por medio del producto punto que existe entre el ángulo del vector estimado para el objeto y el vector que apunta en la dirección del vector unitario $y$ del robot.\\
 
 
-		\newpage
+		%\newpage
 		\subsection{Pruebas para objetos a 0 grados}
 
 		Los resultados que se obtuvieron de la prueba antes mencionada, se muestran en las gráficas posteriores en este documento. 
 
 		\begin{figure}[H]
 			\centering
-			\includegraphics[scale=0.45]{resultados/angulos_cereal.png}
+			\includegraphics[scale=0.40]{resultados/angulos_cereal.png}
 			\caption{Gráficas de estímaciones de ángulos para una caja de cereal con orientación de 0 grados respecto al eje $y$ del robot.}
 			\label{fig:mesh1}
 		\end{figure}
 
 		\begin{figure}[H]
 			\centering
-			\includegraphics[scale=0.45]{resultados/angulos_jugo.png}
+			\includegraphics[scale=0.40]{resultados/angulos_jugo.png}
 			\caption{Gráficas de estímaciones de ángulos para una caja de jugo con orientación de 0 grados respecto al eje $y$ del robot.}
 			\label{fig:mesh1}
 		\end{figure}
 
 		\begin{figure}[H]
 			\centering
-			\includegraphics[scale=0.45]{resultados/angulos_milk.png}
+			\includegraphics[scale=0.40]{resultados/angulos_milk.png}
 			\caption{Gráficas de estímaciones de ángulos para una caja de leche con orientación de 0 grados respecto al eje $y$ del robot.}
 			\label{fig:mesh1}
 		\end{figure}
 
 		\begin{figure}[H]
 			\centering
-			\includegraphics[scale=0.45]{resultados/angulos_joystick.png}
+			\includegraphics[scale=0.40]{resultados/angulos_joystick.png}
 			\caption{Gráficas de estímaciones de ángulos para un control de videojuegos con orientación de 0 grados respecto al eje $y$ del robot.}
 			\label{fig:mesh1}
 		\end{figure}
 
 		\begin{figure}[H]
 			\centering
-			\includegraphics[scale=0.45]{resultados/angulos_chocolate.png}
+			\includegraphics[scale=0.40]{resultados/angulos_chocolate.png}
 			\caption{Gráficas de estímaciones de ángulos para una barra de chocolate con orientación de 0 grados respecto al eje $y$ del robot.}
 			\label{fig:mesh1}
 		\end{figure}
@@ -335,35 +333,35 @@ Se describirá conforme al desarrollo de este estrabajo.
 
 		\begin{figure}[H]
 			\centering
-			\includegraphics[scale=0.45]{resultados/angulos_cereal_45.png}
+			\includegraphics[scale=0.40]{resultados/angulos_cereal_45.png}
 			\caption{Gráficas de estímaciones de ángulos para una caja de cereal con orientación de 45 grados respecto al eje $y$ del robot.}
 			\label{fig:mesh1}
 		\end{figure}
 
 		\begin{figure}[H]
 			\centering
-			\includegraphics[scale=0.45]{resultados/angulos_jugo_45.png}
+			\includegraphics[scale=0.40]{resultados/angulos_jugo_45.png}
 			\caption{Gráficas de estímaciones de ángulos para una caja de jugo con orientación de 45 grados respecto al eje $y$ del robot.}
 			\label{fig:mesh1}
 		\end{figure}
 
 		\begin{figure}[H]
 			\centering
-			\includegraphics[scale=0.45]{resultados/angulos_milk_45.png}
+			\includegraphics[scale=0.40]{resultados/angulos_milk_45.png}
 			\caption{Gráficas de estímaciones de ángulos para una caja de leche con orientación de 45 grados respecto al eje $y$ del robot.}
 			\label{fig:mesh1}
 		\end{figure}
 
 		\begin{figure}[H]
 			\centering
-			\includegraphics[scale=0.45]{resultados/angulos_joystick_45.png}
+			\includegraphics[scale=0.40]{resultados/angulos_joystick_45.png}
 			\caption{Gráficas de estímaciones de ángulos para un control de videojuegos con orientación de 45 grados respecto al eje $y$ del robot.}
 			\label{fig:mesh1}
 		\end{figure}
 
 		\begin{figure}[H]
 			\centering
-			\includegraphics[scale=0.45]{resultados/angulos_chocolate_45.png}
+			\includegraphics[scale=0.40]{resultados/angulos_chocolate_45.png}
 			\caption{Gráficas de estímaciones de ángulos para una barra de chocolate con orientación de 45 grados respecto al eje $y$ del robot.}
 			\label{fig:mesh1}
 		\end{figure}
@@ -376,35 +374,35 @@ Se describirá conforme al desarrollo de este estrabajo.
 		\subsection{Pruebas para objetos a 90 grados}
 		\begin{figure}[H]
 			\centering
-			\includegraphics[scale=0.45]{resultados/angulos_cereal_90.png}
+			\includegraphics[scale=0.40]{resultados/angulos_cereal_90.png}
 			\caption{Gráficas de estímaciones de ángulos para una caja de cereal con orientación de 90 grados respecto al eje $y$ del robot.}
 			\label{fig:mesh1}
 		\end{figure}
 
 		\begin{figure}[H]
 			\centering
-			\includegraphics[scale=0.45]{resultados/angulos_jugo_90.png}
+			\includegraphics[scale=0.40]{resultados/angulos_jugo_90.png}
 			\caption{Gráficas de estímaciones de ángulos para una caja de jugo con orientación de 90 grados respecto al eje $y$ del robot.}
 			\label{fig:mesh1}
 		\end{figure}
 
 		\begin{figure}[H]
 			\centering
-			\includegraphics[scale=0.45]{resultados/angulos_milk_90.png}
+			\includegraphics[scale=0.40]{resultados/angulos_milk_90.png}
 			\caption{Gráficas de estímaciones de ángulos para una caja de leche con orientación de 90 grados respecto al eje $y$ del robot.}
 			\label{fig:mesh1}
 		\end{figure}
 
 		\begin{figure}[H]
 			\centering
-			\includegraphics[scale=0.45]{resultados/angulos_joystick_90.png}
+			\includegraphics[scale=0.40]{resultados/angulos_joystick_90.png}
 			\caption{Gráficas de estímaciones de ángulos para un control de videojuegos con orientación de 90 grados respecto al eje $y$ del robot.}
 			\label{fig:mesh1}
 		\end{figure}
 
 		\begin{figure}[H]
 			\centering
-			\includegraphics[scale=0.45]{resultados/angulos_chocolate_90.png}
+			\includegraphics[scale=0.40]{resultados/angulos_chocolate_90.png}
 			\caption{Gráficas de estímaciones de ángulos para una barra de chocolate con orientación de 90 grados respecto al eje $y$ del robot.}
 			\label{fig:mesh1}
 		\end{figure}
@@ -426,43 +424,51 @@ Se describirá conforme al desarrollo de este estrabajo.
 
 	\subsection{Tiempo de ejecución para diferentes algoritmos de cinemática inversa.}
 
+	En esta sección se reportan los resultados obtenidos de evaluar la función de costo para los respectivos algoritmos del cálculo de la cinemática inversa. En la figura \ref{fig:successIK} se muestran los resultados del tiempo de ejecución para en el caso en que ambos algoritmos encontraron una solución. Notamos que no difieren más de 1 [ms], por tanto es un tiempo de ejecución aceptable.\\
+
+	Por otro lado, en la figura \ref{fig:unsuccessIK} se reportan los tiempos de ejecución en el caso que los algoritmos no encotraron una solución. Podemos observar en el caso del algoritmo iterativo que supera un tiempo de 3[s] aproximadamente. Lo cual es totalmente inconveniente si lo que se requiere es velocidad de respuesta.\\
+
 	\begin{figure}[H]
 		\centering
-		\includegraphics[scale=0.45]{resultados/success_IKcalculate.png}
+		\includegraphics[scale=0.50]{resultados/success_IKcalculate.png}
 		\caption{Gráfica de tiempo de ejecución para el cálculo de la cinemática inversa por metodo geométrico(rojo) y por método númerico (azul). Caso de solución encontrada.}
-		\label{fig:mesh1}
+		\label{fig:successIK}
 	\end{figure}
 
 	\begin{figure}[H]
 		\centering
-		\includegraphics[scale=0.45]{resultados/unsuccess_IKcalculate.png}
-		\caption{Gráfica de tiempo de ejecución para el cálculo de la cinemática inversa por metodo geométrico(rojo) y por método númerico (azul). Caso de solución no encontrada.}
-		\label{fig:mesh1}
+		\includegraphics[scale=0.50]{resultados/unsuccess_IKcalculate.png}
+		\caption{Gráfica de tiempo de ejecución para el cálculo de la cinemática inversa por metodo geométrico(rojo) y por método númerico (azul). Caso de \textbf{solución no encontrada.} } 
+		\label{fig:unsuccessIK}
 	\end{figure}
 
 	
 
 	\subsection{Prueba de robustez y evalución del valor de la funcion de costo.}
 
-	\begin{figure}[H]
-		\centering
-		\includegraphics[scale=0.45]{resultados/hist_valor_costFunction.png}
-		\caption{Gráficas de estímaciones de ángulos para una barra de chocolate con orientación de 90 grados respecto al eje $y$ del robot.}
-		\label{fig:mesh1}
-	\end{figure}
+	Otra de las pruebas que se realizaron con la finalidad de comparar los algoritmos de cálculo de cinemática inversa fue la evaluación de una función de costo. Esta fucnión esta planteada en terminos de un mínimo consumo energético. En la figura \ref{fig:funcCost} se muestra el valor resultante de evaluar la función (4.14) para diferentes puntos cartesianos.\\ 
+
+	En gráfica \ref{fig:histFuncCost} se muestra la cantidad de ocasiones en que fue menor el valor de dica función para cada uno de los algoritmos. De lo cual observamos que el método geométrico obtivo un menor valor en 59 ocasiones, por otro lado el algoritmo iterativo solo obtuvo un menor valor en 4 ocasiones. Estas pruebas se realizaron un total de 150 ocasiones, en las cuales el algoritmo iterativo solo encontró solución 63 ocasiones, como se muestra en la figura \ref{fig:iIKsuccess}.\\
 
 	\begin{figure}[H]
 		\centering
 		\includegraphics[scale=0.45]{resultados/valor_costFunction.png}
-		\caption{Gráficas de estímaciones de ángulos para una barra de chocolate con orientación de 90 grados respecto al eje $y$ del robot.}
-		\label{fig:mesh1}
+		\caption{Gráficas comparativa de la función de costo para diferentes algoritmos de la cinemática inversa.}
+		\label{fig:funcCost}
+	\end{figure}
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale=0.45]{resultados/hist_valor_costFunction.png}
+		\caption{.}
+		\label{fig:histFuncCost}
 	\end{figure}
 
 	\begin{figure}[H]
 		\centering
 		\includegraphics[scale=0.45]{resultados/histograma_success.png}
 		\caption{Gráficas de estímaciones de ángulos para una barra de chocolate con orientación de 90 grados respecto al eje $y$ del robot.}
-		\label{fig:mesh1}
+		\label{fig:iIKsuccess}
 	\end{figure}
 
 
@@ -472,31 +478,38 @@ Se describirá conforme al desarrollo de este estrabajo.
 %%%%%%%%%% PRUEBAS GRASPEO CON DIFERENTES INFORMACIONES %%%%%%%%%%%%
 	\section{Pruebas de manipulación con el robot real}
 
-	Como reporte último de las pruebas, se realizaron pruebas fisicas con el robot de servicio Justina. Para tener una prueba estadistica que pueda servir de compración se realizaron un total de 35 eventos, divididos en 5 repeticiones para 5 objetos. Los objetos con los cuales se realizaon las pruebas fueron: una caja de cereal, un envase de jugo, un envase de bebida lactea, un control de videojuegos, una barra de chocolate, un libro y una bolsa de cartón.\\
+	Como reporte último de las pruebas, se realizaron pruebas físicas con el robot de servicio Justina. Para tener una prueba estadistica que pueda servir de compración se realizaron un total de 70 eventos, divididos en 10 repeticiones para 6 objetos. Los objetos con los cuales se realizaon las pruebas fueron: una caja de cereal, un envase de jugo, un envase de bebida lactea, un control de videojuegos, una barra de chocolate, un libro y una bolsa de cartón.\\
 
-	Las orientaciones de los objetos en cada uno de los eventos fueron posicione aleatorias. Esto con el fin de poner a prueba las caracteristicas de presición en la orientación de los objetos para este algoritmo.\\
+	Las orientaciones de los objetos en cada uno de los eventos fueron posiciones aleatorias. Esto con el fin de poner a prueba las características de presición en la orientación de los objetos para este algoritmo.\\
 	
 
 	En la primer parte de la prueba se realizó la toma de objetos sin considerar la información de la orientación. Y en la segunda fase se realizaon las respectivas pruebas considerando la información de la orientación.\\
 
+	\begin{figure}[H]
+		\hspace*{-0.3in}
+		\centering
+		\begin{subfigure}[t]{.55\textwidth}
+			\centering
+			\includegraphics[scale=0.17]{objs_real/juice_success_1.png}
+			\caption{Caja de jugo.}
+		\end{subfigure}%
+		\begin{subfigure}[t]{.55\textwidth}
+			\centering
+			\includegraphics[scale=0.22]{objs_real/cereal_bag_1.png}
+			\caption{Cereal.}
+		\end{subfigure}
+		\caption{Robot Justina realizando la tarea de manipulación con información de orientación.}
+		\label{fig:maniOrientation}
+		\end{figure}
 
-	****Imagenes objetos.\\
-
-	Los resultados se muestran en una tabla de éxitos contra fracasos para cada una de las implemetaciones.\\
-
-
-
-		\subsection{Pruebas de manipulación actual.}
-
-	***Imagenes representativas de los resultados.\\
-		
-
-
-	Esto para cada uno de los algoritmos con los cuales se cuenta.
+	Los resultados se muestran en una tabla de éxitos contra fracasos para cada una de las implemetaciones. Posteriormenete se muestra la gráfica \ref{fig:exitos-fracasos} donde se refleja el porcentaje de éxitos para la tarea de toma de objetos.\\
 
 	\begin{table}[H]
 		\centering
 		\begin{tabular}{ |p{2.8cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|  }
+		\hline
+		\multicolumn{11}{|c|}{\textbf{Pruebas de manipulación sin considerar  } }\\
+		\multicolumn{11}{|c|}{\textbf{información de orientación (Estado actual) } }\\
 		 \hline
 		 & \multicolumn{10}{|c|}{\textbf{Eventos} }\\
 		 \hline
@@ -515,20 +528,17 @@ Se describirá conforme al desarrollo de este estrabajo.
 		 Bolsa de cartón  & $\times$ & $\times$ & $\times$ & $\times$ & $\bigtriangleup$ & $\times$ & $\times$ & $\times$ & $\times$ & $\times$\\
 		 \hline
 		\end{tabular}
-		\caption{Tabla de resultados de la prueba T a medidas repetidas.}
+		\caption{Tabla de éxitos-fracasos para la tarea de manipulación de objetos \textbf{(Sin información de orientación)}.}
 		\label{t_test:1}
 	\end{table}
 
 
-
-	****Gráficas de eventos, reslatando exitos-fracacsos
-
-
-		\subsection{Pruebas de manipulación con información de la orientación.}
-
 	\begin{table}[H]
 		\centering
 		\begin{tabular}{ |p{2.8cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|  }
+		\hline
+		\multicolumn{11}{|c|}{\textbf{Pruebas de manipulación con información } }\\
+		\multicolumn{11}{|c|}{\textbf{ de orientación (Implementación) } }\\
 		 \hline
 		 & \multicolumn{10}{|c|}{\textbf{Eventos} }\\
 		 \hline
@@ -547,17 +557,19 @@ Se describirá conforme al desarrollo de este estrabajo.
 		 Bolsa de cartón  & $\bigtriangleup$ & $\bigtriangleup$ & $\times$ & $\bigtriangleup$ & $\bigtriangleup$ & $\bigtriangleup$ & $\times$ & $\bigtriangleup$ & $\bigtriangleup$ & $\bigtriangleup$\\
 		 \hline
 		\end{tabular}
-		\caption{Tabla de resultados de la prueba T a medidas repetidas.}
+		\caption{Tabla de éxitos-fracasos para la tarea de manipulación de objetos \textbf{(Con información de orientación)}}
 		\label{t_test:1}
 	\end{table}
 
-	***Imagenes representativas de los resultados.\\
+		
 
-
-	****Gráficas de eventos, reslatando exitos-fracacsos\\
-
-	**** Pruebas T y resultados
-
+	\begin{figure}[H]
+	\hspace*{-0.3in}
+	\centering
+	\includegraphics[scale=0.45]{resultados/exitos_graspTask.png}
+	\caption{Gráfica comparativa de éxitos fracasos con información de orientación y sin información de la orientación de los oobjetos.}
+	\label{fig:exitos-fracasos}
+	\end{figure}
 
 
 
@@ -569,8 +581,14 @@ Se describirá conforme al desarrollo de este estrabajo.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%		Conclusiones           %%%%%%%%%%%%%%%%%%%%%
-\chapter{Conclusiones} 
+\chapter{Conclusiones y trabajo futuro}
+
+\section{Conclusiones} 
 	Partiendo de la información obtenida de los resultados podemos concluir que un algoritmo RANSAC con un umbral de 0.02 [m] y un número de 1000 iteraciones nos ayudará a encontrar la ecuación de un plano así como una lista de puntos pertenecientes al mismo. Esta impletenación tomará 8 veces más tiempo que la implementación actual pero reducirá el error relativo respecto al modelo real de un 39.9\% al 8.83\%.\\
 
+	El análisis de componentes principales aplicado a nubes de puntos de objetos segmentados ayuda a cálcular el ángulo de orientación de un objeto sobre el plano.\\
+
+	Inlcuir información sobre la orientación de los objetos a la tarea de manipulación mejora de un 21.4\% a un 72.8\%. Por lo tanto podemos decir que inluir esta información mejora significativamenta la tarea de manipulación para un robot de servicio con un manipulador de 7DOF como Justina.\\   
 
 
+\section{Trabajo futuro}

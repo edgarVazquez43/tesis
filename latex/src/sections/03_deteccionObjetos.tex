@@ -149,39 +149,56 @@ En este capítulo se aborda el desarrollo de los algoritmos para la detección y
 
 			Para realizar el cálculo de la media se cuantifico el número de puntos pertenecientes al objeto, $(n)$. Posteriormente, para todos los puntos pertenecientes al conjunto $n$ se sumaron sus valores en $\bar{X}, \bar{Y}, \bar{Z}$, respectivamente. Y posteriormente se dividieron entre $n$.\\
 
-			\noindent\fbox
-			{
-			\begin{minipage}{1.0\textwidth}\small
-			\begin{algorithmic}
+		\IncMargin{1em}
+		\begin{algorithm}[H]
+		\SetKwData{Left}{left}\SetKwData{This}{this}\SetKwData{Up}{up}
+		\SetKwFunction{Union}{Union}\SetKwFunction{FindCompress}{FindCompress}
+		\SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
 		
+		\Input{Nude de puntos organizada perteneciente al objeto segmentado}
+		\Output{$ \bar{X},  \bar{Y}, \bar{Z}$}
+		\BlankLine
+	
+		$Inicializaci\acute{o}n$ de $variables$\;
+		$\bar{X} = 0$\;
+		$\bar{Y} = 0$\;
+		$\bar{Z} = 0$\;
+		\BlankLine
+		\BlankLine
+	
 
-				    \For{ cada punto \textbf{in} datos}
-				    	\State{$X_{total} = X_{total} + dato_{x}$}
-				    	\State{$Y_{total} = Y_{total} + dato_{y}$}
-				    	\State{$X_{total} = X_{total} + dato_{z}$}
-				    \EndFor{}\\
-				    	\State{$\bar{X} = \dfrac{X_{total} } {n} $}\\
-				    	\State{$\bar{Y} = \dfrac{Y_{total} } {n} $}\\
-				    	\State{$\bar{X} = \dfrac{X_{total} } {n} $}\\
+	    \For{ cada punto \textbf{in} datos(objeto)}
+		{
+			$X_{total} = X_{total} + dato_{x}$\;
+			$Y_{total} = Y_{total} + dato_{y}$\;
+			$Z_{total} = Z_{total} + dato_{z}$\;
+		}
+		\BlankLine
+		
+		$\bar{X} = \dfrac{X_{total} } {n} $\;
+		$\bar{Y} = \dfrac{Y_{total} } {n} $\;
+		$\bar{Z} = \dfrac{Z_{total} } {n} $\;
+		\BlankLine
+		\BlankLine
 
-				\State{\textbf{return} $P(\bar{X}, \bar{Y}, \bar{Z})$}
-			\end{algorithmic}
-			
-			\end{minipage}
-			}
+		\textbf{return} $P(\bar{X}, \bar{Y}, \bar{Z})$\;
+		\caption{Cálculo del centroide de un objeto basado en nubes de puntos}
+		\label{centroide}
+		\end{algorithm}\DecMargin{1em}
 
-			%%Ïmagen centroides Rviz.
-			\begin{figure}[h!]
-				\begin{subfigure}[h]{.5\textwidth}
-				\centering
-				\includegraphics[width=3.5cm, height=5.0cm]{objs/centroid3.png}	
-				\end{subfigure}%
-				\begin{subfigure}[h]{.5\textwidth}
-				\centering
-				\includegraphics[width=6.0cm, height=3.5cm]{objs/centroid5.png}
-				\end{subfigure}
-			\caption{Segmentación de un objeto y su correspondiente centroide (punto verde).}
-			\end{figure}
+
+		%%Ïmagen centroides Rviz.
+		\begin{figure}[h!]
+			\begin{subfigure}[h]{.5\textwidth}
+			\centering
+			\includegraphics[width=3.5cm, height=5.0cm]{objs/centroid3.png}	
+			\end{subfigure}%
+			\begin{subfigure}[h]{.5\textwidth}
+			\centering
+			\includegraphics[width=6.0cm, height=3.5cm]{objs/centroid5.png}
+			\end{subfigure}
+		\caption{Segmentación de un objeto y su correspondiente centroide (punto verde).}
+		\end{figure}
 			
 
 		\subsection{Cálculo de la matriz de covarianza}
