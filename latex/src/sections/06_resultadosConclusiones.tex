@@ -23,17 +23,14 @@ Se describirá conforme al desarrollo de este estrabajo.
 
 
 	\item{Espacio de trabajo del algoritmo númerico.}
-	\item{Prueba de tarea de manipulación con adición de la información de dimensiones.}
 	\item{Comparación tarea de manipulación utilizando información de orientación de los objetos.}
 \end{enumerate}
 
 
 
-
-
+\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%		EXTRACCIÓN DE PLANOS           %%%%%%%%%%%%%%%%%%%%%
-
 	\section{Extracción de planos.}
 
 	En esta sección analizaremos los resultados obtenidos al probar el algoritmo RANSAC para encontrar planos modificando el numero de iteraciones. Observaremos el comportamiento del error y el tiempo de ejecución a fin de encontrar el número óptimo de iteraciones para este algoritmo.\\
@@ -44,11 +41,9 @@ Se describirá conforme al desarrollo de este estrabajo.
 
 
 	\begin{figure}[H]
-		\begin{minipage}{18cm}	
-		\hspace*{-1.0in}
-		\includegraphics[width=18.0cm, height=12.0cm]{resultados/ransac_600}	
+		\begin{minipage}{18cm}
+		\includegraphics[width=16.0cm, height=9.0cm]{resultados/ransac_600}	
 		\end{minipage}
-		
 		\begin{center}
 		\caption{Gráfica correspondiente al error relativo para el algoritmo RANSAC para detección de planos con 600 iteraciones.}
 		\end{center}
@@ -56,54 +51,44 @@ Se describirá conforme al desarrollo de este estrabajo.
 	
 	\begin{figure}[H]
 		\begin{minipage}{18cm}	
-		\hspace*{-1.0in}
-		\includegraphics[width=18.0cm, height=12.0cm]{resultados/ransac_200}	
+		\includegraphics[width=16.0cm, height=9.0cm]{resultados/ransac_200}	
 		\end{minipage}
-		
 		\begin{center}
 		\caption{Gráficas correspondientes al error relativo y tiempo de ejecución para el algoritmo RANSAC con 200 iteraciones.}
 		\end{center}
 	\end{figure}
 
 	\begin{figure}[H]
-		\begin{minipage}{18cm}	
-		\hspace*{-1.0in}
-		\includegraphics[width=18.0cm, height=12.0cm]{resultados/ransac_100}
+		\begin{minipage}{18cm}
+		\includegraphics[width=16.0cm, height=9.0cm]{resultados/ransac_100}
 		\end{minipage}
-		
 		\begin{center}
 		\caption{Gráficas correspondientes al error relativo y tiempo de ejecución para el algoritmo RANSAC con 100 iteraciones.}
 		\end{center}
 	\end{figure}
 
 	\begin{figure}[H]
-		\begin{minipage}{18cm}	
-		\hspace*{-1.0in}
-		\includegraphics[width=18.0cm, height=12.0cm]{resultados/ransac_50}
+		\begin{minipage}{18cm}
+		\includegraphics[width=16.0cm, height=9.0cm]{resultados/ransac_50}
 		\end{minipage}
-		
 		\begin{center}
 		\caption{Gráficas correspondientes al error relativo y tiempo de ejecución para el algoritmo RANSAC con 50 iteraciones.}
 		\end{center}
 	\end{figure}
 
 	\begin{figure}[H]
-		\begin{minipage}{18cm}	
-		\hspace*{-1.0in}
-		\includegraphics[width=18.0cm, height=12.0cm]{resultados/ransac_30}
+		\begin{minipage}{18cm}
+		\includegraphics[width=16.0cm, height=9.0cm]{resultados/ransac_30}
 		\end{minipage}
-		
 		\begin{center}
 		\caption{Gráficas correspondientes al error relativo y tiempo de ejecución para el algoritmo RANSAC con 30 iteraciones.}
 		\end{center}
 	\end{figure}
 
 	\begin{figure}[H]
-		\begin{minipage}{18cm}	
-		\hspace*{-1.0in}
-		\includegraphics[width=18.0cm, height=12.0cm]{resultados/ransac_24}
+		\begin{minipage}{18cm}
+		\includegraphics[width=16.0cm, height=9.0cm]{resultados/ransac_24}
 		\end{minipage}
-
 		\begin{center}
 		\caption{Gráficas correspondientes al error relativo y tiempo de ejecución para el algoritmo RANSAC con 24 iteraciones.}
 		\end{center}
@@ -111,10 +96,8 @@ Se describirá conforme al desarrollo de este estrabajo.
 
 	\begin{figure}[H]
 		\begin{minipage}{18cm}	
-		\hspace*{-1.0in}
-		\includegraphics[width=18.0cm, height=12.0cm]{resultados/ransac_20}
+		\includegraphics[width=16.0cm, height=9.0cm]{resultados/ransac_20}
 		\end{minipage}
-
 		\begin{center}
 		\caption{Gráficas correspondientes al error relativo y tiempo de ejecución para el algoritmo RANSAC con 20 iteraciones.}
 		\end{center}
@@ -123,8 +106,7 @@ Se describirá conforme al desarrollo de este estrabajo.
 	Una vez que se obtuvo la información parcial de cada uno de estos eventos se realizó una tabla extra que agrupa la información del tiempo de ejecución promedio y el error relativo promedio contra el número de iteraciones del algoritmo. Se obtuvo la siguiente gráfica.\\
 
 	\begin{figure}[H]
-		\begin{minipage}{18cm}	
-		\hspace*{-0.6in}
+		\begin{minipage}{18cm}
 		\includegraphics[width=16.0cm, height=12.0cm]{resultados/ransac_final}
 		\end{minipage}
 
@@ -181,6 +163,8 @@ Se describirá conforme al desarrollo de este estrabajo.
 
 
 
+
+\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%     CARACTERISTICAS OBJETOS          %%%%%%%%%%%%%%%%%%%%%
 	\section{Extracción de objetos y sus características}
@@ -280,6 +264,8 @@ Se describirá conforme al desarrollo de este estrabajo.
 
 
 
+
+\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%% Cálculo de las orientaciones  %%%%%%%%%%%%%%%%%%%%
 	\section{Cálculo de la orientación del objeto.}
@@ -300,6 +286,7 @@ Se describirá conforme al desarrollo de este estrabajo.
 		Este vector apuntaría en la direccción $y$ o $-y$ para un caso ideal en que el ángulo del objeto fuera de cero grados con respecto del eje $y$ del robot. en este punto se realiza un acotamiento para que dicho vector apunte hacia el eje $y$ del robot, posteriormente se calcula el ángulo de rotación por medio del producto punto que existe entre el ángulo del vector estimado para el objeto y el vector que apunta en la dirección del vector unitario $y$ del robot.\\
 
 
+		\newpage
 		\subsection{Pruebas para objetos a 0 grados}
 
 		Los resultados que se obtuvieron de la prueba antes mencionada, se muestran en las gráficas posteriores en este documento. 
@@ -340,9 +327,10 @@ Se describirá conforme al desarrollo de este estrabajo.
 		\end{figure}
 
 
+
+		\newpage
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		% PRUEBAS A 45 GRADOS %
-
 		\subsection{Pruebas para objetos a 45 grados}
 
 		\begin{figure}[H]
@@ -381,9 +369,10 @@ Se describirá conforme al desarrollo de este estrabajo.
 		\end{figure}
 
 
+
+		\newpage
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		%%%%%%%%%%%%%%         PRUEBAS A 90 GRADOS       %%%%%%%%%%%%%%%
-
 		\subsection{Pruebas para objetos a 90 grados}
 		\begin{figure}[H]
 			\centering
@@ -425,7 +414,7 @@ Se describirá conforme al desarrollo de este estrabajo.
 
 
 
-
+\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%% PRUEBAS DE GRASPEO CON INFORMACIÓN DEL ÁREA DE TRABAJO  %%%%%%%%%%%%
 	\section{Tiempo de ejecución para diferentes algoritmos de cinemática inversa.}
@@ -477,6 +466,8 @@ Se describirá conforme al desarrollo de este estrabajo.
 	\end{figure}
 
 
+
+\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%% PRUEBAS GRASPEO CON DIFERENTES INFORMACIONES %%%%%%%%%%%%
 	\section{Pruebas de manipulación con el robot real}
@@ -547,9 +538,9 @@ Se describirá conforme al desarrollo de este estrabajo.
 		 \hline
 		  Leche  & $\bigtriangleup$ & $\bigtriangleup$ & $\bigtriangleup$ & $\times$ & $\bigtriangleup$ & $\bigtriangleup$ & $\bigtriangleup$ & $\times$ & $\bigtriangleup$ & $\bigtriangleup$\\
 		 \hline 
-		  Control de videojuegos & $\times$ & $\times$ & $\times$ & $\times$ & $\times$ & $\bigtriangleup$ & $\times$ & $\times$ & $\times$ & $\times$ \\
+		  Control de videojuegos & $\bigtriangleup$ & $\bigtriangleup$ & $\bigtriangleup$ & $\times$ & $\times$ & $\bigtriangleup$ & $\bigtriangleup$ & $\times$ & $\bigtriangleup$ & $\bigtriangleup$ \\
 		 \hline
-		  Barra de chocolate     & $\times$ & $\times$ & $\times$ & $\times$ & $\times$ & $\bigtriangleup$ & $\times$ & $\times$ & $\times$ & $\times$\\
+		  Barra de chocolate     & $\bigtriangleup$ & $\bigtriangleup$ & $\bigtriangleup$ & $\bigtriangleup$ & $\times$ & $\bigtriangleup$ & $\times$ & $\bigtriangleup$ & $\bigtriangleup$ & $\times$\\
 		 \hline
 		  Libro   & $\bigtriangleup$ & $\bigtriangleup$ & $\bigtriangleup$ & $\bigtriangleup$ & $\times$ & $\bigtriangleup$ & $\times$ & $\bigtriangleup$ & $\times$ & $\bigtriangleup$\\
 		 \hline
@@ -563,15 +554,23 @@ Se describirá conforme al desarrollo de este estrabajo.
 	***Imagenes representativas de los resultados.\\
 
 
-	****Gráficas de eventos, reslatando exitos-fracacsos
+	****Gráficas de eventos, reslatando exitos-fracacsos\\
+
+	**** Pruebas T y resultados
 
 
 
 
+\newpage
+\thispagestyle{empty}
+\mbox{}
+\addtocounter{page}{-2}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%		Conclusiones           %%%%%%%%%%%%%%%%%%%%%
 \chapter{Conclusiones} 
 	Partiendo de la información obtenida de los resultados podemos concluir que un algoritmo RANSAC con un umbral de 0.02 [m] y un número de 1000 iteraciones nos ayudará a encontrar la ecuación de un plano así como una lista de puntos pertenecientes al mismo. Esta impletenación tomará 8 veces más tiempo que la implementación actual pero reducirá el error relativo respecto al modelo real de un 39.9\% al 8.83\%.\\
+
+
 

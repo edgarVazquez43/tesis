@@ -32,7 +32,6 @@
 
 
 
-	
 
 
 	%%%%
@@ -57,24 +56,24 @@
 	\begin{subfigure}[t]{.55\textwidth}
 		\centering
 		\includegraphics[scale=0.25]{objs/plane_model.png}
-		\caption{URDF descripción del robot Justina.}
+		\caption{Imagen de segmentación de los puntos pertenecientes al plano.}
 	\end{subfigure}%
 	\begin{subfigure}[t]{.55\textwidth}
 		\centering
 		\includegraphics[scale=0.45]{objs/plane_points.png}
-		\caption{URDF descripción de las tranformaciones de los brazos del robot Justina.}
+		\caption{Segmentación de plano con extracción de los objetos sobre este.}
 	\end{subfigure}
 
 	\hspace*{-0.5in}
 	\begin{subfigure}[t]{.55\textwidth}
 		\centering
 		\includegraphics[scale=0.25]{objs/object_boundingBox.png}
-		\caption{URDF descripción de las tranformaciones de los brazos del robot Justina.}
+		\caption{Boundig box de la región de interes.}
 	\end{subfigure}%
 	\begin{subfigure}[t]{.55\textwidth}
 		\centering
 		\includegraphics[scale=0.45]{objs/object_points.png}
-		\caption{URDF descripción de las tranformaciones de los brazos del robot Justina.}
+		\caption{Bounding box de los puntos pertenecientes al objeto.}
 	\end{subfigure}
 	\caption{Esquemas de proceso de segmentación del objeto.}
 	\label{fig:desciption_arms1}
@@ -124,27 +123,27 @@
 	\begin{subfigure}[t]{.55\textwidth}
 		\centering
 		\includegraphics[scale=0.35]{objs/principalAxis_cereal.png}	
-		\caption{URDF descripción del robot Justina.}
+		\caption{Caja de cereal}
 	\end{subfigure}%
 	\begin{subfigure}[t]{.55\textwidth}
 		\centering
 	\includegraphics[scale=0.45]{objs/principalAxis_chocolate.png}
-		\caption{URDF descripción de las tranformaciones de los brazos del robot Justina.}
+		\caption{Barra de chocolate}
 	\end{subfigure}
 
 	\hspace*{-0.5in}
 	\begin{subfigure}[t]{.55\textwidth}
 		\centering
 		\includegraphics[scale=0.35]{objs/principalAxis_joystick.png}
-		\caption{URDF descripción de las tranformaciones de los brazos del robot Justina.}
+		\caption{Control de videojuegos}
 	\end{subfigure}%
 	\begin{subfigure}[t]{.55\textwidth}
 		\centering
 		\includegraphics[scale=0.35]{objs/principalAxis_juice2.png}
-		\caption{URDF descripción de las tranformaciones de los brazos del robot Justina.}
+		\caption{Caja de jugo}
 	\end{subfigure}
-	\caption{Imagen de cálculo de la orientación con componentes principales.}
-	\label{fig:desciption_arms1}
+	\caption{Imagen de cálculo de la orientación con componentes principales. En azul el eje con mayor magnitud, representa el eje en el cual existe una mayor distribución de puntos (eje con mayor varianza de datos).}
+	\label{fig:principalVector}
 	\end{figure}
 
 
@@ -154,7 +153,7 @@
 	%%%
 	\section{Constitución y estructura de software del robot de servicio Justina}
 
-	Justina es un robot de servicio desarrollado en el laboratorio de Biorobótica de la Facultad de Ingeniería de la Universidad Nacional Autónoma de México. Entre el conjunto de tareas que debe desempeñar el robot Justina se encuentra la detección y el reconocimiento de rostros, la detección y el reconocimiento de objetos, la manipulación de objetos, la navegación autónoma en un ambiente cerrado similar al de un hogar u oficina, todo esto de manera autónoma.\\
+	Justina es un robot de servicio desarrollado en el laboratorio de Biorobótica de la Facultad de Ingeniería de la Universidad Nacional Autónoma de México. Dentro del conjunto de tareas que debe desempeñar el robot Justina se encuentra la detección y el reconocimiento de rostros, la detección y el reconocimiento de objetos, la manipulación de objetos, la navegación autónoma en un ambiente cerrado similar al de un hogar u oficina, todo esto de manera autónoma.\\
 
 	Para realizar tales tareas el robot de servicio Justina cuenta con un base omnidireccional compuesta de 4 motores, la cual le permite realizar desplazamientos laterales. Dentro de la descripción de hardware, cuenta con dos manipuladores en cadena abierta de 7 grados de libertad cada uno, los manipuadores se componen por motores Dynamixel cuyas características se detallan en el apartado 4.1.\\
 
@@ -168,12 +167,12 @@
 	\centering
 	\begin{subfigure}[t]{.55\textwidth}
 		\centering
-		\includegraphics[scale=0.35]{manipulator/DH_manipulators1.png}
+		\includegraphics[scale=0.25]{manipulator/DH_manipulators1.png}
 		\caption{URDF descripción del robot Justina.}
 	\end{subfigure}%
 	\begin{subfigure}[t]{.55\textwidth}
 		\centering
-	\includegraphics[scale=0.45]{objs/principalAxis_chocolate.png}
+		\includegraphics[scale=1.2]{manipulator/justina_real.jpg}
 		\caption{URDF descripción de las tranformaciones de los brazos del robot Justina.}
 	\end{subfigure}
 	\caption{Imagen de Justina virtual y fotografia real.}

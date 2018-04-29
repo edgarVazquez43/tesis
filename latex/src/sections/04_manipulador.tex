@@ -9,23 +9,18 @@
            %%%%%%  DESCRPCIÓN SERVOMOTORES   %%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\section{Descripción hardware}
-		Los servomotores Dynamixel son un sistema de actuador inteligente desarrollados con el propósito de funcionar como uniones de conexión en un robot o estructura mecánica. Los servomotores Dynamixel están diseñados para ser modulares y soportar la conexión en cadena en cualquier robot o diseño mecánico. Este tipo de servomotores es popular por los beneficios que ofrece: movimientos robóticos potentes y flexibles.\\
+		Los servomotores Dynamixel son un sistema de actuador inteligente desarrollados con el propósito de funcionar como uniones de conexión en un robot o estructura mecánica. Los servomotores Dynamixel están diseñados para ser modulares y soportar la conexión en cadena en cualquier robot o diseño mecánico. Este tipo de servomotores es popular por los beneficios que ofrece: movimientos robóticos potentes y flexibles.\cite{mensink2008characterization} \\
 
 		El conjunto de servomotores Dynamixel son un grupo de actuadores de alto rendimiento con reductor, controlador y un protocolo de comunicación completamente integrados. El estado del actuador se puede leer y monitorear a través de un flujo de paquetes de datos. \cite{dynamixelEpage}\\
 
-		Los servomotores de la marca Dynamixel, cuentan con diferentes gamas de productos de acuerdo a las necesidades de cada proyecto. El brazo robótico referente a este documento está constituido unicamente por motores de la gama MX, de la cual se describen las caracteristicas más sobresalientes a continuación.\\  
-
 			\subsection{Motores dynamixel Serie MX}
-		Los actuadores dynamixel de la serie MX pertencen a la última generación de actuadores de la companñia Robotis Dynamixel. Están equipados con un procesador Cortex M3 de 32 bits a 72 mhz, un encoder magnético sin contacto con una resolución 4 veces mayor que la serie AX / RX, además ofrecen una velocidad de comunicación de hasta 3 mbps con el nuevo bus TTL 2.0. Cada servomotor cuenta con la capacidad  de monitorear su velocidad, temperatura, posición del eje, voltaje y carga.\\
-
-		Por otro lado los motores Dynamixel de la seire MX cuentan con la implemntación de un algoritmo de control PID para mantener la posición del eje. Las ganancias del algoritmo de control PID se pueden ajustar individualmente para cada servo, lo que le permite controlar la velocidad y la fuerza de la respuesta del motor. Todos los servos de la serie MX usan un voltaje nominal de 12v. La característica más importante de esta seie de servomotores es que la gestión de la información proveniente del sensor y la ejecución del algoritmo de control de posición son manejados por el microcontrolador integrado del servo. Este enfoque distribuido deja a su controlador principal libre para realizar otras funciones.\\
-
+		Los motores Dynamixel de la seire MX cuentan con la implemntación de un algoritmo de control PID para mantener la posición del eje. Las ganancias del algoritmo de control PID se pueden ajustar individualmente para cada servo, lo que le permite controlar la velocidad y par del motor. Todos los servos de la serie MX usan un voltaje nominal de 12v.\\
 
 		En lo que respecta a la parte mecánica, todos los servos DYNAMIXEL son compatibles con una amplia variedad de bridas, acoplamientos y sujetadores lo cual facilita la construcción de cualquier configuración deseada. Este conjunto de elementos mecánicos permite una conexión directa cualquier modelo de servomotores DYNAMIXEL, lo que le permite una gran variedad de configuraciones para cualquier necesidad. Dada la gran variedad de configuraciones, este tipo de elementos de unión y fijación resultó de gran ayuda mecánica al momento de contruir el brazo robótico donde se implentaron los algoritmos descritos en el presente trabajo.\\
 
 		\begin{figure}[h!]
 			\begin{center}
-			\includegraphics[width=14.5cm, height=6.5cm]{manipulator/dynamixel_conexions.jpg}	
+			\includegraphics[width=14.5cm, height=6.5cm]{manipulator/dynamixel_conexions.jpg}
 			\caption{Variedad de ensambles para servomotores.}
 			\end{center}
 		\end{figure}
@@ -33,22 +28,13 @@
 		Resuminedo las características de los sermovomotores de la serie MX, podemos enlistar las siguientes:\\ 
 
 		\begin{itemize}
-			\item{Movimiento sin contacto y detección de posición.}
-			\item{Interfaz de comunicación TTL estándar.}
+			\item{Detección de posición sin contacto debido a la implementación del sensor de efecto hall.}
 			\item{Comunicación de alta velocidad de hasta 4.5 Mbps.}
-			\item{Control PID para autocorrección en posicionamiento.}
-			\item{Control de par basado en corriente (4096 steps, 2.69mA/step)}
-			\item{Ahorro de energía (corriente reducida de 100 mA a 40 mA)}
+			\item{Control PID para autocorrección en posicionamiento. [4096 steps] }
+			\item{Control de par basado en corriente (2.69mA/step)}
 		\end{itemize}
 
-		Si desea controlar este servo DYNAMIXEL desde un equipo de computo es necesario contar con un dispositivo que facilite la comunicación entre este y el microprocesador de cada uno de los servomotores, el dispositivo que cumple con esta funcionalidad es el USB2Dynamixel.\\
-
-		El controlador USB2Dynamixel se conecta al puerto USB en una computadora y tiene un puerto de 3 y 4 pines para conectar Dynamixels. El USB2Dynamixel se puede usar con controladores como CM-5 y CM-2 que usan comunicación en serie, además soporta la comunicación en cadena propia de los servomotores Dynamixel. Es impornate mencionar que este dispositivo posee un interruptor para seleccionar entre diferentes protocolos de comunicación: RS-232, RS-485, TTL. Por tanto consta de:\\
-
-		\begin{itemize}
-			\item{Conector 3P: puerto de comunicación para nivel TTL (para control de serie AX y MX)}
-			\item{Conector 4P: puerto de comunicación RS-485 (para control de serie DX, RX, EX y MX)}
-		\end{itemize}
+		Si se desea controlar este servo DYNAMIXEL desde un equipo de computo es necesario contar con un dispositivo que facilite la comunicación entre este y el microprocesador de cada uno de los servomotores, el dispositivo que cumple con esta funcionalidad es el USB2Dynamixel. Utilizado en la implementación de este trabajo.\\
 
 
 		\begin{figure}[h!]
@@ -83,38 +69,35 @@
  Motor                 & \multicolumn{3}{|c|}{ Maxon RE-MAX} \\
  \hline
 \end{tabular}
-\caption{Características servomotores MX.}
+\caption{Características sobresalientes de los servomotores dynamixel de gamma MX.}
 \label{t_manip:1}
 \end{table}
 
-		Los modelos de motores que componen esta gama difieren en caracteríticas tales como las dimensiones, el par máximno a rotor bloqueado, la corriente máxima, o la velocidad máxima. A continuación se en listan las características más sobresalientes para cada modelo de motor.\\ 
 
 
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-		\subsection{Características MX-106}
+		\subsection{Características de los servomotores dynamixel MX-106}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{table}[h]
 \centering
 \begin{tabular}{ |p{6.5cm}||p{2.1cm}|p{2.1cm}|p{2.1cm}|  }
  \hline
- \multicolumn{4}{|c|}{\textbf{MX-106} } \\
+ \multicolumn{4}{|c|}{\textbf{12 volts} } \\
  \hline
- Voltaje de operación  &  14.8v   &	   12v   &   11.1v\\
+ Voltaje de operación  &  MX-106    &   MX-64   &  MX-28\\
  \hline
- Par de bloqueo        &  102kg.cm  &  85.6kg.cm  &  81.5kg.cm\\
- Velocidad sin carga   &  55rpm     &  45rpm      &  41rpm\\
+ Par de bloqueo        &  85.6kg.cm &  61kg.cm  &  25.5kg.cm\\
+ Velocidad sin carga   &  45rpm     &  63rpm    &  55rpm\\
  \hline
- Peso                  &  \multicolumn{3}{|c|}{153g} \\
- \hline
- Tamaño                &  \multicolumn{3}{|c|}{40.2 x 65.1 x 46 mm} \\
+ Peso                  &  153g      &  126g     &  72g\\
  \hline
  Resolución            &  \multicolumn{3}{|c|}{ 0.088 grado/valor de registro} \\
  \hline
  Relación de reducción &  \multicolumn{3}{|c|}{1/200} \\
  \hline
- Corriente máxima      &  \multicolumn{3}{|c|}{5.2A @ 12V} \\
+ Corriente máxima      &  5.2A@12V & 4.1A@12V & 1.4A@12V\\
  \hline
 \end{tabular}
 \caption{Características dynamixel modelo MX-106.}
@@ -122,106 +105,33 @@
 \end{table}
 
 
-\begin{figure}[h!]
+\begin{figure}[H]
 	\begin{center}
-	\includegraphics[width=8.5cm, height=8.5cm]{manipulator/MX_106R_2.jpg}	
+	\includegraphics[width=5.5cm, height=5.5cm]{manipulator/MX_106R_2.jpg}	
 	\caption{Servomotor dynamixel modelo MX-106.}
 	\end{center}
 \end{figure}
 
-
-\newpage
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-		\subsection{Características MX-64}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{table}[h]
-\centering
-\begin{tabular}{ |p{6.5cm}||p{2.1cm}|p{2.1cm}|p{2.1cm}|  }
- \hline
- \multicolumn{4}{|c|}{\textbf{MX-64} } \\
- \hline
- Voltaje de operación  &  14.8v   &	   12v   &   11.1v\\
- \hline
- Par de bloqueo        &  74kg.cm   &  61kg.cm   &  56kg.cm\\
- Velocidad sin carga   &  78rpm     &  63rpm     &  58rpm\\
- \hline
- Peso                  &  \multicolumn{3}{|c|}{126g} \\
- \hline
- Tamaño                &  \multicolumn{3}{|c|}{40.2 x 61.1 x 41 mm} \\
- \hline
- Resolución            &  \multicolumn{3}{|c|}{ 0.088 grado/valor de registro} \\
- \hline
- Relación de reducción &  \multicolumn{3}{|c|}{1/200} \\
- \hline
- Corriente máxima      &  \multicolumn{3}{|c|}{4.1A @ 12V} \\
- \hline
-\end{tabular}
-\caption{Caracteríisticas Dynamixel modelo MX-64}
-\label{t_manip:3}
-\end{table}
-
-\begin{figure}[h!]
-	\begin{center}
-	\includegraphics[width=8.5cm, height=8.5cm]{manipulator/MX_64R_2.jpg}	
-	\caption{Servomotor dynamixel modelo MX-64.}
-	\end{center}
-\end{figure}
-
-
-
-\newpage
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-		\subsection{Características MX-28}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{table}[h]
-\centering
-\begin{tabular}{ |p{6.5cm}||p{2.1cm}|p{2.1cm}|p{2.1cm}|  }
- \hline
- \multicolumn{4}{|c|}{\textbf{MX-28} } \\
- \hline
- Voltaje de operación  &  14.8v   &	   12v   &   11.1v\\
- \hline
- Par de bloqueo        &  31.6kg.cm  &  25.5kg.cm   &  23.4kg.cm\\
- Velocidad sin carga   &  67rpm      &  55rpm       &  50rpm\\
- \hline
- Peso                  &  \multicolumn{3}{|c|}{72g} \\
- \hline
- Tamaño                &  \multicolumn{3}{|c|}{35.6 x 50.6 x 35.5 mm} \\
- \hline
- Resolución            &  \multicolumn{3}{|c|}{ 0.088 grado/valor de registro} \\
- \hline
- Relación de reducción &  \multicolumn{3}{|c|}{1/193} \\
- \hline
- Corriente máxima      &  \multicolumn{3}{|c|}{1.4A @ 12V} \\
- \hline
-\end{tabular}
-\caption{Caracteríisticas Dynamixel modelo MX-64}
-\label{t_manip:4}
-\end{table}
-
-\begin{figure}[h!]
-	\begin{center}
-	\includegraphics[width=8.5cm, height=8.5cm]{manipulator/MX_28R_2.jpg}	
-	\caption{Servomotor dynamixel modelo MX-64.}
-	\end{center}
-\end{figure}
-
-	Por otro lado es importante conocer la estructura de transmisión de la información de un servomotor con el dispositivo controlador. Para ello los servomotores dynamixel cuentan con un protocolo de comunicación serial asincrono, el cúal transtite una serie de datos en una trama, como se ilustra en la figura[].\\
+	Por otro lado es importante conocer la estructura de transmisión de la información de un servomotor con el dispositivo controlador. Para ello los servomotores dynamixel cuentan con un protocolo de comunicación serial asincrono, el cúal transtite una serie de datos en una trama, como se ilustra en la figura \ref{manip:trama}.\\
 
 	\begin{figure}[h!]
 		\begin{center}
 		\includegraphics[width=15.5cm, height=1.5cm]{manipulator/trama.png}
 		\end{center}
+		\caption{Estructura de una trama de información como método de comunicación serial.}
+		\label{manip:trama}
 	\end{figure}
 
 	El significado de cada byte que compone al paquete datos es el siguiente:\\
 
 	\begin{itemize}
+		\itemsep0em
 		\item{ \textbf{0xFF 0xFF} :  Es la instrucción que marca el inicio del paquete.}
 		\item{ \textbf{ID} :  Es el ID de cada servomotor partícular en la cadena.}
 		\item{ \textbf{LENGTH} :  Es el tamaño del paquete. El tamaño es calculado como el numero de parametros más dos (N+2).}
 		\item{ \textbf{INSTRUCTION} :  Indica el tipo de instrucción que ejecutará el servomotor dynamixel.}
 		\begin{itemize}
+			\itemsep0em
 			\item{PING}
 			\item{READ\_DATA}
 			\item{WRITE\_DATA}
@@ -303,30 +213,31 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 	\section{Descripción de los elementos del sistema de manipulación}
-		El sistema de Hardware del brazo robótico está compuesto por un total de 10 servomotores Dynamixel fabricados por la compañía Robotis \cite{dynamixelEpage}. Eta compañia cuenta con diversas gamas de modelos de servomotores según las necesidades de la apliación. A continuación se describirá el sistema en orden descendente.\\
+		El sistema de Hardware del brazo robótico está compuesto por un total de 10 servomotores Dynamixel fabricados por la compañía Robotis \cite{dynamixelEpage}. Esta compañia cuenta con diversas gamas de modelos de servomotores según las necesidades de la apliación. A continuación se describirá el sistema en orden descendente.\\
 
-		En la parte superior del brazo robótico se encuentran dos servomotores Dynamixel MX-106 conectados como maestro-esclavo, configurados en este modo trabajan de manera conjunta aumentando el par unitario de cada uno de los servomotores. Dadas las caracteristicas antes descritas en la tabla \ref{t_manip:2}  podemos observar que la configuración de servomotores entrega un par de torsión máximo a rotor bloqueado de $16.8N.m$ @ 12V. El sentido de giro positivo del arreglo de servomotores es el mostrado en la figura[4.8]. \\
-
-		\begin{wrapfigure}{l}{0.60\textwidth}
-			\includegraphics[width=8.0cm, height=4.5cm]{manipulator/mx106_MS.png}
-			\caption{Configuración maestro-esclavo en servomotores dynamixel.}
-		\end{wrapfigure}
+		En la parte superior del brazo robótico se encuentran dos servomotores Dynamixel MX-106 conectados como maestro-esclavo, configurados en este modo trabajan de manera conjunta aumentando el par unitario de cada uno de los servomotores. Dadas las caracteristicas antes descritas en la tabla \ref{t_manip:2}  podemos observar que la configuración de servomotores entrega un par de torsión máximo a rotor bloqueado de $16.8N.m$ @ 12V. El sentido de giro positivo del arreglo de servomotores es el mostrado en la figura \ref{manip:master}. \\
 
 		La configuración maestro-esclavo es un método de control simultaneo para dos servomotores Dynamixel, esta configuración es sumamente útil cuando se trata de construir una junta cuyo eje de acción es coincidente. Los motores respectivos maestro y esclavo deben estar conectados mediante un cable de sincronización. como se muestra en la figura[4.7]. El servomotor esclavo es directamente controlado por la señal PWM del maestro transmitida a travez del cable de sincronización. Es importante mencionar que la información de la posición, velocidad y corriente deseada es ignorada; puesto que esta información depende unicamente del maestro.\\  
 
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=8.0cm, height=4.5cm]{manipulator/mx106_MS.png}
+			\caption{Configuración maestro-esclavo en servomotores dynamixel.}
+			\label{manip:master}
+		\end{figure}
 
 		En la configuración maestro-esclavo el esclavo puede configurarse para adoptar un sentido de giro inverso en caso que el acoplamiento mecánico así lo requiera. Dentro de este modo el servomotor esclavo tendrá la misma velocidad que el motor maestro, solo diferenciado por el sentido inverso de giro.\\
 
 		Posteriormente se encuentra un servomotor modelo MX-106, ubicado en una disposición horizontal. Unido a este servomotor se encuentra un eslabón obtenido mediante técnicas de manufactura aditiva. Dado que la construcción del brazo robótico esta pensanda desde el punto de vista antropomórfico  este conjunto de servomotores, el maestro-esclavo y el servomotor MX-106 describen los grados de libertad que emulan el movimiento de un hombro humano.\\
 
-		\begin{wrapfigure}{r}{0.30\textwidth}
-			\includegraphics[width=4.5cm, height=12.5cm]{manipulator/brazo_4.jpg}
-			\caption{Diseño asistido por computadora del brazo robótico del robot Justina.}
-		\end{wrapfigure}
-
-		El eslabón numero 1 obtenido mediante técnicas de manufactura aditiva funge como elemento de unión entre servomotores. Este elemento de unión cuenta con un peso total de **** Al final de este elemnto de unión se encuentra un servomotor MX-64 cuyo eje de acción es perpendicular respcto a la base el brazo. Directamente acoplado a este servomotor se encuentra otro servomotor modelo MX-106. Estos dos servomotores realizan el símil con un codo humano.\\
+		El eslabón numero 1 obtenido mediante técnicas de manufactura aditiva funge como elemento de unión entre servomotores. Al final de este elemento de unión se encuentra un servomotor MX-64 cuyo eje de acción es perpendicular respcto a la base el brazo. Directamente acoplado a este servomotor se encuentra otro servomotor modelo MX-106. Estos dos servomotores realizan el símil con un codo humano.\\
 
 		Continuando en orden descendente, se encuentra un segundo eslabón utilizado como elemento de unión. En el extremo de este elemento se encuentra un servomotor MX-106, posteriormente un MX-64 y por último un servomoto modelo MX-28. Estos tres elementos construyen un sistema similar al de la muñeca de un brazo humano.\\
+
+		\begin{SCfigure}
+			\includegraphics[width=4.5cm, height=12.5cm]{manipulator/brazo_4.jpg}
+			\caption{Diseño asistido por computadora del brazo robótico del robot Justina. Se realizó en modelado de partes utilizando el software SolidWorks(c). Muestra del ensamble final.}
+		\end{SCfigure}
 
 		Por último, se encuentra el efector final compuesto de dos actuadores MX-28 ubicados en disposición horizontal. En el eje de acción de cada uno de estos se encuentra una pieza obtenida mediante impresión 3D que funge como sujetador para manipular objetos.\\
 
@@ -336,7 +247,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
               %%%%%%  CINEMATICA DIRECTA   %%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage
 
 	\section{Cinemática directa}
 El problema de cinemática directa consiste en conocer la posición \textit{(x, y, z)} del efector final dada una determinda configuración de ángulos para el conjunto de actuadores que forman el sistema mecánico. Para ello se describe lo posición del efector final en términos de las transformaciones existentes entre este y la base fija del manipulador.\\
@@ -456,20 +366,21 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
 
 	ROS proporciona una biblioteca de software unicamente dedicada al manejo de información de las transformaciones de un robot, la biblioteca de software lleva el nombre de \textit{tf}. En un nivel práctico, un árbol de transformación define los desplazamientos en términos de translación y rotación entre diferentes marcos de coordenadas. La biblioteca \textit{tf} usa una estructura en árbol para garantizar que solo haya un recorrido único que vincule dos sistemas coordinados entre sí y asume que todas las transformaciones del árbol se dirigen desde los nodos primarios a secundarios.\\ 
 
-	\begin{wrapfigure}{r}{0.45\textwidth}
-		\includegraphics[width=6.5cm, height=3.0cm]{manipulator/link_1.png}
-		\caption{Constitución básica de \textit{link} en el sistema ROS.}
-	\end{wrapfigure}
-
 	Para describir una transformación se requiere definir primero un conector, que funcione como cada uno de los elementos físicos, posteriormente la transformación se encargará de relacionar cada uno de estos conectores. Conceptualmente, cada nodo en el árbol de transformación corresponde a un sistema de coordenadas el cual representa cada uno de los conectores; por otra parte cada enlace de conexión corresponde a la transformación que debe aplicarse para pasar del nodo actual a su hijo.\\	
 
 	Para crear el árbol de transformaciones del manipulador de 7DOF, comenzamos por crear un sistema de referencia en la base del brazo, el cual servirá como sistema de referencia fijo, lo llamamos \textit{base\_ra\_arm}. Posteriormente se fueron agregando eslabones según la configuración real del brazo. Para llegar a la configuración se partío de la siguiente restricción: el eje Z debe coincidir con el eje de giro del actuador, en posición y en sentido positivo, como se muestra en la figura.\\ 
 
 	\begin{figure}[h!]
-		\begin{center}
+		\begin{subfigure}[t]{0.45\textwidth}
+		\centering
+		\includegraphics[width=6.5cm, height=3.0cm]{manipulator/link_1.png}
+		\caption{Constitución básica de \textit{link} en el sistema ROS.}
+		\end{subfigure}
+		\begin{subfigure}[t]{0.45\textwidth}
+		\centering
 		\includegraphics[width=3.5cm, height=4.0cm]{manipulator/link_description.png}
 		\caption{Ejemplo de sistema de transformaciones (sistemas de refencia y links).}
-		\end{center}
+		\end{subfigure}
 	\end{figure} 
 
 	Para crear esta configuración entre los diferentes sistemas de referencia, primero debemos decidir qué nodo será el padre y cuál será el hijo. Esta distinción es importante porque asume que todas las transformaciones se mueven de padres a hijos. Elegimos el sistema de referencia \textit{base\_ra\_arm} como principal, ya que a medida que se agregan otras piezas: motores, eslabones y conectores, tendrá más sentido que se relacionen con un sistema fijo. Esto significa que la transformada asociada con el efector final y el sistema \textit{base\_ra\_arm} puede ser obtenida mediante el árbol de transformaciones configurado. La conversión de la posición del sistema de refencia ubicado en el efector final al sistema de referencia fijo ubicado en la base del brazo puede ser obtenida mediante una llamada a la biblioteca tf.\\
@@ -484,7 +395,7 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
 \centering
 \begin{tabular}{ |p{1.0cm}|p{1.5cm}|p{1.5cm}|p{1.5cm}|p{1.5cm}|p{1.5cm}|p{1.5cm}|}
  \hline
-  & \multicolumn{3}{|c|}{\textbf{TRANSALACIÓN}} & \multicolumn{3}{|c|}{\textbf{ROTACIÓN}} \\
+  & \multicolumn{3}{|c|}{\textbf{TRANSLACIÓN}} & \multicolumn{3}{|c|}{\textbf{ROTACIÓN}} \\
  \hline
   &  x & y & z & roll & pitch & yaw\\
  \hline
@@ -581,7 +492,7 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
 		\caption{Modelo virtual del brazo robótico.}
 	\end{figure}	
 
-	Por otro lado se realizó la descripción del sistema de manipulación utilizando la convención Denavith-Hartemberg. Para ello se comenzó por plantear los ejes $z$ que deben ser coincidentes, en posición y en sentido de giro, con los ejes de acción de cada uno de los actuadores. Sin embargo, en este punto se observó una limitante en el método D-H, al intenar describir la trasformación entre el $link_2$ y el $link_3$ se observó que el método no puede describir con suficiente presición la rotación en el eje $"x"$ y al mismo tiempo un desplamiento en el $eje y$. La manera de solucionar esta limittante consiste en realizar una transformación de rotación en el eje x primero, con esto los dos frames compartiran el mismo origen del sistema de referencia, posteriormente se plantea la translación, ahora en el $eje z$.\\
+	Por otro lado se realizó la descripción del sistema de manipulación utilizando la convención Denavith-Hartemberg. Para ello se comenzó por plantear los ejes $z$ que deben ser coincidentes, en posición y en sentido de giro, con los ejes de acción de cada uno de los actuadores. Sin embargo, en este punto se observó una limitante en el método D-H, al intenar describir la trasformación entre el $link_2$ y el $link_3$ se observó que el método no puede describir con suficiente presición la rotación en el eje $"x"$ y al mismo tiempo un desplazamiento en el $eje$ $y$. La manera de solucionar esta limittante consiste en realizar una transformación de rotación en el eje x primero, con esto los dos frames compartiran el mismo origen del sistema de referencia, posteriormente se plantea la translación, ahora en el $eje$ $z$.\\
 	
 	\begin{figure}[h!]
 		\begin{center}
@@ -646,14 +557,13 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   %%%%%%%%%%%%%    DETERMINACIÓN DEL WORKSPACE    %%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage
 	\section{Determinación del área de trabajo}
 
-	El espacio de trabajo es otro parámetro importante el cual servirá para optimizar las dimensiones del brazo robótico con el cual estamos trabajando. El análisis del espacio de trabajo de robots manipuladores es de gran interés, puesto que la geometría del espacio de trabajo puede considerarse no sólo un aspecto fundamental para el diseño del robot sino que también es esencial para la ubicación del robot en el entorno de trabajo y también para la planificación de trayectorias.\\
+	El espacio de trabajo es otro parámetro importante el cual servirá para caracterizar las dimensiones del brazo robótico con el cual estamos trabajando. El análisis del espacio de trabajo de robots manipuladores es de gran interés, puesto que la geometría del espacio de trabajo puede considerarse no sólo un aspecto fundamental para el diseño del robot sino que también es esencial para la ubicación del robot en el entorno de trabajo y también para la planificación de trayectorias.\\
 
-	En robótica, el término espacio de trabajo, también denominado espacio de trabajo, puede ser entendido como: \textit{El espacio de trabajo de un robot está definido como el grupo de puntos que pueden ser alcanzados por su efector-final.} \textbf{Cao et al. (2011).}\\
+	En robótica, el término espacio de trabajo, también denominado espacio de trabajo, puede ser entendido como: \textit{El espacio de trabajo de un robot está definido como el grupo de puntos que pueden ser alcanzados por su efector-final}. \cite{cao2011accurate}\\
 
-	Dicho de otro modo, el espacio de trabajo de un robot es el espacio en el cual el mecanismo puede trabajar según sus propias restricciones mecánicas. A pesar de que esta definición está muy extendida, diversos autores también se refieren al espacio de trabajo como \textit{volumen de trabajo}.\\
+	Dicho de otro modo, el espacio de trabajo de un robot es el espacio en el cual el mecanismo puede trabajar según sus propias restricciones mecánicas.\\
 
 \begin{figure}[H]
 	\centering
@@ -667,10 +577,8 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
 	\includegraphics[width=5.00cm, height=4.3cm]{workSpace/ws_Yi_Cao_2.png}
 	\caption{Curva de la frontera del espacio de trabajo del brazo robótico.}
 	\end{subfigure}
-	\caption{Vista en 2D del espacio de trabajo de un robot 3R.}
+	\caption{Espacio de trabajo de un robot 3R, donde los puntos  de color azul representan el espacio de trabajo de este robot. Como se ha dicho previamente, los puntos en color azul representan cada una de las posiciones que puede alcanzar el efector-final del robot 3R.}
 \end{figure}
-
-	La Figura 4.15 muestra el espacio de trabajo de un robot 3R, donde los puntos  de color azul representan el espacio de trabajo de este robot. Como se ha dicho previamente, los puntos en color azul representan cada una de las posiciones que puede alcanzar el efector-final del robot 3R.\\
 
 
 \textbf{Principales características de un espacio de trabajo.}
@@ -745,7 +653,7 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
 	\includegraphics[width=4.20cm, height=4.5cm]{workSpace/ws_8.png}
 	\caption{Vista lateral.}
 	\end{subfigure}
-	\caption{Nube de puntos del espacio de trabajo de un robot antropomórfico de 7DOF.}
+	\caption{Nube de puntos del espacio de trabajo del robot de servicio Justina. Nube de puntos desplegada en el visualizador gráfico Rviz, incluido en la paquetería de ROS.}
 \end{figure}
 
 	La ventaja que esta técnica supone, sobre otras, es la capacidad de obtener el espacio de trabajo tomando en cuenta la restricciones reales del robot, así como observar las trayectorías y los puntos críticos del efector final. En este sentido es importante mencionar que para algunos casos el efector final podría alcalzar un punto dentro del área de trabajo; sin embargo dada alguna configuración del brazo esta podría suponer un esfuerzo indeseado en alguno de los actuadores. Con esta técnica se pudo evitar ese tipo de configuraciones, y construir el espacio de trabajo bajo estos supuestos.\\
@@ -814,8 +722,8 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
 %%%    ########################################   %%%%%%%%
 
 
-\newpage
-	\section{Cinemática inversa Método Geométrico}
+%\newpage
+	\section{Cinemática inversa}
 	El problema de la cinemática inversa consiste en dada una posición deseada $p(x, y, z, roll, pitch, yaw)$ encontrar el valor de cada una una de las juntas cinemáticas que lleven al brazo a la posición desea. Este problema suele ser uno de los más interesantes y complejos, dentro del estudio de la robótica. Es preciso mencionar que para llevar el efector final a cualquier posición y orientación deseada se requiere por lo menos un brazo robótico de 6DOF. En el desarrollo de este trabajo se plantea la resolución de la cinemática para un brazo robótico de 7DOF, lo cual suele aumentar el grado de complejidad en la resolución del problema.\\
 
 \begin{equation}
@@ -841,7 +749,7 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
 \end{equation}	
 
 
-	Para abordar la resolución de dicho problema se hizo uso del concepto de \textit{desacople cinemático}. Utilizando este concepto se puede simplificar el problema del cálculo completo de la cinemática inversa. Por medio del desacople cinemático se pueden considerar de manera independiente el cálculo de la orientación inversa y el cálculo de la posición inversa.\\
+	Para abordar la resolución de dicho problema se suele hacer uso del concepto de \textit{desacople cinemático}. Utilizando este concepto se puede simplificar el problema del cálculo completo de la cinemática inversa. Por medio del desacople cinemático se pueden considerar de manera independiente el cálculo de la orientación inversa y el cálculo de la posición inversa.\\
 
 	\subsection{Desacople cinemático}
 	Como se ha mencionado con anterioridad el problema de la cinemática inversa puede resolverse por separado en la resolución de la orientación inversa y la posición inversa, para manipuladores de 6 DOF o más. Es importate mencionar que para utilizar esta metodología de resolución el manipulador debe poseer la configuración de \textit{muñeca esférica}. Es necesario partir de esta premisa puesto que la configuración de muñeca esférica implica que los tres últimos ejes de acción de intersectan en un punto llamado $O_c$. Además estos tres últimos ejes de acción pueden determinar la orientación del efector final sin que dependan del valor de las juntas cinemáticas anteriores.\\
@@ -914,26 +822,25 @@ o^0_c = o - d_6 R \hat{x}
 	\caption{Centro de la muñeca con rotación $\pi/2$.}
 \end{figure}
 
+	Para motivos de este trabajo se utilizó un algoritmo ya implementado con anterioridad en el robot de servicio Justina, el cúal utiliza la metodología de desacople cinemático para la resolución de esta tarea. Uno de los objetivos de este trabajo consiste en realizar una comparación entre este algoritmo y un resolvedor de cinemáticas estandar el cúal utiliza un método iterativo para tal propósito. Tal paque es nombrado moveIt! y es compatible con la paquetería ROS.\\ 
 
-
-\newpage
 	\section{Cinemática inversa paquetería MoveIt}
 
-	La paquetería de software \textit{moveIt} consiste en una serie de librerías enfocadas a las tareas de manipulación de objetos en la robótica. Los paquetes \textit{arm\_navigation} fueron diseñados con el objetivo especifico de ayudar en tareas de planeación de movimientos, generación de trayectorias y monitoreo del ambiente particularmente para los manipuladores del robot PR2.\cite{chitta2012moveit} La idea original al desarrollar la librería moveIt era generar planes de manipulación y trayectorias basándose información de un modelo del entorno. Dichos modelos del entorno se crean, comúnmente, utilizando la fusión de datos del sensor láser y de sensores estéreo colocados en los robots.\\
+	La paquetería de software \textit{moveIt!} consiste en una serie de librerías enfocadas a las tareas de manipulación de objetos en la robótica. Paquetes como \textit{arm\_navigation} fueron diseñados con el objetivo especifico de ayudar en tareas de planeación de movimientos, generación de trayectorias y monitoreo del ambiente particularmente para los manipuladores del robot PR2.\cite{chitta2012moveit} La idea original de la paquetería moveIt! es generar planes de manipulación y trayectorias basándose información de un modelo del entorno. Dichos modelos del entorno se crean, comúnmente, utilizando la fusión de datos del sensor láser y de sensores estéreo colocados en los robots.\\
 
 
-	El ambiente era representado como una mezcla de dos formatos:\\
+	El ambiente es representado como una mezcla de datos proporcionados en dos formatos:\\
 
 	\begin{enumerate}
-		\item{ Una red vóxelizada que representaba la mayor parte de los obstáculos en el medio ambiente. }
+		\item{ Una red vóxelizada que representa la mayor parte de los obstáculos en el medio ambiente. }
 
-		\item{ Primitivas geométricas y modelos de mallas para representar objetos que habían sido reconocidos y registrado en el medio ambiente ambiente mediante rutinas de detección de objetos. }
+		\item{ Primitivas geométricas y modelos de mallas para representar objetos que han sido reconocidos y registrado en el medio ambiente mediante rutinas de detección de objetos. }
 	\end{enumerate}
 
 	De esta manera la información del modelo del entorno sirve de entrada principal a los planificadores que constituyen la paquetería \textit{moveIt}.\\
 
 
-	\textit{MoveIt!} incorpora herramientas para planeación de movimientos, cinemática, percepción 3D, control y navegación. Además provee una plataforma de uso fácil para desarrollo de aplicaciones robóticas avanzadas, permitiendo la evaluación de nuevos diseños de robots y la construcción de productos robóticos para su uso industrial, comercial y de investigación, entre otros. \textit{MoveIt!} Es el software de código abierto más usado para manipulación de robots.
+	\textit{MoveIt!} incorpora herramientas para planeación de movimientos, cinemática, percepción 3D, control y navegación. Además provee una plataforma de uso fácil para desarrollo de aplicaciones robóticas avanzadas, permitiendo la evaluación de nuevos diseños de robots y la construcción de productos robóticos para su uso industrial, comercial y de investigación, entre otros. \textit{MoveIt!} Es el software de código abierto más usado para manipulación de robots.\cite{chitta2012moveit}\\
 
 
 	En la actualidad \textit{moveIt} proveé una interfaz genérica para la planeación de movimiento de manipuladores que puede ser integrada muy fácilmente en ROS. Esta interfaz permite la integración de diferentes tipos de planeadores de movimientos, por ejemplo:\\
@@ -990,13 +897,12 @@ o^0_c = o - d_6 R \hat{x}
 
 	Esta sección en particular tiene como objetivo comparar los ambos métodos de solución de la cinemática inversa del robot de servicio Justina. Por tanto en el presente trabajo se analiza y compara el tiempo de ejecución de ambos algoritmos. Y como característica extra se plantea una función de utilidad para evaluar la \textit{conveniencia} de utilizar un algoritmo u otro.\\
 
-	\begin{figure}[H]
+	\begin{figure}[h!]
+		\begin{center}
 		\begin{minipage}{18cm}	
 		\includegraphics[scale=0.30]{ros/moveIt_structure.jpg}	
 		\end{minipage}
-		
-		\begin{center}
-		\caption{Imagen de la estructura de la paquetería \textit{moveIt!}.}
+		\caption{Imagen de la estructura de la paquetería \textit{moveIt!}.\cite{moveitEpage}}
 		\end{center}
 	\end{figure}
 
@@ -1028,5 +934,11 @@ o^0_c = o - d_6 R \hat{x}
 		\label{fig:cinematica_services}
 	\end{figure}
 
+	Los resultados de realizar esta evaluación se reportan en el capítulo 6.  
 
 
+
+\newpage
+\thispagestyle{empty}
+\mbox{}
+\addtocounter{page}{-2}
