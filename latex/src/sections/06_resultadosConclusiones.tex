@@ -256,8 +256,8 @@ Se describirá conforme al desarrollo de este estrabajo.
 	  Barra de chocolate   &    0.0215  & $3.3e^{-6}$  &0.0213 & $4.4e^{-6}$ & $p_{value} = 0.1335$ \\
 	 \hline
 	\end{tabular}
-	\caption{Tabla de resultados de la prueba T a medidas repetidas.}
-	\label{t_test:1}
+	\caption{Tabla de resultados de la prueba T a medidas repetidas para la altura de 5 objetos.}
+	\label{t_test:alturas}
 \end{table}
 
 
@@ -582,13 +582,24 @@ Se describirá conforme al desarrollo de este estrabajo.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%		Conclusiones           %%%%%%%%%%%%%%%%%%%%%
 \chapter{Conclusiones y trabajo futuro}
+En este capítulo se resumen los resultados obtenidos de la realización de este trabajo de tesis se presentan algunas consideración que se debe tener en cuenta al implementar el sistema de manipulación  desarrollado. De la misma manera se plantean propuestas sobre la continuidad de este trabajo de investigación.\\
 
 \section{Conclusiones} 
-	Partiendo de la información obtenida de los resultados podemos concluir que un algoritmo RANSAC con un umbral de 0.02 [m] y un número de 1000 iteraciones nos ayudará a encontrar la ecuación de un plano así como una lista de puntos pertenecientes al mismo. Esta impletenación tomará 8 veces más tiempo que la implementación actual pero reducirá el error relativo respecto al modelo real de un 39.9\% al 8.83\%.\\
+	Partiendo de la información obtenida de los resultados podemos concluir que un algoritmo RANSAC con un umbral de 0.02 [m] y un número de 1000 iteraciones nos ayudará a encontrar la ecuación de un plano así como una lista de puntos pertenecientes al mismo. Esta impletenación tomará 8 veces más tiempo que la implementación con la cual cuenta el robot de servicio Justina; sin embargo reducirá el error relativo respecto al modelo real de un 39.9\% al 8.83\%. (Figura: \ref{t_result:1})\\
 
-	El análisis de componentes principales aplicado a nubes de puntos de objetos segmentados ayuda a cálcular el ángulo de orientación de un objeto sobre el plano.\\
+	Se pueda añadir, además, que es posible extraer características de los objetos sobre un plano utilizando una segmentación por planos y una posterior extracción de los puntos sobre en plano. La extracción de la nube de puntos ordenada perteneciente a los objetos sobre el plano pueden darnos características espaciales tales como el centroide, altura y orientación. Para el caso de la altura de los objetos, la implemetación desarrollada en este documento de tesis muestra un valor de estimación más cercano a la medida real, como se muestra en las gráficas 6.10 - 6.12; por lo tanto podemos decir la implementación reportado en este documento es más exacta en comparación con el algoritmo ya existente en el robot de servicio Justina.\\
 
-	Inlcuir información sobre la orientación de los objetos a la tarea de manipulación mejora de un 21.4\% a un 72.8\%. Por lo tanto podemos decir que inluir esta información mejora significativamenta la tarea de manipulación para un robot de servicio con un manipulador de 7DOF como Justina.\\   
+	La prueba T realizada para el caso de las alturas ayuda a observar que en general la implementación del algoritmo descrito en este documento presenta una mayor varianza; por lo tanto se concluye que es menos preciso. (Figura: \ref{t_test:alturas})\\ 
+
+	El análisis de componentes principales aplicado a nubes de puntos de objetos segmentados ayuda a cálcular el ángulo de orientación de un objeto sobre el plano. El algoritmo para obtener la orientación de los objetos descrita en este documento no presenta un error mayor a 5 grados en ninguno de los casos. Esto, para las tareas dirigidas a los robots de servicio se encuentra en términos aceptables, dado que los elementos a manipular no exigen extremar precauciones en cuanto manipulabilidad.\\
+
+	Podemos hacer notar, además que el obejto que presenta una mayor varianza en la estimación de su orientación es el control para videojuegos, esto debido a que es el único que no possee una forma basada un primitivas.\\
+
+	Por otro lado, en cuanto a los algoritmos del cálculo de la cinemática inversa, podemos mencionar que la paquetería moveIt! con el solucionador OMPL para el caso del manipulador específico del robot de servicio Justina, no resulta en una mejora significativa. Es menos robusto en cuanto al numero de soluciones que puede encontar (figura 6.34), y en caso de no encontrar solución el tiempo de ejecución es significativamente mayor que en el caso del algoritmo geométrico (figura 6.31) lo cual no es conveniente para un manipulador si se requiere velocidad de ejecución.\\
+
+	En cuanto a los eventos en los cuales fue exitoso el cálculo de la cinemática inversa para ambos algoritmos, se observó que el algoritmo geométrico ofrece un conjunto de soluciones en las cuales de requiere un menor gasto energético para su solución. (figura 6.32)\\ 
+
+	Inlcuir información sobre la orientación de los objetos a la tarea de manipulación mejora de un 21.4\% a un 72.8\%. Por lo tanto podemos decir que incluir esta información mejora significativamenta la tarea de manipulación para un robot de servicio con un manipulador de 7DOF como Justina.(Figura: \ref{fig:exitos-fracasos} )\\   
 
 
-\section{Trabajo futuro}
+%\section{Trabajo futuro}
