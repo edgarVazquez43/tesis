@@ -16,22 +16,24 @@
 		%Estado del arte
 		Dado que este trabajo se centrará en los robots de servicio doméstico es importante mencionar que un robot de servicio doméstico es un robot capaz de realizar tareas de la vida diaria en un ambiente similar al de un hogar real. Actualmente el desarrollo de este tipo de robots encuentra promoción en la competencia Robocup @Home almenos a nivel de investigación académica \cite{robocupAtHome}. Robocup @Home promueve el desarrollo de robots de servicio doméstico al brinder una plataforma estandar de prueba similar a un ambiente doméstico. Esta categoría promueve la incorporación de habilidades robóticas avanzadas para la interacción con los humanos y con el entorno de operación. Esta competencia se enfoca a desarrollar habilidades en los robots de servicio. Ejemplos de estas habilidades son la localización y navegación segura en ambientes no controlados, la comunicación natural humano-robot por voz y gestos y habilidades visuales para el reconocimiento y la manipulación de objetos.\cite{femexrobotics}\\
 
-		Los robots de servicio doméstico enfrentan diversos retos: desarrollar tareas en ambientes dinámicos, características de entornos no estandarizados, incertidumbre ante escenarios desconocidos, entre otros. Dadas las condiciones en que estos robots operan los programadores y desarrolladores han enfocado sus esfuerzos en dotar a los robots de ciertas capacidades. Por ejemplo el robot Cosero, consta de un sistema de percepción del entorno, un sistema de manipulación, un sistema de interacción humano-robot y un sistema de planeación de tareas.\cite{coseroEpage}\\ %%%%REFFFFFF
+		Los robots de servicio doméstico enfrentan diversos retos: desarrollar tareas en ambientes dinámicos, características de entornos no estandarizados, incertidumbre ante escenarios desconocidos, entre otros. Dadas las condiciones en que estos robots operan los programadores y desarrolladores han enfocado sus esfuerzos en dotar a los robots de ciertas capacidades. Por ejemplo el robot Cosero, consta de un sistema de percepción del entorno, un sistema de manipulación, un sistema de interacción humano-robot y un sistema de planeación de tareas.\cite{stuckler2016mobile}.\\ 
 
 		\begin{figure}[H]
 			\begin{center}
 			\includegraphics[width=12.5cm, height=7cm]{estadoArte/cosero.png}
 			\caption{Estructura de software del robot Cosero.}
+			\label{coseroSystem}
 			\end{center}
 		\end{figure}
 
-		En particular, la detección y manipulación de objetos, es una tarea fundamental a resolver en los robots de servicio. La idea general de la robótica de servicio doméstico ha existido desde hace mucho tiempo, pero es un tema de investigación relativamente joven. El objetivo de crear robots de servicios útiles y autónomos que puedan interactuar con seres humanos y objetos en el mundo real en un entorno natural plantea un gran número de problemas sin resolver en muchas disciplinas científicas.\\
+		En particular, la detección y manipulación de objetos, es una tarea fundamental a resolver en los robots de servicio. La idea general de la robótica de servicio doméstico ha existido desde hace mucho tiempo, pero es un tema de investigación relativamente joven. El objetivo de crear robots de servicios útiles y autónomos que puedan interactuar con seres humanos y objetos en el mundo real en un entorno natural plantea un gran número de problemas sin resolver en muchas disciplinas científicas. En general, diferentes robots de servicio diméstico poseen un sistema de detección y manipulación de objetos (Figuras \ref{coseroSystem}, \ref{markovitoSystem}, \ref{justinaSystem}).\\ 
 		%\vspace{0.2in}
 
 		\begin{figure}[H]
 			\begin{center}
 			\includegraphics[width=12.5cm, height=7cm]{estadoArte/markovito.png}
 			\caption{Estructura de software del robot Markovito.}
+			\label{markovitoSystem}
 			\end{center}
 		\end{figure}
 
@@ -39,10 +41,11 @@
 			\begin{center}
 			\includegraphics[width=12.5cm, height=8cm]{estadoArte/justina.png}
 			\caption{Estructura de software del robot Justina.}
+			\label{justinaSystem}
 			\end{center}
 		\end{figure}
 
-		Recientemente, el progreso en estos campos de investigación, así como la normalización en el desarrollo de hardware y software, ha llevado a un aumento en la disponibilidad de recursos, métodos y componentes para el desarrollo  de Robots de servicio doméstico . Por ello estamos cada vez más cerca de convivir con robots de servicios de manera exitosa en diversos lugares, por ejemplo hospitales \cite{hospitalRobots}, oficinas, construcciones, o tiendas departamentales \cite{robotsInStores}.\\
+		Recientemente, el progreso en estos campos de investigación, así como la normalización en el desarrollo de hardware y software, ha llevado a un aumento en la disponibilidad de recursos, métodos y componentes para el desarrollo  de Robots de servicio doméstico . Por ello estamos cada vez más cerca de convivir con robots de servicios de manera exitosa en diversos lugares, por ejemplo hospitales \cite{bloss2011mobile}, oficinas, construcciones, o tiendas departamentales \cite{robotsInStores}.\\
 		%\vspace{0.2in}
 
 
@@ -228,7 +231,7 @@ Los principales parámetros que caracterizan a los robots industriales son:
 	    \end{split}
 	    \end{equation}
 
-		desarrollando los términos esto se convierte\\
+		desarrollando los términos esto se convierte en:\\
 
 		\begin{equation}
 			\begin{split}
@@ -265,7 +268,7 @@ Los principales parámetros que caracterizan a los robots industriales son:
 
 		Sea $p_1=(x_1, y_1, z_1)$, $p_2=(x_2, y_2, z_2)$, y $p_3=(x_3, y_3, z_3)$ puntos en el espacio $R^3$ no-colineales.\\
 
-		Este plano también puede ser descrito por el "punto y un vector normal" de acuerdo  a la descripción anterior. Un vector normal adecuado se da por el producto cruz.\\
+		Este plano también puede ser descrito por el ``punto y un vector normal" de acuerdo  a la descripción anterior. Un vector normal adecuado se da por el producto cruz.\\
 		
 		\begin{equation}
 			\begin{split}
@@ -300,9 +303,9 @@ Los principales parámetros que caracterizan a los robots industriales son:
 
 	\section{Algoritmo RANSAC}
 		\subsection{Algoritmo}
-		El algoritmo RANSAC (RANdom Sample And Consensus) fue introducido por primera vez por Fischler y Bolles en 1981, como un método para estimar los parámetros de un determinado modelo a partir de un conjunto de datos contaminados por grandes cantidades de outliers. Un dato es considerado un outlier si no encaja en el modelo propuesto, dentro de un umbral de error que define el valor máximo desviación atribuible al efecto del ruido.\\
+		El algoritmo RANSAC (RANdom Sample And Consensus) fue introducido por primera vez por Fischler y Bolles en 1981, como un método para estimar los parámetros de un determinado modelo a partir de un conjunto de datos contaminados por grandes cantidades de valores atípicos (outliers). Un dato es considerado un valor atípico si no encaja en el modelo propuesto, dentro de un umbral de error que define el valor máximo de desviación atribuible al efecto del ruido, en el caso contrario se denominan valores típicos (inliers) al conjunto de datos que ajustan en el modelo con la característica antes mencionada.\\
 
-		RANSAC selecciona uniformemente al azar un subconjunto de muestras de datos y lo utiliza para crear un modelo de estimación de parámetros. Luego determina si las muestras que están dentro de una tolerancia de error del  modelo antes propuesto. Si estas muestras se consideran como parte del modelo generado se agrupan en un conjunto llamado \textit{consenso}. De manera análoga se llama \textit{outliers} al conjunto de tos que superan el umbral de error con respecto al modelo. Si el recuento de los datos agrupados en el consenso es suficientemente alto con respecto de los outliers, se considera que el modelo se ajusta al conjunto de datos, siendo el modelo propuesto un modelo que se aproxima al conjunto total de datos.\\
+		RANSAC selecciona uniformemente al azar un subconjunto de muestras de datos y lo utiliza para crear un modelo de estimación de parámetros. Luego se determina si las muestras están dentro de una tolerancia de error del  modelo antes propuesto. Si estas muestras se consideran como parte del modelo generado se agrupan en un conjunto llamado \textit{consenso}. De manera análoga se llaman \textit{valores atípicos} al conjunto de datos que superan el umbral de error con respecto al modelo. Si el recuento de los datos agrupados en el consenso es suficientemente alto con respecto de los valores atípicos, se considera que el modelo se ajusta al conjunto de datos, siendo el modelo propuesto un modelo que se aproxima al conjunto total de datos.\\
 
 		A continuación se muestra el seudocódigo básico para el algoritmo RANSAC.\\
 
@@ -329,7 +332,8 @@ Los principales parámetros que caracterizan a los robots industriales son:
 		\BlankLine
 		\BlankLine
 		
-		\While{ $iteraciones < k$}{
+		\While{ $iteraciones < k$}
+		{
 			Generación del modelo a partir de datos aleatoriamente seleccionados\;
 		    $modeloPropuesto = f(datos)$\;
 		    $modeloPropuesto = rand(datos)$\;
@@ -349,11 +353,11 @@ Los principales parámetros que caracterizan a los robots industriales son:
 		            $errorModelo = errorModelo + error$\;
 		        }
 		    }
-		    \If{ número de elementos \textbf{in} inliers $is > n$} 
+		    \If{ número de elementos \textbf{in} inliers \textbf{is} $> n$} 
 		    {
-		        \textit{esto significa que tenemos un buen modelo} \;
+		        \textit{//Esto significa que tenemos un buen modelo} \;
 
-		        \textit{Verificamos si el modelo calculado supera al mejor modelo calculado con anterioridad.}\;
+		        \textit{//Verificamos si el modelo calculado supera al mejor modelo calculado con anterioridad.}\;
 		        \If{ errorModelo $<$ menorError}
 		        {
 		            mejorAjuste = mejorModelo\;
@@ -375,22 +379,20 @@ Los principales parámetros que caracterizan a los robots industriales son:
 
 
 	\section{Algoritmo PCA}
-		El Análisis de Componentes Principales (PCA) ha sido llamado uno de los resultados más valiosos de la álgebra lineal.\cite{holland2008principal} PCA Se usa abundantemente en muchas formas de análisis, desde la neurociencia haste la computación gráfica debido a que es un método simple. El PCA proporciona una metodología para reducir un conjunto de datos complejos a una dimensión inferior.\\	
+		El Análisis de Componentes Principales (PCA) ha sido llamado uno de los resultados más valiosos de la álgebra lineal \cite{holland2008principal}. PCA Se usa abundantemente en muchas disciplinas, desde la neurociencia hasta la computación gráfica debido a que es un método simple. El PCA proporciona una metodología para reducir un conjunto de datos complejos a una dimensión inferior.\\	
 
-		El algoritmo PCA tiene sus bases en las estadísticas y parte de la idea de que se tien un gran conjunto de datos, y desea analizar ese conjunto en términos de las relaciones entre los puntos individuales dentro de ese conjunto de datos. Se pretende analizar algunas de las medidas que podemos calcular en un conjunto de datos, y lo que estás medidas dicen acerca de los datos en sí.\\
+		El algoritmo PCA tiene sus bases en la estadística y parte de la idea de que se tiene un gran conjunto de datos, y se desea analizar ese conjunto en términos de las relaciones entre los puntos individuales que lo conforman. Se pretende analizar algunas de las medidas que podemos calcular en un conjunto de datos y lo que estas medidas dicen acerca de los datos en sí.\\
 	
 		\subsection{Desviación estándar}
 		
 			La desviación estándar es una medida de la dispersión de un conjunto de datos respecto de la media. Se calcula como la raíz cuadrada de la varianza, determinando la variación entre cada punto perteneciente al conjunto de  datos respecto a la media. Si los puntos de datos están más lejos de la media, hay una desviación más alta dentro del conjunto de datos.\\
 
 			%%%%%%TEORIA SOBRE DESVIACIONES ESTANDART %%%%%%
-			Dado que la desviación estándar puede ser interpretada como una medida de incertidumbre cuando cálculamos el valor de esta en un grupo repetido de medidas nos da la precisión de éstas. Cuando se va a determinar si un grupo de medidas está de acuerdo con el modelo teórico, la desviación estándar de esas medidas es de vital importancia: si la media de las medidas está demasiado alejada de la predicción (con la distancia medida en desviaciones estándar), entonces consideramos que las medidas contradicen la teoría. Esto es coherente, ya que las mediciones caen fuera del rango de valores en el cual sería razonable esperar que ocurrieran si el modelo teórico fuera correcto. La desviación estándar es uno de tres parámetros de tendencia central; muestra la agrupación de los datos alrededor de un valor central (la media o promedio).\\
+			Dado que la desviación estándar puede ser interpretada como una medida de incertidumbre cuando se calcula el valor de esta en un grupo repetido de medidas nos da la precisión de éstas. Cuando se va a determinar si un grupo de medidas está de acuerdo con el modelo teórico, la desviación estándar de esas medidas es de vital importancia: si la media de las medidas está demasiado alejada de la predicción (con la distancia medida en desviaciones estándar), entonces consideramos que las medidas contradicen la teoría. Esto es coherente, ya que las mediciones caen fuera del rango de valores en el cual sería razonable esperar que ocurrieran si el modelo teórico fuera correcto. La desviación estándar es uno de varios parámetros de dispersión central; muestra la agrupación de los datos alrededor de un valor central (la media o promedio).\\
 			%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 			%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-			Por tanto para calcular la desviación estándar primero debemos calcular la media del conjunto de datos.\\
-
-			Cálculo de la media de un conjunto de datos.\\
+			Por tanto para calcular la desviación estándar primero debemos calcular la media del conjunto de datos.De acuerdo con:\\
 			
 			\begin{equation}
 				\begin{split}
@@ -398,7 +400,7 @@ Los principales parámetros que caracterizan a los robots industriales son:
 				\end{split}
 			\end{equation}
 
-			Donde $n$ es el numero total de datos contenido en la muestra.\\
+			donde $n$ es el numero total de datos contenido en la muestra.\\
 			
 			Cálculo de la desviación estándar.\\
 			\begin{equation}
@@ -435,7 +437,7 @@ Los principales parámetros que caracterizan a los robots industriales son:
 
 			\begin{equation}
 				\begin{split}
-					s = \dfrac{\Sigma^n_{i=1} (X_i - \bar{X})^2} {(n-1)}
+					s = \dfrac{\Sigma^n_{i=1} (X_i - \bar{X})^2} {(n)}
 				\end{split}
 			\end{equation}
 
@@ -443,20 +445,20 @@ Los principales parámetros que caracterizan a los robots industriales son:
 		
 			Las dos últimas medidas que hemos observado son puramente uni-dimensionales. Conjuntos de datos como este podrían ser: alturas de todas las personas en la sala, las calificaciones para el último examen, etc. Sin embargo, muchos conjuntos de datos tienen más de una dimensión y el objetivo del Análisis de Componentes Principales son estos conjuntos de datos. En tal caso es importante observar si existe alguna relación entre las diferentes dimensiones. Por ejemplo, se podría tener como conjunto de datos tanto la altura de todos los estudiantes en una clase, y la calificación  que recibieron en un examen.\\ 
 
-			Se podría entonces realizar un análisis estadístico para observar si la altura de un estudiante tiene algún efecto en su calificación. La desviación estándar y la varianza sólo funcionan en una dimensión, de modo que podríamos solamente calcular la desviación estándar para cada dimensión del conjunto de datos de forma independiente de las otras dimensiones. Sin embargo, es útil tener una medida similar para mucho las dimensiones varían de la media con respecto a la otra.\\
+			Se podría entonces realizar un análisis estadístico para observar si la altura de un estudiante tiene algún efecto en su calificación. La desviación estándar y la varianza sólo funcionan en una dimensión, de modo que podríamos solamente calcular la desviación estándar para cada dimensión de un conjunto de datos de forma independiente de las otras dimensiones.\\
 
 
-			Por lo tanto, si se tiene un conjunto de datos en 3 dimensiones $(x, y, z)$, entonces se podría medir la covarianza entre: las dimensiones $(x, y)$, las dimensiones $(x, z)$ y las dimensiones $(y, z)$. Como se puede observar la medición de la covarianza entre $(x, x)$, $(y, y)$ o $(z, z)$ se puede reducir a calcular la varianza de cada dimensión respectivamente. La fórmula para la covarianza es muy similar a la fórmula para la varianza. La formula:\\ 
+			Por lo tanto, si se tiene un conjunto de datos en 3 dimensiones $(x, y, z)$, entonces se podría medir la covarianza entre: las dimensiones $(x, y)$, las dimensiones $(x, z)$ y las dimensiones $(y, z)$. Como se puede observar la medición de la covarianza entre $(x, x)$, $(y, y)$ o $(z, z)$ se puede reducir a calcular la varianza de cada dimensión respectivamente. La fórmula para la covarianza es muy similar a la fórmula para la varianza.\\ 
 
 			\begin{equation}
 				\begin{split}
-					var(X) = \dfrac{\Sigma^n_{i=1} (X_i - \bar{X} ) (X_i - \bar{X}) } {(n - 1)}
+					var(X) = \dfrac{\Sigma^n_{i=1} (X_i - \bar{X} ) (X_i - \bar{X}) } {(n )}
 				\end{split}
 			\end{equation}
 
 			\begin{equation}
 			\begin{split}
-				cov(X, Y) = \dfrac{\Sigma^n_{i=1} (X_i - \bar{X} ) (Y_i - \bar{Y}) } {(n - 1)}
+				cov(X, Y) = \dfrac{\Sigma^n_{i=1} (X_i - \bar{X} ) (Y_i - \bar{Y}) } {(n)}
 			\end{split}
 			\end{equation}
 
@@ -493,24 +495,23 @@ Los principales parámetros que caracterizan a los robots industriales son:
 				\end{split}
 			\end{equation}
 
-			También puede observarse que $\lambda$ es un vector de valores escalares que a su vez son solución del polinomio de grado $n$. Donde $n$ es la dimensión de la matriz $A$: \\
+			También puede observarse que $\lambda$ es un vector de valores escalares que a su vez son solución del polinomio de grado $n$, donde $n$ es la dimensión de la matriz $A$: \\
 
-			Polinomio característico.\\
 			\begin{equation}
 				| A - \lambda I | = (\lambda_1 - \lambda) (\lambda_2 - \lambda) (\lambda_3 - \lambda)... (\lambda_n - \lambda)
 			\end{equation}
 
 			
-			Por lo tanto, existe un vector propio asociado a cada uno de los valores propios de la matriz A\\
+			Por lo tanto, existe un vector propio asociado a cada uno de los valores propios de la matriz A:\\
 			
 			\begin{equation}
 				\begin{split}
-					( A - \lambda I )v = 0
+					( A - \lambda I ) \vec{v} = 0
 				\end{split}
 			\end{equation}
 
 
-			Para encontrar el valor de los vectores característicos de la matriz A se determinan los valores característicos de la matriz A se resuelve la ecuación:\\
+			Para encontrar el valor de los vectores característicos de la matriz A se determinan los valores característicos de la matriz A y se resuelve la ecuación:\\
 
 			
 			\begin{equation}

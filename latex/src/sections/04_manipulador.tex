@@ -2,21 +2,21 @@
 
 
 \chapter{Características del manipulador de 7DOF}
-	En esta sección se hablará de las caracteriscias mecánicas del brazo robótico ensamblado en el robot de servicio Justina. Se describirán los elementos que componen el brazo robótico haciendo enfasís en la ubicación de los actuadores y como influye esto en el modelo matematico del mismo. Posteriormente se abordarán los temas respectivos la cinemática de un brazo robótico de 7DOF.\\
+	En esta sección se hablará de las caracteriscias mecánicas del brazo robótico ensamblado en el robot de servicio Justina. Se describirán los elementos que componen el brazo robótico haciendo enfasís en la ubicación de los actuadores y cómo influye esto en el modelo matemático del mismo. Posteriormente se abordarán los temas respectivos a la cinemática de un brazo robótico de 7DOF.\\
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
            %%%%%%  DESCRPCIÓN SERVOMOTORES   %%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	\section{Descripción hardware}
-		Los servomotores Dynamixel son un sistema de actuador inteligente desarrollados con el propósito de funcionar como uniones de conexión en un robot o estructura mecánica. Los servomotores Dynamixel están diseñados para ser modulares y soportar la conexión en cadena en cualquier robot o diseño mecánico. Este tipo de servomotores es popular por los beneficios que ofrece: movimientos robóticos potentes y flexibles.\cite{mensink2008characterization} \\
+	\section{Descripción del hardware}
+		Los servomotores Dynamixel son un sistema de actuador inteligente desarrollados con el propósito de funcionar como uniones un robot o estructura mecánica. Los servomotores Dynamixel están diseñados para ser modulares y soportar la conexión en cadena en cualquier robot o diseño mecánico. Este tipo de servomotores es popular por los beneficios que ofrece: movimientos potentes y flexibles \cite{mensink2008characterization}.\\
 
 		El conjunto de servomotores Dynamixel son un grupo de actuadores de alto rendimiento con reductor, controlador y un protocolo de comunicación completamente integrados. El estado del actuador se puede leer y monitorear a través de un flujo de paquetes de datos. \cite{dynamixelEpage}\\
 
 			\subsection{Motores dynamixel Serie MX}
 		Los motores Dynamixel de la seire MX cuentan con la implemntación de un algoritmo de control PID para mantener la posición del eje. Las ganancias del algoritmo de control PID se pueden ajustar individualmente para cada servo, lo que le permite controlar la velocidad y par del motor. Todos los servos de la serie MX usan un voltaje nominal de 12v.\\
 
-		En lo que respecta a la parte mecánica, todos los servos DYNAMIXEL son compatibles con una amplia variedad de bridas, acoplamientos y sujetadores lo cual facilita la construcción de cualquier configuración deseada. Este conjunto de elementos mecánicos permite una conexión directa cualquier modelo de servomotores DYNAMIXEL, lo que le permite una gran variedad de configuraciones para cualquier necesidad. Dada la gran variedad de configuraciones, este tipo de elementos de unión y fijación resultó de gran ayuda mecánica al momento de contruir el brazo robótico donde se implentaron los algoritmos descritos en el presente trabajo.\\
+		En lo que respecta a la parte mecánica, todos los servos Dynamixel son compatibles con una amplia variedad de bridas, acoplamientos y sujetadores lo cual facilita la construcción de cualquier configuración deseada. Este conjunto de elementos mecánicos permite una conexión directa de cualquier modelo de servomotores Dynamixel, lo que proporciona una gran variedad de configuraciones para cualquier necesidad. Dada la gran variedad de configuraciones, este tipo de elementos de unión y fijación resultó de gran ayuda mecánica al momento de construir el manipulador donde se implementaron los algoritmos descritos en el presente trabajo.\\
 
 		\begin{figure}[h!]
 			\begin{center}
@@ -25,7 +25,7 @@
 			\end{center}
 		\end{figure}
 
-		Resuminedo las características de los sermovomotores de la serie MX, podemos enlistar las siguientes:\\ 
+		Resumiendo las características de los sermovomotores de la serie MX, podemos enlistar las siguientes:\\ 
 
 		\begin{itemize}
 			\item{Detección de posición sin contacto debido a la implementación del sensor de efecto hall.}
@@ -34,7 +34,7 @@
 			\item{Control de par basado en corriente (2.69mA/step)}
 		\end{itemize}
 
-		Si se desea controlar este servo DYNAMIXEL desde un equipo de computo es necesario contar con un dispositivo que facilite la comunicación entre este y el microprocesador de cada uno de los servomotores, el dispositivo que cumple con esta funcionalidad es el USB2Dynamixel. Utilizado en la implementación de este trabajo.\\
+		Si se desea controlar este servo Dynamixel desde un equipo de computo es necesario contar con un dispositivo que facilite la comunicación entre este y el microprocesador de cada uno de los servomotores. El dispositivo que cumple con esta funcionalidad es el USB2Dynamixel, utilizado en la implementación de este trabajo.\\
 
 
 		\begin{figure}[h!]
@@ -64,7 +64,7 @@
  \hline
  Control PID           & \multicolumn{3}{|c|}{ SI } \\
  \hline
- Material              & \multicolumn{3}{|c|}{ Carcasa platica y reducción metálica} \\
+ Material              & \multicolumn{3}{|c|}{ Carcasa plástica y reducción metálica} \\
  \hline
  Motor                 & \multicolumn{3}{|c|}{ Maxon RE-MAX} \\
  \hline
@@ -88,7 +88,7 @@
  \hline
  Voltaje de operación  &  MX-106    &   MX-64   &  MX-28\\
  \hline
- Par de bloqueo        &  85.6kg.cm &  61kg.cm  &  25.5kg.cm\\
+ Par de bloqueo        &  8.4[N.m] (5.2[A])  &   6.0[N.m] (4.1[A])  &  2.5[N.m] (1.4[A])\\
  Velocidad sin carga   &  45rpm     &  63rpm    &  55rpm\\
  \hline
  Peso                  &  153g      &  126g     &  72g\\
@@ -100,7 +100,7 @@
  Corriente máxima      &  5.2A@12V & 4.1A@12V & 1.4A@12V\\
  \hline
 \end{tabular}
-\caption{Características dynamixel modelo MX-106.}
+\caption{Características dynamixel modelo MX-106 \cite{mensink2008characterization}.}
 \label{t_manip:2}
 \end{table}
 
@@ -112,9 +112,57 @@
 	\end{center}
 \end{figure}
 
-	Por otro lado es importante conocer la estructura de transmisión de la información de un servomotor con el dispositivo controlador. Para ello los servomotores dynamixel cuentan con un protocolo de comunicación serial asincrono, el cúal transtite una serie de datos en una trama, como se ilustra en la figura \ref{manip:trama}.\\
+	La importancia de conocer las características del servomotor MX-106 radican en poder determinar si las capacidades del actudador son suficientes para la aplicación debida. En la configuración del manipulador se tienen dos motores del modelo antes mencionado en un acoplamiento paralelo compartiendo el mismo eje de acción con lo cual se tiene la suma del par de torsión en ese eje. La suma total del par proporcionado por el arreglo de servomotores Dynamixel MX-106 es de $16.8[N.m]$.\\
 
-	\begin{figure}[h!]
+	Se realizó la medición de la masa total de manipulador, siendo esta de $1.8[kg]$ y por tanto\\
+
+	\begin{equation}
+	\begin{aligned}
+	\begin{split}
+		p & = m g \cr
+		  & = 1.8 [kg]\; 9.81 [m / s^2] \cr
+		  & = 17.658 [N]
+    \end{split}
+    \end{aligned}
+    \end{equation}
+
+
+	se sabe que un par de fuerzas está caracterizado por el momento que estas generan:\\ 
+	
+	\begin{equation}
+	\begin{aligned}
+	\begin{split}
+		M = F_1 \; d = F_2 \;  d
+    \end{split}
+    \end{aligned}
+    \end{equation}
+
+    Se tomas el caso límite donde suponemos el peso ejercido como una carga concentrada en el extremo del manipulador $d=0.70[m]$, además suponemos el caso de una viga en catilibre con donde el par máximo requerido es ejercido en el extremo que sirve de soporte, con lo cual se tiene la configuración mostrada en la figura \ref{Fig:parManip}. Aplicando (ec. 4.2) tenemos un par ejercido por el peso del manipulador de $M = 12.3606[N.m]$.\\
+
+    \begin{equation}
+    \begin{aligned}
+	\begin{split}
+		Par_{carga} & < Par_{suminstrado} \cr
+		12.3606 & < 16.8 [N.m]\cr
+    \end{split}
+    \end{aligned}
+    \end{equation}
+
+    Se observó que aún en el caso límite el par suministrado por el arreglo de servomotores en modo paralelo es suficiente para mover el manipulador.\\
+
+    \begin{figure}[H]
+		\begin{center}
+		\includegraphics[scale=0.4]{manipulator/par_calc.png}
+		\end{center}
+		\caption{Representación de la descomposición de par para el manipulador de 7DOF en un robot de servicio.}
+		\label{Fig:parManip}
+	\end{figure}
+
+
+
+	Por otro lado es importante conocer la estructura de transmisión de la información de un servomotor con el dispositivo controlador. Para ello los servomotores dynamixel cuentan con un protocolo de comunicación serial asincrono, el cual transmite una serie de datos en una trama, como se ilustra en la figura \ref{manip:trama}.\\
+
+	\begin{figure}[H]
 		\begin{center}
 		\includegraphics[width=15.5cm, height=1.5cm]{manipulator/trama.png}
 		\end{center}
@@ -125,13 +173,13 @@
 	El significado de cada byte que compone al paquete datos es el siguiente:\\
 
 	\begin{itemize}
-		\itemsep0em
+		\itemsep-0.5em
 		\item{ \textbf{0xFF 0xFF} :  Es la instrucción que marca el inicio del paquete.}
-		\item{ \textbf{ID} :  Es el ID de cada servomotor partícular en la cadena.}
+		\item{ \textbf{ID} :  Es el ID de cada servomotor particular en la cadena.}
 		\item{ \textbf{LENGTH} :  Es el tamaño del paquete. El tamaño es calculado como el numero de parametros más dos (N+2).}
 		\item{ \textbf{INSTRUCTION} :  Indica el tipo de instrucción que ejecutará el servomotor dynamixel.}
 		\begin{itemize}
-			\itemsep0em
+			\itemsep-0.5em
 			\item{PING}
 			\item{READ\_DATA}
 			\item{WRITE\_DATA}
@@ -140,11 +188,12 @@
 			\item{RESET}
 			\item{SYN\_WRITE}
 		\end{itemize}
+		\itemsep-0.5em
 		\item{ \textbf{PARANETER 0...N} :  Este parámetro se usa cuando la instrucción requiere datos auxiliares.}
 		\item{ \textbf{CHECK SUM} :  Se usa para verificar si el paquete de datos se dañó durante la comunicación.}
 	\end{itemize}
 	
-	A continuación se anexa una tabla con las caracteriticas más reelevantes de los registros que posee cada uno de los revomotores dynamixel.\\
+	A continuación se muestra una tabla con las caracteriticas más reelevantes de los registros que posee cada uno de los revomotores dynamixel.\\
 
 \begin{table}[H]
 \centering
@@ -205,7 +254,7 @@
 		\end{center}
 	\end{figure}
 
-	El sistema \textit{daisy chain} es un esquema de conexiones que forman una sucesión de enlaces, tal que el dispositivo A se encunetra conectado al dispositivo B y este, a su vez, se encuentra concectado a un dispositivo C y así sucesivamente. Es importante señalar que en este tipo de conexión los dispositivos no forman redes, en tal caso el dispositivo C no podría estar conectado al dispositivo A. Otro aspecto importante de resaltar es que en este tipo de conexiones al no poder formar redes la comunicación se realiza dispositivo a dispositivo, por tanto los dispositivos ultimos en la cadena pueden presentar retraso o fallas electricas con respecto de los dispositivos primeros en orden de la cadena.\\  
+	El sistema \textit{daisy chain} es un esquema de conexiones que forman una sucesión de enlaces, tal que el dispositivo A se encuentra conectado al dispositivo B y este, a su vez, se encuentra concectado a un dispositivo C y así sucesivamente. Es importante señalar que en este tipo de conexión los dispositivos no forman redes, en tal caso el dispositivo C no podría estar conectado al dispositivo A. Otro aspecto importante de resaltar es que en este tipo de conexiones al no poder formar redes la comunicación se realiza dispositivo a dispositivo, por tanto los dispositivos ultimos en la cadena pueden presentar retraso o fallas electricas con respecto de los dispositivos primeros en orden de la cadena.\\  
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -213,9 +262,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 	\section{Descripción de los elementos del sistema de manipulación}
-		El sistema de Hardware del brazo robótico está compuesto por un total de 10 servomotores Dynamixel fabricados por la compañía Robotis \cite{dynamixelEpage}. Esta compañia cuenta con diversas gamas de modelos de servomotores según las necesidades de la apliación. A continuación se describirá el sistema en orden descendente.\\
+		El hardware del manipulador está compuesto por un total de 10 servomotores Dynamixel fabricados por la compañía Robotis \cite{dynamixelEpage}. Esta compañia cuenta con diversas gamas de modelos de servomotores según las necesidades de la apliación. A continuación se describirá el sistema en orden descendente.\\
 
-		En la parte superior del brazo robótico se encuentran dos servomotores Dynamixel MX-106 conectados como maestro-esclavo, configurados en este modo trabajan de manera conjunta aumentando el par unitario de cada uno de los servomotores. Dadas las caracteristicas antes descritas en la tabla \ref{t_manip:2}  podemos observar que la configuración de servomotores entrega un par de torsión máximo a rotor bloqueado de $16.8N.m$ @ 12V. El sentido de giro positivo del arreglo de servomotores es el mostrado en la figura \ref{manip:master}. \\
+		En la parte superior del brazo robótico se encuentran dos servomotores Dynamixel MX-106 conectados como maestro-esclavo, configurados en este modo trabajan de manera conjunta aumentando el par unitario de cada uno de los servomotores. Dadas las caracteristicas antes descritas en la tabla \ref{t_manip:2}  podemos observar que la configuración de servomotores entrega un par de torsión máximo a rotor bloqueado de $192.1[kg.cm]$ @ 12V. El sentido de giro positivo del arreglo de servomotores es el mostrado en la figura \ref{manip:master}. \\
 
 		La configuración maestro-esclavo es un método de control simultaneo para dos servomotores Dynamixel, esta configuración es sumamente útil cuando se trata de construir una junta cuyo eje de acción es coincidente. Los motores respectivos maestro y esclavo deben estar conectados mediante un cable de sincronización. como se muestra en la figura[4.7]. El servomotor esclavo es directamente controlado por la señal PWM del maestro transmitida a travez del cable de sincronización. Es importante mencionar que la información de la posición, velocidad y corriente deseada es ignorada; puesto que esta información depende unicamente del maestro.\\  
 
@@ -226,17 +275,18 @@
 			\label{manip:master}
 		\end{figure}
 
-		En la configuración maestro-esclavo el esclavo puede configurarse para adoptar un sentido de giro inverso en caso que el acoplamiento mecánico así lo requiera. Dentro de este modo el servomotor esclavo tendrá la misma velocidad que el motor maestro, solo diferenciado por el sentido inverso de giro.\\
+		En la configuración maestro-esclavo, el esclavo puede configurarse para adoptar un sentido de giro inverso en caso que el acoplamiento mecánico así lo requiera. Dentro de este modo el servomotor esclavo tendrá la misma velocidad que el motor maestro, solo diferenciado por el sentido inverso de giro.\\
 
-		Posteriormente se encuentra un servomotor modelo MX-106, ubicado en una disposición horizontal. Unido a este servomotor se encuentra un eslabón obtenido mediante técnicas de manufactura aditiva. Dado que la construcción del brazo robótico esta pensanda desde el punto de vista antropomórfico  este conjunto de servomotores, el maestro-esclavo y el servomotor MX-106 describen los grados de libertad que emulan el movimiento de un hombro humano.\\
+		Posteriormente se encuentra un servomotor modelo MX-106, ubicado en una disposición horizontal. Unido a este servomotor se encuentra un eslabón obtenido mediante técnicas de manufactura aditiva. Dado que la construcción del brazo robótico esta pensanda desde el punto de vista antropomórfico,  este conjunto de servomotores, el maestro-esclavo y el servomotor MX-106 describen los grados de libertad que emulan el movimiento de un hombro humano.\\
 
-		El eslabón numero 1 obtenido mediante técnicas de manufactura aditiva funge como elemento de unión entre servomotores. Al final de este elemento de unión se encuentra un servomotor MX-64 cuyo eje de acción es perpendicular respcto a la base el brazo. Directamente acoplado a este servomotor se encuentra otro servomotor modelo MX-106. Estos dos servomotores realizan el símil con un codo humano.\\
+		El eslabón número 1 obtenido mediante técnicas de manufactura aditiva funge como elemento de unión entre servomotores. Al final de este elemento de unión se encuentra un servomotor MX-64 cuyo eje de acción es perpendicular respecto a la base el brazo. Estos tres servomotores describen los movimientos del hombro en comparación con un brazo humano. Directamente acoplado a este servomotor se encuentra otro servomotor modelo MX-106 el cual realiza el símil con un codo humano (figura \ref{Fig:eslabonesDescription}). \\
 
 		Continuando en orden descendente, se encuentra un segundo eslabón utilizado como elemento de unión. En el extremo de este elemento se encuentra un servomotor MX-106, posteriormente un MX-64 y por último un servomoto modelo MX-28. Estos tres elementos construyen un sistema similar al de la muñeca de un brazo humano.\\
 
 		\begin{SCfigure}
-			\includegraphics[width=4.5cm, height=12.5cm]{manipulator/brazo_4.jpg}
+			\includegraphics[scale=0.4]{manipulator/brazo_4.jpg}
 			\caption{Diseño asistido por computadora del brazo robótico del robot Justina. Se realizó en modelado de partes utilizando el software SolidWorks(c). Muestra del ensamble final.}
+			\label{Fig:eslabonesDescription}
 		\end{SCfigure}
 
 		Por último, se encuentra el efector final compuesto de dos actuadores MX-28 ubicados en disposición horizontal. En el eje de acción de cada uno de estos se encuentra una pieza obtenida mediante impresión 3D que funge como sujetador para manipular objetos.\\
@@ -249,7 +299,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 	\section{Cinemática directa}
-El problema de cinemática directa consiste en conocer la posición \textit{(x, y, z)} del efector final dada una determinda configuración de ángulos para el conjunto de actuadores que forman el sistema mecánico. Para ello se describe lo posición del efector final en términos de las transformaciones existentes entre este y la base fija del manipulador.\\
+El problema de cinemática directa consiste en conocer la posición \textit{(x, y, z)} del efector final dada una determinada configuración de ángulos para el conjunto de actuadores que forman el sistema mecánico. Para ello se describe lo posición del efector final en términos de las transformaciones existentes entre este y la base fija del manipulador.\\
 
 
 	\subsection{Teoría trasformaciones y medidas del brazo robotico}
@@ -260,9 +310,9 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
 	% ########   Foto brazo real con medidas\\
 
 
-	Es importante mencionar que para la descripcion de las transformaciones en sistema ROS, podemos contruir la matriz de rotación de tal manera que incluyamos las rotaciones y desplazamientos en los tres ejes coordenados. Esta caracteristica nos proporciona una ventaja sobre los técnicas de descripción de cinematica directa convencionales, tal es el caso del Método Denavith-Hartemberg donde el sistema de transformaciónes debe ser descrito utilizando, unicamente, dos rotaciones y dos translaciones según sus convenciones.\\
+	Es importante mencionar que para la descripcion de las transformaciones en la plataforma ROS, podemos contruir la matriz de rotación de tal manera que incluyamos las rotaciones y desplazamientos en los tres ejes coordenados. Esta caracteristica nos proporciona una ventaja sobre los técnicas de descripción de cinematica directa convencionales, tal es el caso del Método Denavit-Hartenberg donde el sistema de transformaciónes debe ser descrito utilizando, unicamente, dos rotaciones y dos translaciones según sus convenciones.\\
 
-	Es importante mencionar esta característica puesto que en algunos casos la concención Denavith-Hartemberg encuentra limitaciones para describir algunas transformaciones arbitrarias. En la representación Denavith-Hartemberg solo hay cuatro parámetros. Pues, mientras que el sistema de referencia i esté rígidamente unido al enlace i, tenemos la libertad para elegir el origen y los ejes de coordenadas del sistema de referencia i+1.\\ 
+	Es importante mencionar esta característica puesto que en algunos casos la convención Denavit-Hartenberg encuentra limitaciones para describir algunas transformaciones arbitrarias. En la representación Denavit-Hartenberg solo hay cuatro parámetros. Pues, mientras que el sistema de referencia i esté rígidamente unido al enlace i, tenemos la libertad para elegir el origen y los ejes de coordenadas del sistema de referencia i+1.\\ 
 
 	Claramente, no es posible representar una transformación homogénea arbitraria usando solo cuatro parámetros. Por lo tanto, comenzamos por determinar qué transformaciones homogéneas se pueden expresar en la forma D\_H.\\
 
@@ -293,10 +343,10 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
     \end{split}
     \end{equation}
 
-	Como podemos observar, en la convención de transformaciones Denavith-Hartemberg unicamente requerimos determinar el valor de cuatro variables, dos rotaciones $(\alpha, \theta)$ y dos translaciones $(a, d)$.\\  
+	Como podemos observar, en la convención de transformaciones Denavit-Hartenberg unicamente requerimos determinar el valor de cuatro variables, dos rotaciones $(\alpha, \theta)$ y dos translaciones $(a, d)$.\\  
 
 
-	El sistema de descripción de transformaciones desarrollado por ROS, presenta la ventaja que nos prermite describir la trasformación de una manera más detallada. Sin embargo la solución implementada no siempre suele ser la más óptima, encuanto al manejo de la información por ser una mayor cantidad de datos.\\
+	El sistema de descripción de transformaciones desarrollado por ROS, presenta la ventaja de describir las transformaciones de una manera más detallada al permitirnos describir las rotaciones y translaciones en los tres ejes. Sin embargo este tipo de soluciones no suele ser las más óptimas, puesto que al incrementarse la cantidad de datos a manejar suele incrementarse el costo computacional que las operaciones demandan. Actualmente con el aumento del poder de procesamiento de las computadoras esta ya no suele ser una limitante.\\
 
 	Para ello se parte de la matriz de rotación compuesta roll, pitch, yaw.\\
 
@@ -346,9 +396,9 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
 	\end{figure} 
     
 
-	\subsection{Implementación (Descrpción con ROS)}
+	\subsection{Implementación (Descripción con ROS)}
 
-	Se utilizó un visualizador en 3D para observar el modelo del brazo y verificar el correcto movimiento mecánico del brazo. En tal caso se hizo uso de los paquetes proporcionados por \textit{ROS} para la elaboración de modelos de robots. La descrpción del modelo del robot se realizó en una estructura en formato XML. Esta descripción permite describir las transfomaciones existentes entre cada uno de los frames significativos en el robot, así como permite cargar algún modelo \textit{CAD (Computer Assistand Design)} de las piezas que componen al robot.\\
+	Se utilizó un visualizador en 3D para observar el modelo del brazo y verificar el correcto movimiento mecánico del brazo. En tal caso se hizo uso de los paquetes proporcionados por \textit{ROS} para la elaboración de modelos de robots. La descripción del modelo del robot se realizó en un archivo en formato XML. Esta sintaxis permite describir las transfomaciones existentes entre cada uno de los sistemas coordenados significativos en el robot, así como permite cargar algún modelo \textit{CAD (Computer Assistand Design)} de las piezas que componen al robot.\\
 
 	\begin{figure}[h!]
 
@@ -364,11 +414,11 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
 
 
 
-	ROS proporciona una biblioteca de software unicamente dedicada al manejo de información de las transformaciones de un robot, la biblioteca de software lleva el nombre de \textit{tf}. En un nivel práctico, un árbol de transformación define los desplazamientos en términos de translación y rotación entre diferentes marcos de coordenadas. La biblioteca \textit{tf} usa una estructura en árbol para garantizar que solo haya un recorrido único que vincule dos sistemas coordinados entre sí y asume que todas las transformaciones del árbol se dirigen desde los nodos primarios a secundarios.\\ 
+	ROS proporciona un paquete para el manejo de información de las transformaciones de un robot que lleva el nombre de \textit{tf}. En un nivel práctico, un árbol de transformación define los desplazamientos en términos de translación y rotación entre diferentes marcos de coordenadas. La biblioteca \textit{tf} usa una estructura en árbol para garantizar que solo haya un recorrido único que vincule dos sistemas coordinados entre sí y asume que todas las transformaciones del árbol se dirigen desde los nodos primarios a secundarios.\\ 
 
-	Para describir una transformación se requiere definir primero un conector, que funcione como cada uno de los elementos físicos, posteriormente la transformación se encargará de relacionar cada uno de estos conectores. Conceptualmente, cada nodo en el árbol de transformación corresponde a un sistema de coordenadas el cual representa cada uno de los conectores; por otra parte cada enlace de conexión corresponde a la transformación que debe aplicarse para pasar del nodo actual a su hijo.\\	
+	Para describir una transformación se requiere definir primero un conector, que funcione como cada uno de los elementos físicos, posteriormente la transformación se encargará de relacionar cada uno de estos conectores. Conceptualmente, cada nodo en el árbol de transformación corresponde a un sistema de coordenadas el cual representa cada uno de los conectores. Por otra parte, cada enlace de conexión corresponde a la transformación que debe aplicarse para pasar del nodo actual a su hijo.\\	
 
-	Para crear el árbol de transformaciones del manipulador de 7DOF, comenzamos por crear un sistema de referencia en la base del brazo, el cual servirá como sistema de referencia fijo, lo llamamos \textit{base\_ra\_arm}. Posteriormente se fueron agregando eslabones según la configuración real del brazo. Para llegar a la configuración se partío de la siguiente restricción: el eje Z debe coincidir con el eje de giro del actuador, en posición y en sentido positivo, como se muestra en la figura.\\ 
+	Para crear el árbol de transformaciones del manipulador de 7DOF, se comenzó por crear un sistema de referencia en la base del brazo, el cual servirá como sistema de referencia fijo, se llamó \textit{base\_ra\_arm}. Posteriormente se fueron agregando eslabones según la configuración real del brazo.\\ 
 
 	\begin{figure}[h!]
 		\begin{subfigure}[t]{0.45\textwidth}
@@ -383,9 +433,9 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
 		\end{subfigure}
 	\end{figure} 
 
-	Para crear esta configuración entre los diferentes sistemas de referencia, primero debemos decidir qué nodo será el padre y cuál será el hijo. Esta distinción es importante porque asume que todas las transformaciones se mueven de padres a hijos. Elegimos el sistema de referencia \textit{base\_ra\_arm} como principal, ya que a medida que se agregan otras piezas: motores, eslabones y conectores, tendrá más sentido que se relacionen con un sistema fijo. Esto significa que la transformada asociada con el efector final y el sistema \textit{base\_ra\_arm} puede ser obtenida mediante el árbol de transformaciones configurado. La conversión de la posición del sistema de refencia ubicado en el efector final al sistema de referencia fijo ubicado en la base del brazo puede ser obtenida mediante una llamada a la biblioteca tf.\\
+	Para crear esta configuración entre los diferentes sistemas de referencia, primero debemos decidir qué nodo será el padre y cuál será el hijo. Esta distinción es importante porque asume que todas las transformaciones se mueven de padres a hijos. Elegimos el sistema de referencia \textit{base\_ra\_arm} como principal, ya que a medida que se agregan otras piezas: motores, eslabones y conectores, tendrá más sentido que se relacionen con un sistema fijo. Esto significa que la transformación asociada con el efector final y el sistema \textit{base\_ra\_arm} puede ser obtenida mediante el árbol de transformaciones configurado. La conversión de la posición del sistema de refencia ubicado en el efector final al sistema de referencia fijo ubicado en la base del brazo puede ser obtenida mediante una llamada a la biblioteca tf.\\
 
-	\subsection{Comparación cinemática directa Denavith-Hartemberg y cescripción completa de transformaciones}
+	\subsection{Comparación entre la convención D-H y la descripción solo con rotaciones y translaciones.}
 
 	Se implementaron dos metodologías de descripciones para el cálculo de la cinemática directa del brazo robótico. La primera de ellas consistió en realizar la descripción completa de las tranfomaciones utilizando la información de rotación y translación de cada uno de los respectivos sistemas de referencia.\\
 
@@ -416,13 +466,13 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
 \label{t_manip:6}
 \end{table}
 
-	Con la información obtenida de las dimensiones del brazo robótico real pudimos realizar un modelo virtual del brazo utilizando un archivo en formato XML donde describimos las trasfomaciones entre los diferentes sistemas de referencia y los elemetos de conexión obtenidos de modelos CAD. El resultado se puede observar en la figura[4.13]\\ 
+	Con la información obtenida de las dimensiones del brazo robótico real se pudo realizar un modelo virtual del brazo utilizando un archivo en formato XML donde se describen las trasfomaciones entre los diferentes sistemas de referencia y los elemetos de conexión obtenidos de modelos CAD. El resultado se puede observar en la figura[4.13]\\ 
 
 	El formato de descrpción virtual de un modelo de robot en formato XML se compone de \textit{links} y \textit{joints}. Un link describe las características de un elemento de unión, estas pueden ser mecánicas, de material, de posición, etc. Un \textit{joint} por otra parte describe la realción existente entre los origenes de dos links, dicho de otro modo decribe la transformación existente entre los sistemas de refencias (\textit{origenes}) de dos links.\\
 
 	\newpage
 	\begin{center}
-	\begin{lstlisting}[language=html, caption=Descripción parcial del sistema de manipulación]
+	\begin{lstlisting}[language=html, caption=Ejemplo de un archvo URDF para la descripción del sistema de manipulación.]
 <link name="base_ra_arm">
     <visual>
       <origin xyz="-0.01 0.0 0.0" rpy="1.5707 0.0 1.5707"/>
@@ -492,7 +542,7 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
 		\caption{Modelo virtual del brazo robótico.}
 	\end{figure}	
 
-	Por otro lado se realizó la descripción del sistema de manipulación utilizando la convención Denavith-Hartemberg. Para ello se comenzó por plantear los ejes $z$ que deben ser coincidentes, en posición y en sentido de giro, con los ejes de acción de cada uno de los actuadores. Sin embargo, en este punto se observó una limitante en el método D-H, al intenar describir la trasformación entre el $link_2$ y el $link_3$ se observó que el método no puede describir con suficiente presición la rotación en el eje $"x"$ y al mismo tiempo un desplazamiento en el $eje$ $y$. La manera de solucionar esta limittante consiste en realizar una transformación de rotación en el eje x primero, con esto los dos frames compartiran el mismo origen del sistema de referencia, posteriormente se plantea la translación, ahora en el $eje$ $z$.\\
+	Por otro lado se realizó la descripción del sistema de manipulación utilizando la convención Denavit-Hartenberg. Para ello se comenzó por plantear los ejes $z$ que deben ser coincidentes, en posición y en sentido de giro, con los ejes de acción de cada uno de los actuadores. Sin embargo, en este punto se observó una limitante en el método D-H, al intenar describir la trasformación entre el $link_2$ y el $link_3$ se observó que el método no puede describir con suficiente presición la rotación en el eje $"x"$ y al mismo tiempo un desplazamiento en el $eje$ $y$. La manera de solucionar esta limittante consiste en realizar una transformación de rotación en el eje x primero, con esto los dos frames compartiran el mismo origen del sistema de referencia, posteriormente se plantea la translación, ahora en el $eje$ $z$.\\
 	
 	\begin{figure}[h!]
 		\begin{center}
@@ -507,7 +557,7 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
 \centering
 \begin{tabular}{ |p{1.5cm}|p{1.5cm}|p{1.5cm}|p{1.5cm}|p{1.5cm}|}
  \hline
- \multicolumn{5}{|c|}{\textbf{PARAMETROS DENAVITH-HARTEMBERG}} \\
+ \multicolumn{5}{|c|}{\textbf{PARAMETROS DENAVIT-HARTENBERG}} \\
  \hline
       &    D  &   A   & $\alpha$  &  $\theta$ \\
  \hline
@@ -538,18 +588,19 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
 	\end{subfigure}%
 	\begin{subfigure}[t]{.5\textwidth}
 	\centering
-	\includegraphics[width=3.50cm, height=8.5cm]{manipulator/DH_3.png}
+	\includegraphics[width=5.50cm, height=9.5cm]{manipulator/DH_links.png}
 	\caption{Vista de transformaciones.}
 	\end{subfigure}
 	\caption{Modelo virtual del brazo robótico utilizando la conveción DH.}
+	\label{Fig:transDH}
 \end{figure}
 
 
-	Como se puede observar en la Figura 4.14, la descripción de las transformaciones entre el $link 1$ y el $link 2$ comparten el origen. Unicamente difieren en la rotación del respectivo sistema de referencia. Sucede lo mismo para describir la transformación entre las parejas de $links$:  $[3 - 4]$ y $[5 - 6]$.\\
+	Como se puede observar en la Figura \ref{Fig:transDH}, la descripción de las transformaciones entre el $link 1$ y el $link 2$ comparten el origen. Unicamente difieren en la rotación del respectivo sistema de referencia. Sucede lo mismo para describir la transformación entre las parejas de $links$:  $[3 - 4]$ y $[5 - 6]$.\\
 
-	De la comparación de estas dos representaciones podemos obetener pros y contras de cada una de ellas. Por un lado una representación completa de las trasformaciones nos da la posibilidad de realizar una descripción con mayor presición de cada una de las transformaciones. Esta característica permite alinear cada uno de los sistemas de referencia a el eje de acción de cada uno de los actuadores. En este sentido, es conveniente utilizar esta descripción puesto que simplifica la manera de publicar cada una de las transformaciones entre los sistemas de rerefencia, basta con estar leyendo la posición de cada uno de los actuadores y publicar dicho valor para obtener la representación grafica de la configuración del brazo en el modelo virtual.\\
+	De la comparación de estas dos representaciones podemos obetener pros y contras de cada una de ellas. Por un lado una representación completa de las trasformaciones nos da la posibilidad de realizar una descripción más apegada al movimiento real del robot. Esta característica permite alinear cada uno de los sistemas de referencia a el eje de movimiento de cada uno de los actuadores. En este sentido, es conveniente utilizar esta descripción puesto que simplifica la manera de publicar cada una de las transformaciones entre los sistemas de rerefencia, basta con estar leyendo la posición de cada uno de los actuadores y publicar dicho valor para obtener la representación grafica de la configuración del brazo en el modelo virtual.\\
 
-	Por otro lado, estar escuchando en tiempo real una transformación compuesta de siete trasnformaciones completas requiere un mayor costo computacional comparado con realizar la multiplicación de las mismas siete matrices de transformación solo cuando sea de interés conocer la posición del efector final. En tal caso resulta conveniente tener las dos descripciones: la descripción completa para el despliegue de información de manera visula en el ambiente virtual y la descripción D-H para conocer la posición del efector final cuando sea necesario.\\
+	Por otro lado, estar escuchando en tiempo real siete trasnformaciones completas requiere un mayor costo computacional comparado con realizar la multiplicación de las mismas siete matrices de transformación solo cuando sea de interés conocer la posición del efector final. En tal caso resulta conveniente tener las dos descripciones: la descripción completa para el despliegue de información de manera visual en el ambiente virtual y la descripción D-H para conocer la posición del efector final cuando sea necesario.\\
 
 
 
@@ -561,7 +612,7 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
 
 	El espacio de trabajo es otro parámetro importante el cual servirá para caracterizar las dimensiones del brazo robótico con el cual estamos trabajando. El análisis del espacio de trabajo de robots manipuladores es de gran interés, puesto que la geometría del espacio de trabajo puede considerarse no sólo un aspecto fundamental para el diseño del robot sino que también es esencial para la ubicación del robot en el entorno de trabajo y también para la planificación de trayectorias.\\
 
-	En robótica, el término espacio de trabajo, también denominado espacio de trabajo, puede ser entendido como: \textit{El espacio de trabajo de un robot está definido como el grupo de puntos que pueden ser alcanzados por su efector-final}. \cite{cao2011accurate}\\
+	En robótica, el término espacio de trabajo puede ser entendido como: \textit{El grupo de puntos que pueden ser alcanzados por su efector-final}. \cite{cao2011accurate}\\
 
 	Dicho de otro modo, el espacio de trabajo de un robot es el espacio en el cual el mecanismo puede trabajar según sus propias restricciones mecánicas.\\
 
@@ -581,17 +632,18 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
 \end{figure}
 
 
-\textbf{Principales características de un espacio de trabajo.}
+\textbf{Principales características de un espacio de trabajo.}\\
 
 	Cuando se pretende estudiar un espacio de trabajo, lo más importante es su forma y volumen (dimensiones y estructura). Ambos aspectos tienen una importancia significativa debido al impacto que éstos ejercen en el diseño del robot y también en su manipulabilidad. En el presente trabajo se dará una mayor importancia al estudio de las dimensiones del espacio de trabajo desde el punto de vista de la manipulabilidad.\\
 
-	En el caso del presente trabajo fue presciso conocer las características de  forma, dimensiones y estructura del robot a analizar. Puesto que de estas caracteristicas depenederá su espacio de trabajo. 
+	En el caso del presente trabajo fue presciso conocer las características de  forma, dimensiones y estructura del robot a analizar, puesto que de estas caracteristicas dependerá su espacio de trabajo.\\
+
+	En el apartado 4.6 se aborda el cálculo de la cinemática inversa por dos metodologías diferentes, se observó que para el caso del algoritmo numérico con la paquetería MoveIt! el algoritmo tiene un tiempo de ejecución muy alto cuando la posición deseada está fuera del espacio de trabajo del manipualdor. Por ello, es importante caracterizar dicho espacio de trabajo. Es difícil validar si un punto se encuentra dentro del espacio semi-esférico (Figura \ref{Fig:wsJustina}); se planteó una región prismática para facilitar esta validación.\\ 
 
 \begin{itemize}
+	\itemsep-0.5em
 	\item{La forma es importante para la definición del entorno donde el robot trabajará.}
-
 	\item{Las dimensiones son importantes para la determinación del alcance del efector-final.}
-
 	\item{La estructura del espacio de trabajo es importante para asegurar las características cinemáticas del robot las cuales están relacionadas con la interacción entre el robot y el entorno.}
 \end{itemize}
 
@@ -602,14 +654,14 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
 %%% IMPLEMENTACION: OBTENCIÓN DEL WS DEL BRAZO ROBOTICO
 %%%    ########################################   %%%%%%%%
 
-	Para la obtención del espacio de trabajo del brazo robótico en cuentión fue presciso partir de las características antes mencionadas. En este aspecto conocemos las tres características necesarias para la obtención del espacio de trabajo del robot, en cuanto a la forma podemos mencionar que el robot en cuestion es antropomórfico de 7 grados de libertad, cuyas dimensiones las hemos obtenido con anterioridad. En cuanto a la estructura podemos mencionar que conocemos el modelo de la cinemática directa del brazo e incluso que podemos visualizar en tiempo real la configuración del brazo antropomórfico, y por ende conocer la posiçión del efector final. Solo hace falta conocer las restricciones mecánicas del brazo robótico, por tanto se incluye la tabla \ref{t_manip:8} .\\
+	Para la obtención del espacio de trabajo del brazo robótico en cuestión fue presciso partir de las características antes mencionadas. En este aspecto conocemos las tres características necesarias para la obtención del espacio de trabajo del robot, en cuanto a la forma podemos mencionar que el robot en cuestion es antropomórfico de 7 grados de libertad, cuyas dimensiones las hemos obtenido con anterioridad. En cuanto a la estructura podemos mencionar que conocemos el modelo de la cinemática directa del brazo e incluso que podemos visualizar en tiempo real la configuración del brazo antropomórfico, y por ende conocer la posiçión del efector final. Solo hace falta conocer las restricciones mecánicas del brazo robótico que se muestran en la tabla \ref{t_manip:8} .\\
 
 \begin{table}[H]
 \centering
 \begin{tabular}{ |p{0.5cm}|p{1.5cm}|p{1.5cm}|}
  \hline
  \multicolumn{3}{|c|}{\textbf{RESTRICCIONES MECÁNICAS }} \\
- \multicolumn{3}{|c|}{\textbf{DEL BRAZO ROBÓTICO}} \\
+ \multicolumn{3}{|c|}{\textbf{DEL BRAZO ROBÓTICO [RAD]}} \\
  \hline
     &  $\theta_1 $ & $[1.47, -1.47]$ \\
  \hline
@@ -630,7 +682,7 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
 \label{t_manip:8}
 \end{table}
 
-	Dentro de las metodologías planteadas para la obtención del espacio de trabajo de un robot existen diversas vertientes, una de ellas menciona la posibilidad de obtener dicho espacio generando números aleatorios con una distribución normal acotando los valores aleatorios dentro de las restricciones mecánicas. Posteriormente con los valores aleatorios de ángulos y el modelo de la cinemática directa del brazo robótico obtener la posición del efector final e ir graficando cada uno de estos valores en el tiempo.\\ %%\textbf{****cite}.\\
+	Dentro de las metodologías planteadas para la obtención del espacio de trabajo de un robot existen diversas vertientes, una de ellas menciona la posibilidad de obtener dicho espacio generando números aleatorios con una distribución normal acotando los valores aleatorios dentro de las restricciones mecánicas. Posteriormente, con los valores aleatorios de ángulos y el modelo de la cinemática directa del brazo robótico, se obtiene la posición del efector final y se grafica cada uno de estos valores en el tiempo.\\ %%\textbf{****cite}.\\
 
 
 \begin{figure}[H]
@@ -639,7 +691,8 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
 	\caption{Esquema de construcción del espacio de trabajo para un robot de 7DOF.}
 \end{figure}
 
-	Sin embargo, para el desarrollo de este documento se trabajó tanto con el modelo físico del brazo robótico en cuestión, así como con el modelo virtual del mismo. Dadas estas condiciones se planteó el desarrollo de la siguiente manera: con el modelo físico del brazo se obtuvieron en tiempo real las lecturas de posición de cada uno de los actuadores, posteriormenete se actualizaba el modelo virtual del mismo. Con esta información previa, los valores de posición de cada uno de los actuadores y el modelo de la cinemática directa del brazo, se calculaba en tiempo real la posción del efector final. Dicho de otra manera se realizó una construcción en tiempo real del espacio de trabajo del robot.\\
+	Sin embargo, para el desarrollo de este documento se trabajó tanto con el modelo real del brazo robótico en cuestión, así como con el modelo virtual del mismo. Dadas estas condiciones se planteó el desarrollo de la siguiente manera: con el modelo real del brazo se obtuvieron en tiempo real las lecturas de posición de cada uno de los actuadores, posteriormente se actualizó el modelo virtual del mismo. Con esta información previa, los valores de posición de cada uno de los actuadores y el modelo de la cinemática directa del brazo, se calculaba en tiempo real la posición del efector final.\\
+
 
 \begin{figure}[H]
 	\centering
@@ -654,15 +707,18 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
 	\caption{Vista lateral.}
 	\end{subfigure}
 	\caption{Nube de puntos del espacio de trabajo del robot de servicio Justina. Nube de puntos desplegada en el visualizador gráfico Rviz, incluido en la paquetería de ROS.}
+	\label{Fig:wsJustina}
 \end{figure}
+	
+	La técnica consiste en mover el manipulador en tiempo real, calcular la cinemática directa y obtener la posición del efector final para cada instante.\\
 
-	La ventaja que esta técnica supone, sobre otras, es la capacidad de obtener el espacio de trabajo tomando en cuenta la restricciones reales del robot, así como observar las trayectorías y los puntos críticos del efector final. En este sentido es importante mencionar que para algunos casos el efector final podría alcalzar un punto dentro del área de trabajo; sin embargo dada alguna configuración del brazo esta podría suponer un esfuerzo indeseado en alguno de los actuadores. Con esta técnica se pudo evitar ese tipo de configuraciones, y construir el espacio de trabajo bajo estos supuestos.\\
+	La ventaja que esta técnica supone, sobre otras, es la capacidad de obtener el espacio de trabajo tomando en cuenta las restricciones reales del robot, así como observar las trayectorías y los puntos críticos del efector final. En este sentido es importante mencionar que para algunos casos el efector final podría alcalzar un punto dentro del área de trabajo; sin embargo esta podría suponer un esfuerzo indeseado en alguno de los actuadores. Con esta técnica se pudo evitar ese tipo de configuraciones, y construir el espacio de trabajo bajo estos supuestos.\\
 
-	Se obtuvo la nube de puntos que en forma se puede aproximar a la sección de una esfera, como se observa en la figura [4.18] . En el desarrollo de este trabajo se planteó la problemática de conocer si el brazo robotico es capáz de alcanzar un punto especifíco en el espacio, en tal caso los desarrollos en este punto deberían abordar la tematica de la siguiente manera: encontrar la ecuación de un volumen que se aproxime a la forma que posee la nube de puntos con el objetivo de saber con certeza si el punto pertenece al volumen de trabajo del manipulador.\\
+	Se obtuvo la nube de puntos que en forma se puede aproximar a la sección de una esfera, como se observa en la figura \ref{Fig:wsJustina} . En el desarrollo de este trabajo se planteó la problemática de conocer si el brazo robotico es capáz de alcanzar un punto especifíco en el espacio, en tal caso los desarrollos en este punto deberían abordar la tematica de la siguiente manera: encontrar la ecuación de un volumen que se aproxime a la forma que posee la nube de puntos con el objetivo de saber con certeza si el punto pertenece al volumen de trabajo del manipulador.\\
 
-	El problema de concocer aquellos puntos alcanzables para el brazo robótico, se abordó de la siguinete manera, se propuso una región en el espacio con forma prismatica. La región en el espacio mencionada con anterioridad cumple la condición que sus vertices pertenecen a la nube de puntos del espacio de trabajo del robot, con esto se asegura que todos los puntos dentro de la región propuesta son alcanzables para el robot.\\ 
+	El problema de concocer aquellos puntos alcanzables para el brazo robótico se abordó de la siguinete manera; se propuso una región en el espacio con forma prismática. La región en el espacio mencionada con anterioridad cumple la condición que sus vertices pertenecen a la nube de puntos del espacio de trabajo del robot, con esto se asegura que todos los puntos dentro de la región propuesta son alcanzables para el robot.\\ 
 
-	Sin perder de vista el objetivo final de este trabajo que es la correcta manipulación de objetos con cierta rotación en "z", este objetivo anañade una limitante más: \"La región en el espacio propuesta debe contener puntos donde el efector final pueda llegar con una orientación en $z$  de por lo menos $\pi/2$ respecto sistema de referencia del robot\". Para ello restamos a el valor máximo en el eje "x" del espacio de trabajo la cantidad $0.165[m]$ según los parametros DH. De esta manera se consiguió obtener un espacio de trabajo acotado cuyas caracteristicas se observan en la figura [4.19] y en la tabla [4.9].\\
+	Sin perder de vista el objetivo final de este trabajo que es la correcta manipulación de objetos con cierta rotación en ``z", este objetivo anañade una limitante más: ``La región en el espacio propuesta debe contener puntos donde el efector final pueda llegar con una orientación en $z$  de por lo menos $\pi/2$ respecto sistema de referencia del robot". Para ello restamos a el valor máximo en el eje ``x" del espacio de trabajo la cantidad $0.165[m]$ según los parametros DH. De esta manera se consiguió obtener un espacio de trabajo acotado cuyas caracteristicas se observan en la figura \ref{Fig:wsJustina_prism} y en la tabla \ref{t_manip:9}.\\
 
 \begin{figure}[H]
 	\centering
@@ -676,7 +732,8 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
 	\includegraphics[width=4.50cm, height=5.5cm]{workSpace/ws_bb16.png}
 	\caption{Vista lateral.}
 	\end{subfigure}
-	\caption{Espacio de trabajo acotado de un robot antropomórfico de 7DOF.}
+	\caption{Espacio de trabajo acotado de un robot antropomórfico de 7DOF. Puntos en el espacio que aproximan a un prisma el espacio de trabajo.}
+	\label{Fig:wsJustina_prism}
 \end{figure}
 
 	En la siguiente tabla podemos observar los parametros que caracterizan el espacio de trabajo acotado para el brazo robótico de 7DOF.\\
@@ -688,7 +745,7 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
  \multicolumn{3}{|c|}{\textbf{PARAMÉTROS DEL ESPACIO DE TRABAJO}} \\
  \multicolumn{3}{|c|}{\textbf{DEL BRAZO ROBÓTICO}} \\
  \hline
- \multicolumn{3}{|c|}{\textbf{VERTICES}} \\
+ \multicolumn{3}{|c|}{\textbf{VERTICES} p(x, y, z) Respecto del robot} \\
  \hline
     &  $P_1 $ & $[0.165837,   0.064973,  0.719878]$ \\
  \hline
@@ -711,9 +768,11 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
  	&  $V[m^3]$ &   0.0838517      \\
  \hline
 \end{tabular}
-\caption{Tabla de características del espacio de trabajo para brazo robótico antropomórfico de 7DOF.}
+\caption{Tabla de características del espacio de trabajo para brazo robótico antropomórfico de 7DOF. Puntos en el espacio que aproximan a un prisma el espacio de trabajo.}
 \label{t_manip:9}
 \end{table}	
+
+
 
 
 
@@ -724,7 +783,7 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
 
 %\newpage
 	\section{Cinemática inversa}
-	El problema de la cinemática inversa consiste en dada una posición deseada $p(x, y, z, roll, pitch, yaw)$ encontrar el valor de cada una una de las juntas cinemáticas que lleven al brazo a la posición desea. Este problema suele ser uno de los más interesantes y complejos, dentro del estudio de la robótica. Es preciso mencionar que para llevar el efector final a cualquier posición y orientación deseada se requiere por lo menos un brazo robótico de 6DOF. En el desarrollo de este trabajo se plantea la resolución de la cinemática para un brazo robótico de 7DOF, lo cual suele aumentar el grado de complejidad en la resolución del problema.\\
+	El problema de la cinemática inversa consiste en, dada una posición deseada $p(x, y, z, roll, pitch, yaw)$, encontrar el valor de cada una de las juntas cinemáticas que lleven al brazo a la posición desea. Este problema suele ser uno de los más interesantes y complejos, dentro del estudio de la robótica. Es preciso mencionar que para llevar el efector final a cualquier posición y orientación deseada se requiere por lo menos un brazo robótico de 6DOF. En el desarrollo de este trabajo se plantea la resolución de la cinemática para un manipulador de 7DOF, lo cual suele aumentar el grado de complejidad en la resolución del problema. Dadas una posición y orientación deseadas expresedas en la matriz:\\
 
 \begin{equation}
 \begin{split}
@@ -736,23 +795,23 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
 \end{split}
 \end{equation}
 
-	El problema de la cinemática inversa consiste en encontrar una o todas las soluciones:\\
+	El problema de la cinemática inversa consiste en encontrar una o todas las soluciones a la ecuación:\\
 
 \begin{equation}
 	T^{0}_{n}(q_1, q_2...  q_n) = H
 \end{equation}	
 	
-	Donde \textit{H} representa la matriz de posición y orientación deseada del efector final. Por tanto $q_1... q_n$ son los valores de las respectivas juntas mecánicas. Representado de otra manera:\\ 
+	donde $q_1... q_n$ son los valores de las respectivas juntas mecánicas. Representado de otra manera:\\ 
 
 \begin{equation}
-	f(q_1, q_2...  q_n) = f(x, y, z, roll, pitch, yaw) 
+	f(q_1, q_2...  q_n) = g(x, y, z, roll, pitch, yaw) 
 \end{equation}	
 
 
 	Para abordar la resolución de dicho problema se suele hacer uso del concepto de \textit{desacople cinemático}. Utilizando este concepto se puede simplificar el problema del cálculo completo de la cinemática inversa. Por medio del desacople cinemático se pueden considerar de manera independiente el cálculo de la orientación inversa y el cálculo de la posición inversa.\\
 
 	\subsection{Desacople cinemático}
-	Como se ha mencionado con anterioridad el problema de la cinemática inversa puede resolverse por separado en la resolución de la orientación inversa y la posición inversa, para manipuladores de 6 DOF o más. Es importate mencionar que para utilizar esta metodología de resolución el manipulador debe poseer la configuración de \textit{muñeca esférica}. Es necesario partir de esta premisa puesto que la configuración de muñeca esférica implica que los tres últimos ejes de acción de intersectan en un punto llamado $O_c$. Además estos tres últimos ejes de acción pueden determinar la orientación del efector final sin que dependan del valor de las juntas cinemáticas anteriores.\\
+	Como se ha mencionado con anterioridad, el problema de la cinemática inversa puede resolverse por separado en la resolución de la orientación inversa y la posición inversa, para manipuladores de 6 DOF o más. Es importate mencionar que para utilizar esta metodología de resolución el manipulador debe poseer la configuración de \textit{muñeca esférica}. Es necesario partir de esta premisa puesto que la configuración de muñeca esférica implica que los tres últimos ejes de acción de intersectan en un punto llamado $O_c$. Además estos tres últimos ejes de acción pueden determinar la orientación del efector final sin afectar la posición alcanzada por los ángulos anteriores.\\
 
 \begin{equation}
 	R^0_7(q_1,.....  ,q_7) = R 
@@ -762,7 +821,7 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
 	o^0_7(q_1,.....  ,q_7) = o 
 \end{equation}
 
-	La suposición de una \textit{muñeca esférica} implica que los ejes $z_4$, $z_5$ y $z_6$ se intersectan en $o_c$. Como se observa en la figura [4.20] el origen del sistema $O_5$ coincide con el centro de la muñeca esférica $O_c$. Es importante resaltar que el movimiento de los tres últimos ejes no afecta la posición del centro de la muñeca $O_c$. 
+	La suposición de una \textit{muñeca esférica} implica que los ejes $z_4$, $z_5$ y $z_6$ se intersectan en $o_c$. Como se observa en la figura \ref{Fig:wristCenter} el origen del sistema $O_5$ coincide con el centro de la muñeca esférica $O_c$. Es importante resaltar que el movimiento de los tres últimos ejes no afecta la posición del centro de la muñeca $O_c$. 
 
 \begin{figure}[H]
 	\centering
@@ -779,7 +838,7 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
 	\caption{Centro de rotación de una muñeca esférica.}
 \end{figure}
 
-	El centro del efector final deseado podemos llamarlo \textit{o} y se puede obtener como la traslación $d_6$ a lo largo del eje \textit{x} a partir del punto $o^0_c$.\\
+	El centro del efector final deseado podemos llamarlo \textit{o} y se puede obtener como la traslación $d_6$ a lo largo del eje \textit{x} a partir del punto $o^0_c$, donde $d_6$ es la distancia del centro del efector final al punto donde se intersectan los ejes de acción $z_4$, $z_5$ y $z_6$.\\
 
 \begin{equation}
 o = o^0_c + d_6 R \hat{x} 
@@ -820,19 +879,175 @@ o^0_c = o - d_6 R \hat{x}
 	\caption{Posición del centro de la muñeca. (rojo)}
 	\end{subfigure}
 	\caption{Centro de la muñeca con rotación $\pi/2$.}
+	\label{Fig:wristCenter}
 \end{figure}
 
-	Para motivos de este trabajo se utilizó un algoritmo ya implementado con anterioridad en el robot de servicio Justina, el cúal utiliza la metodología de desacople cinemático para la resolución de esta tarea. Uno de los objetivos de este trabajo consiste en realizar una comparación entre este algoritmo y un resolvedor de cinemáticas estandar el cúal utiliza un método iterativo para tal propósito. Tal paque es nombrado moveIt! y es compatible con la paquetería ROS.\\ 
+	Para motivos de este trabajo se utilizó un algoritmo ya implementado con anterioridad en el robot de servicio Justina, el cual utiliza la metodología de desacople cinemático para la resolución de esta tarea. El propósito de este trabajo es la comparcaión entre algoritmos de solución para esta tarea por tanto no se aboradrá fondo la resolución de este problema; sin embargo a continuación se enlistan las ecuaciones y consideraciones utilizadas en este algoritmo: \\
+
+\begin{equation}
+\begin{aligned}
+\begin{split}
+	r & =  \sqrt{x^2 + y^2 + (z-D_1)^2 }\cr
+\end{split} 
+\end{aligned}
+\end{equation}
+
+\begin{equation}
+\begin{aligned}
+\begin{split}
+	\alpha & =  Atan2( (z- D_1), \sqrt{x^2 + y^2})\cr
+	\gamma & = \arccos{ \frac{-D^2_2 - D^2_3 + r^2}{-2D_2 \; D_3} } \cr
+	\beta  & = \frac{ \arcsin{D_3} \sin{\gamma} } {r} \cr
+\end{split} 
+\end{aligned}
+\end{equation}
+
+\begin{equation}
+\begin{aligned}
+\begin{split}
+		tunningRadiusElbow = D_2 \; \sin{\beta}  \cr
+\end{split} 
+\end{aligned}
+\end{equation}
+
+\begin{equation}
+\begin{aligned}
+\begin{split}	
+	p_{elbow}[0,0] & = 0 \cr
+	p_{elbow}[1,0] & = -tunningRadiusElbow * \cos{(elbowAngle)} \cr
+	& = D_2*\sin{(\beta)}*\cos{(elbowAngle)} \cr
+\end{split} 
+\end{aligned}
+\end{equation}	
+
+\begin{equation}
+\begin{aligned}
+\begin{split}	
+	p_{elbow}[2,0] & = -tunningRadiusElbow * \sin{(elbowAngle)} \cr
+	& = D_2*\sin{(\beta)}*\sin{(elbowAngle)} \cr
+\end{split} 
+\end{aligned}
+\end{equation}	
+
+\begin{equation}
+\begin{aligned}
+\begin{split}	
+	p_{elbow}[3,0] & = 1 \\
+\end{split} 
+\end{aligned}
+\end{equation}
+
+	Para el calculo del desacople cinemático se tiene:\\
+
+\begin{equation}
+\begin{aligned}
+\begin{split}	
+	wrist_{position}[0,0] & = x \cr
+	wrist_{position}[1,0] & = y \cr
+	wrist_{position}[2,0] & = z \cr
+	wrist_{position}[3,0] & = 1 \cr
+\end{split} 
+\end{aligned}
+\end{equation}
+
+	Como salida del algoritmo se tiene:\\
+
+\begin{equation}
+\begin{aligned}
+\begin{split}	
+	result[0] & = Atan2(P_w[1,0] + DH_a[0]*\sin{result[0], \; P_w[0,0] + DH_a[0]* \cos{result[0]} }) \cr
+	result[1] & = Atan2(P_w[2,0] - D_1, \; \sqrt{P_w[0,0]^2 + P_w[1,0]^2 }) \cr
+	result[2] & = Atan2(P_w[1,0],\; P_w[0,0]) \cr
+	result[3] & =\frac{\pi}{2} - Atan2(P_w[2,0], \; \sqrt{ P_w[0,0]^2 + P_w[1,0]^2  })
+\end{split} 
+\end{aligned}
+\end{equation}	
+
+\IncMargin{1em}
+		\begin{algorithm}[H]
+		\SetKwData{Left}{left}\SetKwData{This}{this}\SetKwData{Up}{up}
+		\SetKwFunction{Union}{Union}\SetKwFunction{FindCompress}{FindCompress}
+		\SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
+		
+		\BlankLine
+		\BlankLine
+		\BlankLine
+
+		\If{ $R^4_7[0,0]$ == 0}
+		{
+			$result[4] = 0$ \;
+			$result[5] = 0$ \;
+			$result[6] = Atan2( R^4_7[1,1] ,\;  R^4_7[1,2]$ )\;
+		}
+		\Else
+		{
+			$result[4] = Atan2(\sqrt{1- (R^4_7)^2}, \; R^4_7[2,0] ) $\;
+			$result[5] = Atan2(R^4_7[1,0], \; R^4_7[0,0] ) $\;
+			$result[6] = Atan2(R^4_7[2,2] ,\;  -R^4_7[2,1] ) $\;
+		}
+
+		\BlankLine
+		\BlankLine
+		\BlankLine
+
+		\If{ $result[4] > 2.4$}
+		{
+			$result[4] += \pi$ \;
+			$result[5] *= -1$ \;
+		
+			\If{ $result[6] > 0$}
+			{
+				$result[6] -= \pi$ \;
+			}
+			\Else
+			{
+				$result[6] += \pi$ \;
+			}
+
+		}
+
+		\BlankLine
+		\BlankLine
+		\BlankLine
+
+		\If{ $result[4] < -2.4$}
+		{
+			$result[4] += \pi$ \;
+			$result[5] *= -1$ \;
+		
+			\If{ $result[6] > 0$}
+			{
+				$result[6] -= \pi$ \;
+			}
+			\Else
+			{
+				$result[6] += \pi$ \;
+			}
+
+		}
+
+			
+		\BlankLine
+		\BlankLine
+		\BlankLine
+
+		\textbf{return} $result[]$ \;
+		\caption{Condiciones para el cálculo de la cinemática inversa por el método geométrico.}
+		\label{Alg:IKgeome}
+		\end{algorithm}\DecMargin{1em}
+
+
+	Uno de los objetivos de este trabajo consiste en realizar una comparación entre este algoritmo y un resolvedor de cinemáticas estandar el cúal utiliza un método iterativo para tal propósito. Tal paque es nombrado \textit{moveIt!} y es compatible con la paquetería ROS.\\ 
 
 	\section{Cinemática inversa paquetería MoveIt}
 
-	La paquetería de software \textit{moveIt!} consiste en una serie de librerías enfocadas a las tareas de manipulación de objetos en la robótica. Paquetes como \textit{arm\_navigation} fueron diseñados con el objetivo especifico de ayudar en tareas de planeación de movimientos, generación de trayectorias y monitoreo del ambiente particularmente para los manipuladores del robot PR2.\cite{chitta2012moveit} La idea original de la paquetería moveIt! es generar planes de manipulación y trayectorias basándose información de un modelo del entorno. Dichos modelos del entorno se crean, comúnmente, utilizando la fusión de datos del sensor láser y de sensores estéreo colocados en los robots.\\
+	La paquetería de software \textit{moveIt!} consiste en una serie de librerías enfocadas a las tareas de manipulación de objetos en la robótica. Paquetes como \textit{arm\_navigation} fueron diseñados con el objetivo especifico de ayudar en tareas de planeación de movimientos, generación de trayectorias y monitoreo del ambiente particularmente para los manipuladores del robot PR2 \cite{chitta2012moveit}. La idea original de la paquetería moveIt! es generar planes de manipulación y trayectorias basándose información de un modelo del entorno. Dichos modelos del entorno se crean, comúnmente, utilizando la fusión de datos del sensor láser y de sensores estéreo colocados en los robots.\\
 
 
 	El ambiente es representado como una mezcla de datos proporcionados en dos formatos:\\
 
 	\begin{enumerate}
-		\item{ Una red vóxelizada que representa la mayor parte de los obstáculos en el medio ambiente. }
+		\item{ Una red voxelizada que representa la mayor parte de los obstáculos en el medio ambiente. }
 
 		\item{ Primitivas geométricas y modelos de mallas para representar objetos que han sido reconocidos y registrado en el medio ambiente mediante rutinas de detección de objetos. }
 	\end{enumerate}
@@ -855,7 +1070,7 @@ o^0_c = o - d_6 R \hat{x}
 		\item{Librerías de optimización estocastica para la planeación de movimientos. (STOMP)}
 	\end{enumerate} 
 
-	La paquetería \textit{moveIt} permite personalizar el solucionador de cinemáticas para realizar cálculos más rápidos de la cinemática inversa. Utilizando para ello métodos numéricos. Una característica importante de la paquetería \textit{moveIt} es que para solucionar la cinemática inversa extrae de la información necesaria desde un archivo URDF (archivo estándar para descripción de robots en el formato aceptado por ROS).\\ 
+	La paquetería \textit{moveIt} permite personalizar el solucionador de cinemáticas para realizar cálculos más rápidos de la cinemática inversa, utilizando para ello métodos numéricos. Una característica importante de la paquetería \textit{moveIt} es que para solucionar la cinemática inversa extrae de la información necesaria desde un archivo URDF (archivo estándar para descripción de robots en el formato aceptado por ROS).\\ 
 
 	De esta manera se utilizó el archivo URDF que contiene la información con la descripción de las transformaciones entre los elementos del robot Justina. Para ello se creó un archivo extra que contiene unicamente la información de translaciones entre los elementos que constituyen los brazos del robot Justina. Como se muestra en la figura \ref{fig:desciption_arms1}.\\
 
@@ -895,7 +1110,7 @@ o^0_c = o - d_6 R \hat{x}
 
 	Una vez que se generaron tales archivos se procedió a crear un modelo cinemático de los brazos del robot Justina. Tal modelo cinemático de los brazos nos da acceso a funciones para obtener la cinemática inversa, utilizando el solucionador de cinemática KLD integrado en la paquetería \textit{moveIt!}.\\
 
-	Esta sección en particular tiene como objetivo comparar los ambos métodos de solución de la cinemática inversa del robot de servicio Justina. Por tanto en el presente trabajo se analiza y compara el tiempo de ejecución de ambos algoritmos. Y como característica extra se plantea una función de utilidad para evaluar la \textit{conveniencia} de utilizar un algoritmo u otro.\\
+	Esta sección en particular tiene como objetivo comparar ambos métodos de solución de la cinemática inversa del robot de servicio Justina. Por tanto, en el presente trabajo se analiza y compara el tiempo de ejecución de ambos algoritmos. Y como característica extra se plantea una función de utilidad para evaluar la \textit{conveniencia} de utilizar un algoritmo u otro.\\
 
 	\begin{figure}[h!]
 		\begin{center}
@@ -908,7 +1123,7 @@ o^0_c = o - d_6 R \hat{x}
 
 	\section{Planteamiento de la función de costo para el cálculo de la cinemática inversa.}
 
-	Sabemos que al resolver el problema de la cinemática inversa podemos obtener múltiples soluciones para una misma información de entrada $x, y, z, roll, pitch, yaw$. Por ello es importante determinar en que casos es conveniente tomar la información obtenida mediante un método geométrico o mediante un método iterativo. Por tal razón en el presente trabajo de tesis se plantea una función de costo que nos permita comparar y cuantificar ambos algoritmos de solución de cinemáticas.\\
+	Al resolver el problema de la cinemática inversa se pueden obtener múltiples soluciones para una misma información de entrada $x, y, z, roll, pitch, yaw$. Por ello, es importante determinar en qué casos es conveniente tomar la información obtenida mediante un método geométrico o mediante un método iterativo. Por tal razón en el presente trabajo de tesis se plantea una función de costo que nos permita comparar y cuantificar ambos algoritmos de solución de cinemáticas.\\
 
 	Para el planteamiento de la función de costo se tomaron en cuenta los siguientes aspectos:\\
 

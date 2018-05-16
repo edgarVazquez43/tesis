@@ -13,15 +13,13 @@ En este capítulo se aborda el desarrollo de los algoritmos para la detección y
 		\item{Estimación a la orientación de un objeto}
 	\end{itemize}
 
-	Es importante mencionar que los desarrollos reportados en este trabajo fueron realizados en el framework para el desarrollo de software para robots ROS (Robot Operative System por sus siglas en inglés), alojado en el sistema operativo Ubuntu 16.04.\\
+	Es importante mencionar que los desarrollos reportados en este trabajo fueron realizados en la plataforma para el desarrollo de software para robots ROS (Robot Operative System por sus siglas en inglés)\cite{quigley2009ros}, alojado en el sistema operativo Ubuntu 16.04. (Ver sección 5)\\
 
 	%**Acondicionamiento de Nube de puntos(???) Transformaciones(???)
 
 	\section{Segmentación de planos con RANSAC}
 
-		Para el desarrollo del algoritmo RANSAC se utilizó el sensor Kinect dado que este sensor, además de una imagen de color, proporciona información sobre la profundidad de los objetos. Con un manejo adecuado de ambos datos se pueden conseguir avances notables en el campo de la visión computacional.\\
-
-		Para el desarrollo del algoritmo se hizo uso de la información de profundidad de los objetos.\\
+		Para el desarrollo del algoritmo RANSAC se utilizó el sensor Kinect dado que este sensor, además de una imagen de color, proporciona información sobre la profundidad de los objetos. Con un manejo adecuado de ambos datos se pueden conseguir avances notables en el campo de la visión computacional. Para el desarrollo del algoritmo se hizo uso de la información de profundidad de los objetos.\\
 
 		\begin{figure}[h!]
 			\begin{center}
@@ -30,15 +28,14 @@ En este capítulo se aborda el desarrollo de los algoritmos para la detección y
 			\end{center}
 		\end{figure}
 		
-		Se desarrolló un programa en lenguaje C++ para segmentar los planos. La información de profundidad entregada por el Kinect, se da en una matriz donde cada elemento $i, j$ contiene la información de profundidad obtenida por el sensor, como se muestra a continuación:\\
+		Se desarrolló un programa en lenguaje C++ para segmentar los planos. La información de profundidad entregada por el Kinect, se da en una matriz donde cada elemento $i, j$ contiene la información de profundidad obtenida por el sensor, como se explica a continuación.\\
 
-		%%***imagen de matriz profundidad (talvez estrecha)\\
 
-		Cada elemento de la matriz contiene información de un punto $p = (x, y, z)$ donde el haz infrarojo fue reflejado, esto nos permite conocer la distancia a la cual se encuentra un objeto, o su superficie. La información que nos entrega el sensor en forma de matriz es de dimensiones $640 x 480$ por tanto consta de 307,200 elementos en total.  Dentro de este conjunto de datos procura encontrar las superficies planas.\\
+		Cada elemento de la matriz contiene información de un punto $p = (x, y, z)$ donde el haz infrarojo fue reflejado, esto nos permite conocer la distancia a la cual se encuentra un objeto, o su superficie. La información que nos entrega el sensor en forma de matriz es de dimensiones 640X480 por tanto consta de 307,200 elementos en total.  Dentro de este conjunto de datos se buscan las superficies planas.\\
 
-		Se programó el algoritmo RANSAC para extraer planos en C++, el código se puede consultar en la página. \cite{githubTesis}\\
+		Se programó el algoritmo RANSAC para extraer planos en C++, el código se puede consultar en la página \cite{githubTesis}.\\
 
-		Para la correcta implementación del algoritmo fue necesario tomar algunas consideraciones, por ejemplo: descartar del procesamiento todos aquellos píxeles que no proporcionen información relevante de profundidad, la construcción de una clase para generar planos.\\
+		Para la correcta implementación del algoritmo fue necesario tomar algunas consideraciones, por ejemplo: descartar del procesamiento todos aquellos píxeles que no proporcionen información relevante de profundidad para reducir el tiempo de procesamiento del algoritmo.\\
 
 		Para la construcción de planos se tomaron tres puntos aleatorios y se construyeron dos vectores a partir de los puntos y se realizó el producto cruz entre estos.\\ 
 
@@ -66,16 +63,16 @@ En este capítulo se aborda el desarrollo de los algoritmos para la detección y
 
 		\begin{equation}
 			\begin{split}
-			D = (A*p_1.x + B*p_1.y + C*p_1.z)
+			D = -(A p_{1_{x}} + Bp_{1_{y}} + Cp_{1_{z}})
 			\end{split}
 		\end{equation}
 
 
-		Por lo tanto con tres puntos seleccionados aleatoriamente tenemos un modelo de plano generado aleatoriamente. Lo cual es el primer requerimiento para el algoritmo.\\ 
+		Por lo tanto con tres puntos seleccionados aleatoriamente tenemos un modelo de plano generado aleatoriamente, lo cual es el primer requerimiento para el algoritmo.\\ 
 
-		Posteriormente se comparó el resto de la información con ese modelo propuesto aleatoriamente y verificamos que tan buen modelo es. Para ello calculamos la distancia euclidiana de cada punto al plano propuesto, si la distancia es menor que cierto umbral lo consideramos como parte del modelo e incrementamos el numero de puntos que empatan con el modelo \"inliers\".\\
+		Posteriormente se comparó el resto de la información con ese modelo propuesto aleatoriamente y verificamos que tan buen modelo es. Para ello calculamos la distancia euclidiana de cada punto al plano propuesto, si la distancia es menor que cierto umbral lo consideramos como parte del modelo e incrementamos el numero de valores típicos que empatan con el modelo (``inliers").\\
 
-		Del mismo modo se buscaba que el numero de inliers que empataran con el modelo fuera al menos el 60\% del total de datos. De otro modo la implementación a nivel de algoritmo devolvía un modelo vacío. En los resultados se trata este tema con mayor profundidad.\\
+		Del mismo modo se buscaba que el numero de valores típicos que empataran con el modelo fuera al menos el 60\% del total de datos. De otro modo la implementación a nivel de algoritmo devolvía un modelo vacío. En apartado correspondiente a los resultados se trata este tema con mayor profundidad.\\
 
 
 		\begin{figure}[h!]
@@ -87,49 +84,83 @@ En este capítulo se aborda el desarrollo de los algoritmos para la detección y
 			\begin{subfigure}[t]{.5\textwidth}
 			\centering
 			\includegraphics[width=6.5cm, height=3.5cm]{planes/planeSegmentation5.png}
-			\caption{Segmentación de un plano utilizando el algoritmo RANSAC con un número de iteraciones igual a 70 y un umbral de 2 cm.}
+			\caption{Segmentación de un plano utilizando el algoritmo RANSAC con un número de iteraciones igual a 70 y un umbral de 2 cm (Plano en color verde). }
 			\end{subfigure}
 
 			\caption{Planos y su representación en 3D.}
 		\end{figure}
 
 
-		Por ahora el algoritmo no restringe su búsqueda a planos horizontales o verticales, quedá como trabajo futuro el desarrollo de una búsqueda selectiva de planos con características similares a una mesa, destacando características de horizontalidad y altura.\\
+		Por ahora el algoritmo no restringe su búsqueda a planos horizontales o verticales, queda como trabajo futuro el desarrollo de una búsqueda selectiva de planos con características similares a una mesa, destacando características de horizontalidad y altura.\\
 
 
 	\section{Extracción de objetos}
 		
-		Una vez  que se encontró la nube de puntos perteneciente al modelo, se prosiguió a ubicar espacialmente los objetos que se encontraban sobre el plano. Se realizó la extracción de objetos con las siguientes restricciones:\\
+		Una vez  que se encontró la nube de puntos perteneciente al plano, se prosiguió a ubicar espacialmente los objetos que se encontraban sobre el plano. Se realizó la extracción de objetos con las siguientes restricciones:\\
 
-		\begin{itemize}
-			\item{$ p_n = null$   $\forall$  $p_n \in \Pi$ }
-			\item{$ p_n = null$   $\forall$  $p_n.z < Height(\Pi)  $ }
-			\item{$ p_n = null$   $\forall$  $p_n.x > 0.50[m]  $ }
-		\end{itemize}
+		\IncMargin{1em}
+		\begin{algorithm}[H]
+		\SetKwData{Left}{left}\SetKwData{This}{this}\SetKwData{Up}{up}
+		\SetKwFunction{Union}{Union}\SetKwFunction{FindCompress}{FindCompress}
+		\SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
+		
+		\Input{Nude de puntos organizada}
+		\Input{Modelo del plano}
+		\BlankLine
+		
+		Sea:
+		\textbf{Condiciones iniciales}\;
+		$p \leftarrow$ Conjunto total de puntos obtenidos del sensor\;
+		$p_{\pi} \leftarrow$ Conjunto de puntos pertenencientes al modelo del plano\;
+		$p_0 \leftarrow$ Conjunto de puntos pertenencientes a un objeto\;
+		$p_{extra} \leftarrow$ Conjunto de puntos con restricciones adicionales \;
+		\BlankLine
+		\BlankLine
+
+		$p \leftarrow \{ p_1, p_2, p_3... p_n \}$\;
+		$p_{\pi} \leftarrow \{ p_{\pi_{1}}, p_{\pi_{2}}, p_{\pi_{3}}... p_{\pi_{n}} \}$\;
+		$p_0 \leftarrow  \{ \emptyset \}$\;
+		$p_{extra} \leftarrow \{ (x, y, x,) : x < 0.5[m], z < p.z \forall p \in p_{\pi} \}$ \;
+
+		\BlankLine
+		\BlankLine
+		\BlankLine
+
+		$p_0 = p - p_{\pi} - p_{extra}$\; 
+		
+		\BlankLine
+		\BlankLine
+		\BlankLine
+
+		\textbf{return} $p_0$ \;
+		\caption{Algoritmo para extracción de objetos de una nube de puntos organizada.}
+		\label{objExtract_algorithm}
+		\end{algorithm}\DecMargin{1em}
+
 
 		De otro modo esto sería igual a:\\
 
 		\begin{itemize}
 			\item{Supresión de los puntos pertenecientes al plano.}
 			\item{Supresión de los puntos por debajo del plano.}
-			\item{Supresión de los puntos más allá de 40 respecto al punto más cercano en x.}
+			\item{Supresión de los puntos más allá de 50[cm] respecto al punto más cercano en x.}
 		\end{itemize}
 
 		\begin{figure}
 
 			\begin{subfigure}[h]{.5\textwidth}
 			\includegraphics[width=5.5cm, height=4.0cm]{objs/object1.png}	
-			\caption{Extracción del color objeto.}
+			\caption{Extracción de los puntos que pertenecen al objeto.}
 			\end{subfigure}%
 			\begin{subfigure}[h]{.5\textwidth}
 			\includegraphics[width=4.5cm, height=3.5cm]{objs/object1_pc.png}
 			\caption{Información de profundidad del objeto.}
 			\end{subfigure}
-
+			\label{Fig:objExtra}
 			\caption{Extracción de información del objeto.}
 		\end{figure}
 
-		Posterior a este proceso tenemos como resultado un conjunto de puntos reflejados sobre un objeto sólido con las distancias proyectadas sobre los tres ejes coordenados respecto del robot Justina.\\
+		Posterior a este proceso tenemos como resultado un conjunto de puntos reflejados sobre un objeto sólido con las distancias proyectadas sobre los tres ejes coordenados respecto del robot.\\
 
 
 	\section{Aproximación de orientación de objetos con PCA}
@@ -145,46 +176,48 @@ En este capítulo se aborda el desarrollo de los algoritmos para la detección y
 				\item{La distancia al objeto  proyectada sobre el eje $z$}
 			\end{itemize} 
 
-			Por lo tanto, de una nube de puntos como la mostrada en la figura \cite{} podemos extraer medidas de dispersión, y medidas de tendencia central. Se partió con el cálculo de la media de los datos. $\bar{X}, \bar{Y}, \bar{Z}.$ El punto $P(\bar{X}, \bar{Y}, \bar{X})$ representa el centroide del objeto. Conociendo este punto podemos conocer la ubicación espacial del objeto respecto del robot y determinar si es manipulable (si se encuentra dentro del área de trabajo) y conocer las coordenadas a donde deberíamos llevar el efector final de nuestro manipulador para manipularlo.\\
+			Por lo tanto, de una nube de puntos como la mostrada en la figura \cite{Fig:objExtra} podemos extraer medidas de dispersión, y medidas de tendencia central. Se partió con el cálculo de la media de los datos. $\bar{X}, \bar{Y}, \bar{Z}.$ El punto $P(\bar{X}, \bar{Y}, \bar{X})$ representa el centroide del objeto. Conociendo este punto podemos conocer la ubicación espacial del objeto respecto del robot y determinar si es manipulable (si se encuentra dentro del área de trabajo) y conocer las coordenadas a donde debemos llevar el efector final del manipulador.\\
 
-			Para realizar el cálculo de la media se cuantifico el número de puntos pertenecientes al objeto, $(n)$. Posteriormente, para todos los puntos pertenecientes al conjunto $n$ se sumaron sus valores en $\bar{X}, \bar{Y}, \bar{Z}$, respectivamente. Y posteriormente se dividieron entre $n$.\\
+			Aunque el cálculo del centroide del objeto es operacionalmente simple este resultado puede no representar correctamente el centroide real del objeto. La extracción de la informacion del objeto está sujeta a la perpectiva de la cámara con respecto del objeto en cuestión. De esta manera si la posición de la cámara con respecto del objeto se aproxima a una vista lateral se reducirá la cantidad de hazes de luz proyectada sobre la superficie del objeto. En la figura \cite{Fig:objCentroide} se lográ a apreciar que el punto representante del controide no coincide con con el centroide real de los objetos.\\
 
-		\IncMargin{1em}
-		\begin{algorithm}[H]
-		\SetKwData{Left}{left}\SetKwData{This}{this}\SetKwData{Up}{up}
-		\SetKwFunction{Union}{Union}\SetKwFunction{FindCompress}{FindCompress}
-		\SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
+		% 	Para realizar el cálculo de la media se cuantifico el número de puntos pertenecientes al objeto, $(n)$. Posteriormente, para todos los puntos pertenecientes al conjunto $n$ se sumaron sus valores en $\bar{X}, \bar{Y}, \bar{Z}$, respectivamente. Y posteriormente se dividieron entre $n$.\\
+
+		% \IncMargin{1em}
+		% \begin{algorithm}[H]
+		% \SetKwData{Left}{left}\SetKwData{This}{this}\SetKwData{Up}{up}
+		% \SetKwFunction{Union}{Union}\SetKwFunction{FindCompress}{FindCompress}
+		% \SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
 		
-		\Input{Nude de puntos organizada perteneciente al objeto segmentado}
-		\Output{$ \bar{X},  \bar{Y}, \bar{Z}$}
-		\BlankLine
+		% \Input{Nude de puntos organizada perteneciente al objeto segmentado}
+		% \Output{$ \bar{X},  \bar{Y}, \bar{Z}$}
+		% \BlankLine
 	
-		$Inicializaci\acute{o}n$ de $variables$\;
-		$\bar{X} = 0$\;
-		$\bar{Y} = 0$\;
-		$\bar{Z} = 0$\;
-		\BlankLine
-		\BlankLine
+		% $Inicializaci\acute{o}n$ de $variables$\;
+		% $\bar{X} = 0$\;
+		% $\bar{Y} = 0$\;
+		% $\bar{Z} = 0$\;
+		% \BlankLine
+		% \BlankLine
 	
 
-	    \For{ cada punto \textbf{in} datos(objeto)}
-		{
-			$X_{total} = X_{total} + dato_{x}$\;
-			$Y_{total} = Y_{total} + dato_{y}$\;
-			$Z_{total} = Z_{total} + dato_{z}$\;
-		}
-		\BlankLine
+	 %    \For{ cada punto \textbf{in} datos(objeto)}
+		% {
+		% 	$X_{total} = X_{total} + dato_{x}$\;
+		% 	$Y_{total} = Y_{total} + dato_{y}$\;
+		% 	$Z_{total} = Z_{total} + dato_{z}$\;
+		% }
+		% \BlankLine
 		
-		$\bar{X} = \dfrac{X_{total} } {n} $\;
-		$\bar{Y} = \dfrac{Y_{total} } {n} $\;
-		$\bar{Z} = \dfrac{Z_{total} } {n} $\;
-		\BlankLine
-		\BlankLine
+		% $\bar{X} = \dfrac{X_{total} } {n} $\;
+		% $\bar{Y} = \dfrac{Y_{total} } {n} $\;
+		% $\bar{Z} = \dfrac{Z_{total} } {n} $\;
+		% \BlankLine
+		% \BlankLine
 
-		\textbf{return} $P(\bar{X}, \bar{Y}, \bar{Z})$\;
-		\caption{Cálculo del centroide de un objeto basado en nubes de puntos}
-		\label{centroide}
-		\end{algorithm}\DecMargin{1em}
+		% \textbf{return} $P(\bar{X}, \bar{Y}, \bar{Z})$\;
+		% \caption{Cálculo del centroide de un objeto basado en nubes de puntos}
+		% \label{centroide}
+		% \end{algorithm}\DecMargin{1em}
 
 
 		%%Ïmagen centroides Rviz.
@@ -198,6 +231,7 @@ En este capítulo se aborda el desarrollo de los algoritmos para la detección y
 			\includegraphics[width=6.0cm, height=3.5cm]{objs/centroid5.png}
 			\end{subfigure}
 		\caption{Segmentación de un objeto y su correspondiente centroide (punto verde).}
+		\label{Fig:objCentroide}
 		\end{figure}
 			
 
@@ -276,7 +310,7 @@ Eigen::SelfAdjointEigenSolver<Eigen::MatrixXf> eig(cov_matrix); \end{lstlisting}
 
 
 	\subsection{Cálculo de rotación del objeto}
-	Una vez que se obtivieron los eigenvetcores de la matriz de covarianzas estos indican las direcciones en los cuales tiene una mayo distribución la nube de puntos del objeto en cuestión. Por la naturaleza de los eigen-vectores y al tratarse de un espacio tridimensional, estos ejes forman un sistema ortogonal; por lo tanto son perpendiculares entre sí.\\
+	Una vez que se obtivieron los eigenvectores de la matriz de covarianzas estos indican las direcciones en los cuales tiene una mayor distribución la nube de puntos del objeto en cuestión. Por la naturaleza de los eigen-vectores y al tratarse de un espacio tridimensional, estos ejes forman un sistema ortogonal; por lo tanto son perpendiculares entre sí.\\
 
 	Por tal motivo basta con conocer los cosenos directores de cada uno de los eigenvetores con el eje coordinado del robot, comparalos en mágnitud y determinar los ángulos roll, pitch y yaw del objeto con respecto del robot.\\
 
@@ -294,7 +328,7 @@ Eigen::SelfAdjointEigenSolver<Eigen::MatrixXf> eig(cov_matrix); \end{lstlisting}
 	\end{equation}
 
 
-	Transaladando esta idea al espacio se continua establece que las componentes de un vector en el espacio están determinados por la forma:\\
+	Transaladando esta idea a un espacio tridimensional los componentes de un vector están determinados por la forma:\\
 
 	\begin{equation}
 	\begin{split}
@@ -357,6 +391,10 @@ De las realciones anteriores se deduce támbien:\\
 		\label{fig:cosenos_directores}
 	\end{figure}
 %**** imagen cosenos directores en el espacio\\
+
+	La importancia de abordar este tópico se debe a que en desarrollo del presente trabajo se hace uso de los cosenos directores para determinar la dirección en que puntan los vectores resultado del análisis de componentes principales, por tanto se hace uso de esta característica geómetrica de los vectores para conecer el ángulo de orientación de los objetos.\\ 
+
+
 
 \newpage
 \thispagestyle{empty}
