@@ -2,26 +2,29 @@
 
 
 \chapter{Implementación usando la plataforma ROS}
+	
+	En este capítulo se describe la plataforma ROS (Robot Operative System), su estructura, los elementos principales que lo componen y sus formas de interconección. Se aborda, además, la metodología de integración de los algoritmos desarrollados en este trabajo.\\ 
+
 	\section{Ros}
-	ROS es un meta-sistema operativo de software libre para robótica que ofrece las utilidades que se esperarían en cualquier sistema operativo: abstracción de hardware, control de dispositivos de bajo nivel, implementación de funcionalidades comunes, intercambio de mensajes entre procesos y mantenimiento de paquetes. Su objetivo principal es dar soporte a la reutilización de código en la investigación y desarrollo de robótica [21].\\
+	ROS es un meta-sistema operativo de software libre para robótica que ofrece las utilidades que se esperarían en cualquier sistema operativo: abstracción de hardware, control de dispositivos de bajo nivel, implementación de funcionalidades comunes, intercambio de mensajes entre procesos y mantenimiento de paquetes. Su objetivo principal es dar soporte a la reutilización de código en la investigación y desarrollo de robótica \cite{quigley2009ros}.\\
 
 	Una de las principales ventajas que ofrece es la de comunicar distintos procesos dependientes o independientes entre sí de manera muy sencilla. El funcionamiento de un robot se piensa de manera modular, donde cada módulo realiza una tarea específica y ROS se encarga del transporte de la información entre ellos. Además, su creciente comunidad aporta mucho al desarrollo de nuevo software que otros usuarios pueden utilizar de acuerdo a sus necesidades.\\
 
 	\subsection{Nodos}
-	Nodo es el nombre que recibe en ROS los pequeños módulos que conforman la red de trabajo; se encargan de realizar un proceso en particular. Por ejemplo, un nodo mueve los motores, otro nodo es responsable de la interfaz con el usuario, otro planea las trayectorias, mientras que un último nodo controla los sensores. La comunicación entre nodos se realiza por medio de mensajes usando tópicos o servicios.\\
+	Nodo es el nombre que reciben ROS los pequeños módulos que conforman la red de trabajo; se encargan de realizar una tarea en particular. Por ejemplo, un nodo mueve los motores, otro nodo es responsable de la interfaz con el usuario, otro planea las trayectorias, mientras que un último nodo controla los sensores. La comunicación entre nodos se realiza por medio de mensajes usando tópicos o servicios.\\
 
 	\subsection{Paquetes}
 	El software en ROS se organiza por medio de paquetes. Un paquete puede entenderse como una carpeta con estructura definida y puede contener el código de un nodo, la definición de mensajes, archivos de configuración, software ajeno a ROS, etc. Se pretende que un paquete ofrezca una utilidad por sí mismo, pero no debe ser tan complejo como para ser difícil de entender por otros usuarios. Cuando se comparten desarrollos en la comunidad de ROS, los paquetes son la unidad más pequeña de construir y publicar. Es decir, si se crea un nodo con una funcionalidad única y éste se quiere compartir con el mundo, lo que se debe compartir en realidad es el paquete que contiene al nodo.\\
 
 	\subsection{Tópicos}
-	Uno de los paradigmas para comunicar nodos entre sí es por medio de tópicos. Un nodo publica cierto tipo de información en un tópico específico y todos los nodos que requieran de esa información deberán suscribirse a ese tópico para obtenerla. En cuanto los datos sean publicados, los nodos suscritos la recibirán. El nodo publicador no sabes quién o quiénes leerán lo que publique, únicamente sabe a dónde mandar la información. Lo mismo sucede del otro lado, los nodos suscritos no saben quién publica la información, sólo saben de dónde la deben esperar. Cada tópico comunica únicamente un tipo de mensaje definido.\\
+	Uno de los patrones para comunicar nodos entre sí es por medio de tópicos. Un nodo publica cierto tipo de información en un tópico específico y todos los nodos que requieran de esa información deberán suscribirse a ese tópico para obtenerla. En cuanto los datos sean publicados, los nodos suscritos la recibirán. Los tópicos son un patrón no-bloqueante que presenta una distribución 1:n.\\
 
 	\subsection{Servicios}
-	El otro paradigma para comunicar nodos son los servicios utilizando un sistema petición-respuesta. Si algún proceso o cálculo se requiere hacer sólo en ciertas situaciones es conveniente programarlo como un servicio. Si un nodo requiere utilizar un servicio, manda un mensaje de petición con la información necesaria al nodo que ofrece dicho servicio, el procesamiento se lleva a cabo y se regresa al nodo solicitante un mensaje de respuesta con el resultado del servicio. Al igual que los tópicos, cada servicio tiene el tipo de mensaje específico con el que se comunicará; hay un tipo de mensaje para las peticiones y otro para las respuestas.\\	
+	El otro patrón para comunicar nodos son los servicios, que utilizan un sistema petición-respuesta. Si algún proceso o cálculo se requiere hacer sólo en ciertas situaciones es conveniente programarlo como un servicio. Si un nodo requiere utilizar un servicio, manda un mensaje de petición con la información necesaria al nodo que ofrece dicho servicio, el procesamiento se lleva a cabo y se regresa al nodo solicitante un mensaje de respuesta con el resultado del servicio. Al igual que los tópicos, cada servicio tiene el tipo de mensaje específico con el que se comunicará; hay un tipo de mensaje para las peticiones y otro para las respuestas.\\	
 
 	\begin{figure}[H]
 		\begin{minipage}{18cm}	
-		\hspace*{-0.35in}
+		\hspace*{-0.15in}
 		\includegraphics[scale=0.28]{ros/topics_services_ros.png}	
 		\end{minipage}
 		
@@ -39,9 +42,11 @@
 	%%%%
 	\section{Máquinas de estados}
 
-	Una máquina de estados finita es un modelo matemático computacional, el cuál puede tener uno o un número finito de estados en un momento dado. Dicho modelo matemático se cumple la función de mostrar las transiciones entre diversos estados de un objeto o proceso. Las máquinas de estados proporcionan información muy importante de un proceso, dicha información se presenta en dos medios dediferente naturaleza. En primer lugar intenta describir un proceso en una cantidad finita de estados, los cuales deben ser suficientes para describir el proceso de manera suficiente. En segundo lugar determina los criterios de transición entre diferentes estados de objeto o proceso.\\
+	Se denomina máquina de estados a un modelo de comportamiento de un sistema con entradas y salidas, en donde las salidas dependen no sólo de las señales de entradas actuales sino también de las anteriores.\\
 
-	En este sentido, como parte de este trabajo, se plantean las máquinas de estados como la metodología de solución ante ciertas problematicas como lo son: \textit{describir el proceso de la toma de objetos, describir el proceso de llevar el brazo hasta el punto óptimo de sujeción, describir el proceso de evalución de la función de costo para el brazo manipulador del robot Justina, entre otras.}\\
+	Las máquinas de estados se definen como un conjunto de estados que sirve de intermediario en esta relación de entradas y salidas, haciendo que el historial de señales de entrada determine, para cada instante, un estado para la máquina, de forma tal que la salida depende únicamente del estado y las entradas actuales.\\
+
+	En este sentido, como parte de este trabajo, se plantean las máquinas de estados como la metodología de solución ante ciertas problemáticas como lo son: \textit{describir el proceso de la toma de objetos, describir el proceso de llevar el brazo hasta el punto óptimo de sujeción, describir el proceso de evalución de la función de costo para el brazo manipulador del robot Justina, entre otras.}\\
 
 
 	\subsection{Descripción de pruebas de toma de objetos.}
