@@ -6,6 +6,7 @@
 En este capítulo se aborda el desarrollo de los algoritmos para la detección y extracción de características de objetos propuestos en los objetivos de este trabajo. La metodología de desarrollo de este capítulo se divide en las tareas descritas a continuación:\\
 
 	\begin{itemize}
+		\itemsep-0.5em
 		\item{Segmentación de planos}
 		\item{Extracción de planos}
 		\item{Segmentación de objetos}
@@ -171,12 +172,13 @@ En este capítulo se aborda el desarrollo de los algoritmos para la detección y
 			La adquisición de datos se realizó mediante la extracción de los puntos pertenecientes al objeto. Cada uno de los datos perteneciente al conjunto de puntos posee tres características:\\
 
 			\begin{itemize}
+				\itemsep-0.5em
 				\item{La distancia al objeto  proyectada sobre el eje $x$}
 				\item{La distancia al objeto  proyectada sobre el eje $y$}
 				\item{La distancia al objeto  proyectada sobre el eje $z$}
 			\end{itemize} 
 
-			Por lo tanto, de una nube de puntos como la mostrada en la figura \cite{Fig:objExtra} podemos extraer medidas de dispersión, y medidas de tendencia central. Se partió con el cálculo de la media de los datos. $\bar{X}, \bar{Y}, \bar{Z}.$ El punto $P(\bar{X}, \bar{Y}, \bar{X})$ representa el centroide del objeto. Conociendo este punto podemos conocer la ubicación espacial del objeto respecto del robot y determinar si es manipulable (si se encuentra dentro del área de trabajo) y conocer las coordenadas a donde debemos llevar el efector final del manipulador.\\
+			Por lo tanto, de una nube de puntos como la mostrada en la figura \cite{Fig:objCentroide} podemos extraer medidas de dispersión, y medidas de tendencia central. Se partió con el cálculo de la media de los datos. $\bar{X}, \bar{Y}, \bar{Z}.$ El punto $P(\bar{X}, \bar{Y}, \bar{X})$ representa el centroide del objeto. Conociendo este punto podemos conocer la ubicación espacial del objeto respecto del robot y determinar si es manipulable (si se encuentra dentro del área de trabajo) y conocer las coordenadas a donde debemos llevar el efector final del manipulador.\\
 
 			Aunque el cálculo del centroide del objeto es operacionalmente simple este resultado puede no representar correctamente el centroide real del objeto. La extracción de la informacion del objeto está sujeta a la perpectiva de la cámara con respecto del objeto en cuestión. De esta manera si la posición de la cámara con respecto del objeto se aproxima a una vista lateral se reducirá la cantidad de hazes de luz proyectada sobre la superficie del objeto. En la figura \cite{Fig:objCentroide} se lográ a apreciar que el punto representante del controide no coincide con con el centroide real de los objetos.\\
 

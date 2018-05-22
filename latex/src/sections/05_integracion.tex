@@ -24,7 +24,7 @@
 
 	\begin{figure}[H]
 		\begin{minipage}{18cm}	
-		\hspace*{-0.15in}
+		% \hspace*{-0.15in}
 		\includegraphics[scale=0.28]{ros/topics_services_ros.png}	
 		\end{minipage}
 		
@@ -46,14 +46,14 @@
 
 	Las máquinas de estados se definen como un conjunto de estados que sirve de intermediario en esta relación de entradas y salidas, haciendo que el historial de señales de entrada determine, para cada instante, un estado para la máquina, de forma tal que la salida depende únicamente del estado y las entradas actuales.\\
 
-	En este sentido, como parte de este trabajo, se plantean las máquinas de estados como la metodología de solución ante ciertas problemáticas como lo son: \textit{describir el proceso de la toma de objetos, describir el proceso de llevar el brazo hasta el punto óptimo de sujeción, describir el proceso de evalución de la función de costo para el brazo manipulador del robot Justina, entre otras.}\\
+	En este sentido, como parte de este trabajo, se plantean las máquinas de estados como la metodología de solución ante ciertos problemas como lo son: \textit{describir el proceso de la toma de objetos, describir el proceso de llevar el brazo hasta el punto óptimo de sujeción, describir el proceso de evalución de la función de costo para el brazo manipulador del robot Justina, entre otras.}\\
 
 
 	\subsection{Descripción de pruebas de toma de objetos.}
 
-	La toma de objetos es la parte crucial de este trabajo, la importancia de este evento radica en que este evento se incluye la totalidad de tareas desarroladas en este trabajo para realizar una prueba de mayor complejidad. A grandes rasgos, la prueba de la toma de objetos se compone de subtareas, algunas de las cuales se describen a continuación.\\
+	La toma de objetos es la parte crucial de este trabajo, la importancia de este evento radica en que se incluye la totalidad de tareas desarroladas en este trabajo para realizar una prueba de mayor complejidad. A grandes rasgos, la prueba de la toma de objetos se compone de subtareas, algunas de las cuales se describen a continuación.\\
 
-	La primer subtarea es la segmentación del objeto y el cálculo del respectivo centroide del objeto en cuestión. Como entrada de la tarea se tiene una nube de puntos obtenida por la cámara RGB-D Kinect y lo esperado a la salida es una posición \textit{x, y, z} en el espació así mismo la orientación del objeto \textit{roll, pith, yaw}. La primer subtarea a realizar, partiendo con la nube de puntos como entrada al sistema, es es la segmentación de un plano (en caso de existir), porteriormente se eliminan los puntos pertenecientes al plano y por debajo de este, se eliminan los puntos más lejados 0,5[m] en el eje x respecto al robot. Se parte de las siguintes premisas: que el conjunto de puntos restante corresponde al conjunto de puntos que conforman al objeto, que solo se encuentra un objeto en la mesa en cada evento de toma de objetos. Con tal información, podemos proceder a calcular el centroide del objeto así como el rectivo ángulo del mismo.\\
+	La primer subtarea es la segmentación del objeto y el cálculo del respectivo centroide del objeto en cuestión (Ver Seccición [3]). Como entrada de la tarea se tiene una nube de puntos obtenida por la cámara RGB-D Kinect y lo esperado a la salida es una posición \textit{x, y, z} en el espació así como la orientación del objeto \textit{roll, pith, yaw}. Partiendo con la nube de puntos como entrada al sistema, es la segmentación de un plano (en caso de existir), porteriormente se eliminan los puntos pertenecientes al plano y por debajo de este, se eliminan los puntos más lejados 0,5[m] en el eje x respecto al robot. Se parte de las siguintes premisas: que el conjunto de puntos restante corresponde al conjunto de puntos que conforman al objeto, que solo se encuentra un objeto en la mesa en cada evento de toma de objetos. Con tal información, podemos proceder a calcular el centroide del objeto así como el respectivo ángulo del mismo.\\
 
 	\begin{figure}[H]
 	\hspace*{-0.5in}
@@ -61,12 +61,12 @@
 	\begin{subfigure}[t]{.55\textwidth}
 		\centering
 		\includegraphics[scale=0.25]{objs/plane_model.png}
-		\caption{Imagen de segmentación de los puntos pertenecientes al plano.}
+		\caption{Imagen de segmentación de los puntos \\ pertenecientes al plano.}
 	\end{subfigure}%
 	\begin{subfigure}[t]{.55\textwidth}
 		\centering
 		\includegraphics[scale=0.45]{objs/plane_points.png}
-		\caption{Segmentación de plano con extracción de los objetos sobre este.}
+		\caption{Segmentación de plano con extracción \\ de los objetos sobre este.}
 	\end{subfigure}
 
 	\hspace*{-0.5in}
@@ -80,15 +80,15 @@
 		\includegraphics[scale=0.45]{objs/object_points.png}
 		\caption{Bounding box de los puntos pertenecientes al objeto.}
 	\end{subfigure}
-	\caption{Esquemas de proceso de segmentación del objeto.}
+	\caption{Esquemas del proceso de segmentación del objeto.}
 	\label{fig:desciption_arms1}
 	\end{figure}
 
 
-	Para realizar el cálculo del centroide del objeto en cuestión se utiliza la ecuación [], la aplicación de dicha formula es practicamente directa, no así el cálculo de los ángulos representativos de la orientación del objeto. Para ello se calculan en un principio, los componentes principales del conjunto formado por los puntos del objeto, con la información de los eigenvectores de la matriz de covarianzas podemos obtener la dirección en la cuál ocurre la mayor distribución de los puntos, y por tanto podemos obtener los cosenos directores de cada uno de los respectivos eigenvectores obteniendo así los ángulos de rotación \textit{roll, pitch, yaw}.\\
+	Para realizar el cálculo del centroide del objeto en cuestión se utiliza la ecuación la media en cada uno de los correspondientes ejes, el cálculo es practicamente directo, no así el cálculo de los ángulos representativos de la orientación del objeto. Para ello se calculó en un principio, los componentes principales del conjunto formado por los puntos del objeto, con la información de los eigenvectores de la matriz de covarianzas podemos obtener la dirección en la cuál ocurre la mayor distribución de los puntos, y por tanto podemos obtener los cosenos directores de cada uno de los respectivos eigenvectores obteniendo así los ángulos de rotación \textit{roll, pitch, yaw}.\\
 
 
-	Una vez conociendo esta información nos es posible avanzar a la etapa de manipulación para la cual es necesario conocer la información de la información del objeto en el espacio \textit{x, y, z} y con ayuda del proceso anteriormente descrito podemos obtener los ángulos requeridos para el efector final del manipulador. En esta parte y como parte de los resultados del análisis comparativo entre las soluciones encontradas mediante la paquetería \textit{MoveIt!} y el método geométrico, se optó por utilizar el método geométrico ya implementado en el robot de servicio Justina.\\
+	Una vez conociendo esta información es posible avanzar a la etapa de manipulación para la cual es necesario conocer la información del objeto en el espacio \textit{x, y, z} y con ayuda del proceso anteriormente descrito podemos obtener los ángulos requeridos para el efector final del manipulador. En esta parte y como parte de los resultados del análisis comparativo entre las soluciones encontradas mediante la paquetería \textit{MoveIt!} y el método geométrico, se optó por utilizar el método geométrico ya implementado en el robot de servicio Justina.\\
 
 
 
@@ -99,18 +99,18 @@
 		\end{minipage}
 		
 		\begin{center}
-		\caption{Esquemas de proceso toma de objetos.}
+		\caption{Diagrama de bloques del proceso toma de objetos.}
 		\end{center}
 	\end{figure}
 
 
 
-	Con el resultado del cálculo de la cinemática inversa, se obtinenen los ángulos requeridos para cada uno de los actuadores para que el efector final llegue al punto en el espacio deseado. Para ello se utiliza un \textit{tópico} implementado en ROS, que comunica los ángulos deseados del manipulador con un nodo encargado de operar el hardware en este caso los motores Dynamixel.\\ 
+	Con el resultado del cálculo de la cinemática inversa, se obtienen los ángulos requeridos para cada uno de los actuadores para que el efector final llegue al punto en el espacio deseado. Para ello se utiliza un \textit{tópico} implementado en ROS, que comunica los ángulos deseados del manipulador con un nodo encargado de operar el hardware, en este caso, los motores Dynamixel.\\ 
 
 
 	\subsection{Pruebas de toma de objetos estado actual.}
 
-	En lo que respecta al proceso de la toma de objetos actual, en el robot de servicio Justina, unicamente se utiliza la información de posición del objeto sin considerar la información de orientación. Este proceso es suceptible a fallas cuando se trata de objetos de grandes dimensiones, entiendase objetos con dimensiones mayores a la longitud total del efector final del manipulador en su mayor apertura. Por otro lado, puede presentar fallas con objetos de alturas reducidas, estos son objetos con alturas menores a la mitad de la longitud \textit{d} del manipulador pues ello índica una posible colisión con la superficie que soporta dicho objeto.\\
+	En lo que respecta al proceso de la toma de objetos actual, en el robot de servicio Justina, unicamente se utiliza la información de posición del objeto sin considerar la información de orientación. Este proceso es suceptible a fallas cuando se trata de objetos de grandes dimensiones, entiendase objetos con dimensiones mayores a la longitud total del efector final del manipulador en su mayor apertura. Por otro lado, puede presentar fallas con objetos de alturas reducidas, estos son objetos con alturas menores a la mitad de la longitud \textit{d} del manipulador pues ello indica una posible colisión con la superficie que soporta dicho objeto.\\
 
 	\begin{figure}[H]
 	\hspace*{-0.5in}
@@ -132,11 +132,11 @@
 	
 	\subsection{Pruebas de toma de objetos con información de orientación y dimensiones del objeto.}
 
-	Como parte de los desarrollos obtenidos de este trabajo, se adiciona la información de la orientación de los objetos, con la cuál se realizaron pruebas que nos lleven a verificiar si la adicción de esta información mejora significativamente la tarea de toma de objetos en el robot de servicio Justina.\\
+	Como parte de los desarrollos obtenidos de este trabajo, se adiciona la información de la orientación de los objetos, con la cual se puso a prueba si la adición de esta información mejora significativamente la tarea de toma de objetos en el robot de servicio Justina.\\
 
-	Para ello, una vez realizada la segmentación del objeto en cuestión se procede a calcular el centroide del objeto, posteriormente se calcula la matriz de covarianzas de y se obtienen los vectores y valores característicos de la matriz, con lo cuál obtenemos los ejes que representan una aproximación a la orientación del objeto.\\ 
+	Para ello, una vez realizada la segmentación del objeto en cuestión se procede a calcular el centroide del objeto, posteriormente se calcula la matriz de covarianzas de y se obtienen los vectores y valores característicos de la matriz, con lo cual se obtienen los ejes que representan una aproximación a la orientación del objeto.\\ 
 
-	Con fines de obtener en conjunto de ángulos a en los cuales debe posicionarse el efector final del manipulador fue preciso realizar dos ordenamientos. El primer ordenamiento se realizó considerando la magnitud de los vectores característicos de la matriz de covarianzas. Posteriormente para cada uno de esos vectores se etiquetó en cual de los ejes coordenados del sistema de la base del robot sus proyeccciones eran mayores.\\
+	Con fines de obtener el conjunto de ángulos en los cuales debe posicionarse el efector final del manipulador fue preciso realizar dos ordenamientos. El primer ordenamiento se realizó considerando la magnitud de los vectores característicos de la matriz de covarianzas. Posteriormente para cada uno de esos vectores se etiquetó en cuál de los ejes coordenados del sistema de la base del robot sus proyeccciones eran mayores. El algoritmo \ref{Alg:angles} menciona los pasos que componen esta tarea.\\
 
 	\IncMargin{1em}
 	\begin{algorithm}[H]
@@ -205,11 +205,11 @@
 		\BlankLine
 
 		\caption{Cálculo de ángulos del efector final de un brazo manipulador con muñeca esférica}
-		\label{alg:angles}
+		\label{Alg:angles}
 	\end{algorithm}\DecMargin{1em}
 
 
-	De esta manera la abstracción de la información que tenemos se basa en que sabemos cual es el mayor eje, su magnitud y la dirección a la cual apunta. De esta manera realizamos el siguiente criterio para determinar los ángulos de rotación del efector final.\\
+	De esta manera la abstracción de la información que tenemos se basa en que sabemos cual es el mayor eje, sú magnitud y la dirección a la cual apunta. Por lo tanto, realizamos el siguiente criterio para determinar los ángulos de rotación del efector final.\\
 
 
 	\begin{figure}[H]
@@ -222,7 +222,7 @@
 	\end{subfigure}%
 	\begin{subfigure}[t]{.55\textwidth}
 		\centering
-	\includegraphics[scale=0.45]{objs/principalAxis_chocolate.png}
+		\includegraphics[scale=0.45]{objs/principalAxis_chocolate.png}
 		\caption{Barra de chocolate}
 	\end{subfigure}
 
@@ -237,7 +237,7 @@
 		\includegraphics[scale=0.35]{objs/principalAxis_juice2.png}
 		\caption{Caja de jugo}
 	\end{subfigure}
-	\caption{Imagen de cálculo de la orientación con componentes principales. En azul el eje con mayor magnitud, representa el eje en el cual existe una mayor distribución de puntos (eje con mayor varianza de datos).}
+	\caption{Imagen de cálculo de la orientación con PCA. En azul, el eje con mayor magnitud, que representa el eje en el cual existe una mayor distribución de puntos (eje con mayor varianza de datos).}
 	\label{fig:principalVector}
 	\end{figure}
 
@@ -248,13 +248,13 @@
 	%%%
 	\section{El robot de servicio Justina}
 
-	Justina es un robot de servicio desarrollado en el laboratorio de Biorobótica de la Facultad de Ingeniería de la Universidad Nacional Autónoma de México. Dentro del conjunto de tareas que debe desempeñar el robot Justina se encuentra la detección y el reconocimiento de rostros, la detección y el reconocimiento de objetos, la manipulación de objetos, la navegación autónoma en un ambiente cerrado similar al de un hogar u oficina, todo esto de manera autónoma.\\
+	Justina es un robot de servicio desarrollado en el laboratorio de Biorobótica de la Facultad de Ingeniería de la Universidad Nacional Autónoma de México. Dentro del conjunto de tareas que debe desempeñar el robot Justina se encuentran la detección y el reconocimiento de rostros, la detección y el reconocimiento de objetos, la manipulación de objetos, la navegación en un ambiente cerrado similar al de un hogar u oficina, todo esto de manera autónoma.\\
 
-	Para realizar tales tareas el robot de servicio Justina cuenta con un base omnidireccional compuesta de 4 motores, la cual le permite realizar desplazamientos laterales. Dentro de la descripción de hardware, cuenta con dos manipuladores en cadena abierta de 7 grados de libertad cada uno, los manipuadores se componen por motores Dynamixel cuyas características se detallan en el apartado 4.1.\\
+	Para realizar tales tareas el robot de servicio Justina cuenta con una base omnidireccional compuesta de 4 motores, la cual le permite realizar desplazamientos laterales, dos manipuladores en cadena abierta de 7 grados de libertad cada uno, los manipuadores se componen por motores Dynamixel cuyas características se detallan en el apartado 4.1.\\
 
 	En la parte superior de la escructura que forma al robot se encuentra una arreglo de dos servomotores que realizan la función de una cabeza sobre la cual se encuentra montado el sensor RGB-D de la compañia Microsoft cuyas características se mencionan en el apartado 2.3 de este documento.\\
 
-	Es importante mencionar que todos estos componentes se encuentran montados sobre una estructura compuesta por perfil estructural de aluminio, en su mayoría.\\ 
+	Todos estos componentes se encuentran montados sobre una estructura compuesta por perfil estructural de aluminio, lo que facilita su ensamble y rediseño.\\ 
 
 
 	\begin{figure}[H]
@@ -268,7 +268,7 @@
 	\begin{subfigure}[t]{.55\textwidth}
 		\centering
 		\includegraphics[scale=1.2]{manipulator/justina_real.jpg}
-		\caption{URDF descripción de las tranformaciones de los brazos del robot Justina.}
+		\caption{Fotografía del robot Justina.}
 	\end{subfigure}
 	\caption{Imagen de Justina virtual y fotografia real.}
 	\label{fig:desciption_arms1}
@@ -281,9 +281,9 @@
 
 	El nodo encargado de operar los motores está publicando en todo momento la posición actual de cada uno de los servomotores; por otro lado está a la escucha permanente que llegue un mensaje con la información de una posición objetivo.\\
 
-	El nodo del sensor kinect, se encarga de obtener los datos del sensor y publicar dos mensajes con informaciones similares. Uno de estos mensajes contine la información del sensor kinect (imagen de color e información de profundidad) obtenida tal cual del hardware, el otro mensaje proviene de la transformación de la información de profundidad del sensor con respecto de la base del robot.\\
+	El nodo del sensor kinect, se encarga de obtener los datos y publicar dos mensajes con informaciones similares. Uno de estos mensajes contine la información del sensor kinect (imagen de color e información de profundidad) obtenida tal cual del hardware, el otro mensaje proviene de la transformación de la información de profundidad del sensor con respecto de la base del robot.\\
 
-	Las relaciones mecánicas del robot se encuentran definifdas mediante la nomenclatura correspondiente a un archivo URDF con el cual ROS crea un árbol de transformaciones dinámico. Con tal información podemos obtener las tranformaciones entre diferentes sistemas de referencia dentro del robot o con reespecto a algpun sistema de referencia en partícular.\\
+	Las relaciones mecánicas del robot se encuentran definifdas mediante la nomenclatura correspondiente a un archivo URDF con el cual ROS crea un árbol de transformaciones dinámico. Con tal información podemos obtener las tranformaciones entre diferentes sistemas de referencia dentro del robot o con reespecto a algún sistema de referencia en particular.\\
 
-	Como parte de este trabajo se creó y programó un nodo en ROS en cuál, con la información de las respectivas transformaciones y la información de profundidad obtenida del sensor kinect, se cálcula la información del objeto y sus carecteristicas de ubicación espacial, dimensiones y orientación. El nodo se promgramó en el lenguaje de programción orientada a objetos c++, por su parte se comunica a travez de ROS por medio de la recepción de información mediante la llegada de tópicos; por otro lado responde en un servicio con la información de los objetos ubicación espacial y orientaciones.\\
+	Como parte de este trabajo se programó un nodo en ROS en cual, con la información de las respectivas transformaciones y la información de profundidad obtenida del sensor kinect, se calcula la información del objeto y sus carecteristicas de ubicación espacial, dimensiones y orientación. El nodo se realizó en el lenguaje de programación orientada a objetos C++, por su parte, se comunica a travez de ROS por medio de la recepción de información mediante la llegada de tópicos; por otro lado responde en un servicio con la información de los objetos: ubicación espacial y orientaciones.\\
 
