@@ -11,7 +11,7 @@
 	\section{Descripción del hardware}
 		Los servomotores Dynamixel son un sistema de actuador inteligente desarrollados con el propósito de funcionar como uniones un robot o estructura mecánica. Los servomotores Dynamixel están diseñados para ser modulares y soportar la conexión en cadena en cualquier robot o diseño mecánico. Este tipo de servomotores es popular por los beneficios que ofrece: movimientos potentes y flexibles \cite{mensink2008characterization}.\\
 
-		El conjunto de servomotores Dynamixel son un grupo de actuadores de alto rendimiento con reductor, controlador y un protocolo de comunicación completamente integrados. El estado del actuador se puede leer y monitorear a través de un flujo de paquetes de datos. \cite{dynamixelEpage}\\
+		El conjunto de servomotores Dynamixel son un grupo de actuadores de alto rendimiento con reductor, controlador y un protocolo de comunicación completamente integrados. El estado del actuador se puede leer y monitorear a través de un flujo de paquetes de datos \cite{dynamixelEpage}.\\
 
 			\subsection{Motores dynamixel Serie MX}
 		Los motores Dynamixel de la seire MX cuentan con la implemntación de un algoritmo de control PID para mantener la posición del eje. Las ganancias del algoritmo de control PID se pueden ajustar individualmente para cada servo, lo que le permite controlar la velocidad y par del motor. Todos los servos de la serie MX usan un voltaje nominal de 12v.\\
@@ -20,7 +20,7 @@
 
 		\begin{figure}[h!]
 			\begin{center}
-			\includegraphics[width=14.5cm, height=6.5cm]{manipulator/dynamixel_conexions.jpg}
+			\includegraphics[width=12.5cm, height=5.0cm]{manipulator/dynamixel_conexions.jpg}
 			\caption{Variedad de ensambles para servomotores.}
 			\end{center}
 		\end{figure}
@@ -39,7 +39,7 @@
 
 		\begin{figure}[h!]
 			\begin{center}
-			\includegraphics[width=10.5cm, height=8.5cm]{manipulator/usb2dynamixel.jpg}	
+			\includegraphics[width=9.0cm, height=6.5cm]{manipulator/usb2dynamixel.jpg}	
 			\caption{Dispositivo de comunicación USB a protocolo serial.}
 			\end{center}
 		\end{figure}
@@ -152,7 +152,7 @@
 
     \begin{figure}[H]
 		\begin{center}
-		\includegraphics[scale=0.4]{manipulator/par_calc.png}
+		\includegraphics[scale=0.50]{manipulator/par_calc.png}
 		\end{center}
 		\caption{Representación de la descomposición de par para el manipulador de 7DOF en un robot de servicio.}
 		\label{Fig:parManip}
@@ -193,7 +193,7 @@
 		\item{ \textbf{CHECK SUM} :  Se usa para verificar si el paquete de datos se dañó durante la comunicación.}
 	\end{itemize}
 	
-	A continuación se muestra una tabla con las caracteriticas más reelevantes de los registros que posee cada uno de los revomotores dynamixel.\\
+	A continuación se muestra una tabla con las caracteriticas más reelevantes de los registros que posee cada uno de los servomotores dynamixel.\\
 
 \begin{table}[H]
 \centering
@@ -270,7 +270,7 @@
 
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=8.0cm, height=4.5cm]{manipulator/mx106_MS.png}
+			\includegraphics[width=11.0cm, height=6.0cm]{manipulator/mx106_MS.png}
 			\caption{Configuración maestro-esclavo en servomotores dynamixel.}
 			\label{manip:master}
 		\end{figure}
@@ -279,20 +279,23 @@
 
 		Posteriormente se encuentra un servomotor modelo MX-106, ubicado en una disposición horizontal. Unido a este servomotor se encuentra un eslabón obtenido mediante técnicas de manufactura aditiva. Dado que la construcción del brazo robótico esta pensanda desde el punto de vista antropomórfico,  este conjunto de servomotores, el maestro-esclavo y el servomotor MX-106 describen los grados de libertad que emulan el movimiento de un hombro humano.\\
 
-		El eslabón número 1 obtenido mediante técnicas de manufactura aditiva funge como elemento de unión entre servomotores. Al final de este elemento de unión se encuentra un servomotor MX-64 cuyo eje de acción es perpendicular respecto a la base el brazo. Estos tres servomotores describen los movimientos del hombro en comparación con un brazo humano. Directamente acoplado a este servomotor se encuentra otro servomotor modelo MX-106 el cual realiza el símil con un codo humano (figura \ref{Fig:eslabonesDescription}). \\
-
-		Continuando en orden descendente, se encuentra un segundo eslabón utilizado como elemento de unión. En el extremo de este elemento se encuentra un servomotor MX-106, posteriormente un MX-64 y por último un servomoto modelo MX-28. Estos tres elementos construyen un sistema similar al de la muñeca de un brazo humano.\\
-
 		\begin{SCfigure}
-			\includegraphics[scale=0.4]{manipulator/brazo_4.jpg}
+			\includegraphics[scale=0.35]{manipulator/brazo_4.jpg}
 			\caption{Diseño asistido por computadora del brazo robótico del robot Justina. Se realizó en modelado de partes utilizando el software SolidWorks(c). Muestra del ensamble final.}
 			\label{Fig:eslabonesDescription}
 		\end{SCfigure}
 
+
+		El eslabón número 1 obtenido mediante técnicas de manufactura aditiva funge como elemento de unión entre servomotores. Al final de este elemento de unión se encuentra un servomotor MX-64 cuyo eje de acción es perpendicular respecto a la base el brazo. Estos tres servomotores describen los movimientos del hombro en comparación con un brazo humano. Directamente acoplado a este servomotor se encuentra otro servomotor modelo MX-106 el cual realiza el símil con un codo humano (figura \ref{Fig:eslabonesDescription}). \\
+
+		Continuando en orden descendente, se encuentra un segundo eslabón utilizado como elemento de unión. En el extremo de este elemento se encuentra un servomotor MX-106, posteriormente un MX-64 y por último un servomoto modelo MX-28. Estos tres elementos construyen un sistema similar al de la muñeca de un brazo humano.\\
+
+	
 		Por último, se encuentra el efector final compuesto de dos actuadores MX-28 ubicados en disposición horizontal. En el eje de acción de cada uno de estos se encuentra una pieza obtenida mediante impresión 3D que funge como sujetador para manipular objetos.\\
 
 		Como podemos observar el brazo robótico consta de un total de 10 servomotores conectados en \textit{daisy chain}.
-	
+		
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
               %%%%%%  CINEMATICA DIRECTA   %%%%%%%%
@@ -466,9 +469,26 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
 \label{t_manip:6}
 \end{table}
 
-	Con la información obtenida de las dimensiones del brazo robótico real se pudo realizar un modelo virtual del brazo utilizando un archivo en formato XML donde se describen las trasfomaciones entre los diferentes sistemas de referencia y los elemetos de conexión obtenidos de modelos CAD. El resultado se puede observar en la figura[4.13]\\ 
+	Con la información obtenida de las dimensiones del brazo robótico real se pudo realizar un modelo virtual del brazo utilizando un archivo en formato XML donde se describen las trasfomaciones entre los diferentes sistemas de referencia y los elemetos de conexión obtenidos de modelos CAD. El resultado se puede observar en la figura \ref{Fig:descTrans}.\\ 
 
 	El formato de descrpción virtual de un modelo de robot en formato XML se compone de \textit{links} y \textit{joints}. Un link describe las características de un elemento de unión, estas pueden ser mecánicas, de material, de posición, etc. Un \textit{joint} por otra parte describe la realción existente entre los origenes de dos links, dicho de otro modo decribe la transformación existente entre los sistemas de refencias (\textit{origenes}) de dos links.\\
+
+	\vspace{0.7in}
+
+	\begin{figure}[H]
+		\begin{subfigure}[t]{.5\textwidth}
+		\centering
+		\includegraphics[width=6.0cm, height=10.5cm]{manipulator/brazo_lateralView.png}
+		\caption{Vista lateral.}
+		\end{subfigure}%
+		\begin{subfigure}[t]{.5\textwidth}
+		\centering
+		\includegraphics[width=3.2cm, height=10.5cm]{manipulator/brazo_posterior.png}
+		\caption{Vista trimetrica.}
+		\end{subfigure}
+		\caption{Modelo virtual del brazo robótico.}
+		\label{Fig:descTrans}
+	\end{figure}
 
 	\newpage
 	\begin{center}
@@ -528,21 +548,9 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
 \end{center}
 
 
-	\begin{figure}[H]
-		\begin{subfigure}[t]{.5\textwidth}
-		\centering
-		\includegraphics[width=4.2cm, height=8.5cm]{manipulator/brazo_lateralView.png}
-		\caption{Vista lateral.}
-		\end{subfigure}%
-		\begin{subfigure}[t]{.5\textwidth}
-		\centering
-		\includegraphics[width=2.2cm, height=8.5cm]{manipulator/brazo_posterior.png}
-		\caption{Vista trimetrica.}
-		\end{subfigure}
-		\caption{Modelo virtual del brazo robótico.}
-	\end{figure}	
+		
 
-	Por otro lado se realizó la descripción del sistema de manipulación utilizando la convención Denavit-Hartenberg. Para ello se comenzó por plantear los ejes $z$ que deben ser coincidentes, en posición y en sentido de giro, con los ejes de acción de cada uno de los actuadores. Sin embargo, en este punto se observó una limitante en el método D-H, al intenar describir la trasformación entre el $link_2$ y el $link_3$ se observó que el método no puede describir con suficiente presición la rotación en el eje $"x"$ y al mismo tiempo un desplazamiento en el $eje$ $y$. La manera de solucionar esta limittante consiste en realizar una transformación de rotación en el eje x primero, con esto los dos frames compartiran el mismo origen del sistema de referencia, posteriormente se plantea la translación, ahora en el $eje$ $z$.\\
+	Por otro lado se realizó la descripción del sistema de manipulación utilizando la convención Denavit-Hartenberg. Para ello se comenzó por plantear los ejes $z$ que deben ser coincidentes, en posición y en sentido de giro, con los ejes de acción de cada uno de los actuadores. Sin embargo, en este punto se observó una limitante en el método D-H, al intenar describir la trasformación entre el $link_2$ y el $link_3$ se observó que el método no puede describir con suficiente presición la rotación en el eje $"x"$ y al mismo tiempo un desplazamiento en el $eje$ $y$. La manera de solucionar esta limitante consiste en realizar una transformación de rotación en el eje x primero, con esto los dos frames compartiran el mismo origen del sistema de referencia, posteriormente se plantea la translación, ahora en el $eje$ $z$.\\
 	
 	\begin{figure}[h!]
 		\begin{center}
@@ -612,11 +620,11 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
 
 	El espacio de trabajo es otro parámetro importante el cual servirá para caracterizar las dimensiones del brazo robótico con el cual estamos trabajando. El análisis del espacio de trabajo de robots manipuladores es de gran interés, puesto que la geometría del espacio de trabajo puede considerarse no sólo un aspecto fundamental para el diseño del robot sino que también es esencial para la ubicación del robot en el entorno de trabajo y también para la planificación de trayectorias.\\
 
-	En robótica, el término espacio de trabajo puede ser entendido como: \textit{El grupo de puntos que pueden ser alcanzados por su efector-final}. \cite{cao2011accurate}\\
+	En robótica, el término espacio de trabajo puede ser entendido como: \textit{El grupo de puntos que pueden ser alcanzados por su efector-final} \cite{cao2011accurate}.\\
 
 	Dicho de otro modo, el espacio de trabajo de un robot es el espacio en el cual el mecanismo puede trabajar según sus propias restricciones mecánicas.\\
 
-\begin{figure}[H]
+\begin{figure}[h!]
 	\centering
 	\begin{subfigure}[t]{.55\textwidth}
 	\centering
@@ -1055,7 +1063,7 @@ o^0_c = o - d_6 R \hat{x}
 	De esta manera la información del modelo del entorno sirve de entrada principal a los planificadores que constituyen la paquetería \textit{moveIt}.\\
 
 
-	\textit{MoveIt!} incorpora herramientas para planeación de movimientos, cinemática, percepción 3D, control y navegación. Además provee una plataforma de uso fácil para desarrollo de aplicaciones robóticas avanzadas, permitiendo la evaluación de nuevos diseños de robots y la construcción de productos robóticos para su uso industrial, comercial y de investigación, entre otros. \textit{MoveIt!} Es el software de código abierto más usado para manipulación de robots.\cite{chitta2012moveit}\\
+	\textit{MoveIt!} incorpora herramientas para planeación de movimientos, cinemática, percepción 3D, control y navegación. Además provee una plataforma de uso fácil para desarrollo de aplicaciones robóticas avanzadas, permitiendo la evaluación de nuevos diseños de robots y la construcción de productos robóticos para su uso industrial, comercial y de investigación, entre otros. \textit{MoveIt!} Es el software de código abierto más usado para manipulación de robots \cite{chitta2012moveit}.\\
 
 
 	En la actualidad \textit{moveIt} proveé una interfaz genérica para la planeación de movimiento de manipuladores que puede ser integrada muy fácilmente en ROS. Esta interfaz permite la integración de diferentes tipos de planeadores de movimientos, por ejemplo:\\
@@ -1137,9 +1145,10 @@ o^0_c = o - d_6 R \hat{x}
 		\epsilon = f(\theta_0, \theta_1, \theta_2, \theta_3, \theta_4, \theta_5, \theta_6) \cr
 		\epsilon =  \sum_{i=0}^n |\theta_i| * \alpha
 	\end{split}
+	\label{Ec:funcCost}
 	\end{equation}
 
-	Donde $\alpha$ representa una ganancia que establecimos con un valor de 0.5. Para corregir el problema con la morfología de la toma de objetos se optó por restringir los valores de ángulos dentro del archivo que contiene la descripción del robot. De esta manera se realizaron los las pruebas llamando dos servicios para el cálculo de la cinemática inversa y evaluando la función de costo con la respuesta obtenida.\\
+	Donde $\alpha$ representa una ganancia que establecimos con un valor de 0.5. Para corregir el problema con la morfología de la toma de objetos se optó por restringir los valores de ángulos dentro del archivo que contiene la descripción del robot. De esta manera se realizaron las pruebas llamando dos servicios para el cálculo de la cinemática inversa y evaluando la función de costo con la respuesta obtenida.\\
 
 
 	\begin{figure}[H]

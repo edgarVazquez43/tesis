@@ -3,7 +3,7 @@
 
 \chapter{Resultados}
 
-La descripción de las pruebas y la discusión de resultados se abordarán en el siguiente orden:
+En este capítulo se describen las pruebas realizadas con el fin de comprobar la hipótesis de este trabajo. Además se muestran los resultados obejetinos de dichas pruebas, la descripción de las pruebas y la discusión de resultados se abordarán en el siguiente orden:
 
 \begin{enumerate}
 	\itemsep -0.05in
@@ -124,7 +124,7 @@ La descripción de las pruebas y la discusión de resultados se abordarán en el
 
 
 	\subsection{Comparación exactitud y rapidez}
-	Para este conjunto de pruebas se comparó el algoritmo desarrollado en el presente trabajo contra el implementado acualmente en el robot de servicio Justina, reportado en el trabajo de tesis de Jesus Cruz Navarro \cite{cruz2016detection}.\\
+	Para este conjunto de pruebas se comparó el algoritmo desarrollado en el presente trabajo contra el implementado acualmente en el robot de servicio Justina, reportado en el trabajo de tesis \cite{cruz2016detection}.\\
 
 	Las pruebas se desarrollaron de la siguiente manera, con la estructura de comunicación que permite ROS se implementaron dos servicios para encontrar planos: el desarrollado en este trabajo de tesis y el algortimo ya implementado. Se obtuvo la información de profundidad con el sensor RGB-D Kinect, esta información se compartió a traves de un tópico al cual ambos servicios se encontraban suscritos. De esta manera nos aseguramos de contar con la misma información en ambos algoritmos para poner a prueba la velocidad de ejecución y la precisión de algortimo.\\
 
@@ -448,7 +448,7 @@ La descripción de las pruebas y la discusión de resultados se abordarán en el
 
 	\subsection{Evaluación del valor de la funcion de costo.}
 
-	Otra de las pruebas que se realizaron con la finalidad de comparar los algoritmos de cálculo de cinemática inversa fue la evaluación de una función de costo. Esta fucnión esta planteada en terminos de un mínimo consumo energético, es decir que los actuadores se muevan lo menos posible cuando se parte de la posición cero. En la figura \ref{fig:funcCost} se muestra el valor resultante de evaluar la función (4.14) para diferentes puntos cartesianos.\\ 
+	Otra de las pruebas que se realizaron con la finalidad de comparar los algoritmos de cálculo de cinemática inversa fue la evaluación de una función de costo. Esta función esta planteada en terminos de un mínimo consumo energético, es decir que los actuadores se muevan lo menos posible cuando se parte de la posición cero. En la figura \ref{fig:funcCost} se muestra el valor resultante de evaluar la función (4.14) para diferentes puntos cartesianos.\\ 
 
 	En gráfica \ref{fig:histFuncCost} se muestra la cantidad de ocasiones en que fue menor el valor de la función para cada uno de los algoritmos. Se observó que el método geométrico obtuvo un menor valor en 59 ocasiones, por otro lado el algoritmo iterativo solo obtuvo un menor valor en 4 ocasiones. Estas pruebas se realizaron un total de 150 ocasiones, en las cuales el algoritmo iterativo solo encontró solución 63 ocasiones, como se muestra en la figura \ref{fig:iIKsuccess}.\\
 
@@ -462,7 +462,7 @@ La descripción de las pruebas y la discusión de resultados se abordarán en el
 	\begin{figure}[H]
 		\centering
 		\includegraphics[scale=0.45]{resultados/hist_valor_costFunction.png}
-		\caption{.}
+		\caption{Comparación de evenetos en los cuales se obtuvo en menor valor en la fucnión de costo \ref{Ec:funcCost}.}
 		\label{fig:histFuncCost}
 	\end{figure}
 
@@ -499,24 +499,24 @@ La descripción de las pruebas y la discusión de resultados se abordarán en el
 %%%%%%%%%% PRUEBAS GRASPEO CON DIFERENTES INFORMACIONES %%%%%%%%%%%%
 	\section{Pruebas de manipulación con el robot real}
 
-	Como reporte último de las pruebas, se realizaron pruebas físicas con el robot de servicio Justina. Para tener una prueba estadistica que pueda servir de compración se realizaron un total de 70 eventos, divididos en 10 repeticiones para 7 objetos. Los objetos con los cuales se realizaron las pruebas fueron: una caja de cereal, un envase de jugo, un envase de bebida lactea, un control de videojuegos, una barra de chocolate, un libro y una bolsa de cartón.\\
+	Como reporte concluyente se realizaron pruebas físicas con el robot de servicio Justina. Para tener una prueba estadistica que pueda servir de compración se realizaron un total de 70 eventos, divididos en 10 repeticiones para 7 objetos. Los objetos con los cuales se realizaron las pruebas fueron: una caja de cereal, un envase de jugo, un envase de bebida lactea, un control de videojuegos, una barra de chocolate, un libro y una bolsa de cartón.\\
 
 	Las orientaciones de los objetos en cada uno de los eventos fueron posiciones. Esto con el fin de poner a prueba las características de exactitud en la orientación de los objetos para el algoritmo propuesto.\\
 	
 
-	En la primera parte de la prueba se realizó la toma de objetos sin considerar la información de orientación, en la segunda fase se realizaron las respectivas pruebas considerando la información de la orientación, para determinar si hubo mejora significativa.\\
+	En la primera parte de la prueba se realizó la toma de objetos sin considerar la información de orientación, en la segunda fase se realizaron las respectivas pruebas considerando la información de orientación, para determinar si hubo mejora significativa.\\
 
 	\begin{figure}[H]
 		\hspace*{-0.3in}
 		\centering
 		\begin{subfigure}[t]{.55\textwidth}
 			\centering
-			\includegraphics[scale=0.17]{objs_real/juice_success_1.png}
+			\includegraphics[scale=0.22]{objs_real/juice_success_1.png}
 			\caption{Caja de jugo.}
 		\end{subfigure}%
 		\begin{subfigure}[t]{.55\textwidth}
 			\centering
-			\includegraphics[scale=0.22]{objs_real/cereal_bag_1.png}
+			\includegraphics[scale=0.28]{objs_real/cereal_bag_1.png}
 			\caption{Cereal.}
 		\end{subfigure}
 		\caption{Robot Justina realizando la tarea de manipulación con información de orientación.}
@@ -666,7 +666,7 @@ La descripción de las pruebas y la discusión de resultados se abordarán en el
 
 	 Fue importante poner a prueba este algoritmo puesto que existía la hipotesis que podría dar mejores resultados por ser uno de los algoritmos más utilizados en el ámbito de la robótica de manipuladores. Con las pruebas realizadas en este trabajo, se observó que no hay mejora significativa con la implementación de este algoritmo en un manipulador de 7DOF con configuración antropomórfica.\\
 
-	En cuanto a los eventos en los cuales fue exitoso el cálculo de la cinemática inversa para ambos algoritmos, se observó que el algoritmo geométrico ofrece un conjunto de soluciones en las cuales de requiere un menor gasto energético para su solución. (figura 6.32)\\ 
+	En cuanto a los eventos en los cuales fue exitoso el cálculo de la cinemática inversa para ambos algoritmos, se observó que el algoritmo geométrico ofrece un conjunto de soluciones en las cuales de requiere un menor gasto energético para su solución (figura 6.32).\\ 
 
 	Inlcuir información sobre la orientación de los objetos a la tarea de manipulación mejora de un 21.4\% a un 72.8\%. Por lo tanto podemos decir que incluir esta información mejora significativamenta la tarea de manipulación para un robot de servicio con un manipulador de 7DOF como Justina (Figura: \ref{fig:exitos-fracasos} ). Aunque pareciera obvio que el incluir una mayor cantidad de información a la tarea de manipulación de objetos se obtendrían mejores resultados, es conveniente mencionar que la actual metodología de solución ha dado buenos resultados, prueba de ello es la comptepencia internacional Robocup 2017 donde el robot de servicio Justina obtuvo un puntaje de 15 puntos en las tareas de manipulación de objetos.\\ 
 

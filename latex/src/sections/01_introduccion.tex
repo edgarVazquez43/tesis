@@ -1,39 +1,38 @@
 \documentclass[../tesis_main.tex]{subfiles}
 
 \newpage{}
+
 \vspace{0.7in}
 
-\chapter*{}
-\section*{Resumen}
+\chapter*{Resumen}
+\pagenumbering{roman}
+\section*{}
+
+\pagenumbering{roman}
+\setcounter{page}{7}
 	El reconocimiento de objetos y la adecuada manipulación de los mismos es una problemática común en el área de la robótica de servicios. El presente documento aborda el diseño de un sistema de manipulación de objetos formado por un manipulador de 7DOF, el desarrollo de un algoritmo de visión computacional para obtener la posición y orientación de los objetos, la puesta a prueba de diferentes algoritmos para el cálculo de la cinemática inversa del brazo robótico y finalmente la planeación de acciones entre la detección de un objeto y su correcta manipulación.\\
 
-	El desarrollo del sistema de manipulación se plantea con diferentes subtareas, se comienza con la descripción de la detección de objetos utilizando el algoritmo RANSAC para encontrar superficies planas, se plantea un algoritmo para la extracción de objetos, posteriormente se plantea un análisis de componentes principales para estimar la orientación de los obtejos pobre el plano.\\
+	El desarrollo del sistema de manipulación se plantea con diferentes subtareas, se comienza con la descripción de la detección de objetos utilizando el algoritmo RANSAC para encontrar superficies planas, se plantea un algoritmo para la extracción de objetos, posteriormente se plantea un análisis de componentes principales para estimar la orientación de los obtejos sobre el plano.\\
 
 	Se continua con la descripción del manipulador de 7DOF, se analiza la cinemática directa haciendo enfasis en la caracterización experimental del espacio de trabajo del manipulador y se reportan algoritmos utilizados para el cálculo de la cinemática inversa.\\
 
 	Posteriormente se resporta la integración del sistema utilizando la plataforma ROS (Robot Operative System), finalmente concluye con la descripción de la tarea de manipulación de objetos y se reportan resultados y conclusuones.\\
 
 	Los algoritmos desarrollados en el presente documento puden ser utilizados en la segmetación de objetos de manera general, y podrán ser implementados para realizar un seguimiento de peatones o usuarios de bicicletas en un sistema de monitoreo para bicicletas ecologicas como parte del proyecto "Laboratorio de Movilidad e Infraestructura Verde para la Eficiencia Energética en Ciudades".\\
-	
 
-\pagenumbering{arabic}
 \newpage
 \thispagestyle{empty}
-\mbox{}
-\addtocounter{page}{-2}
-
-
-
 
 \chapter{Introducción}
+\pagenumbering{arabic}
 	%¿Por qué son importantes los robots de servicio?
 	En los últimos años, el área de la robótica y sus múltiples aplicaciones se han expandido a pasos agigantados, tal es el caso de la robótica de servicios. Años atrás la idea de tener un robot capaz de ayudar en las tareas del hogar sólo era concebida gracias a la ciencia ficción; hoy en día es una total realidad. 
 	%Robot definition
-	Un robot inteligente es una máquina capaz de extraer información de su entorno y usar su conocimiento del mundo para moverse con seguridad de manera significativa y deliberada.\cite{arkin1998behavior}. Actualmente existe un auge en utilizar a los robots como auxiliares en las actividades domesticas, un área llamada: ``robótica de servicio''. Sin embargo, el área de la robótica de servicios y robots de asistencia comprende un gran rango de problemáticas.\\
+	Un robot inteligente es una máquina capaz de extraer información de su entorno y usar su conocimiento del mundo para moverse con seguridad de manera significativa y deliberada.\cite{arkin1998behavior} Actualmente existe un auge en utilizar a los robots como auxiliares en las actividades domesticas, un área llamada: ``robótica de servicio''. Sin embargo, el área de la robótica de servicios y robots de asistencia comprende un gran rango de problemáticas.\\
 
-	Es conveniente poner en contexto algunas definiciones útiles según la Federación Internacional de Robótica. Un \textbf{robot de servicio} es un robot que realiza tareas útiles para humanos o equipos, excluida la aplicación de automatización industrial.\cite{IFREpage} Un \textbf{robot de servicio personal} o un \textbf{robot de servicio para uso personal} es un robot de servicio utilizado para una tarea no comercial, por lo general por personas con alguna limitación física. Algunos ejemplos son el robot de servicio doméstico, la silla de ruedas automatizada y el robot de asistencia de movilidad personal.\cite{IFREpage}\\
+	Es conveniente poner en contexto algunas definiciones útiles según la Federación Internacional de Robótica. Un \textbf{robot de servicio} es un robot que realiza tareas útiles para humanos o equipos, excluida la aplicación de automatización industrial \cite{IFREpage}. Un \textbf{robot de servicio personal} o un \textbf{robot de servicio para uso personal} es un robot de servicio utilizado para una tarea no comercial, por lo general por personas con alguna limitación física. Algunos ejemplos son el robot de servicio doméstico, la silla de ruedas automatizada y el robot de asistencia de movilidad personal\cite{IFREpage}.\\
 
-	La motivación de este trabajo se encuentra en las condiciones de la población con alguna discapacidad en México. De acuerdo con el INEGI y SEDESOL, en México, hasta el 2014, el 6.4$\%$ de la población reportó alguna discapacidad. La mayoría son personas adultas mayores y los principales tipos de discapacidad son la motriz, la visual y los problemas para aprender, recordar o concentrarse.\cite{sedesolEpage} De acuerdo con el INEGI, con respecto al uso de ayudas técnicas para personas con discapacidad, sólo se menciona el uso de lentes para los problemas de visión. Para los problemas de movilidad las persondas con discapacidad reportan usar bastón, silla de ruedas, muletas, andaderas, la ayuda de alguien y otros.\cite{inegiEpage} No existen datos sobre las ayudas técnicas disponibles para personas con problemas para aprender, recordar o concentrarse.\\
+	La motivación de este trabajo se encuentra en las condiciones de la población con alguna discapacidad en México. De acuerdo con el INEGI y SEDESOL, en México, hasta el 2014, el 6.4$\%$ de la población reportó alguna discapacidad. La mayoría son personas adultas mayores y los principales tipos de discapacidad son la motriz, la visual y los problemas para aprender, recordar o concentrarse\cite{sedesolEpage}. De acuerdo con el INEGI, con respecto al uso de ayudas técnicas para personas con discapacidad, sólo se menciona el uso de lentes para los problemas de visión. Para los problemas de movilidad las persondas con discapacidad reportan usar bastón, silla de ruedas, muletas, andaderas, la ayuda de alguien y otros \cite{inegiEpage}.\\
 
 	\begin{figure}[H]
 		\begin{subfigure}[t]{.5\textwidth}

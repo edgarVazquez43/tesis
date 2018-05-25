@@ -8,15 +8,15 @@
 \thispagestyle{empty}
 
 \chapter{Marco teórico}
-	En este capítulo se definirán los conceptos utilizados para la solución propuesta como tranfoamciones homogeneas de las cuales se harán uso para describir los sistemas de referencia del manipulador, así como el algoritmo PCA del cual se hará uso para obtener una aproximación a la orientación de los objetos. Se describe además el algoritmo RANSAC  el cual es utilizado en este documento para la segmentación de planos.\\
+	En este capítulo se definirán los conceptos utilizados para la solución propuesta como transformciones homogeneas de las cuales se harán uso para describir los sistemas de referencia del manipulador, así como el algoritmo PCA del cual se hará uso para obtener una aproximación a la orientación de los objetos. Se describe además el algoritmo RANSAC  el cual es utilizado en este documento para la segmentación de planos.\\
 
 	\section{Robots de servicio}
 		%Conceptos
 
 		%Estado del arte
-		Dado que este trabajo se centrará en los robots de servicio doméstico es importante mencionar que un robot de servicio doméstico es un robot capaz de realizar tareas de la vida diaria en un ambiente similar al de un hogar real. Actualmente el desarrollo de este tipo de robots encuentra promoción en la competencia Robocup @Home almenos a nivel de investigación académica \cite{robocupScientificCompetition}. Robocup @Home promueve el desarrollo de robots de servicio doméstico al brinder una plataforma estandar de prueba similar a un ambiente doméstico. Esta categoría promueve la incorporación de habilidades robóticas avanzadas para la interacción con los humanos y con el entorno de operación. Esta competencia se enfoca a desarrollar habilidades en los robots de servicio. Ejemplos de estas habilidades son la localización y navegación segura en ambientes no controlados, la comunicación natural humano-robot por voz y gestos y habilidades visuales para el reconocimiento y la manipulación de objetos.\cite{femexrobotics}\\
+		Dado que este trabajo se centrará en los robots de servicio doméstico es importante mencionar que un robot de servicio doméstico es un robot capaz de realizar tareas de la vida diaria en un ambiente similar al de un hogar real. Actualmente el desarrollo de este tipo de robots encuentra promoción en la competencia Robocup @Home al menos a nivel de investigación académica \cite{robocupScientificCompetition}. Robocup @Home promueve el desarrollo de robots de servicio al brindar una plataforma estandar de prueba similar a un ambiente doméstico. Esta categoría promueve la incorporación de habilidades robóticas avanzadas para la interacción con los humanos y con el entorno de operación. Esta competencia se enfoca a desarrollar habilidades en los robots de servicio. Ejemplos de estas habilidades son la localización, navegación segura en ambientes no controlados, la comunicación natural humano-robot por voz, detección de  gestos, habilidades visuales para el reconocimiento y la manipulación de objetos \cite{femexrobotics}. \\
 
-		Los robots de servicio doméstico enfrentan diversos retos: desarrollar tareas en ambientes dinámicos, características de entornos no estandarizados, incertidumbre ante escenarios desconocidos, entre otros. Dadas las condiciones en que estos robots operan los programadores y desarrolladores han enfocado sus esfuerzos en dotar a los robots de ciertas capacidades. Por ejemplo el robot Cosero, consta de un sistema de percepción del entorno, un sistema de manipulación, un sistema de interacción humano-robot y un sistema de planeación de tareas.\cite{stuckler2016mobile}.\\ 
+		Los robots de servicio doméstico enfrentan diversos retos: desarrollar tareas en ambientes dinámicos, características de entornos no estandarizados, incertidumbre ante escenarios desconocidos, entre otros. Dadas las condiciones en que estos robots operan los programadores y desarrolladores han enfocado sus esfuerzos en dotar a los robots de ciertas capacidades. Por ejemplo el robot Cosero, consta de un sistema de percepción del entorno, un sistema de manipulación, un sistema de interacción humano-robot y un sistema de planeación de tareas \cite{stuckler2016mobile}.\\ 
 
 		\begin{figure}[H]
 			\begin{center}
@@ -101,7 +101,7 @@
 Los principales parámetros que caracterizan a los robots industriales son:
 
 	\begin{itemize}
-		\item{Número de grados de libertad. Puede entenderse como número total de variables necesarias para obtener la ubicación de un cuerpo en el espacio. Aunque la mayoría de las aplicaciones requieren manipuladores de 6 g.d.l., otras más complejas requieren un número mayor, tal es el caso de las labores de apertura y cierre de puertas.}
+		\item{Número de grados de libertad. Puede entenderse como número total de variables necesarias para obtener la ubicación de un cuerpo en el espacio. Aunque la mayoría de las aplicaciones requieren manipuladores de 6 DOF, otras más complejas requieren un número mayor, tal es el caso de las labores de apertura y cierre de puertas.}
 
 		\item{Espacio de trabajo. Es el conjunto de puntos del espacio accesibles al efector final, que depende de la configuración geométrica del manipulador. Un punto del espacio se dice totalmente accesible si el efector final puede situarse en él en todas las orientaciones que permita la constitución del manipulador.}
 
@@ -148,7 +148,7 @@ Los principales parámetros que caracterizan a los robots industriales son:
 
 			Un robot manipulador está compuesto de un conjunto de enlaces conectados por varias juntas. Las articulaciones pueden ser muy simples, tales como una articulación de revolución o una articulación prismática. Una articulación de revolución es como una bisagra y permite una rotación relativa alrededor de un solo eje coordenado; una junta prismática permite un movimiento lineal a lo largo de un solo eje. En ambos casos podemos observar que la articulación tiene un solo grado de libertad de movimiento: el ángulo de rotación en el caso de una articulación de revolución, y la cantidad de desplazamiento lineal en el caso de una articulación prismática.\\
 
-			Con el supuesto de que cada articulación tiene un solo grado de libertad, la acción de cada una de las articulaciones se puede describir por un solo número real: el ángulo de rotación en el caso de una articulación de revolución o el desplazamiento en el caso de una junta prismática. El objetivo del análisis de la cinemática directa es determinar el efecto acumulativo de todo el conjunto de variables de la articulación y observarlo en el efector final.\cite{spong2008robot}\\
+			Con el supuesto de que cada articulación tiene un solo grado de libertad, la acción de cada una de las articulaciones se puede describir por un solo número real: el ángulo de rotación en el caso de una articulación de revolución o el desplazamiento en el caso de una junta prismática. El objetivo del análisis de la cinemática directa es determinar el efecto acumulativo de todo el conjunto de variables de la articulación y observarlo en el efector final \cite{spong2008robot}.\\
 
 			El análisis cinemático de un manipulador de n-enlaces puede ser extremadamente complejo y las convenciones que se presentan a continuación simplifican el análisis considerablemente.\\
 
@@ -156,7 +156,7 @@ Los principales parámetros que caracterizan a los robots industriales son:
 
 			Cuando se acciona la articulación $i$ el enlace $i$ se mueve, por lo tanto, el enlace 0 (el primer eslabón) es fijo, y no se mueve cuando las juntas consecuentes son accionadas. Por supuesto, el robot manipulador podría ser móvil (por ejemplo, podría ser montado en una plataforma móvil o en un vehículo autónomo), pero para esta primer parte abordaremos el problema suponiendo una plataforma fija.\\
 
-			Este tema se abordará con más detalle en el capítulo de este documento.\\
+			Este tema se abordará con más detalle 4.3 en el capítulo de este documento.\\
 
 
 
@@ -166,28 +166,28 @@ Los principales parámetros que caracterizan a los robots industriales son:
 	\section{Imágenes RGB-D}
 		En la robótica de servicios resulta imprescindible contar con robots que sean capaces de percibir su entorno, los elementos que los rodean y determinar características de los mismos. Los humanos, dadas estas necesidades, hemos desarrollado el sentido de la vista que nos permite determinar características del entorno y de los elementos que lo componen: objetos, personas, acciones, entre otros. Dentro de las características de relevancia se encuentran el color, la forma, la textura, las dimensiones y su ubicación en el espacio.\\
 
-		Para optimizar los movimientos de un robot, no sólo se debe identificar cada objeto que se encuentra en el entorno, sino también la posición que estos guardan respecto al robot. Normalmente, la segmentación de objetos de una imagen se logra mediante la segmentación de color, esta segmentación se logra a partir del análisis cromático de los componentes RGB de la imagen obtenida del objeto; sin embargo, este método es poco eficiente debido a que es sumamente suceptible a los cambios en la iluminación. \cite{objectDetectingKinect}\\ 
+		Para optimizar los movimientos de un robot, no sólo se debe identificar cada objeto que se encuentra en el entorno, sino también la posición que estos guardan respecto al robot. Normalmente, la segmentación de objetos de una imagen se logra mediante la segmentación de color, esta segmentación se logra a partir del análisis cromático de los componentes RGB de la imagen obtenida del objeto; sin embargo, este método es poco eficiente debido a que es sumamente suceptible a los cambios en la iluminación \cite{objectDetectingKinect}.\\ 
 
 		Por lo tanto, necesitamos considerar una fuente de datos adicional, en este caso la profundidad, para discriminar objetos que no están en el rango de interés. En este documento se reportan los datos obtenidos al resolver este problema con la incorporación de un sensor RGB-D. Una imagen RGB-D es una imagen que además de proporcionar indormación del color de la escena agrega información sobre la distancia en profundidad a la cual se encuentran los puntos de la escena.\\
 
 		La rápida evolución de esta reciente tecnología ha resultado en el aumento de la calidad de las imágenes, la mejora en la sincronización del color con la profundidad y la disminución del tiempo de muestreo entre cada imagen. En particular, la profundidad de la imagen se obtiene en una matriz resultado de la proyección de rayos infrarrojos sobre los objetos. El sensor cuenta con una cámara infrarroja que obtiene la lectura de los haces infrarrojos reflejados sobre los objetos.\\
 
-		El sensor Kinect incorpora un sensor de profundidad, un cámara de color y un arreglo de cuatro micrófonos que, en conjunto, proporcionan una captura de movimiento de cuerpo completo en 3D. La figura \ref{fig:kinect} muestra la disposición del proyector de infrarrojos (IR), la cámara de color y la cámara IR. El sensor de profundidad consta de un proyector IR combinado con una cámara IR, la cual es un sensor semiconductor de metal-óxido monocromático. El sensor de profundidad es desarrollado por la compañía israelí PrimeSense.\cite{kinectFeatures}\\
+		El sensor Kinect incorpora un sensor de profundidad, un cámara de color y un arreglo de cuatro micrófonos que, en conjunto, proporcionan una captura de movimiento de cuerpo completo en 3D. La figura \ref{fig:kinect} muestra la disposición del proyector de infrarrojos (IR), la cámara de color y la cámara IR. El sensor de profundidad consta de un proyector IR combinado con una cámara IR, la cual es un sensor semiconductor de metal-óxido monocromático. El sensor de profundidad es desarrollado por la compañía israelí PrimeSense \cite{kinectFeatures}.\\
 
 		Aunque la tecnología exacta es cerrada, se basa en el principio de la estructura de la luz y su difracción. El proyector IR es un láser IR que pasa a través de una rejilla de difracción y se esparce como una nube de puntos. Dada la geometría de construcción entre el proyector IR y la cámara IR se puede reconstruir un modelo 3D si se observa un punto en el proyector y posteriormente se ubica su correspondiente reflexión en la cámara, esto se puede lograr utilizando triangulación.\\
 
-		Debido a que el patrón de puntos es relativamente al azar, la coincidencia entre la imagen IR y el patrón del proyector puede realizarse de forma directa comparando pequeñas vecindades utilizando, por ejemplo, referencias cruzadas.\cite{kinectFeatures}\\
+		Debido a que el patrón de puntos es relativamente al azar, la coincidencia entre la imagen IR y el patrón del proyector puede realizarse de forma directa comparando pequeñas vecindades utilizando, por ejemplo, referencias cruzadas \cite{kinectFeatures}.\\
 
 		El valor de la profundidad se codifica en escala de grises, cuanto más oscuro sea un píxel, más cerca está el punto de la cámara en el espacio, los píxeles negros indican que no se posee información respecto a la distancia en ese píxel. Esto puede suceder si los píxeles están demasiado lejos o demasiado cerca de la cámara IR.\\
 
 		\begin{figure}
 
 			\begin{subfigure}[t]{.5\textwidth}
-			\includegraphics[width=5.5cm, height=3.0cm]{estadoArte/kinect.jpg}	
+			\includegraphics[width=6.5cm, height=4.0cm]{estadoArte/kinect.jpg}	
 			\caption{Sensor kinect}
 			\end{subfigure}%
 			\begin{subfigure}[t]{.5\textwidth}
-			\includegraphics[width=6.5cm, height=3.0cm]{estadoArte/kinect_2.jpg}
+			\includegraphics[width=6.5cm, height=4.5cm]{estadoArte/kinect_2.jpg}
 			\caption{Sensor kinect estructura}
 			\end{subfigure}
 
@@ -259,7 +259,7 @@ Los principales parámetros que caracterizan a los robots industriales son:
 
 		\begin{figure}[h!]
 			\begin{center}
-			\includegraphics[width=7.5cm, height=6.0cm]{planes/planeEquation.png}	
+			\includegraphics[width=8.5cm, height=7.0cm]{planes/planeEquation.png}	
 			\caption{Ecuación de un plano definido por un punto y su normal.}
 			\end{center}
 		\end{figure}
@@ -281,7 +281,7 @@ Los principales parámetros que caracterizan a los robots industriales son:
 
 		\textbf{Distancia desde un punto a un plano.}\\
 
-		Para un plano $\Pi: ax + by + cz + d = 0$ y un punto $P_1 = (x_1, y_1, z_1)$ no necesariamente en el plano, la distancia más corta de $P_1$ al plano es\\
+		Para un plano $\Pi: ax + by + cz + d = 0$ y un punto $P_1 = (x_1, y_1, z_1)$ no necesariamente en el plano, la distancia más corta de $P_1$ al plano es:\\
 
 		\begin{equation}
 			\begin{split}
@@ -300,13 +300,27 @@ Los principales parámetros que caracterizan a los robots industriales son:
 		\end{equation}
 
 
-
+	\newpage{}
 	\section{Algoritmo RANSAC}
-		\subsection{Algoritmo}
 		El algoritmo RANSAC (RANdom Sample And Consensus) fue introducido por primera vez por Fischler y Bolles en 1981, como un método para estimar los parámetros de un determinado modelo a partir de un conjunto de datos contaminados por grandes cantidades de valores atípicos (outliers). Un dato es considerado un valor atípico si no encaja en el modelo propuesto, dentro de un umbral de error que define el valor máximo de desviación atribuible al efecto del ruido, en el caso contrario se denominan valores típicos (inliers) al conjunto de datos que ajustan en el modelo con la característica antes mencionada.\\
 
 		RANSAC selecciona uniformemente al azar un subconjunto de muestras de datos y lo utiliza para crear un modelo de estimación de parámetros. Luego se determina si las muestras están dentro de una tolerancia de error del  modelo antes propuesto. Si estas muestras se consideran como parte del modelo generado se agrupan en un conjunto llamado \textit{consenso}. De manera análoga se llaman \textit{valores atípicos} al conjunto de datos que superan el umbral de error con respecto al modelo. Si el recuento de los datos agrupados en el consenso es suficientemente alto con respecto de los valores atípicos, se considera que el modelo se ajusta al conjunto de datos, siendo el modelo propuesto un modelo que se aproxima al conjunto total de datos.\\
 
+		El algoritmo consta de tres parámetros para estimar: (A) la distancia $t$ para  considerar  si  un  punto  es  compatible  o  no  con  el  modelo,  (B)  el  número  de iteraciones para buscar subconjuntos de decisión, y (C) el umbral $T$ que es el número mínimo de puntos compatibles para considerar una buena estimación del modelo.\\
+
+		\textbf{Umbral de distancia $t$ para determinar compatibilidad dato/modelo.} Se quiere elegir un umbral $t$ tal que la probabilidad de que un punto pertence es un valor típico es $\alpha$. Este cálculo requiere conocer la distribución de probabilidad de la distancia de un valor típico del modelo.\\
+
+		\textbf{Número de iteraciones.} El número de iteraciones $N$ se calcula en función de la probabilidad $p$ de que un por lo  menos  un  subconjunto  que  se  elige  aleatoriamente  esta  libre  de valores atípicos.\\
+
+		\textbf{Número mínimo $T$ de puntos en el subconjunto de decisión.} El número T se busca que sea similar al número de inliers que se supone que hay en el conjunto de datos.\\
+
+		\begin{itemize}
+			\item{Dos planos distintos son paralelos o se intersecan en una línea.}
+	    	\item{Una línea es paralela a un plano, lo cruza en un solo punto, o está contenida en el plano.}
+	    	\item{Dos líneas distintas perpendiculares al mismo plano deben ser paralelas entre sí.}
+	    \end{itemize}
+
+		\newpage{}
 		A continuación se muestra el seudocódigo básico para el algoritmo RANSAC.\\
 
 		\IncMargin{1em}
@@ -315,7 +329,7 @@ Los principales parámetros que caracterizan a los robots industriales son:
 		\SetKwFunction{Union}{Union}\SetKwFunction{FindCompress}{FindCompress}
 		\SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
 		
-		\Input{Nude de puntos organizada}
+		\Input{Nube de puntos organizada}
 		\Output{Modelo del plano}
 		\BlankLine
 		
@@ -373,11 +387,9 @@ Los principales parámetros que caracterizan a los robots industriales son:
 		\textbf{return} mejorAjuste\;
 		\caption{RANSAC para obtener modelo del plano}\label{ransacPlane}
 		\end{algorithm}\DecMargin{1em}
-
-		
 		
 
-
+	\newpage{}
 	\section{Algoritmo PCA}
 		El Análisis de Componentes Principales (PCA) ha sido llamado uno de los resultados más valiosos de la álgebra lineal \cite{holland2008principal}. PCA Se usa abundantemente en muchas disciplinas, desde la neurociencia hasta la computación gráfica debido a que es un método simple. El PCA proporciona una metodología para reducir un conjunto de datos complejos a una dimensión inferior.\\	
 

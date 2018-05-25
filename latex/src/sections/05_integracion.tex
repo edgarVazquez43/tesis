@@ -23,12 +23,9 @@
 	El otro patrón para comunicar nodos son los servicios, que utilizan un sistema petición-respuesta. Si algún proceso o cálculo se requiere hacer sólo en ciertas situaciones es conveniente programarlo como un servicio. Si un nodo requiere utilizar un servicio, manda un mensaje de petición con la información necesaria al nodo que ofrece dicho servicio, el procesamiento se lleva a cabo y se regresa al nodo solicitante un mensaje de respuesta con el resultado del servicio. Al igual que los tópicos, cada servicio tiene el tipo de mensaje específico con el que se comunicará; hay un tipo de mensaje para las peticiones y otro para las respuestas.\\	
 
 	\begin{figure}[H]
-		\begin{minipage}{18cm}	
 		% \hspace*{-0.15in}
-		\includegraphics[scale=0.28]{ros/topics_services_ros.png}	
-		\end{minipage}
-		
 		\begin{center}
+		\includegraphics[scale=0.28]{ros/topics_services_ros.png}	
 		\caption{Esquemas de comunicación Topicos y Servicios.}
 		\end{center}
 	\end{figure}
@@ -53,7 +50,7 @@
 
 	La toma de objetos es la parte crucial de este trabajo, la importancia de este evento radica en que se incluye la totalidad de tareas desarroladas en este trabajo para realizar una prueba de mayor complejidad. A grandes rasgos, la prueba de la toma de objetos se compone de subtareas, algunas de las cuales se describen a continuación.\\
 
-	La primer subtarea es la segmentación del objeto y el cálculo del respectivo centroide del objeto en cuestión (Ver Seccición [3]). Como entrada de la tarea se tiene una nube de puntos obtenida por la cámara RGB-D Kinect y lo esperado a la salida es una posición \textit{x, y, z} en el espació así como la orientación del objeto \textit{roll, pith, yaw}. Partiendo con la nube de puntos como entrada al sistema, es la segmentación de un plano (en caso de existir), porteriormente se eliminan los puntos pertenecientes al plano y por debajo de este, se eliminan los puntos más lejados 0,5[m] en el eje x respecto al robot. Se parte de las siguintes premisas: que el conjunto de puntos restante corresponde al conjunto de puntos que conforman al objeto, que solo se encuentra un objeto en la mesa en cada evento de toma de objetos. Con tal información, podemos proceder a calcular el centroide del objeto así como el respectivo ángulo del mismo.\\
+	La primer subtarea es la segmentación del objeto y el cálculo del respectivo centroide del objeto en cuestión (Ver Seccición [3]). Como entrada de la tarea se tiene una nube de puntos obtenida por la cámara RGB-D Kinect y lo esperado a la salida es una posición \textit{x, y, z} en el espació así como la orientación del objeto \textit{roll, pith, yaw}. Partiendo con la nube de puntos como entrada al sistema, es la segmentación de un plano (en caso de existir), porteriormente se eliminan los puntos pertenecientes al plano y por debajo de este, se eliminan los puntos más lejados 0,5[m] en el eje x respecto al robot. Se parte de las siguientes premisas: que el conjunto de puntos restante corresponde al conjunto de puntos que conforman al objeto, que solo se encuentra un objeto en la mesa en cada evento de toma de objetos. Con tal información, podemos proceder a calcular el centroide del objeto así como el respectivo ángulo del mismo.\\
 
 	\begin{figure}[H]
 	\hspace*{-0.5in}
@@ -85,20 +82,16 @@
 	\end{figure}
 
 
-	Para realizar el cálculo del centroide del objeto en cuestión se utiliza la ecuación la media en cada uno de los correspondientes ejes, el cálculo es practicamente directo, no así el cálculo de los ángulos representativos de la orientación del objeto. Para ello se calculó en un principio, los componentes principales del conjunto formado por los puntos del objeto, con la información de los eigenvectores de la matriz de covarianzas podemos obtener la dirección en la cuál ocurre la mayor distribución de los puntos, y por tanto podemos obtener los cosenos directores de cada uno de los respectivos eigenvectores obteniendo así los ángulos de rotación \textit{roll, pitch, yaw}.\\
+	Para realizar el cálculo del centroide del objeto en cuestión se utiliza la media en cada uno de los correspondientes ejes, el cálculo es practicamente directo, no así el cálculo de los ángulos representativos de la orientación del objeto. Para ello se calculó en un principio, los componentes principales del conjunto formado por los puntos del objeto, con la información de los eigenvectores de la matriz de covarianzas podemos obtener la dirección en la cuál ocurre la mayor distribución de los puntos, y por tanto podemos obtener los cosenos directores de cada uno de los respectivos eigenvectores obteniendo así los ángulos de rotación \textit{roll, pitch, yaw}.\\
 
 
-	Una vez conociendo esta información es posible avanzar a la etapa de manipulación para la cual es necesario conocer la información del objeto en el espacio \textit{x, y, z} y con ayuda del proceso anteriormente descrito podemos obtener los ángulos requeridos para el efector final del manipulador. En esta parte y como parte de los resultados del análisis comparativo entre las soluciones encontradas mediante la paquetería \textit{MoveIt!} y el método geométrico, se optó por utilizar el método geométrico ya implementado en el robot de servicio Justina.\\
+	Una vez conociendo esta información es posible avanzar a la etapa de manipulación para la cual es necesario conocer la información del objeto en el espacio \textit{x, y, z} y con ayuda del proceso anteriormente descrito podemos obtener los ángulos requeridos para el efector final del manipulador. En esta etapa como parte de los resultados del análisis comparativo entre las soluciones encontradas mediante la paquetería \textit{MoveIt!} y el método geométrico, se optó por utilizar el método geométrico ya implementado en el robot de servicio Justina.\\
 
 
 
 	\begin{figure}[H]
-		\begin{minipage}{18cm}	
-		\hspace*{-0.2in}
-		\includegraphics[scale=0.35]{ros/tarea_manipulacion2.png}	
-		\end{minipage}
-		
 		\begin{center}
+		\includegraphics[scale=0.35]{ros/tarea_manipulacion2.png}	
 		\caption{Diagrama de bloques del proceso toma de objetos.}
 		\end{center}
 	\end{figure}
@@ -112,17 +105,17 @@
 
 	En lo que respecta al proceso de la toma de objetos actual, en el robot de servicio Justina, unicamente se utiliza la información de posición del objeto sin considerar la información de orientación. Este proceso es suceptible a fallas cuando se trata de objetos de grandes dimensiones, entiendase objetos con dimensiones mayores a la longitud total del efector final del manipulador en su mayor apertura. Por otro lado, puede presentar fallas con objetos de alturas reducidas, estos son objetos con alturas menores a la mitad de la longitud \textit{d} del manipulador pues ello indica una posible colisión con la superficie que soporta dicho objeto.\\
 
-	\begin{figure}[H]
+	\begin{figure}[h!]
 	\hspace*{-0.5in}
 	\centering
 	\begin{subfigure}[t]{.55\textwidth}
 		\centering
-		\includegraphics[scale=0.20]{objs_real/bag_unsuccess.png}
+		\includegraphics[scale=0.22]{objs_real/bag_unsuccess.png}
 		\caption{Sin considerar información de orientación.}
 	\end{subfigure}%
 	\begin{subfigure}[t]{.55\textwidth}
 		\centering
-		\includegraphics[scale=0.20]{objs_real/bag_success.png}
+		\includegraphics[scale=0.22]{objs_real/bag_success.png}
 		\caption{Tomando en cuenta la información de orientación.}
 	\end{subfigure}
 	\caption{Fotografía de la tarea de manipualación para una bolsa de papel.}
@@ -136,7 +129,7 @@
 
 	Para ello, una vez realizada la segmentación del objeto en cuestión se procede a calcular el centroide del objeto, posteriormente se calcula la matriz de covarianzas de y se obtienen los vectores y valores característicos de la matriz, con lo cual se obtienen los ejes que representan una aproximación a la orientación del objeto.\\ 
 
-	Con fines de obtener el conjunto de ángulos en los cuales debe posicionarse el efector final del manipulador fue preciso realizar dos ordenamientos. El primer ordenamiento se realizó considerando la magnitud de los vectores característicos de la matriz de covarianzas. Posteriormente para cada uno de esos vectores se etiquetó en cuál de los ejes coordenados del sistema de la base del robot sus proyeccciones eran mayores. El algoritmo \ref{Alg:angles} menciona los pasos que componen esta tarea.\\
+	Con fines de obtener el conjunto de ángulos en los cuales debe posicionarse el efector final del manipulador fue preciso realizar dos ordenamientos. El primer ordenamiento se realizó considerando la magnitud de los vectores característicos de la matriz de covarianzas. Posteriormente para cada uno de esos vectores se etiquetó en cuál de los ejes coordenados del sistema de la base del robot sus proyecciones eran mayores. El algoritmo \ref{Alg:angles} menciona los pasos que componen esta tarea.\\
 
 	\IncMargin{1em}
 	\begin{algorithm}[H]
@@ -262,12 +255,12 @@
 	\centering
 	\begin{subfigure}[t]{.55\textwidth}
 		\centering
-		\includegraphics[scale=0.25]{manipulator/DH_manipulators1.png}
+		\includegraphics[scale=0.24]{manipulator/DH_manipulators1.png}
 		\caption{URDF descripción del robot Justina.}
 	\end{subfigure}%
 	\begin{subfigure}[t]{.55\textwidth}
 		\centering
-		\includegraphics[scale=1.2]{manipulator/justina_real.jpg}
+		\includegraphics[scale=1.1]{manipulator/justina_real.jpg}
 		\caption{Fotografía del robot Justina.}
 	\end{subfigure}
 	\caption{Imagen de Justina virtual y fotografia real.}
@@ -287,3 +280,12 @@
 
 	Como parte de este trabajo se programó un nodo en ROS en cual, con la información de las respectivas transformaciones y la información de profundidad obtenida del sensor kinect, se calcula la información del objeto y sus carecteristicas de ubicación espacial, dimensiones y orientación. El nodo se realizó en el lenguaje de programación orientada a objetos C++, por su parte, se comunica a travez de ROS por medio de la recepción de información mediante la llegada de tópicos; por otro lado responde en un servicio con la información de los objetos: ubicación espacial y orientaciones.\\
 
+
+\newpage
+\thispagestyle{empty}
+\mbox{}
+\newpage
+\thispagestyle{empty}
+\mbox{}
+
+\addtocounter{page}{-2}
