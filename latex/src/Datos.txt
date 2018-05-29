@@ -1,0 +1,14 @@
+Universidad Nacional Autónoma de México
+
+Facultad de Ingeniería
+
+Tesis:
+
+Desarrollo de un sistema de manipulación de detección y manipulación
+de objetos para un robot de servicio
+
+Presenta: Edgar de Jesús Vázquez Silva
+
+Director de tesis: M.I. Marco Antonio Negrete Villanueva
+
+2018
