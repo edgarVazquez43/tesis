@@ -3,7 +3,7 @@
 
 \chapter{Resultados}
 
-En este capítulo se describen las pruebas realizadas con el fin de comprobar la hipótesis de este trabajo. Además se muestran los resultados obejetinos de dichas pruebas, la descripción de las pruebas y la discusión de resultados se abordarán en el siguiente orden:
+En este capítulo se describen las pruebas realizadas con el fin de comprobar la hipótesis de este trabajo. Además se muestran los resultados obtenidos de dichas pruebas, la descripción de las pruebas y la discusión de resultados se abordarán en el siguiente orden:
 
 \begin{enumerate}
 	\itemsep -0.05in
@@ -17,12 +17,12 @@ En este capítulo se describen las pruebas realizadas con el fin de comprobar la
 	\begin{itemize}
 		\itemsep -0.05in
 		\item{Exactitud en la estimación de la posición.}
-		\item{Comparación en caracteristica de altura.}
+		\item{Comparación en característica de altura.}
 		\item{Estimación de la orientación de objetos.}
 		\item{Exactitud en el cálculo de la orientación. Comparación orientación estimada y real.}
 	\end{itemize}
 	\itemsep -0.05in
-	\item{Espacio de trabajo del algoritmo númerico.}
+	\item{Espacio de trabajo del algoritmo numérico.}
 	\item{Comparación tarea de manipulación utilizando información de orientación de los objetos.}
 \end{enumerate}
 
@@ -113,23 +113,23 @@ En este capítulo se describen las pruebas realizadas con el fin de comprobar la
 		\end{minipage}
 
 		\begin{center}
-		\caption{Gráfica del error relativo vs tiempo de ejecución para diferentes numeros de iteraciones.}
+		\caption{Gráfica del error relativo vs tiempo de ejecución para diferentes números de iteraciones.}
 		\label{Fig:RansacFinal}
 		\end{center}
 	\end{figure}
 
 
-	Como podemos observar en la gráfica \ref{Fig:RansacFinal} el error relativo presenta un incremento conforme se disminuye el número de iteraciones en el algoritmo. El tiempo de ejecución por su parte muestra un decremento conforme número de iteraciones disminuye. Dado este comportamiento de ambos parámetros resulta difícil encontrar un punto de equilibrio entre estas dos unidades de medición. Para la aplicación partícular de este trabajo se determinó un número óptimo de iteraciones entre 30 y 24.\\ 
+	Como podemos observar en la gráfica \ref{Fig:RansacFinal} el error relativo presenta un incremento conforme se disminuye el número de iteraciones en el algoritmo. El tiempo de ejecución por su parte muestra un decremento conforme número de iteraciones disminuye. Dado este comportamiento de ambos parámetros resulta difícil encontrar un punto de equilibrio entre estas dos unidades de medición. Para la aplicación particular de este trabajo se determinó un número óptimo de iteraciones entre 30 y 24.\\ 
 
 
 
 	\subsection{Comparación exactitud y rapidez}
-	Para este conjunto de pruebas se comparó el algoritmo desarrollado en el presente trabajo contra el implementado acualmente en el robot de servicio Justina, reportado en el trabajo de tesis \cite{cruz2016detection}.\\
+	Para este conjunto de pruebas se comparó el algoritmo desarrollado en el presente trabajo contra el implementado actualmente en el robot de servicio Justina, reportado en el trabajo de tesis \cite{cruz2016detection}.\\
 
-	Las pruebas se desarrollaron de la siguiente manera, con la estructura de comunicación que permite ROS se implementaron dos servicios para encontrar planos: el desarrollado en este trabajo de tesis y el algortimo ya implementado. Se obtuvo la información de profundidad con el sensor RGB-D Kinect, esta información se compartió a traves de un tópico al cual ambos servicios se encontraban suscritos. De esta manera nos aseguramos de contar con la misma información en ambos algoritmos para poner a prueba la velocidad de ejecución y la precisión de algortimo.\\
+	Las pruebas se desarrollaron de la siguiente manera, con la estructura de comunicación que permite ROS se implementaron dos servicios para encontrar planos: el desarrollado en este trabajo de tesis y el algoritmo ya implementado. Se obtuvo la información de profundidad con el sensor RGB-D Kinect, esta información se compartió a través de un tópico al cual ambos servicios se encontraban suscritos. De esta manera nos aseguramos de contar con la misma información en ambos algoritmos para poner a prueba la velocidad de ejecución y la precisión de algoritmo.\\
 
 
-	En cuanto a la medida de precisión del algoritmo continuamos suponiendo un plano horizontal del cual conocemos su altura; por tanto podemos conocer la ecuación del plano horizontal a esa altura. Se puso a prueba el algortimo para ese modelo y se observó la cantidad de puntos que entran en ese modelo, tomando este resultado como el ideal. Posteriormente se pusieron en funcionamiento ambos algoritmos midiendo la cantidad de puntos en los modelos obtenidos y comparandolos con el número de puntos ideal. Este evento se iteró una cantidad de 80 veces.\\
+	En cuanto a la medida de precisión del algoritmo continuamos suponiendo un plano horizontal del cual conocemos su altura; por tanto podemos conocer la ecuación del plano horizontal a esa altura. Se puso a prueba el algoritmo para ese modelo y se observó la cantidad de puntos que entran en ese modelo, tomando este resultado como el ideal. Posteriormente se pusieron en funcionamiento ambos algoritmos midiendo la cantidad de puntos en los modelos obtenidos y comparándolos con el número de puntos ideal. Este evento se iteró una cantidad de 80 veces.\\
 
 
 	Posteriormente se calculó el error relativo entre el modelo ideal y cada uno de los algoritmos como se muestra en la gráfica siguiente.\\
@@ -159,7 +159,7 @@ En este capítulo se describen las pruebas realizadas con el fin de comprobar la
 	\end{table}
 
 
-	Con la información de la tabla \ref{t_result:1} se puede deducir que la nueva implementación del algoritmo RANSAC con 1000 iteraciones y una distancia miníma al modelo de 0.02[m] es más lenta pero con menor error relativo. La diferencia de 605[ms] puede llegar a ser significativa si se requiere ejecutar el algoritmo iterativamente, sin embargo, el común de las pruebas en robots de servicio doméstico no suelen requerir este tipo de acciones.\\  
+	Con la información de la tabla \ref{t_result:1} se puede deducir que la nueva implementación del algoritmo RANSAC con 1000 iteraciones y una distancia mínima al modelo de 0.02[m] es más lenta pero con menor error relativo. La diferencia de 605[ms] puede llegar a ser significativa si se requiere ejecutar el algoritmo iterativamente, sin embargo, el común de las pruebas en robots de servicio doméstico no suelen requerir este tipo de acciones.\\  
 
 
 
@@ -169,17 +169,17 @@ En este capítulo se describen las pruebas realizadas con el fin de comprobar la
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%     CARACTERISTICAS OBJETOS          %%%%%%%%%%%%%%%%%%%%%
 	\section{Extracción de objetos y sus características}
-	En lo que respecta a la extracción de objetos y sus características se realizó una caracterización de la misma. Para ello se realizaron un total de 100 eventos para cada uno de los 5 objetos diferentes: un control para videojuegos de forma irregular, una caja de cereal, un envase de jugo, un envase de bebida láctea y una barra de chocolate. Como información de interés se compararon las medidas de altura de los objetos. Puesto que el algoritmo previo tambien hacía una estimación de la altura de los objetos se compararon los resultados de ambos algoritmos.\\
+	En lo que respecta a la extracción de objetos y sus características se realizó una caracterización de la misma. Para ello se realizaron un total de 100 eventos para cada uno de los 5 objetos diferentes: un control para videojuegos de forma irregular, una caja de cereal, un envase de jugo, un envase de bebida láctea y una barra de chocolate. Como información de interés se compararon las medidas de altura de los objetos. Puesto que el algoritmo previo también hacía una estimación de la altura de los objetos se compararon los resultados de ambos algoritmos.\\
 
 	\begin{figure}[H]
 		\centering
 		\includegraphics[scale=0.06]{objs_real/objects_2.jpg}	
-		\caption{Fotografia de los objetos utilizados en las pruebas de cálculo de alturas y de manipulación de objetos.}
+		\caption{Fotografía de los objetos utilizados en las pruebas de cálculo de alturas y de manipulación de objetos.}
 		\label{fig:objectsComplete}
 	\end{figure}
 
 
-	\subsection{Estímación de alturas}
+	\subsection{Estimación de alturas}
 
 	\begin{figure}[H]
 		\begin{subfigure}[h]{.30\textwidth}
@@ -233,7 +233,7 @@ En este capítulo se describen las pruebas realizadas con el fin de comprobar la
 		\includegraphics[scale=0.40]{resultados/chocolateAltura_media.png}	
 		\caption*{(e)}
 		\end{subfigure}
-		\caption{Gráficas de alturas para: (a) una caja de cereal, (b) una caja de jugo, (c) un envase de leche, (d) un control de videojuegos, (e) una barra de chocolate. \\La altura real del objeto (amarillo), la altura estímada con el algoritmo previo (rojo) y la estimación actual (azul).}
+		\caption{Gráficas de alturas para: (a) una caja de cereal, (b) una caja de jugo, (c) un envase de leche, (d) un control de videojuegos, (e) una barra de chocolate. \\La altura real del objeto (amarillo), la altura estimada con el algoritmo previo (rojo) y la estimación actual (azul).}
 		\label{fig:mesh1}
 	\end{figure}
 
@@ -272,13 +272,13 @@ En este capítulo se describen las pruebas realizadas con el fin de comprobar la
 %%%%%%%%% Cálculo de las orientaciones  %%%%%%%%%%%%%%%%%%%%
 	\section{Cálculo de la orientación del objeto.}
 
-	En esta sección del trabajo se reportan los resultados obtenidos al realizar las pruebas de estimación de orientación de los objetos sobre un plano. En esta prueba se realizaron 50 tomas de datos para cada uno de los objetos con direferentes orientaciones.\\
+	En esta sección del trabajo se reportan los resultados obtenidos al realizar las pruebas de estimación de orientación de los objetos sobre un plano. En esta prueba se realizaron 50 tomas de datos para cada uno de los objetos con diferentes orientaciones.\\
 
 	El proceso para poner a prueba la estimación de ángulos de los objetos con respecto del eje Y del robot se describe a continuación. Una vez obtenidos los vectores propios de la matriz de covarianzas, se obtiene un conjunto de vectores ortogonales que nos indican los ejes en los cuales sucede la mayor distribución de puntos de un objeto. Con este conjunto de vectores se realizaron dos procesos:\\
 
 	\begin{itemize}
 		\itemsep -0.08in
-		\item{Un ordemaniento por magnitud.}
+		\item{Un ordenamiento por magnitud.}
 		\item{Una ordenamiento por magnitudes en las respectivas componentes $x, y, z$}
 	\end{itemize}  
 
@@ -286,7 +286,7 @@ En este capítulo se describen las pruebas realizadas con el fin de comprobar la
 
 		El algoritmo para calcular el ángulo del objeto con respecto del eje $z$ del robot, se explica de la siguiente manera: se toma el vector paralelo al plano con mayor magnitud, puesto que sabemos del ordenamiento cual es el vector con una componente mayor en el eje $z$ lo descartamos del proceso, con los dos vectores restantes obtenemos el de mayor magnitud.\\
 
-		Este vector apuntaría en la direccción $y$ o $-y$ para un caso ideal en que el ángulo del objeto fuera de cero grados medido sobre el eje $z$ del robot. en este punto se realiza un acotamiento para que dicho vector quede en el primer y segundo cuadrante de un sistema coordenado, posteriormente se calcula el ángulo de rotación por medio del producto punto que existe entre el ángulo del vector estimado para el objeto y el vector que apunta en la dirección del vector unitario $y$ del robot.\\
+		Este vector apuntaría en la dirección $y$ o $-y$ para un caso ideal en que el ángulo del objeto fuera de cero grados medido sobre el eje $z$ del robot. en este punto se realiza un acotamiento para que dicho vector quede en el primer y segundo cuadrante de un sistema coordenado, posteriormente se calcula el ángulo de rotación por medio del producto punto que existe entre el ángulo del vector estimado para el objeto y el vector que apunta en la dirección del vector unitario $y$ del robot.\\
 
 
 		%\newpage
@@ -415,29 +415,29 @@ En este capítulo se describen las pruebas realizadas con el fin de comprobar la
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%% PRUEBAS DE GRASPEO CON INFORMACIÓN DEL ÁREA DE TRABAJO  %%%%%%%%%%%%
 	\section{Tiempo de ejecución para diferentes algoritmos de cinemática inversa.}
-	Como parte de este trabajo se propone evaluar y comparar el desempeño de dos algoritmos empleados para el cálculo de la cinemática inversa de un manipulador de 7 grados de libertad. Para ello se puso a prueba un método geométrico desarrollado previamente y una instancia de solución usando la paquetería moveIt!. La paquetería moveIt! ofrece una solución numerica de cinemáticas para manipualdores. En este caso se puso a prueba el solucionador OMPL (Open Motion Planning Library) \cite{chitta2012moveit}.\\
+	Como parte de este trabajo se propone evaluar y comparar el desempeño de dos algoritmos empleados para el cálculo de la cinemática inversa de un manipulador de 7 grados de libertad. Para ello se puso a prueba un método geométrico desarrollado previamente y una instancia de solución usando la paquetería moveIt!. La paquetería moveIt! ofrece una solución numérica de cinemáticas para manipuladores. En este caso se puso a prueba el solucionador OMPL (Open Motion Planning Library) \cite{chitta2012moveit}.\\
 
 	% El trabajo de esta tesis, en este apartado, fue crear un modelo matemático del manipulador de 7 grados de libertad, para posteriormente poner a prueba su rapidez de solución y su robuztes para calcular la cinemática inversa.\\ 
 
-	A continuación se reportan los resultados obtenidos. Se muestran gráficas de rapidez de ejecución, cantidad de puntos para los cuales ambos métodos encontraron solución y el valor de una función de costo represantiva de una función de energía requerida para mover el manipulador.\\ 
+	A continuación se reportan los resultados obtenidos. Se muestran gráficas de rapidez de ejecución, cantidad de puntos para los cuales ambos métodos encontraron solución y el valor de una función de costo representativa de una función de energía requerida para mover el manipulador.\\ 
 
 	\subsection{Tiempo de ejecución para los dos algoritmos de cinemática inversa.}
 
 	En esta sección se reportan los resultados obtenidos de evaluar la función de costo para los respectivos algoritmos del cálculo de la cinemática inversa. En la figura \ref{fig:successIK} se muestran los resultados del tiempo de ejecución para en el caso en que ambos algoritmos encontraron una solución. Notamos que no difieren más de 1 [ms], por tanto es un tiempo de ejecución aceptable.\\
 
-	Por otro lado, en la figura \ref{fig:unsuccessIK} se reportan los tiempos de ejecución en el caso que los algoritmos no encotraron una solución. Podemos observar en el caso del algoritmo iterativo se supera un tiempo de 3[s], lo cual es totalmente inconveniente si lo que se requiere es velocidad de respuesta.\\
+	Por otro lado, en la figura \ref{fig:unsuccessIK} se reportan los tiempos de ejecución en el caso que los algoritmos no encontraron una solución. Podemos observar en el caso del algoritmo iterativo se supera un tiempo de 3[s], lo cual es totalmente inconveniente si lo que se requiere es velocidad de respuesta.\\
 
 	\begin{figure}[H]
 		\centering
 		\includegraphics[scale=0.50]{resultados/success_IKcalculate.png}
-		\caption{Gráfica de tiempo de ejecución para el cálculo de la cinemática inversa por metodo geométrico(rojo) y por método númerico (azul). Caso de solución encontrada.}
+		\caption{Gráfica de tiempo de ejecución para el cálculo de la cinemática inversa por método geométrico(rojo) y por método numérico (azul). Caso de solución encontrada.}
 		\label{fig:successIK}
 	\end{figure}
 
 	\begin{figure}[H]
 		\centering
 		\includegraphics[scale=0.50]{resultados/unsuccess_IKcalculate.png}
-		\caption{Gráfica de tiempo de ejecución para el cálculo de la cinemática inversa por metodo geométrico(rojo) y por método númerico (azul). Caso de \textbf{solución no encontrada.} } 
+		\caption{Gráfica de tiempo de ejecución para el cálculo de la cinemática inversa por método geométrico(rojo) y por método numérico (azul). Caso de \textbf{solución no encontrada.} } 
 		\label{fig:unsuccessIK}
 	\end{figure}
 
@@ -446,9 +446,9 @@ En este capítulo se describen las pruebas realizadas con el fin de comprobar la
 	El conocimiento del espacio de trabajo nos ayuda a determinar por anticipado si un punto se encuentra al alcance del manipulador y de esta manera reducir el tiempo de ejecución de la tarea de toma de objetos.\\
 	
 
-	\subsection{Evaluación del valor de la funcion de costo.}
+	\subsection{Evaluación del valor de la función de costo.}
 
-	Otra de las pruebas que se realizaron con la finalidad de comparar los algoritmos de cálculo de cinemática inversa fue la evaluación de una función de costo. Esta función esta planteada en terminos de un mínimo consumo energético, es decir que los actuadores se muevan lo menos posible cuando se parte de la posición cero. En la figura \ref{fig:funcCost} se muestra el valor resultante de evaluar la función (4.14) para diferentes puntos cartesianos.\\ 
+	Otra de las pruebas que se realizaron con la finalidad de comparar los algoritmos de cálculo de cinemática inversa fue la evaluación de una función de costo. Esta función esta planteada en términos de un mínimo consumo energético, es decir que los actuadores se muevan lo menos posible cuando se parte de la posición cero. En la figura \ref{fig:funcCost} se muestra el valor resultante de evaluar la función (4.14) para diferentes puntos cartesianos.\\ 
 
 	En gráfica \ref{fig:histFuncCost} se muestra la cantidad de ocasiones en que fue menor el valor de la función para cada uno de los algoritmos. Se observó que el método geométrico obtuvo un menor valor en 59 ocasiones, por otro lado el algoritmo iterativo solo obtuvo un menor valor en 4 ocasiones. Estas pruebas se realizaron un total de 150 ocasiones, en las cuales el algoritmo iterativo solo encontró solución 63 ocasiones, como se muestra en la figura \ref{fig:iIKsuccess}.\\
 
@@ -462,7 +462,7 @@ En este capítulo se describen las pruebas realizadas con el fin de comprobar la
 	\begin{figure}[H]
 		\centering
 		\includegraphics[scale=0.45]{resultados/hist_valor_costFunction.png}
-		\caption{Comparación de evenetos en los cuales se obtuvo en menor valor en la fucnión de costo \ref{Ec:funcCost}.}
+		\caption{Comparación de eventos en los cuales se obtuvo en menor valor en la función de costo \ref{Ec:funcCost}.}
 		\label{fig:histFuncCost}
 	\end{figure}
 
@@ -499,7 +499,7 @@ En este capítulo se describen las pruebas realizadas con el fin de comprobar la
 %%%%%%%%%% PRUEBAS GRASPEO CON DIFERENTES INFORMACIONES %%%%%%%%%%%%
 	\section{Pruebas de manipulación con el robot real}
 
-	Como reporte concluyente se realizaron pruebas físicas con el robot de servicio Justina. Para tener una prueba estadistica que pueda servir de compración se realizaron un total de 70 eventos, divididos en 10 repeticiones para 7 objetos. Los objetos con los cuales se realizaron las pruebas fueron: una caja de cereal, un envase de jugo, un envase de bebida lactea, un control de videojuegos, una barra de chocolate, un libro y una bolsa de cartón.\\
+	Como reporte concluyente se realizaron pruebas físicas con el robot de servicio Justina. Para tener una prueba estadística que pueda servir de comparación se realizaron un total de 70 eventos, divididos en 10 repeticiones para 7 objetos. Los objetos con los cuales se realizaron las pruebas fueron: una caja de cereal, un envase de jugo, un envase de bebida láctea, un control de videojuegos, una barra de chocolate, un libro y una bolsa de cartón.\\
 
 	Las orientaciones de los objetos en cada uno de los eventos fueron posiciones. Esto con el fin de poner a prueba las características de exactitud en la orientación de los objetos para el algoritmo propuesto.\\
 	
@@ -523,7 +523,7 @@ En este capítulo se describen las pruebas realizadas con el fin de comprobar la
 		\label{fig:maniOrientation}
 		\end{figure}
 
-	Los resultados se muestran en una tabla de éxitos contra fracasos para cada una de las implemetaciones. Posteriormenete se muestra la gráfica \ref{fig:exitos-fracasos} donde se refleja el porcentaje de éxitos para la tarea de toma de objetos.\\
+	Los resultados se muestran en una tabla de éxitos contra fracasos para cada una de las implementaciones. Posteriormente se muestra la gráfica \ref{fig:exitos-fracasos} donde se refleja el porcentaje de éxitos para la tarea de toma de objetos.\\
 
 	\begin{table}[H]
 		\centering
@@ -649,28 +649,35 @@ En este capítulo se describen las pruebas realizadas con el fin de comprobar la
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%		Conclusiones           %%%%%%%%%%%%%%%%%%%%%
-\chapter{Conclusiones}
+\chapter{Conclusiones y trabajo futuro}
+
 	En este capítulo se resumen los resultados obtenidos de la realización de este trabajo de tesis y se presentan algunas consideraciones que se deben tener en cuenta al implementar el sistema de manipulación  desarrollado. De la misma manera se plantean propuestas para continuar con este trabajo de investigación.\\
 
-	Partiendo de la información obtenida de los resultados podemos concluir que un algoritmo RANSAC con un umbral de 0.02 [m] y un número de 1000 iteraciones nos ayudará a encontrar la ecuación de un plano así como una lista de puntos pertenecientes al mismo. Esta impletenación tomará 8 veces más tiempo que la implementación con la cual cuenta el robot de servicio Justina; sin embargo reducirá el error relativo respecto al modelo real de un 39.9\% al 8.83\% (Figura: \ref{t_result:1}) lo que puede ayudar a mejorar el sistema de manipulación de objetos.\\
+	\section{Conclusiones}
+	Partiendo de la información obtenida de los resultados podemos concluir que un algoritmo RANSAC con un umbral de 0.02 [m] y un número de 1000 iteraciones nos ayudará a encontrar la ecuación de un plano así como una lista de puntos pertenecientes al mismo. Esta implementación tomará 8 veces más tiempo que la implementación con la cual cuenta el robot de servicio Justina; sin embargo reducirá el error relativo respecto al modelo real de un 39.9\% al 8.83\% (Figura: \ref{t_result:1}) lo que puede ayudar a mejorar el sistema de manipulación de objetos.\\
 
-	Se pueda añadir que es posible extraer características de los objetos sobre un plano utilizando una segmentación por planos y una posterior extracción de los puntos sobre en plano. La extracción de la nube de puntos ordenada perteneciente a los objetos sobre el plano puede aportar características espaciales tales como el centroide, altura y orientación. Para el caso de la altura de los objetos, la implemetación desarrollada en este documento de tesis muestra un valor de estimación más cercano a la medida real que el algoritmo actual, como se muestra en las gráficas 6.10 - 6.12; por lo tanto se puede decir que la implementación reportada en este documento es más exacta en comparación con el algoritmo ya existente en el robot de servicio Justina.\\
+	Se pueda añadir que es posible extraer características de los objetos sobre un plano utilizando una segmentación por planos y una posterior extracción de los puntos sobre en plano. La extracción de la nube de puntos ordenada perteneciente a los objetos sobre el plano puede aportar características espaciales tales como el centroide, altura y orientación. Para el caso de la altura de los objetos, la implementación desarrollada en este documento de tesis muestra un valor de estimación más cercano a la medida real que el algoritmo actual, como se muestra en las gráficas 6.10 - 6.12; por lo tanto se puede decir que la implementación reportada en este documento es más exacta en comparación con el algoritmo ya existente en el robot de servicio Justina.\\
 
 	Las pruebas T realizadas para el caso de las alturas ayuda a observar que en general la propuesta de algoritmo descrito en este documento presenta  diferencias significativas entre las medias de alturas, aunado a eso se observa para los objetos con mayor altura una media más cercana a la real(Figura: \ref{t_test:alturas}). Por tanto se concluye que la propuesta de este trabajo estima mejor la altura de los objetos con mayor altura.\\ 
 
 	El análisis de componentes principales aplicado a nubes de puntos de objetos segmentados ayuda a calcular el ángulo de orientación de un objeto sobre el plano. El algoritmo para obtener la orientación de los objetos descrita en este documento no presenta un error mayor a 5 grados en ninguno de los casos. Esto, para las tareas dirigidas a los robots de servicio, se encuentra en términos aceptables, dado que los elementos a manipular no exigen extremar precauciones en cuanto a manipulabilidad.\\
 
-	Podemos hacer notar, además, que el obejto que presenta una mayor varianza en la estimación de su orientación es el control para videojuegos, esto debido a que es el único que no possee una forma basada un primitivas.\\
+	Podemos hacer notar, además, que el objeto que presenta una mayor varianza en la estimación de su orientación es el control para videojuegos, esto debido a que es el único que no posee una forma basada un primitivas.\\
 
-	Por otro lado, en cuanto a los algoritmos del cálculo de la cinemática inversa, podemos mencionar que la paquetería moveIt! con el solucionador OMPL para el caso del manipulador específico del robot de servicio Justina, no resulta en una mejora significativa. Es menos óptimo tomando como costo la cantidad de movimiento que el manipulador tiene que realizar, en cuanto al numero de soluciones que puede encontar (figura 6.34), y en caso de no encontrar solución el tiempo de ejecución es significativamente mayor que en el caso del algoritmo geométrico (figura 6.31) lo cual no es conveniente para un manipulador si se requiere velocidad de ejecución.\\
+	Por otro lado, en cuanto a los algoritmos del cálculo de la cinemática inversa, podemos mencionar que la paquetería moveIt! con el solucionador OMPL para el caso del manipulador específico del robot de servicio Justina, no resulta en una mejora significativa. Es menos óptimo tomando como costo la cantidad de movimiento que el manipulador tiene que realizar, en cuanto al numero de soluciones que puede encontrar (figura 6.34), y en caso de no encontrar solución el tiempo de ejecución es significativamente mayor que en el caso del algoritmo geométrico (figura 6.31) lo cual no es conveniente para un manipulador si se requiere velocidad de ejecución.\\
 
-	 Fue importante poner a prueba este algoritmo puesto que existía la hipotesis que podría dar mejores resultados por ser uno de los algoritmos más utilizados en el ámbito de la robótica de manipuladores. Con las pruebas realizadas en este trabajo, se observó que no hay mejora significativa con la implementación de este algoritmo en un manipulador de 7DOF con configuración antropomórfica.\\
+	 Fue importante poner a prueba este algoritmo puesto que existía la hipótesis que podría dar mejores resultados por ser uno de los algoritmos más utilizados en el ámbito de la robótica de manipuladores. Con las pruebas realizadas en este trabajo, se observó que no hay mejora significativa con la implementación de este algoritmo en un manipulador de 7DOF con configuración antropomórfica.\\
 
 	En cuanto a los eventos en los cuales fue exitoso el cálculo de la cinemática inversa para ambos algoritmos, se observó que el algoritmo geométrico ofrece un conjunto de soluciones en las cuales de requiere un menor gasto energético para su solución (figura 6.32).\\ 
 
-	Inlcuir información sobre la orientación de los objetos a la tarea de manipulación mejora de un 21.4\% a un 72.8\%. Por lo tanto podemos decir que incluir esta información mejora significativamenta la tarea de manipulación para un robot de servicio con un manipulador de 7DOF como Justina (Figura: \ref{fig:exitos-fracasos} ). Aunque pareciera obvio que el incluir una mayor cantidad de información a la tarea de manipulación de objetos se obtendrían mejores resultados, es conveniente mencionar que la actual metodología de solución ha dado buenos resultados, prueba de ello es la comptepencia internacional Robocup 2017 donde el robot de servicio Justina obtuvo un puntaje de 15 puntos en las tareas de manipulación de objetos.\\ 
 
-	Con el sistema propuesto (extracción del plano, cálculo de la altura y orientación) la manipualción de objetos presentó una mejora significativa con respecto a la implementación actual en el robot de servicio doméstico Justina.\\  
+	Incluir información sobre la orientación de los objetos a la tarea de manipulación mejora de un 21.4\% a un 72.8\%. Por lo tanto podemos decir que incluir esta información mejora significativamente la tarea de manipulación para un robot de servicio con un manipulador de 7DOF como Justina (Figura: \ref{fig:exitos-fracasos} ). Aunque pareciera evidente que el incluir una mayor cantidad de información a la tarea de manipulación de objetos se obtendrían mejores resultados, es conveniente mencionar que la actual metodología de solución ha dado buenos resultados, prueba de ello es la competencia internacional Robocup 2017 donde el robot de servicio Justina obtuvo un puntaje de 15 puntos en las tareas de manipulación de objetos.\\ 
+
+	Con el sistema propuesto (extracción del plano, cálculo de la altura y orientación) la manipulación de objetos presentó una mejora significativa con respecto a la implementación actual en el robot de servicio doméstico Justina.\\ 
 
 
-%\section{Trabajo futuro}
+\newpage
+\section{Trabajo futuro}
+	Como parte de la continuidad de este trabajo se sugiere incluir la generación de una trayectoria para el efector final del brazo manipulador, con lo cual se evitarían posibles colisiones con objetos estáticos. Este es uno de los aspectos más importantes a considerar en el manipulador de 7DOF, en este trabajo de tesis solo  se muestra la capacidad de llevar el efector final (gripper) una posición objetivo; sin embargo es importante revisar la trayectoria que este seguiría para observar posibles colisiones e incluir esa información en el planeador de acciones.\\ 
+
+	Por otro lado, se observó que el sistema de manipulación no cuenta con algoritmos de control que ayuden a realizar movimientos estables, tal es el caso de la reducción de velocidad cuando el manipulador llega a la posición objetivo. Se propone como trabajo futuro incluir algoritmos de control que permitan realizar movimientos más rápidos y precisos, se proponen control de par y control de posición para el manipulador, así como la generación de un perfil de velocidad que contribuya a mejorar la estabilidad del manipulador.\\

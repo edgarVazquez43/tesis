@@ -32,7 +32,7 @@ En este capítulo se aborda el desarrollo de los algoritmos para la detección y
 		Se desarrolló un programa en lenguaje C++ para segmentar los planos. La información de profundidad entregada por el Kinect, se da en una matriz donde cada elemento $i, j$ contiene la información de profundidad obtenida por el sensor, como se explica a continuación.\\
 
 
-		Cada elemento de la matriz contiene información de un punto $p = (x, y, z)$ donde el haz infrarojo fue reflejado, esto nos permite conocer la distancia a la cual se encuentra un objeto, o su superficie. La información que nos entrega el sensor en forma de matriz es de dimensiones 640X480 por tanto consta de 307,200 elementos en total.  Dentro de este conjunto de datos se buscan las superficies planas.\\
+		Cada elemento de la matriz contiene información de un punto $p = (x, y, z)$ donde el haz infrarrojo fue reflejado, esto nos permite conocer la distancia a la cual se encuentra un objeto, o su superficie. La información que nos entrega el sensor en forma de matriz es de dimensiones 640X480 por tanto consta de 307,200 elementos en total.  Dentro de este conjunto de datos se buscan las superficies planas.\\
 
 		Se programó el algoritmo RANSAC para extraer planos en C++, el código se puede consultar en la página \cite{githubTesis}.\\
 
@@ -112,8 +112,8 @@ En este capítulo se aborda el desarrollo de los algoritmos para la detección y
 		Sea:
 		\textbf{Condiciones iniciales}\;
 		$p \leftarrow$ Conjunto total de puntos obtenidos del sensor\;
-		$p_{\pi} \leftarrow$ Conjunto de puntos pertenencientes al modelo del plano\;
-		$p_0 \leftarrow$ Conjunto de puntos pertenencientes a un objeto\;
+		$p_{\pi} \leftarrow$ Conjunto de puntos pertenecientes al modelo del plano\;
+		$p_0 \leftarrow$ Conjunto de puntos pertenecientes a un objeto\;
 		$p_{extra} \leftarrow$ Conjunto de puntos con restricciones adicionales \;
 		\BlankLine
 		\BlankLine
@@ -180,7 +180,7 @@ En este capítulo se aborda el desarrollo de los algoritmos para la detección y
 
 			Por lo tanto, de una nube de puntos como la mostrada en la figura \cite{Fig:objCentroide} podemos extraer medidas de dispersión, y medidas de tendencia central. Se partió con el cálculo de la media de los datos. $\bar{X}, \bar{Y}, \bar{Z}.$ El punto $P(\bar{X}, \bar{Y}, \bar{X})$ representa el centroide del objeto. Conociendo este punto podemos conocer la ubicación espacial del objeto respecto del robot y determinar si es manipulable (si se encuentra dentro del área de trabajo) y conocer las coordenadas a donde debemos llevar el efector final del manipulador.\\
 
-			Aunque el cálculo del centroide del objeto es operacionalmente simple este resultado puede no representar correctamente el centroide real del objeto. La extracción de la informacion del objeto está sujeta a la perpectiva de la cámara con respecto del objeto en cuestión. De esta manera si la posición de la cámara con respecto del objeto se aproxima a una vista lateral se reducirá la cantidad de hazes de luz proyectada sobre la superficie del objeto. En la figura \cite{Fig:objCentroide} se lográ a apreciar que el punto representante del controide no coincide con con el centroide real de los objetos.\\
+			Aunque el cálculo del centroide del objeto es operacionalmente simple este resultado puede no representar correctamente el centroide real del objeto. La extracción de la información del objeto está sujeta a la perspectiva de la cámara con respecto del objeto en cuestión. De esta manera si la posición de la cámara con respecto del objeto se aproxima a una vista lateral se reducirá la cantidad de haces de luz proyectada sobre la superficie del objeto. En la figura \cite{Fig:objCentroide} se logra a apreciar que el punto representante del controide no coincide con con el centroide real de los objetos.\\
 
 		% 	Para realizar el cálculo de la media se cuantifico el número de puntos pertenecientes al objeto, $(n)$. Posteriormente, para todos los puntos pertenecientes al conjunto $n$ se sumaron sus valores en $\bar{X}, \bar{Y}, \bar{Z}$, respectivamente. Y posteriormente se dividieron entre $n$.\\
 
@@ -312,15 +312,15 @@ Eigen::SelfAdjointEigenSolver<Eigen::MatrixXf> eig(cov_matrix); \end{lstlisting}
 
 
 	\subsection{Cálculo de rotación del objeto}
-	Una vez que se obtivieron los eigenvectores de la matriz de covarianzas estos indican las direcciones en los cuales tiene una mayor distribución la nube de puntos del objeto en cuestión. Por la naturaleza de los eigen-vectores y al tratarse de un espacio tridimensional, estos ejes forman un sistema ortogonal; por lo tanto son perpendiculares entre sí.\\
+	Una vez que se obtuvieron los eigenvectores de la matriz de covarianzas estos indican las direcciones en los cuales tiene una mayor distribución la nube de puntos del objeto en cuestión. Por la naturaleza de los eigen-vectores y al tratarse de un espacio tridimensional, estos ejes forman un sistema ortogonal; por lo tanto son perpendiculares entre sí.\\
 
-	Por tal motivo basta con conocer los cosenos directores de cada uno de los eigenvetores con el eje coordinado del robot, comparalos en mágnitud y determinar los ángulos roll, pitch y yaw del objeto con respecto del robot.\\
+	Por tal motivo basta con conocer los cosenos directores de cada uno de los eigenvetores con el eje coordinado del robot, compararlos en magnitud y determinar los ángulos roll, pitch y yaw del objeto con respecto del robot.\\
 
 	%**** Eigenvectores\\
 
 	\subsubsection{Componentes y cosenos directores de un vetor.}
 
-	Se llama componentes de un vector $\vec{A}$ respecto del sistema de coordenadas con oriegen O y ejes \textit{x, y} a las proyecciones de $\vec{A}$ sobre los ejes, sea dicho de otro modo, los números:\\
+	Se llama componentes de un vector $\vec{A}$ respecto del sistema de coordenadas con origen O y ejes \textit{x, y} a las proyecciones de $\vec{A}$ sobre los ejes, sea dicho de otro modo, los números:\\
 
 	\begin{equation}
 	\begin{split}
@@ -375,7 +375,7 @@ Eigen::SelfAdjointEigenSolver<Eigen::MatrixXf> eig(cov_matrix); \end{lstlisting}
 	\end{equation}
 
 
-De las realciones anteriores se deduce támbien:\\
+De las relaciones anteriores se deduce también:\\
 
 	\begin{equation}
 	\begin{split}
@@ -394,7 +394,7 @@ De las realciones anteriores se deduce támbien:\\
 	\end{figure}
 %**** imagen cosenos directores en el espacio\\
 
-	La importancia de abordar este tópico se debe a que en desarrollo del presente trabajo se hace uso de los cosenos directores para determinar la dirección en que puntan los vectores resultado del análisis de componentes principales, por tanto se hace uso de esta característica geómetrica de los vectores para conecer el ángulo de orientación de los objetos.\\ 
+	La importancia de abordar este tópico se debe a que en desarrollo del presente trabajo se hace uso de los cosenos directores para determinar la dirección en que puntan los vectores resultado del análisis de componentes principales, por tanto se hace uso de esta característica geométrica de los vectores para conocer el ángulo de orientación de los objetos.\\ 
 
 
 
