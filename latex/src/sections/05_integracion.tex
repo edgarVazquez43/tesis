@@ -44,7 +44,7 @@
 
 	Las máquinas de estados se definen como un conjunto de estados que sirve de intermediario en esta relación de entradas y salidas, haciendo que el historial de señales de entrada determine, para cada instante, un estado para la máquina, de forma tal que la salida depende únicamente del estado y las entradas actuales.\\
 
-	En este sentido, como parte de este trabajo, se plantean las máquinas de estados como la metodología de solución ante ciertos problemas como lo son: \textit{describir el proceso de la toma de objetos, describir el proceso de llevar el brazo hasta el punto óptimo de sujeción, describir el proceso de evaluación de la función de costo para el brazo manipulador del robot Justina, entre otras.}\\
+	En este sentido, como parte de este trabajo, se plantean las máquinas de estados como la metodología de solución ante ciertos problemas como lo son: \textit{la toma de objetos, llevar el brazo hasta el punto óptimo de sujeción, realizar la evaluación de la función de costo para el brazo manipulador del robot Justina, entre otras.}\\
 
 	\begin{figure}[H]
 		% \hspace*{-0.15in}
@@ -57,7 +57,7 @@
 
 	\subsection{Descripción de pruebas de toma de objetos.}
 
-	La toma de objetos es la parte crucial de este trabajo, la importancia de este evento radica en que se incluye la totalidad de tareas desarrolladas en este trabajo para realizar una prueba de mayor complejidad. A grandes rasgos, la prueba de la toma de objetos se compone de subtareas, algunas de las cuales se describen a continuación.\\
+	La toma de objetos es la parte crucial de este trabajo, la importancia de este evento radica en que se incluye la totalidad de tareas desarrolladas a fin de realizar una prueba de mayor complejidad. A grandes rasgos, la prueba de la toma de objetos se compone de subtareas, algunas de las cuales se describen a continuación.\\
 
 	La primer subtarea es la segmentación del objeto y el cálculo del respectivo centroide del objeto en cuestión (Ver Sección [3]). Como entrada de la tarea se tiene una nube de puntos obtenida por la cámara RGB-D Kinect y lo esperado a la salida es una posición \textit{x, y, z} en el espació así como la orientación del objeto \textit{roll, pith, yaw}. Partiendo con la nube de puntos como entrada al sistema, es la segmentación de un plano (en caso de existir), posteriormente se eliminan los puntos pertenecientes al plano y por debajo de este, se eliminan los puntos más alejados 0,5[m] en el eje x respecto al robot. Se parte de las siguientes premisas: que el conjunto de puntos restante corresponde al conjunto de puntos que conforman al objeto, que solo se encuentra un objeto en la mesa en cada evento de toma de objetos. Con tal información, podemos proceder a calcular el centroide del objeto así como el respectivo ángulo del mismo.\\
 

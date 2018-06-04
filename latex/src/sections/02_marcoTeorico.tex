@@ -8,7 +8,7 @@
 \thispagestyle{empty}
 
 \chapter{Marco teórico}
-	En este capítulo se definirán los conceptos utilizados para la solución propuesta como transformaciones homogéneas de las cuales se harán uso para describir los sistemas de referencia del manipulador, así como el algoritmo PCA del cual se hará uso para obtener una aproximación a la orientación de los objetos. Se describe además el algoritmo RANSAC  el cual es utilizado en este documento para la segmentación de planos.\\
+	En este capítulo se definirán los conceptos utilizados para la solución propuesta como transformaciones homogéneas de las cuales se hará uso para describir los sistemas de referencia del manipulador, así como el algoritmo PCA del cual ayudará a obtener una aproximación a la orientación de los objetos. Se describe además el algoritmo RANSAC  el cual es utilizado en este documento para la segmentación de planos.\\
 
 	\section{Robots de servicio}
 		%Conceptos
@@ -16,7 +16,7 @@
 		%Estado del arte
 		Dado que este trabajo se centrará en los robots de servicio doméstico es importante mencionar que un robot de servicio doméstico es un robot capaz de realizar tareas de la vida diaria en un ambiente similar al de un hogar real. Actualmente el desarrollo de este tipo de robots encuentra promoción en la competencia Robocup @Home al menos a nivel de investigación académica \cite{robocupScientificCompetition}. Robocup @Home promueve el desarrollo de robots de servicio al brindar una plataforma estándar de prueba similar a un ambiente doméstico. Esta categoría promueve la incorporación de habilidades robóticas avanzadas para la interacción con los humanos y con el entorno de operación. Esta competencia se enfoca a desarrollar habilidades en los robots de servicio. Ejemplos de estas habilidades son la localización, navegación segura en ambientes no controlados, la comunicación natural humano-robot por voz, detección de  gestos, habilidades visuales para el reconocimiento y la manipulación de objetos \cite{femexrobotics}. \\
 
-		Los robots de servicio doméstico enfrentan diversos retos: desarrollar tareas en ambientes dinámicos, características de entornos no estandarizados, incertidumbre ante escenarios desconocidos, entre otros. Dadas las condiciones en que estos robots operan los programadores y desarrolladores han enfocado sus esfuerzos en dotar a los robots de ciertas capacidades. Por ejemplo el robot Cosero, consta de un sistema de percepción del entorno, un sistema de manipulación, un sistema de interacción humano-robot y un sistema de planeación de tareas \cite{stuckler2016mobile}.\\ 
+		Los robots de servicio doméstico enfrentan diversos retos: desarrollar tareas en ambientes dinámicos, características de entornos no estandarizados, incertidumbre ante escenarios desconocidos, entre otros. Dadas las condiciones en que estos robots operan, los programadores y desarrolladores han enfocado sus esfuerzos en dotar a los robots de ciertas capacidades. Por ejemplo el robot Cosero, consta de un sistema de percepción del entorno, un sistema de manipulación, un sistema de interacción humano-robot y un sistema de planeación de tareas \cite{stuckler2016mobile}.\\ 
 
 		\begin{figure}[H]
 			\begin{center}
@@ -26,7 +26,7 @@
 			\end{center}
 		\end{figure}
 
-		En particular, la detección y manipulación de objetos, es una tarea fundamental a resolver en los robots de servicio. La idea general de la robótica de servicio doméstico ha existido desde hace mucho tiempo, pero es un tema de investigación relativamente joven. El objetivo de crear robots de servicios útiles y autónomos que puedan interactuar con seres humanos y objetos en el mundo real en un entorno natural plantea un gran número de problemas sin resolver en muchas disciplinas científicas. En general, diferentes robots de servicio diméstico poseen un sistema de detección y manipulación de objetos (Figuras \ref{coseroSystem}, \ref{markovitoSystem}, \ref{justinaSystem}).\\ 
+		En particular, la detección y manipulación de objetos, es una tarea fundamental a resolver en los robots de servicio. La idea general de la robótica de servicio doméstico ha existido desde hace mucho tiempo, pero es un tema de investigación relativamente joven. El objetivo de crear robots de servicios útiles y autónomos que puedan interactuar con seres humanos y objetos en el mundo real en un entorno natural plantea un gran número de problemas sin resolver en muchas disciplinas científicas. Para resolver este problema, es indispensable que los robots cuenten con un sistema de detección y manipulación de objetos (Figuras \ref{coseroSystem}, \ref{markovitoSystem}, \ref{justinaSystem}).\\ 
 		%\vspace{0.2in}
 
 		\begin{figure}[H]
@@ -45,7 +45,7 @@
 			\end{center}
 		\end{figure}
 
-		Recientemente, el progreso en estos campos de investigación, así como la normalización en el desarrollo de hardware y software, ha llevado a un aumento en la disponibilidad de recursos, métodos y componentes para el desarrollo  de Robots de servicio doméstico . Por ello estamos cada vez más cerca de convivir con robots de servicios de manera exitosa en diversos lugares, por ejemplo hospitales \cite{bloss2011mobile}, oficinas, construcciones, o tiendas departamentales \cite{robotsInStores}.\\
+		Recientemente, el progreso en estos campos de investigación, así como la normalización en el desarrollo de hardware y software, ha llevado a un aumento en la disponibilidad de recursos, métodos y componentes para el desarrollo  de robots de servicio doméstico . Por ello estamos cada vez más cerca de convivir con robots de servicios de manera exitosa en diversos lugares, por ejemplo hospitales \cite{bloss2011mobile}, oficinas, construcciones, o tiendas departamentales \cite{robotsInStores}.\\
 		%\vspace{0.2in}
 
 
@@ -70,7 +70,7 @@
 	\section{Fundamentos básicos de Robots Manipuladores}
 		La manipulación adecuada de objetos es una característica imprescindible en los robots de servicio dadas las condiciones de su entorno y las tareas cotidianas que le podemos asignar a dicho robot. Una posible solución al problema de la manipulación de objetos es la incorporación de manipuladores seriales a una base móvil; sin embargo se debe tener en cuenta que los objetos a ser manipulados se encuentran en condiciones aleatorias de posición y orientación, estas características implican que el manipulador serial debería ser capaz de alcanzar una posición (x, y, z) con cualquier orientación (roll, pitch, yaw).\\
 
-		Los robots manipuladores industriales presentan una configuración serial, que hace semejanza con un brazo humano. La arquitectura típica de un manipulador consiste en una serie de barras rígidas unidas entre sí mediante el uso de articulaciones rotacionales o prismáticas. De manera general cada articulación logra su movimiento gracias a un actuador y a la adición de algunos elementos complementarios como sensores de posición y de velocidad\cite{baturone2005}.\\
+		Algunos robots manipuladores industriales presentan una configuración serial, que hace semejanza con un brazo humano. La arquitectura típica de un manipulador consiste en una serie de barras rígidas unidas entre sí mediante el uso de articulaciones rotacionales o prismáticas. De manera general cada articulación logra su movimiento gracias a un actuador y a la adición de algunos elementos complementarios como sensores de posición y de velocidad\cite{baturone2005}.\\
 
 		Los robots manipuladores clásicos están caracterizados, desde el punto de vista mecánico, por una serie de propiedades tales como los grados de libertad, el espacio de trabajo, la rigidez estructural, peso propio y la capacidad de llegar a un punto deseado con exactitud en múltiples repeticiones. Además, en los robots manipuladores suelen tomarse en cuenta características adicionales: la carga útil máxima y la velocidad de trabajo.\\
 
@@ -95,13 +95,13 @@
 
 				\item{Mixto, que posee varios tipos de articulaciones, combinaciones de las anteriores. Es destacable la configuración SCARA (Selective Compliance Assembly Robot Arm).}
 
-				\item{Paralelo, posee brazos con articulaciones prismáticas o rotacionales concurrentes. Figura \ref{Fig:robotParalelo}}
+				\item{Paralelo, posee brazos con articulaciones prismáticas o rotacionales concurrentes (Figura \ref{Fig:robotParalelo}). }
 			\end{itemize}
 
 Los principales parámetros que caracterizan a los robots industriales son:
 
 	\begin{itemize}
-		\item{Número de grados de libertad. Puede entenderse como número total de variables necesarias para obtener la ubicación de un cuerpo en el espacio. Aunque la mayoría de las aplicaciones requieren manipuladores de 6 DOF, otras más complejas requieren un número mayor, tal es el caso de las labores de apertura y cierre de puertas.}
+		\item{Número de grados de libertad. Puede entenderse como el número total de variables necesarias para obtener la ubicación del efector final del manipulador en el espacio. Aunque la mayoría de las aplicaciones requieren manipuladores de 6 DOF, otras más complejas requieren un número mayor, tal es el caso de las labores de apertura y cierre de puertas.}
 
 		\item{Espacio de trabajo. Es el conjunto de puntos del espacio accesibles al efector final, que depende de la configuración geométrica del manipulador. Un punto del espacio se dice totalmente accesible si el efector final puede situarse en él en todas las orientaciones que permita la constitución del manipulador.}
 
@@ -139,7 +139,7 @@ Los principales parámetros que caracterizan a los robots industriales son:
 
 			\begin{SCfigure}
 				\includegraphics[width=4.5cm, height=6.5cm]{estadoArte/esquema_serial.jpg}
-				\caption{Esquema de sistemas de referencia en robot antropomórfico de seis grados de libertad.}
+				\caption{Esquema de sistemas de referencia en robot de seis grados de libertad.}
 			\end{SCfigure}
 
 
@@ -156,7 +156,7 @@ Los principales parámetros que caracterizan a los robots industriales son:
 
 			Cuando se acciona la articulación $i$ el enlace $i$ se mueve, por lo tanto, el enlace 0 (el primer eslabón) es fijo, y no se mueve cuando las juntas consecuentes son accionadas. Por supuesto, el robot manipulador podría ser móvil (por ejemplo, podría ser montado en una plataforma móvil o en un vehículo autónomo), pero para esta primer parte abordaremos el problema suponiendo una plataforma fija.\\
 
-			Este tema se abordará con más detalle 4.3 en el capítulo de este documento.\\
+			Este tema se abordará con más detalle en la sección 4.3 de este documento.\\
 
 
 
@@ -168,7 +168,7 @@ Los principales parámetros que caracterizan a los robots industriales son:
 
 		Para optimizar los movimientos de un robot, no sólo se debe identificar cada objeto que se encuentra en el entorno, sino también la posición que estos guardan respecto al robot. Normalmente, la segmentación de objetos de una imagen se logra mediante la segmentación de color, esta segmentación se logra a partir del análisis cromático de los componentes RGB de la imagen obtenida del objeto; sin embargo, este método es poco eficiente debido a que es sumamente susceptible a los cambios en la iluminación \cite{objectDetectingKinect}.\\ 
 
-		Por lo tanto, necesitamos considerar una fuente de datos adicional, en este caso la profundidad, para discriminar objetos que no están en el rango de interés. En este documento se reportan los datos obtenidos al resolver este problema con la incorporación de un sensor RGB-D. Una imagen RGB-D es una imagen que además de proporcionar información del color de la escena agrega información sobre la distancia en profundidad a la cual se encuentran los puntos de la escena.\\
+		Por lo tanto, necesitamos considerar una fuente de datos adicional, en este caso la profundidad, para discriminar objetos que no están en el rango de interés. En este documento se reportan los datos obtenidos al resolver este problema con la incorporación de un sensor RGB-D. Una imagen RGB-D además de proporcionar información del color de la escena agrega información sobre la distancia en profundidad a la cual se encuentran los puntos de la misma.\\
 
 		La rápida evolución de esta reciente tecnología ha resultado en el aumento de la calidad de las imágenes, la mejora en la sincronización del color con la profundidad y la disminución del tiempo de muestreo entre cada imagen. En particular, la profundidad de la imagen se obtiene en una matriz resultado de la proyección de rayos infrarrojos sobre los objetos. El sensor cuenta con una cámara infrarroja que obtiene la lectura de los haces infrarrojos reflejados sobre los objetos.\\
 
@@ -310,15 +310,10 @@ Los principales parámetros que caracterizan a los robots industriales son:
 
 		\textbf{Umbral de distancia $t$ para determinar compatibilidad dato/modelo.} Se quiere elegir un umbral $t$ tal que la probabilidad de que un punto pertenece es un valor típico es $\alpha$. Este cálculo requiere conocer la distribución de probabilidad de la distancia de un valor típico del modelo.\\
 
-		\textbf{Número de iteraciones.} El número de iteraciones $N$ se calcula en función de la probabilidad $p$ de que un por lo  menos  un  subconjunto  que  se  elige  aleatoriamente  esta  libre  de valores atípicos.\\
+		\textbf{Número de iteraciones.} El número de iteraciones $N$ se calcula en función de la probabilidad $p$ de que por lo  menos  un  subconjunto  que  se  elige  aleatoriamente  esta  libre  de valores atípicos.\\
 
-		\textbf{Número mínimo $T$ de puntos en el subconjunto de decisión.} El número T se busca que sea similar al número de inliers que se supone que hay en el conjunto de datos.\\
+		\textbf{Número mínimo $T$ de puntos en el subconjunto de decisión.} El número T se busca que sea similar al número de valores típicos inliers que se supone que hay en el conjunto de datos.\\
 
-		\begin{itemize}
-			\item{Dos planos distintos son paralelos o se intersecan en una línea.}
-	    	\item{Una línea es paralela a un plano, lo cruza en un solo punto, o está contenida en el plano.}
-	    	\item{Dos líneas distintas perpendiculares al mismo plano deben ser paralelas entre sí.}
-	    \end{itemize}
 
 		\newpage{}
 		A continuación se muestra el pseudocódigo básico para el algoritmo RANSAC.\\
@@ -393,7 +388,7 @@ Los principales parámetros que caracterizan a los robots industriales son:
 	\section{Algoritmo PCA}
 		El Análisis de Componentes Principales (PCA) ha sido llamado uno de los resultados más valiosos de la álgebra lineal \cite{holland2008principal}. PCA Se usa abundantemente en muchas disciplinas, desde la neurociencia hasta la computación gráfica debido a que es un método simple. El PCA proporciona una metodología para reducir un conjunto de datos complejos a una dimensión inferior.\\	
 
-		El algoritmo PCA tiene sus bases en la estadística y parte de la idea de que se tiene un gran conjunto de datos, y se desea analizar ese conjunto en términos de las relaciones entre los puntos individuales que lo conforman. Se pretende analizar algunas de las medidas que podemos calcular en un conjunto de datos y lo que estas medidas dicen acerca de los datos en sí.\\
+		El algoritmo PCA tiene sus bases en la estadística y parte de la idea de que se tiene un gran conjunto de datos, y se desea analizar ese conjunto en términos de las relaciones entre los puntos individuales que lo conforman. Para ello hace uso de los valores y vectores propios de la matriz de covarianza de los datos en cuestión. De este modo se pretende analizar algunas de las medidas que podemos calcular en un conjunto de datos y lo que estas medidas dicen acerca de los datos en sí.\\
 	
 		\subsection{Desviación estándar}
 		

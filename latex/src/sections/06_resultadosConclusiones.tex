@@ -129,13 +129,10 @@ En este capítulo se describen las pruebas realizadas con el fin de comprobar la
 	Las pruebas se desarrollaron de la siguiente manera, con la estructura de comunicación que permite ROS se implementaron dos servicios para encontrar planos: el desarrollado en este trabajo de tesis y el algoritmo ya implementado. Se obtuvo la información de profundidad con el sensor RGB-D Kinect, esta información se compartió a través de un tópico al cual ambos servicios se encontraban suscritos. De esta manera nos aseguramos de contar con la misma información en ambos algoritmos para poner a prueba la velocidad de ejecución y la precisión de algoritmo.\\
 
 
-	En cuanto a la medida de precisión del algoritmo continuamos suponiendo un plano horizontal del cual conocemos su altura; por tanto podemos conocer la ecuación del plano horizontal a esa altura. Se puso a prueba el algoritmo para ese modelo y se observó la cantidad de puntos que entran en ese modelo, tomando este resultado como el ideal. Posteriormente se pusieron en funcionamiento ambos algoritmos midiendo la cantidad de puntos en los modelos obtenidos y comparándolos con el número de puntos ideal. Este evento se iteró una cantidad de 80 veces.\\
+	En cuanto a la medida de precisión del algoritmo continuamos suponiendo un plano horizontal del cual conocemos su altura; por tanto podemos conocer la ecuación del plano horizontal a esa altura. Se puso a prueba el algoritmo para ese modelo y se observó la cantidad de puntos que entran en ese modelo, tomando este resultado como el ideal. Posteriormente se pusieron en funcionamiento ambos algoritmos midiendo la cantidad de puntos en los modelos obtenidos y comparándolos con el número de puntos ideal. Este evento se iteró 80 veces.\\
 
 
-	Posteriormente se calculó el error relativo entre el modelo ideal y cada uno de los algoritmos como se muestra en la gráfica siguiente.\\
-
-
-	La tabla \ref{t_result:1} resume los resultados obtenidos durante las pruebas.\\
+	Posteriormente se calculó el error relativo entre el modelo ideal y cada uno de los algoritmos como se muestra en la tabla \ref{t_result:1} la cual resume los resultados obtenidos durante las pruebas.\\
 
 	\begin{table}[h!]
 	\centering 
@@ -147,7 +144,7 @@ En este capítulo se describen las pruebas realizadas con el fin de comprobar la
 	 \hline
 	 \multicolumn{3}{|c|}{ Distancia miníma al modelo: 0.02[m]}\\
 	 \hline
-	                               &  Anterior     &	Actual \\
+	                               &  Anterior     &	Propuesto \\
 	 \hline
 	 Tiempo promedio de ejecución  &  96.24[ms]    &   701.5[ms]\\
 	 \hline
@@ -295,33 +292,53 @@ En este capítulo se describen las pruebas realizadas con el fin de comprobar la
 		Los resultados que se obtuvieron de la prueba antes mencionada, se muestran en las siguientes gráficas.\\ 
 
 		\begin{figure}[H]
-			\centering
-			\includegraphics[scale=0.40]{resultados/angulos_cereal.png}
+			\begin{subfigure}[h]{.30\textwidth}
+			\includegraphics[scale=0.30]{objs_real/cereal_0Degrees}	
+			\end{subfigure}%
+			\begin{subfigure}[h]{.5\textwidth}
+			\includegraphics[scale=0.40]{resultados/angulos_cereal}	
 			\caption*{(a)}
+			\end{subfigure}
 		\end{figure}
 
 		\begin{figure}[H]
-			\centering
+			\begin{subfigure}[h]{.30\textwidth}
+			\includegraphics[scale=0.30]{objs_real/juice_0Degrees}
+			\end{subfigure}%
+			\begin{subfigure}[h]{.5\textwidth}
 			\includegraphics[scale=0.40]{resultados/angulos_jugo.png}
 			\caption*{(b)}
+			\end{subfigure}
 		\end{figure}
 
 		\begin{figure}[H]
-			\centering
+			\begin{subfigure}[h]{.30\textwidth}
+			\includegraphics[scale=0.30]{objs_real/milk_0Degrees}
+			\end{subfigure}%
+			\begin{subfigure}[h]{.5\textwidth}
 			\includegraphics[scale=0.40]{resultados/angulos_milk.png}
 			\caption*{(c)}
+			\end{subfigure}
 		\end{figure}
 
 		\begin{figure}[H]
-			\centering
+			\begin{subfigure}[h]{.30\textwidth}
+			\includegraphics[scale=0.30]{objs_real/joystick_0Degrees}
+			\end{subfigure}%
+			\begin{subfigure}[h]{.5\textwidth}
 			\includegraphics[scale=0.40]{resultados/angulos_joystick.png}
 			\caption*{(d)}
+			\end{subfigure}
 		\end{figure}
 
 		\begin{figure}[H]
-			\centering
+			\begin{subfigure}[h]{.30\textwidth}
+			\includegraphics[scale=0.25]{objs_real/chocolate_0Degrees}
+			\end{subfigure}%
+			\begin{subfigure}[h]{.5\textwidth}
 			\includegraphics[scale=0.40]{resultados/angulos_chocolate.png}
 			\caption*{(e)}
+			\end{subfigure}
 			\caption{Gráficas de estimaciones de ángulos para: (a) caja de cereal,  (b) caja de jugo, (c) envase de leche, (d) control de videojuegos, (e) una barra de chocolate con orientación de 0 grados respecto al eje $y$ del robot.}
 		\end{figure}
 
@@ -333,39 +350,54 @@ En este capítulo se describen las pruebas realizadas con el fin de comprobar la
 		\subsection{Pruebas para objetos a 45 grados}
 
 		\begin{figure}[H]
-			\centering
-			\includegraphics[scale=0.40]{resultados/angulos_cereal_45.png}
+			\begin{subfigure}[h]{.30\textwidth}
+			\includegraphics[scale=0.30]{objs_real/cereal_45Degrees}	
+			\end{subfigure}%
+			\begin{subfigure}[h]{.5\textwidth}
+			\includegraphics[scale=0.40]{resultados/angulos_cereal_45.png}	
 			\caption*{(a)}
-			\label{fig:mesh1}
+			\end{subfigure}
 		\end{figure}
 
 		\begin{figure}[H]
-			\centering
+			\begin{subfigure}[h]{.30\textwidth}
+			\includegraphics[scale=0.30]{objs_real/juice_45Degrees}
+			\end{subfigure}%
+			\begin{subfigure}[h]{.5\textwidth}
 			\includegraphics[scale=0.40]{resultados/angulos_jugo_45.png}
 			\caption*{(b)}
-			\label{fig:mesh1}
+			\end{subfigure}
 		\end{figure}
 
 		\begin{figure}[H]
-			\centering
+			\begin{subfigure}[h]{.30\textwidth}
+			\includegraphics[scale=0.30]{objs_real/milk_45Degrees}
+			\end{subfigure}%
+			\begin{subfigure}[h]{.5\textwidth}
 			\includegraphics[scale=0.40]{resultados/angulos_milk_45.png}
 			\caption*{(c)}
-			\label{fig:mesh1}
+			\end{subfigure}
 		\end{figure}
 
 		\begin{figure}[H]
-			\centering
+			\begin{subfigure}[h]{.30\textwidth}
+			\includegraphics[scale=0.30]{objs_real/joystick_45Degrees}
+			\end{subfigure}%
+			\begin{subfigure}[h]{.5\textwidth}
 			\includegraphics[scale=0.40]{resultados/angulos_joystick_45.png}
 			\caption*{(d)}
-			\label{fig:mesh1}
+			\end{subfigure}
 		\end{figure}
 
 		\begin{figure}[H]
-			\centering
+			\begin{subfigure}[h]{.30\textwidth}
+			\includegraphics[scale=0.25]{objs_real/chocolate_45Degrees}
+			\end{subfigure}%
+			\begin{subfigure}[h]{.5\textwidth}
 			\includegraphics[scale=0.40]{resultados/angulos_chocolate_45.png}
 			\caption*{(e)}
+			\end{subfigure}
 			\caption{Gráficas de estimaciones de ángulos para: (a) caja de cereal,  (b) caja de jugo, (c) envase de leche, (d) control de videojuegos, (e) una barra de chocolate con orientación de 45 grados respecto al eje $y$ del robot.}
-			\label{fig:mesh1}
 		\end{figure}
 
 
@@ -375,39 +407,54 @@ En este capítulo se describen las pruebas realizadas con el fin de comprobar la
 		%%%%%%%%%%%%%%         PRUEBAS A 90 GRADOS       %%%%%%%%%%%%%%%
 		\subsection{Pruebas para objetos a 90 grados}
 		\begin{figure}[H]
-			\centering
-			\includegraphics[scale=0.40]{resultados/angulos_cereal_90.png}
+			\begin{subfigure}[h]{.30\textwidth}
+			\includegraphics[scale=0.30]{objs_real/cereal_90Degrees}	
+			\end{subfigure}%
+			\begin{subfigure}[h]{.5\textwidth}
+			\includegraphics[scale=0.40]{resultados/angulos_cereal_90.png}	
 			\caption*{(a)}
-			\label{fig:mesh1}
+			\end{subfigure}
 		\end{figure}
 
 		\begin{figure}[H]
-			\centering
+			\begin{subfigure}[h]{.30\textwidth}
+			\includegraphics[scale=0.30]{objs_real/juice_90Degrees}
+			\end{subfigure}%
+			\begin{subfigure}[h]{.5\textwidth}
 			\includegraphics[scale=0.40]{resultados/angulos_jugo_90.png}
 			\caption*{(b)}
-			\label{fig:mesh1}
+			\end{subfigure}
 		\end{figure}
 
 		\begin{figure}[H]
-			\centering
+			\begin{subfigure}[h]{.30\textwidth}
+			\includegraphics[scale=0.30]{objs_real/milk_90Degrees}
+			\end{subfigure}%
+			\begin{subfigure}[h]{.5\textwidth}
 			\includegraphics[scale=0.40]{resultados/angulos_milk_90.png}
 			\caption*{(c)}
-			\label{fig:mesh1}
+			\end{subfigure}
 		\end{figure}
 
 		\begin{figure}[H]
-			\centering
+			\begin{subfigure}[h]{.30\textwidth}
+			\includegraphics[scale=0.30]{objs_real/joystick_90Degrees}
+			\end{subfigure}%
+			\begin{subfigure}[h]{.5\textwidth}
 			\includegraphics[scale=0.40]{resultados/angulos_joystick_90.png}
 			\caption*{(d)}
-			\label{fig:mesh1}
+			\end{subfigure}
 		\end{figure}
 
 		\begin{figure}[H]
-			\centering
+			\begin{subfigure}[h]{.30\textwidth}
+			\includegraphics[scale=0.25]{objs_real/chocolate_90Degrees}
+			\end{subfigure}%
+			\begin{subfigure}[h]{.5\textwidth}
 			\includegraphics[scale=0.40]{resultados/angulos_chocolate_90.png}
 			\caption*{(e)}
+			\end{subfigure}
 			\caption{Gráficas de estimaciones de ángulos para: (a) caja de cereal,  (b) caja de jugo, (c) envase de leche, (d) control de videojuegos, (e) una barra de chocolate con orientación de 90 grados respecto al eje $y$ del robot.}
-			\label{fig:mesh1}
 		\end{figure}
 
 

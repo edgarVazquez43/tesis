@@ -2,14 +2,14 @@
 
 
 \chapter{Características del manipulador de 7DOF}
-	En esta sección se hablará de las características mecánicas del brazo robótico ensamblado en el robot de servicio Justina. Se describirán los elementos que componen el brazo robótico haciendo énfasis en la ubicación de los actuadores y cómo influye esto en el modelo matemático del mismo. Posteriormente se abordarán los temas respectivos a la cinemática de un brazo robótico de 7DOF.\\
+	En esta sección se hablará de las características mecánicas del brazo robótico ensamblado en el robot de servicio Justina. Se describirán los elementos que lo componen haciendo énfasis en la ubicación de los actuadores y cómo influye esto en el modelo matemático del mismo. Posteriormente se abordarán los temas respectivos a la cinemática directa e inversa del manipulador antes mencionado.\\
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
            %%%%%%  DESCRPCIÓN SERVOMOTORES   %%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\section{Descripción del hardware}
-		Los servomotores Dynamixel son un sistema de actuador inteligente desarrollados con el propósito de funcionar como uniones un robot o estructura mecánica. Los servomotores Dynamixel están diseñados para ser modulares y soportar la conexión en cadena en cualquier robot o diseño mecánico. Este tipo de servomotores es popular por los beneficios que ofrece: movimientos potentes y flexibles \cite{mensink2008characterization}.\\
+		Los servomotores Dynamixel son un sistema de actuador inteligente desarrollados con el propósito de funcionar como uniones en un robot o estructura mecánica. Los servomotores Dynamixel están diseñados para ser modulares y soportar la conexión en cadena en cualquier robot o diseño mecánico. Este tipo de servomotores es popular por los beneficios que ofrece: movimientos potentes y flexibles \cite{mensink2008characterization}.\\
 
 		El conjunto de servomotores Dynamixel son un grupo de actuadores de alto rendimiento con reductor, controlador y un protocolo de comunicación completamente integrados. El estado del actuador se puede leer y monitorear a través de un flujo de paquetes de datos \cite{dynamixelEpage}.\\
 
@@ -137,7 +137,7 @@
     \end{aligned}
     \end{equation}
 
-    Se tomas el caso límite donde suponemos el peso ejercido como una carga concentrada en el extremo del manipulador $d=0.70[m]$, además suponemos el caso de una viga en catilibre con donde el par máximo requerido es ejercido en el extremo que sirve de soporte, con lo cual se tiene la configuración mostrada en la figura \ref{Fig:parManip}. Aplicando (ec. 4.2) tenemos un par ejercido por el peso del manipulador de $M = 12.3606[N.m]$.\\
+    Se toma el caso límite donde suponemos el peso ejercido como una carga concentrada en el extremo del manipulador $d=0.70[m]$, además suponemos el caso de una viga en catilibre con donde el par máximo requerido es ejercido en el extremo que sirve de soporte, con lo cual se tiene la configuración mostrada en la figura \ref{Fig:parManip}. Aplicando (ec. 4.2) tenemos un par ejercido por el peso del manipulador de $M = 12.3606[N.m]$.\\
 
     \begin{equation}
     \begin{aligned}
@@ -313,7 +313,7 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
 	% ########   Foto brazo real con medidas\\
 
 
-	Es importante mencionar que para la descripción de las transformaciones en la plataforma ROS, podemos construir la matriz de rotación de tal manera que incluyamos las rotaciones y desplazamientos en los tres ejes coordenados. Esta característica nos proporciona una ventaja sobre los técnicas de descripción de cinemática directa convencionales, tal es el caso del Método Denavit-Hartenberg donde el sistema de transformaciones debe ser descrito utilizando, unicamente, dos rotaciones y dos traslaciones según sus convenciones.\\
+	Es importante mencionar que para la descripción de las transformaciones en la plataforma ROS, podemos construir la matriz de rotación de tal manera que incluyamos las rotaciones y desplazamientos en los tres ejes coordenados. Esta característica nos proporciona una ventaja sobre los técnicas de descripción de cinemática directa convencionales, tal es el caso del método Denavit-Hartenberg donde el sistema de transformaciones debe ser descrito utilizando, unicamente, dos rotaciones y dos traslaciones según sus convenciones.\\
 
 	Es importante mencionar esta característica puesto que en algunos casos la convención Denavit-Hartenberg encuentra limitaciones para describir algunas transformaciones arbitrarias. En la representación Denavit-Hartenberg solo hay cuatro parámetros. Pues, mientras que el sistema de referencia i esté rígidamente unido al enlace i, tenemos la libertad para elegir el origen y los ejes de coordenadas del sistema de referencia i+1.\\ 
 
@@ -634,7 +634,7 @@ El problema de cinemática directa consiste en conocer la posición \textit{(x, 
 	\begin{subfigure}[t]{.55\textwidth}
 	\centering
 	\includegraphics[width=5.00cm, height=4.3cm]{workSpace/ws_Yi_Cao_2.png}
-	\caption{Curva de la frontera del espacio de trabajo del brazo robótico.}
+	\caption{Curva de la frontera del espacio de\\ trabajo del brazo robótico.}
 	\end{subfigure}
 	\caption{Espacio de trabajo de un robot 3R, donde los puntos  de color azul representan el espacio de trabajo de este robot. Como se ha dicho previamente, los puntos en color azul representan cada una de las posiciones que puede alcanzar el efector-final del robot 3R.}
 \end{figure}
@@ -879,7 +879,7 @@ o^0_c = o - d_6 R \hat{x}
 	\begin{subfigure}[t]{.55\textwidth}
 	\centering
 	\includegraphics[width=3.50cm, height=7.0cm]{manipulator/wristCenter_yaw.png}
-	\caption{Posición desea del efector final. (verde)}
+	\caption{Posición deseada del efector final. (verde)}
 	\end{subfigure}%
 	\begin{subfigure}[t]{.55\textwidth}
 	\centering
@@ -890,7 +890,7 @@ o^0_c = o - d_6 R \hat{x}
 	\label{Fig:wristCenter}
 \end{figure}
 
-	Para motivos de este trabajo se utilizó un algoritmo ya implementado con anterioridad en el robot de servicio Justina, el cual utiliza la metodología de desacople cinemático para la resolución de esta tarea. El propósito de este trabajo es la comparación entre algoritmos de solución para esta tarea por tanto no se abordará fondo la resolución de este problema; sin embargo a continuación se enlistan las ecuaciones y consideraciones utilizadas en este algoritmo: \\
+	Para motivos de este trabajo se utilizó un algoritmo ya implementado con anterioridad en el robot de servicio Justina, el cual utiliza un método geométrico para la resolución de esta tarea. El propósito de este trabajo es la comparación entre algoritmos para resolver cinemáticas inversas por tanto no se abordará a fondo el desarrollo del algoritmo; sin embargo a continuación se enlistan las ecuaciones y consideraciones utilizadas en este algoritmo: \\
 
 \begin{equation}
 \begin{aligned}
@@ -1164,7 +1164,7 @@ posteriormente, se calculan los ángulos deseados de la muñeca.\\
 	\begin{subfigure}[t]{.55\textwidth}
 		\centering
 		\includegraphics[width=3.50cm, height=6.0cm]{manipulator/moveIt_manipulators2.png}
-		\caption{URDF descripción de las transformaciones de los brazos del robot Justina.}
+		\caption{URDF descripción de las transformaciones\\ de los brazos del robot Justina.}
 	\end{subfigure}
 	\caption{Vista trimétrica del despliegue del robot Justina y sus respectivos manipuladores en el visualizador gráfico Rviz.}
 	\label{fig:desciption_arms1}
@@ -1180,7 +1180,7 @@ posteriormente, se calculan los ángulos deseados de la muñeca.\\
 	\begin{subfigure}[t]{.55\textwidth}
 		\centering
 		\includegraphics[width=3.50cm, height=6.0cm]{manipulator/moveIt_manipulators1.png}
-		\caption{URDF descripción de las tranformaciones de los brazos del robot Justina.}
+		\caption{URDF descripción de las tranformaciones\\ de los brazos del robot Justina.}
 	\end{subfigure}
 	\caption{Imagen de la comparación entre descripciones de los brazos del robot Justina.}
 	\label{fig:desciption_arms2}
@@ -1194,9 +1194,7 @@ posteriormente, se calculan los ángulos deseados de la muñeca.\\
 
 	\begin{figure}[h!]
 		\begin{center}
-		\begin{minipage}{18cm}	
 		\includegraphics[scale=0.30]{ros/moveIt_structure.jpg}	
-		\end{minipage}
 		\caption{Imagen de la estructura de la paquetería \textit{moveIt!}.\cite{moveitEpage}}
 		\end{center}
 	\end{figure}
