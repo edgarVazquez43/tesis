@@ -123,7 +123,7 @@ def main(portName1, simulated):
     pubGoalReached = rospy.Publisher("/hardware/torso/goal_reached", Bool, queue_size=1)
     pubJointStates = rospy.Publisher("/joint_states", JointState, queue_size = 1)
     subRelativeHeight = rospy.Subscriber("/hardware/torso/goal_rel_pose",Float32MultiArray, callbackRelative)
-    subAbsoluteHeight = rospy.Subscriber("/hardware/torso/goal_pose",Float32MultiArray, callbackAbsolute)
+    subAbsoluteHeight = rospy.Subscriber("/hardware/torso/goal_pose",Float32, callbackAbsolute)
     subStop = rospy.Subscriber("robot_state/stop", Empty, callbackStop)
     
     rate = rospy.Rate(30)

@@ -64,8 +64,8 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 	plane3D bestPlane;
 
 	// *** Parametros de RANSAC *** //
-	attemps = 160;		// Numero de iteraciones para RANSAC
-	threshold = 0.005;	// Distancia al plano en metros
+	attemps = 250;		// Numero de iteraciones para RANSAC
+	threshold = 0.02;	// Distancia al plano en metros
 
 	x_obj = 0.0;
 	y_obj = 0.0;
@@ -116,10 +116,10 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 	double duration = double(end-begin) / CLOCKS_PER_SEC;
 	// myFile << " " << duration << " " << bestPlane.inliers << "\n"; 
 
-	std::cout << "EDGAR PLANE plane" << std::endl
-		  << "Duration: " << duration << std::endl
-		  << "Inliers: " << bestPlane.inliers << std::endl
-		  << std::endl;
+	// std::cout << "EDGAR PLANE plane" << std::endl
+	// 	  << "Duration: " << duration << std::endl
+	// 	  << "Inliers: " << bestPlane.inliers << std::endl
+	// 	  << std::endl;
 
 	// /* Code for coloring the plane
 	if(bestPlane.GetNormal() != cv::Point3f(1.0, 1.0, 1.0) )
@@ -138,6 +138,8 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 			  //   planeBGR.at<cv::Vec3b>(j, i) = cv::Vec3b(0, 0, 0);
 			}
 
+	  
+	        // Code for object segmentation
 		// ##### Return the point cloud of objects cropped
 		object_1 = ExtractObj(bestPlane, croppedBRG, croppedDepth);
 		h_table = CalculateZPlane(bestPlane, croppedDepth);
@@ -149,6 +151,10 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 	        std::cout << "I can't found the plane....   :( " << std::endl;
 		objectsDepth = cv::Mat(50, 50, CV_8UC3);
 	}
+
+	// cv::imshow("Original RGB", imgBGR);
+	// cv::imshow("plane", planeBGR);
+	// return true;
 
 
 	// Search the centroid of object PointCloud
@@ -250,11 +256,6 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 		// 	object_carbohidratos = "Agua";
 		// }
 
-
-		cv::rectangle(imgBGR, cv::Point(xmin, ymin), cv::Point(xmin+W, ymin+H), cv::Scalar(0, 255, 0));
-		cv::rectangle(imgDepth, cv::Point(xmin, ymin), cv::Point(xmin+W, ymin+H), cv::Scalar(0, 255, 0));
-		cv::rectangle(croppedBRG, object_1.ROI, cv::Scalar(10, 200, 0));
-
 		// cv::putText(croppedBRG, object_name, 
 		// 	cv::Point(30,30),
 		// 	cv::FONT_HERSHEY_COMPLEX_SMALL,
@@ -296,10 +297,15 @@ bool callbackPCAobject(vision_msgs::DetectObjects::Request &req,
 		// 	CV_AA);
 
 
+		cv::rectangle(imgBGR, cv::Point(xmin, ymin), cv::Point(xmin+W, ymin+H), cv::Scalar(0, 255, 0), 1, 8, 0 );
+		cv::rectangle(imgDepth, cv::Point(xmin, ymin), cv::Point(xmin+W, ymin+H), cv::Scalar(50, 255, 0), 2, 8, 0 );
+		cv::rectangle(croppedBRG, object_1.ROI, cv::Scalar(150, 50, 0), 2, 8, 0);
+
+		
 		cv::imshow("Original RGB", imgBGR);
 		// cv::imshow("OBJECT RECONIZING", croppedBRG);
 		// cv::imshow("plane", planeBGR);
-		// cv::imshow("objects", objectsBGR);
+		cv::imshow("objects", objectsBGR);
 		// cv::imshow("Objects Point Cloud", objectsDepth);
 
 

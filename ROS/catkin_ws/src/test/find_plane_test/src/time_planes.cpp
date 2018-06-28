@@ -44,11 +44,11 @@ int main(int argc, char** argv)
             return false;
         }
 
-	if(!cltFindPlanes.call(findPlane_msg))
-        {
-            std::cout << std::endl << "Justina::Vision error calling Yisus Service" << std::endl << std::endl;
-            return false;
-        }
+	// if(!cltFindPlanes.call(findPlane_msg))
+        // {
+        //     std::cout << std::endl << "Justina::Vision error calling Yisus Service" << std::endl << std::endl;
+        //     return false;
+        // }
 
         ros::spinOnce();
         loop.sleep();

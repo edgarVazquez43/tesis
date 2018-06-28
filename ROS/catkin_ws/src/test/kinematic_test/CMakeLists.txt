@@ -288,3 +288,15 @@ target_link_libraries(cost_function_test
 add_dependencies(cost_function_test
   ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
+##### IK-Iterative (MoveIt) TEST  #####
+add_executable(ik_moveit_iterative
+  src/ik_moveit_recursive.cpp
+)
+
+target_link_libraries(ik_moveit_iterative
+  ${catkin_LIBRARIES}
+)
+
+add_dependencies(ik_moveit_iterative
+  ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+

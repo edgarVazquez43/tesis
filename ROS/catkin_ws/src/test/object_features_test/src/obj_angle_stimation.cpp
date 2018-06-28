@@ -81,8 +81,8 @@ bool markerSetup()
     vectPlane.scale.x = 0.015;
     vectPlane.scale.y = 0.035;
     vectPlane.scale.z = 0.03;
-    vectPlane.color.r = 1.0f;
-    vectPlane.color.g = 0.80f;
+    vectPlane.color.r = 0.80f;
+    vectPlane.color.g = 0.00f;
     vectPlane.color.b = 0.80f;
     vectPlane.color.a = 1.0;
 

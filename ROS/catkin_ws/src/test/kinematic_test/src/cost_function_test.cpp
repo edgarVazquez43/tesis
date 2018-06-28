@@ -198,7 +198,8 @@ int main(int argc, char** argv)
 		  marker_pub.publish(endEffector_marker);
       
 		  ros::spinOnce();
-      
+		  ///////////////////////////////////////
+		  //  -----  MOVE-IT (service)  -----  //
 		  if(!cltIKinematicsRA.call(srv_ki_moveIt))
 		    {
 		      std::cout << std::endl <<
@@ -218,38 +219,43 @@ int main(int argc, char** argv)
 		      right_arm_goal_pose_pub.publish(ra_gp_msgs);
 		    }
 
+		  // Sleep for visualization
 		  // loop.sleep();
 		  // boost::this_thread::sleep_for(boost::chrono::milliseconds(4000));
-      
-		  if(!cltIKinematicsMark.call(srv_ki_mark))
-		    {
-		      std::cout << std::endl <<
-		  	"Sr. Mark::: can't calling inverse kinematics service" << std::endl << std::endl;
-		      no_calculate_mark++;
-		    }
-		  else
-		    {
-		      std::cout << std::endl <<
-		  	"Sr. Mark::: Success service" << std::endl << std::endl;
-		      for (int i=0; i < 7; i++)
-		  	{
-		  	  // std::cout << "   " << srv_ki_mark.response.articular_pose.data[i] << std::endl;
-		  	  ra_gp_msgs.data[i] = srv_ki_mark.response.articular_pose.data[i];
-		  	  cost_function[1] += fabs(ra_gp_msgs.data[i]);
-		  	}
 
-		      right_arm_goal_pose_pub.publish(ra_gp_msgs);
-		    }
 
-		  std::cout << std::endl << "Cost function:  " << std::endl
-			    << "moveIt:  " << cost_function[0] << std::endl
-			    << "mark:    " << cost_function[1] << std::endl;
+
+		  /////////////////////////////////////////////////////
+		  //  -----  GEOMETRIC-KINEMATICS (service)  -----  //
+		  // if(!cltIKinematicsMark.call(srv_ki_mark))
+		  //   {
+		  //     std::cout << std::endl <<
+		  // 	"Sr. Mark::: can't calling inverse kinematics service" << std::endl << std::endl;
+		  //     no_calculate_mark++;
+		  //   }
+		  // else
+		  //   {
+		  //     std::cout << std::endl <<
+		  // 	"Sr. Mark::: Success service" << std::endl << std::endl;
+		  //     for (int i=0; i < 7; i++)
+		  // 	{
+		  // 	  // std::cout << "   " << srv_ki_mark.response.articular_pose.data[i] << std::endl;
+		  // 	  ra_gp_msgs.data[i] = srv_ki_mark.response.articular_pose.data[i];
+		  // 	  cost_function[1] += fabs(ra_gp_msgs.data[i]);
+		  // 	}
+
+		  //     right_arm_goal_pose_pub.publish(ra_gp_msgs);
+		  //   }
+
+		  // std::cout << std::endl << "Cost function:  " << std::endl
+		  // 	    << "moveIt:  " << cost_function[0] << std::endl
+		  // 	    << "mark:    " << cost_function[1] << std::endl;
 
 		  std::cout << "marker   ----  point" << std::endl
-			    << endEffector_pose.position << std::endl << std::endl
-			    << srv_ki_moveIt.request.cartesian_pose.data[0] << std::endl
-			    << srv_ki_moveIt.request.cartesian_pose.data[1] << std::endl
-			    << srv_ki_moveIt.request.cartesian_pose.data[2] << std::endl;
+		  	    << endEffector_pose.position << std::endl << std::endl
+		  	    << srv_ki_moveIt.request.cartesian_pose.data[0] << std::endl
+		  	    << srv_ki_moveIt.request.cartesian_pose.data[1] << std::endl
+		  	    << srv_ki_moveIt.request.cartesian_pose.data[2] << std::endl;
 
 		  cost_function_file << cost_function[0] << " " << cost_function[1] <<  "\n";
 

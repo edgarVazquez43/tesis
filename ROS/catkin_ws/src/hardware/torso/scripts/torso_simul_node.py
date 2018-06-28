@@ -13,16 +13,9 @@ def printHelp():
     print "YOU DON'T REALLY NEED HELP TO OPERATE TORSO IN SIMULATION MODE"
 
 def callbackGoalPose(msg):
-    if len(msg.data) != 3:
-        print "Torso.->Invalid number of goal values. "
-        return
     global goalSpine
-    global goalWaist
-    global goalShoulders
     global newGoal
-    goalSpine = msg.data[0]
-    goalWaist = msg.data[1]
-    goalShoulders = msg.data[2]
+    goalSpine = msg.data
     newGoal = True;
     msg = Bool()
     msg.data = False
@@ -58,7 +51,8 @@ def main():
     jointStates.name = ["spine_connect","waist_connect","shoulders_connect", "shoulders_left_connect", "shoulders_right_connect"]
     jointStates.position = [0.0, 0.0, 0.0, 0.0, 0.0]
     
-    rospy.Subscriber("/hardware/torso/goal_pose", Float32MultiArray, callbackGoalPose)
+    #rospy.Subscriber("/hardware/torso/goal_pose", Float32MultiArray, callbackGoalPose)
+    rospy.Subscriber("/hardware/torso/goal_pose", Float32, callbackGoalPose)
     rospy.Subscriber("/hardware/torso/goal_rel_pose", Float32MultiArray, callbackRelPose)
     pubJointStates = rospy.Publisher("/joint_states", JointState, queue_size = 1)
     pubCurrentPose = rospy.Publisher("/hardware/torso/current_pose", Float32MultiArray, queue_size=1)
