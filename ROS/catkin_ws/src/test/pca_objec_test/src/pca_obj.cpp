@@ -94,7 +94,7 @@ bool buildMarkerAxis(geometry_msgs::Vector3 PCA_axis_0,
 		     geometry_msgs::Vector3 aux,
 		     geometry_msgs::Pose centroid_pose)
 {
-  float alpha = 2.5;
+  float alpha = 3.5;
   pca1.points.clear();
   pca2.points.clear();
   pca3.points.clear();
@@ -105,13 +105,13 @@ bool buildMarkerAxis(geometry_msgs::Vector3 PCA_axis_0,
     
   px_centroid = centroid_pose.position;
   
-  p_0.x = px_centroid.x + PCA_axis_0.x;
-  p_0.y = px_centroid.y + PCA_axis_0.y;
-  p_0.z = px_centroid.z + PCA_axis_0.z;
+  p_0.x = px_centroid.x + PCA_axis_0.x * alpha;
+  p_0.y = px_centroid.y + PCA_axis_0.y * alpha;
+  p_0.z = px_centroid.z + PCA_axis_0.z * alpha;
     
-  p_1.x = px_centroid.x + PCA_axis_1.x;
-  p_1.y = px_centroid.y + PCA_axis_1.y;
-  p_1.z = px_centroid.z + PCA_axis_1.z;
+  p_1.x = px_centroid.x + PCA_axis_1.x * alpha;
+  p_1.y = px_centroid.y + PCA_axis_1.y * alpha;
+  p_1.z = px_centroid.z + PCA_axis_1.z * alpha;
     
   p_2.x = px_centroid.x + PCA_axis_2.x * alpha;
   p_2.y = px_centroid.y + PCA_axis_2.y * alpha;
@@ -301,7 +301,7 @@ int main(int argc, char** argv)
         marker_pub.publish(pca1);
 	marker_pub.publish(pca2);
 	marker_pub.publish(pca3);
-	marker_pub.publish(vectPlane);
+	//marker_pub.publish(vectPlane);
 
 	aux.x = 0.0;
 	aux.y = 0.0;
